@@ -1,0 +1,19 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.razorpay.razorpay_flutter" >
+4
+5    <uses-sdk android:minSdkVersion="19" />
+5-->/Users/farjanul/flutter/.pub-cache/hosted/pub.dartlang.org/razorpay_flutter-1.2.2/android/src/main/AndroidManifest.xml
+6
+7    <application>
+7-->/Users/farjanul/flutter/.pub-cache/hosted/pub.dartlang.org/razorpay_flutter-1.2.2/android/src/main/AndroidManifest.xml:3:5-8:19
+8        <activity
+8-->/Users/farjanul/flutter/.pub-cache/hosted/pub.dartlang.org/razorpay_flutter-1.2.2/android/src/main/AndroidManifest.xml:4:9-7:20
+9            android:name="com.razorpay.CheckoutActivity"
+9-->/Users/farjanul/flutter/.pub-cache/hosted/pub.dartlang.org/razorpay_flutter-1.2.2/android/src/main/AndroidManifest.xml:5:17-61
+10            android:label="Razorpay Checkout" >
+10-->/Users/farjanul/flutter/.pub-cache/hosted/pub.dartlang.org/razorpay_flutter-1.2.2/android/src/main/AndroidManifest.xml:6:17-50
+11        </activity>
+12    </application>
+13
+14</manifest>
