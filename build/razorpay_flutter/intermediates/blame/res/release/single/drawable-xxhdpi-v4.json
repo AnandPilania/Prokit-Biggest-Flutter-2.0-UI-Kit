@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/farjanul/AndroidStudioProjects/prokit_flutter/build/razorpay_flutter/intermediates/res/merged/release/drawable-xxhdpi-v4/rzp_logo.png",
+        "source": "/Users/farjanul/.gradle/caches/transforms-2/files-2.1/98d10501f5d0d5ea61760f816aa718d9/checkout-1.5.16/res/drawable-xxhdpi-v4/rzp_logo.png"
+    },
+    {
+        "merged": "/Users/farjanul/AndroidStudioProjects/prokit_flutter/build/razorpay_flutter/intermediates/res/merged/release/drawable-xxhdpi-v4/rzp_name_logo.png",
+        "source": "/Users/farjanul/.gradle/caches/transforms-2/files-2.1/98d10501f5d0d5ea61760f816aa718d9/checkout-1.5.16/res/drawable-xxhdpi-v4/rzp_name_logo.png"
+    }
+]

@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/farjanul/AndroidStudioProjects/prokit_flutter/build/geolocator/intermediates/res/merged/release/color/common_google_signin_btn_text_dark.xml",
+        "source": "/Users/farjanul/.gradle/caches/transforms-2/files-2.1/f81e9fffe318fdc5660099e12e35729e/play-services-base-17.2.1/res/color/common_google_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "/Users/farjanul/AndroidStudioProjects/prokit_flutter/build/geolocator/intermediates/res/merged/release/color/common_google_signin_btn_text_light.xml",
+        "source": "/Users/farjanul/.gradle/caches/transforms-2/files-2.1/f81e9fffe318fdc5660099e12e35729e/play-services-base-17.2.1/res/color/common_google_signin_btn_text_light.xml"
+    },
+    {
+        "merged": "/Users/farjanul/AndroidStudioProjects/prokit_flutter/build/geolocator/intermediates/res/merged/release/color/common_google_signin_btn_tint.xml",
+        "source": "/Users/farjanul/.gradle/caches/transforms-2/files-2.1/f81e9fffe318fdc5660099e12e35729e/play-services-base-17.2.1/res/color/common_google_signin_btn_tint.xml"
+    }
+]

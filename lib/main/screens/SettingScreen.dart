@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/integrations/utils/colors.dart';
-import 'package:prokit_flutter/main/utils/AppConstant.dart';
 import 'package:prokit_flutter/main/utils/AppWidget.dart';
-import 'package:share/share.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../main.dart';
 
@@ -47,41 +44,6 @@ class SettingScreenState extends State<SettingScreen> {
       body: Container(
         child: Column(
           children: [
-            settingItem(
-              context,
-              "Documentation",
-              () async {
-                launch(DocumentationUrl, forceWebView: true, enableJavaScript: true);
-              },
-              leading: Image.asset('images/app/ic_documentation.png', height: 24, width: 24, color: primaryColor),
-            ),
-            Divider(height: 0),
-            settingItem(
-              context,
-              "Change Logs",
-              () async {
-                launch(ChangeLogsUrl, forceWebView: true, enableJavaScript: true);
-              },
-              leading: Image.asset('images/app/ic_change_log.png', height: 24, width: 24, color: primaryColor),
-            ),
-            Divider(height: 0),
-            settingItem(
-              context,
-              "Share App",
-              () async {
-                await Share.share('Download $mainAppName from Play Store\n\n\n$PlayStoreUrl');
-              },
-              leading: Image.asset('images/app/ic_share.png', height: 24, width: 24, color: primaryColor),
-            ),
-            Divider(height: 0),
-            settingItem(
-              context,
-              "Rate us",
-              () {
-                launch(PlayStoreUrl, forceWebView: true);
-              },
-              leading: Image.asset('images/app/ic_rate_app.png', height: 24, width: 24, color: primaryColor),
-            ),
             Divider(height: 0),
             settingItem(
               context,
