@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class CardDetails extends StatefulWidget {
   int index;
   String imageAddress;
-  String placeDetails;
+  String? placeDetails;
 
   CardDetails(this.imageAddress, this.index);
 
@@ -17,7 +18,7 @@ class CardDetails extends StatefulWidget {
 class CardDetailsState extends State<CardDetails> {
   int index;
   String imageAddress;
-  String placeDetails;
+  late String placeDetails;
 
   CardDetailsState(this.imageAddress, this.index);
 
@@ -32,7 +33,6 @@ class CardDetailsState extends State<CardDetails> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    var data = index.toString();
     print(index);
     return MaterialApp(
       home: Scaffold(

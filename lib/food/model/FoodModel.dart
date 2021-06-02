@@ -26,19 +26,18 @@ class ViewRestaurants {
   var offer;
   var info;
 
-  ViewRestaurants(
-    this.name,
-    this.image,
-    this.rating,
-    this.review,
-    this.rs,
-    this.sector,
-    this.kms,
-    this.offer,
-    this.info,
-  );
+  ViewRestaurants(this.name,
+      this.image,
+      this.rating,
+      this.review,
+      this.rs,
+      this.sector,
+      this.kms,
+      this.offer,
+      this.info,);
 }
 
+// ignore: camel_case_types
 class images {
   var image;
 
@@ -77,4 +76,12 @@ class Filter {
   var isSelected;
 
   Filter(this.name);
+}
+
+class DataFilter {
+  String? name;
+  String? title;
+  bool isCheck;
+
+  DataFilter({this.name = '', this.title, this.isCheck = false});
 }

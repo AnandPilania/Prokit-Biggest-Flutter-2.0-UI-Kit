@@ -1,5 +1,5 @@
 class SDExamModel {
-  String value;
+  String? value;
   bool isSelected = false;
 
   SDExamModel({
@@ -8,9 +8,16 @@ class SDExamModel {
 }
 
 List<SDExamModel> mQuestionList = [
-  SDExamModel(value: 'shape',),
-  SDExamModel(value: 'area',),
-  SDExamModel(value: 'baring',),
-  SDExamModel(value: 'distance',),
-
+  SDExamModel(
+    value: 'shape',
+  ),
+  SDExamModel(
+    value: 'area',
+  ),
+  SDExamModel(
+    value: 'baring',
+  ),
+  SDExamModel(
+    value: 'distance',
+  ),
 ];

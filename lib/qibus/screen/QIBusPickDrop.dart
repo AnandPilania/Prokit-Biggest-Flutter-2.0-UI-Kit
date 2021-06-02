@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/dashboard/utils/DbExtension.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/qibus/model/QiBusModel.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusColors.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusConstant.dart';
@@ -19,8 +20,8 @@ class QIBusPickDrop extends StatefulWidget {
 
 class QIBusPickDropState extends State<QIBusPickDrop> {
   int selectedPos = 1;
-  List<QIBusDroppingModel> mList;
-  List<QIBusDroppingModel> mList1;
+  late List<QIBusDroppingModel> mList;
+  late List<QIBusDroppingModel> mList1;
 
   @override
   void initState() {
@@ -134,7 +135,7 @@ class QIBusPickDropState extends State<QIBusPickDrop> {
                         itemBuilder: (BuildContext context, int index) => GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  launchScreen(context, QIBusAddPassenger.tag);
+                                  QIBusAddPassenger().launch(context);
                                 });
                               },
                               child: Container(

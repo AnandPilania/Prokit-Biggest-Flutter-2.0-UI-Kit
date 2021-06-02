@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/theme1/utils/T1Extension.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme11/utils/T11Colors.dart';
 import 'package:prokit_flutter/theme11/utils/T11Constant.dart';
 import 'package:prokit_flutter/theme11/utils/T11Images.dart';
@@ -33,7 +33,7 @@ class _T11SignInState extends State<T11SignIn> {
           children: <Widget>[
             Container(
               width: 280,
-              child: text(welcome_msg, fontSize: textSizeNormal, fontFamily: fontBold, maxLine: 5, textColor: t11_PrimaryColor, overflow: TextOverflow.ellipsis).paddingOnly(top: 16, left: 16),
+              child: text(welcome_msg, fontSize: textSizeNormal, fontFamily: fontBold, maxLine: 5, textColor: t11_PrimaryColor).paddingOnly(top: 16, left: 16),
             ),
           ],
         )
@@ -57,9 +57,7 @@ class _T11SignInState extends State<T11SignIn> {
                 ),
               ),
             ).paddingOnly(left: 16, right: 16, top: 8),
-            SizedBox(
-              height: 16,
-            ),
+            SizedBox(height: 16),
             TextFormField(
               decoration: InputDecoration(
                 labelText: t11_lbl_password,
@@ -81,9 +79,7 @@ class _T11SignInState extends State<T11SignIn> {
               autofocus: false,
               obscureText: obscureText,
             ).paddingOnly(left: 16, right: 16, top: 8),
-            SizedBox(
-              height: 20,
-            ),
+            SizedBox(height: 20),
           ]),
         )
       ],
@@ -117,13 +113,11 @@ class _T11SignInState extends State<T11SignIn> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              SizedBox(
-                height: 50,
-              ),
+              SizedBox(height: 50),
               topImgView,
               SizedBox(height: 20),
               textFieldView,
-              buttonView
+              buttonView,
             ],
           ),
         ),

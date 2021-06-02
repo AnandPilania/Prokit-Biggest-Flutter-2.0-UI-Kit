@@ -1,28 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/main.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class MWBottomNavigationScreen1 extends StatefulWidget {
   static String tag = '/MWBottomNavigationScreen1';
 
   @override
-  MWBottomNavigationScreen1State createState() =>
-      MWBottomNavigationScreen1State();
+  MWBottomNavigationScreen1State createState() => MWBottomNavigationScreen1State();
 }
 
 class MWBottomNavigationScreen1State extends State<MWBottomNavigationScreen1> {
   int currentIndex1 = 0;
   final example1 = [
-    Text('Example 1',
-        style: TextStyle(color: appStore.textPrimaryColor, fontSize: 24)),
-    Text('Reels',
-        style: TextStyle(color: appStore.textPrimaryColor, fontSize: 24)),
-    Text('New Photo',
-        style: TextStyle(color: appStore.textPrimaryColor, fontSize: 24)),
-    Text('Activity',
-        style: TextStyle(color: appStore.textPrimaryColor, fontSize: 24)),
-    Text('Profile',
-        style: TextStyle(color: appStore.textPrimaryColor, fontSize: 24)),
+    Text('Example 1', style: TextStyle(color: appStore.textPrimaryColor, fontSize: 24)),
+    Text('Reels', style: TextStyle(color: appStore.textPrimaryColor, fontSize: 24)),
+    Text('New Photo', style: TextStyle(color: appStore.textPrimaryColor, fontSize: 24)),
+    Text('Activity', style: TextStyle(color: appStore.textPrimaryColor, fontSize: 24)),
+    Text('Profile', style: TextStyle(color: appStore.textPrimaryColor, fontSize: 24)),
   ];
 
   @override
@@ -43,6 +38,7 @@ class MWBottomNavigationScreen1State extends State<MWBottomNavigationScreen1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: appBar(context, ''),
       body: Container(
         padding: EdgeInsets.all(16),
         alignment: Alignment.center,
@@ -57,11 +53,9 @@ class MWBottomNavigationScreen1State extends State<MWBottomNavigationScreen1> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                bulletText(
-                    'A bottom navigation bar is usually used in conjunction with a Scaffold.'),
+                bulletText('A bottom navigation bar is usually used in conjunction with a Scaffold.'),
                 5.height,
-                bulletText(
-                    'Bottom navigation bar consists of multiple items in the form of text labels, icons, or both.'),
+                bulletText('Bottom navigation bar consists of multiple items in the form of text labels, icons, or both.'),
                 5.height,
                 bulletText('This example consists of icons and label both.'),
                 5.height,
@@ -87,85 +81,40 @@ class MWBottomNavigationScreen1State extends State<MWBottomNavigationScreen1> {
         items: [
           //1
           BottomNavigationBarItem(
-            icon: Image.asset(
-                'images/widgets/materialWidgets/mwAppStructureWidgets/BottomNavigation/home.png',
-                height: 25,
-                width: 25,
-                color: appStore.iconSecondaryColor),
-            activeIcon: Image.asset(
-                'images/widgets/materialWidgets/mwAppStructureWidgets/BottomNavigation/home_fill.png',
-                height: 25,
-                width: 25,
-                color: appStore.iconColor),
-            title: Text('Home'),
+            icon: Image.asset('images/widgets/materialWidgets/mwAppStructureWidgets/BottomNavigation/home.png', height: 25, width: 25, color: appStore.iconSecondaryColor),
+            activeIcon: Image.asset('images/widgets/materialWidgets/mwAppStructureWidgets/BottomNavigation/home_fill.png', height: 25, width: 25, color: appStore.iconColor),
+            label: 'Home',
             backgroundColor: appStore.appBarColor,
           ),
           //2
           BottomNavigationBarItem(
-            icon: Image.asset(
-                'images/widgets/materialWidgets/mwAppStructureWidgets/BottomNavigation/reel.png',
-                height: 25,
-                width: 25,
-                color: appStore.iconSecondaryColor),
-            activeIcon: Image.asset(
-                'images/widgets/materialWidgets/mwAppStructureWidgets/BottomNavigation/reel_fill.png',
-                height: 25,
-                width: 25,
-                color: appStore.iconColor),
-            title: Text('Reels'),
+            icon: Image.asset('images/widgets/materialWidgets/mwAppStructureWidgets/BottomNavigation/reel.png', height: 25, width: 25, color: appStore.iconSecondaryColor),
+            activeIcon: Image.asset('images/widgets/materialWidgets/mwAppStructureWidgets/BottomNavigation/reel_fill.png', height: 25, width: 25, color: appStore.iconColor),
+            label: 'Reels',
           ),
           //3
           BottomNavigationBarItem(
-            icon: Image.asset(
-                'images/widgets/materialWidgets/mwAppStructureWidgets/BottomNavigation/gallery.png',
-                height: 25,
-                width: 25,
-                color: appStore.iconSecondaryColor),
-            activeIcon: Image.asset(
-                'images/widgets/materialWidgets/mwAppStructureWidgets/BottomNavigation/gallery_fill.png',
-                height: 25,
-                width: 25,
-                color: appStore.iconColor),
-            title: Text('Gallery'),
+            icon: Image.asset('images/widgets/materialWidgets/mwAppStructureWidgets/BottomNavigation/gallery.png', height: 25, width: 25, color: appStore.iconSecondaryColor),
+            activeIcon: Image.asset('images/widgets/materialWidgets/mwAppStructureWidgets/BottomNavigation/gallery_fill.png', height: 25, width: 25, color: appStore.iconColor),
+            label: 'Gallery',
           ),
           //4
           BottomNavigationBarItem(
-            icon: Image.asset(
-                'images/widgets/materialWidgets/mwAppStructureWidgets/BottomNavigation/heart.png',
-                height: 25,
-                width: 25,
-                color: appStore.iconSecondaryColor),
-            activeIcon: Image.asset(
-                'images/widgets/materialWidgets/mwAppStructureWidgets/BottomNavigation/heart_fill.png',
-                height: 25,
-                width: 25,
-                color: appStore.iconColor),
-            title: Text('Activity'),
+            icon: Image.asset('images/widgets/materialWidgets/mwAppStructureWidgets/BottomNavigation/heart.png', height: 25, width: 25, color: appStore.iconSecondaryColor),
+            activeIcon: Image.asset('images/widgets/materialWidgets/mwAppStructureWidgets/BottomNavigation/heart_fill.png', height: 25, width: 25, color: appStore.iconColor),
+            label: 'Activity',
           ),
           //5
           BottomNavigationBarItem(
             icon: Container(
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border:
-                      Border.all(color: appStore.iconSecondaryColor, width: 1)),
-              child: Image.asset(
-                      'images/widgets/materialWidgets/mwAppStructureWidgets/BottomNavigation/profile1.png',
-                      height: 30,
-                      width: 30)
-                  .cornerRadiusWithClipRRect(20),
+              decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: appStore.iconSecondaryColor!, width: 1)),
+              child: Image.asset('images/widgets/materialWidgets/mwAppStructureWidgets/BottomNavigation/profile1.png', height: 30, width: 30).cornerRadiusWithClipRRect(20),
             ),
             activeIcon: Container(
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: appStore.iconColor, width: 1)),
-              child: Image.asset(
-                      'images/widgets/materialWidgets/mwAppStructureWidgets/BottomNavigation/profile1.png',
-                      height: 30,
-                      width: 30)
-                  .cornerRadiusWithClipRRect(20),
+              decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: appStore.iconColor!, width: 1)),
+              child: Image.asset('images/widgets/materialWidgets/mwAppStructureWidgets/BottomNavigation/profile1.png', height: 30, width: 30).cornerRadiusWithClipRRect(20),
             ),
-            title: Text('Profile'),
+            label: 'Profile',
           ),
         ],
       ),
@@ -177,11 +126,8 @@ Widget bulletText(String text) {
   return Row(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      Text("•  ",
-          style: TextStyle(color: appStore.textPrimaryColor, fontSize: 14)),
-      Text(text,
-              style: TextStyle(color: appStore.textPrimaryColor, fontSize: 14))
-          .expand(),
+      Text("•  ", style: TextStyle(color: appStore.textPrimaryColor, fontSize: 14)),
+      Text(text, style: TextStyle(color: appStore.textPrimaryColor, fontSize: 14)).expand(),
     ],
   );
 }

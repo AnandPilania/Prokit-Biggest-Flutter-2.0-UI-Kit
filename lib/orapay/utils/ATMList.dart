@@ -1,11 +1,11 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Atm {
-  String shopName;
-  String address;
-  String time;
-  String thumbNail;
-  LatLng locationCoords;
+  String? shopName;
+  String? address;
+  String? time;
+  String? thumbNail;
+  LatLng? locationCoords;
 
   Atm({this.shopName, this.address, this.time, this.thumbNail, this.locationCoords});
 }

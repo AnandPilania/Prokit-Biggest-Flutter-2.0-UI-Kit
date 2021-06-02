@@ -2,12 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme6/utils/T6Colors.dart';
 import 'package:prokit_flutter/theme6/utils/T6Constant.dart';
-import 'package:prokit_flutter/theme6/utils/T6Extension.dart';
 import 'package:prokit_flutter/theme6/utils/T6Images.dart';
 import 'package:prokit_flutter/theme6/utils/T6Strings.dart';
 import 'package:prokit_flutter/theme6/utils/T6Widget.dart';
+
+import '../../main.dart';
 
 class T6SignIn extends StatefulWidget {
   static String tag = '/T6SignIn';
@@ -19,11 +21,11 @@ class T6SignIn extends StatefulWidget {
 class T6SignInState extends State<T6SignIn> {
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(t6form_background);
+    changeStatusColor(appStore.appBarColor!);
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: t6form_background,
+      backgroundColor: appStore.scaffoldBackground,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -35,37 +37,20 @@ class T6SignInState extends State<T6SignIn> {
               children: <Widget>[
                 Container(
                   alignment: Alignment.center,
-                  child: CachedNetworkImage(
-                    imageUrl: t6_ic_logo,
-                    width: width / 2.2,
-                  ),
+                  child: CachedNetworkImage(placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?, imageUrl: t6_ic_logo, width: width / 2.2),
                 ),
                 SizedBox(
                   height: 30,
                 ),
-                text(t6_lbl_user_name, textColor: t6textColorPrimary),
-                SizedBox(
-                  height: 8,
-                ),
-                T6EditTextStyle(
-                  t6_username,
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-                text(t6_lbl_mobile_number, textColor: t6textColorPrimary),
-                SizedBox(
-                  height: 8,
-                ),
-                T6EditTextStyle(
-                  t6_mobileno,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                    alignment: Alignment.topRight,
-                    child: text(t6_lbl_forgot_password)),
+                text(t6_lbl_user_name, textColor: appStore.textSecondaryColor),
+                SizedBox(height: 8),
+                T6EditTextStyle(t6_username),
+                SizedBox(height: 16),
+                text(t6_lbl_mobile_number, textColor: appStore.textSecondaryColor),
+                SizedBox(height: 8),
+                T6EditTextStyle(t6_mobileno),
+                SizedBox(height: 10),
+                Container(alignment: Alignment.topRight, child: text(t6_lbl_forgot_password)),
                 SizedBox(
                   height: 16,
                 ),
@@ -83,22 +68,13 @@ class T6SignInState extends State<T6SignIn> {
                     SizedBox(
                       width: 4,
                     ),
-                    GestureDetector(
-                        child: Text(t6_lbl_sign_up,
-                            style: TextStyle(
-                                fontSize: textSizeMedium,
-                                decoration: TextDecoration.underline,
-                                color: t6form_google)),
-                        onTap: () {})
+                    GestureDetector(child: Text(t6_lbl_sign_up, style: TextStyle(fontSize: textSizeMedium, decoration: TextDecoration.underline, color: t6form_google)), onTap: () {})
                   ],
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                Container(
-                    alignment: Alignment.center,
-                    child: text(t6_lbl_or_with,
-                        textAllCaps: true, textColor: t6colorPrimary)),
+                Container(alignment: Alignment.center, child: text(t6_lbl_or_with, textAllCaps: true, textColor: t6colorPrimary)),
                 SizedBox(
                   height: 10,
                 ),
@@ -106,8 +82,7 @@ class T6SignInState extends State<T6SignIn> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle, color: t6form_google),
+                      decoration: BoxDecoration(shape: BoxShape.circle, color: t6form_google),
                       width: width / 7.5,
                       height: width / 7.5,
                       padding: EdgeInsets.all(width / 28),
@@ -120,8 +95,7 @@ class T6SignInState extends State<T6SignIn> {
                       width: 20,
                     ),
                     Container(
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle, color: t6form_facebook),
+                      decoration: BoxDecoration(shape: BoxShape.circle, color: t6form_facebook),
                       width: width / 7.5,
                       height: width / 7.5,
                       padding: EdgeInsets.all(width / 28),

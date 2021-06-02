@@ -105,14 +105,16 @@ class PEOpacityScreenState extends State<PEOpacityScreen> {
               children: [
                 Expanded(
                   flex: 1,
-                  child: CachedNetworkImage(imageUrl: 'https://images.unsplash.com/photo-1487035242901-d419a42d17af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80'),
+                  child: CachedNetworkImage(
+                      placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?, imageUrl: 'https://images.unsplash.com/photo-1487035242901-d419a42d17af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80'),
                 ),
                 10.width,
                 Expanded(
                   flex: 1,
                   child: ColorFiltered(
                     colorFilter: ColorFilter.mode(Colors.black, BlendMode.saturation),
-                    child: CachedNetworkImage(imageUrl: 'https://images.unsplash.com/photo-1487035242901-d419a42d17af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80'),
+                    child: CachedNetworkImage(
+                        placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?, imageUrl: 'https://images.unsplash.com/photo-1487035242901-d419a42d17af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80'),
                   ),
                 ),
               ],

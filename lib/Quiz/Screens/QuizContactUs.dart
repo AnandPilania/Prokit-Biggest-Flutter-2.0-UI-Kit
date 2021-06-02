@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/Quiz/Screens/quizEmailRequest.dart';
-import 'package:prokit_flutter/Quiz/model/QuizModels.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizColors.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizConstant.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizDataGenerator.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizExtension.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizStrings.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/quiz/Screens/quizEmailRequest.dart';
+import 'package:prokit_flutter/quiz/model/QuizModels.dart';
+import 'package:prokit_flutter/quiz/utils/QuizColors.dart';
+import 'package:prokit_flutter/quiz/utils/QuizConstant.dart';
+import 'package:prokit_flutter/quiz/utils/QuizDataGenerator.dart';
+import 'package:prokit_flutter/quiz/utils/QuizStrings.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class QuizContactUs extends StatefulWidget {
@@ -18,7 +17,7 @@ class QuizContactUs extends StatefulWidget {
 }
 
 class _QuizContactUsState extends State<QuizContactUs> {
-  List<QuizContactUsModel> mList;
+  late List<QuizContactUsModel> mList;
 
   @override
   void initState() {
@@ -67,7 +66,7 @@ class _QuizContactUsState extends State<QuizContactUs> {
                         });
                       } else {
                         setState(() {
-                          launchScreen(context, QuizEmailRequest.tag);
+                          QuizEmailRequest().launch(context);
                         });
                       }
                     },

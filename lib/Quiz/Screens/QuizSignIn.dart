@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/Quiz/Screens/QuizDashboard.dart';
-import 'package:prokit_flutter/Quiz/Screens/QuizSignUp.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizColors.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizConstant.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizExtension.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizStrings.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizWidget.dart';
+import 'package:prokit_flutter/quiz/Screens/QuizDashboard.dart';
+import 'package:prokit_flutter/quiz/Screens/QuizSignUp.dart';
+import 'package:prokit_flutter/quiz/utils/QuizColors.dart';
+import 'package:prokit_flutter/quiz/utils/QuizConstant.dart';
+
+import 'package:prokit_flutter/quiz/utils/QuizStrings.dart';
+import 'package:prokit_flutter/quiz/utils/QuizWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class QuizSignIn extends StatefulWidget {
   static String tag = '/QuizSignIn';
@@ -31,7 +32,7 @@ class _QuizSignInState extends State<QuizSignIn> {
               children: <Widget>[
                 SizedBox(height: 16),
                 text(quiz_title_login, fontSize: textSizeNormal, fontFamily: fontBold),
-                text(quiz_info_login, textColor: quiz_textColorSecondary, isLongText: true),
+                text(quiz_info_login, textColor: quiz_textColorSecondary, isLongText: true, isCentered: true).center(),
                 Container(
                   margin: EdgeInsets.all(24.0),
                   decoration: boxDecoration(bgColor: quiz_white, color: quiz_white, showShadow: true, radius: 10),
@@ -53,7 +54,7 @@ class _QuizSignInState extends State<QuizSignIn> {
                   ),
                 ).onTap(() {
                   setState(() {
-                    launchScreen(context, QuizSignUp.tag);
+                    QuizSignUp().launch(context);
                   });
                 }),
                 SizedBox(
@@ -65,7 +66,7 @@ class _QuizSignInState extends State<QuizSignIn> {
                         textContent: quiz_lbl_continue,
                         onPressed: () {
                           setState(() {
-                            launchScreen(context, QuizDashboard.tag);
+                            QuizDashboard().launch(context);
                           });
                         }))
               ],

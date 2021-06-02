@@ -13,7 +13,6 @@ class T9WalkThroughState extends State<T9WalkThrough> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     width = width - 30;
-    final Size cardSize = Size(width, width / 1.9);
     return Scaffold();
   }
 }

@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:lipsum/lipsum.dart' as lipsum;
+import 'package:prokit_flutter/main/utils/Lipsum.dart' as lipsum;
 import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/main.dart';
 
@@ -36,7 +36,10 @@ class _MWSliverAppBarScreen2State extends State<MWSliverAppBarScreen2> {
               expandedHeight: 250,
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
-                background: CachedNetworkImage(imageUrl: "https://images.pexels.com/photos/443356/pexels-photo-443356.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", fit: BoxFit.cover),
+                background: CachedNetworkImage(
+                  imageUrl: "https://images.pexels.com/photos/443356/pexels-photo-443356.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+                  fit: BoxFit.cover,
+                ),
                 collapseMode: CollapseMode.parallax,
                 title: Text(
                   'Parallax SliverAppBar',

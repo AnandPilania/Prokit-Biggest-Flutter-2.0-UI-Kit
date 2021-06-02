@@ -1,5 +1,7 @@
 import 'package:prokit_flutter/main/utils/AppConstant.dart';
 
+const profileImage = 'assets/images/profile.png';
+
 const t3_bg_walk_through = "images/theme3/t3_bg_walkthrough.png";
 const t3_bg_white_gradient = "images/theme3/t3_bg_whitegradient.png";
 const t3_dish3 = "$BaseUrl/images/theme3/t3_dish3.jpg";

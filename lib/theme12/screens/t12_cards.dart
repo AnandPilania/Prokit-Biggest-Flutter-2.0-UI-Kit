@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme12/models/T12Models.dart';
 import 'package:prokit_flutter/theme12/utils/t12_colors.dart';
 import 'package:prokit_flutter/theme12/utils/t12_constant.dart';
 import 'package:prokit_flutter/theme12/utils/t12_data_generator.dart';
-import 'package:prokit_flutter/theme12/utils/t12_widget.dart';
 
 class T12Cards extends StatefulWidget {
   static String tag = '/T12Cards';
@@ -15,7 +15,7 @@ class T12Cards extends StatefulWidget {
 }
 
 class T12CardsState extends State<T12Cards> {
-  List<T12Slider> mSliderList = List<T12Slider>();
+  List<T12Slider> mSliderList = [];
 
   @override
   void initState() {
@@ -38,11 +38,7 @@ class T12CardsState extends State<T12Cards> {
                 size: 16,
                 color: t12_primary_color,
               ),
-              text("Add Card",
-                      fontSize: textSizeMedium,
-                      textColor: t12_primary_color,
-                      fontFamily: fontMedium)
-                  .paddingLeft(spacing_control_half)
+              text("Add Card", fontSize: textSizeMedium, textColor: t12_primary_color, fontFamily: fontMedium).paddingLeft(spacing_control_half)
             ],
           ),
         )
@@ -52,10 +48,7 @@ class T12CardsState extends State<T12Cards> {
         child: ListView.builder(
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
-            padding: EdgeInsets.only(
-                left: spacing_standard_new,
-                right: spacing_standard_new,
-                top: spacing_standard_new),
+            padding: EdgeInsets.only(left: spacing_standard_new, right: spacing_standard_new, top: spacing_standard_new),
             itemCount: mSliderList.length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
@@ -66,13 +59,8 @@ class T12CardsState extends State<T12Cards> {
                   children: <Widget>[
                     Container(
                       decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              colors: t12_gradient_colors[
-                                  index % t12_gradient_colors.length],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight),
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(spacing_standard))),
+                          gradient: LinearGradient(colors: t12_gradient_colors[index % t12_gradient_colors.length], begin: Alignment.topLeft, end: Alignment.bottomRight),
+                          borderRadius: BorderRadius.all(Radius.circular(spacing_standard))),
                       width: double.infinity,
                     ),
                     Column(
@@ -81,9 +69,7 @@ class T12CardsState extends State<T12Cards> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            text("Shopping Card",
-                                textColor: Colors.white.withOpacity(0.7),
-                                fontSize: textSizeMedium),
+                            text("Shopping Card", textColor: Colors.white.withOpacity(0.7), fontSize: textSizeMedium),
                             Image.asset(
                               "images/theme12/mastercard.png",
                               width: 40,
@@ -91,50 +77,30 @@ class T12CardsState extends State<T12Cards> {
                             )
                           ],
                         ),
-                        Expanded(
-                            child: text("**** **** **** 3960",
-                                    textColor: Colors.white,
-                                    fontFamily: fontBold,
-                                    fontSize: textSizeNormal)
-                                .paddingTop(spacing_standard)),
+                        Expanded(child: text("**** **** **** 3960", textColor: Colors.white, fontFamily: fontBold, fontSize: textSizeNormal).paddingTop(spacing_standard)),
                         Row(
                           children: <Widget>[
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  text("CARD HOLDER",
-                                      textColor: Colors.white.withOpacity(0.7),
-                                      fontSize: textSizeMedium),
-                                  text("JAMES DENNIS",
-                                      textColor: Colors.white,
-                                      fontSize: textSizeMedium,
-                                      fontFamily: fontMedium),
+                                  text("CARD HOLDER", textColor: Colors.white.withOpacity(0.7), fontSize: textSizeMedium),
+                                  text("JAMES DENNIS", textColor: Colors.white, fontSize: textSizeMedium, fontFamily: fontMedium),
                                 ],
                               ),
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                text("EXPIRES",
-                                    textColor: Colors.white.withOpacity(0.7),
-                                    fontSize: textSizeMedium),
-                                text("10/22",
-                                    textColor: Colors.white,
-                                    fontSize: textSizeMedium,
-                                    fontFamily: fontMedium),
+                                text("EXPIRES", textColor: Colors.white.withOpacity(0.7), fontSize: textSizeMedium),
+                                text("10/22", textColor: Colors.white, fontSize: textSizeMedium, fontFamily: fontMedium),
                               ],
                             ).paddingRight(spacing_standard_new),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                text("CVV",
-                                    textColor: Colors.white.withOpacity(0.7),
-                                    fontSize: textSizeMedium),
-                                text("***",
-                                    textColor: Colors.white,
-                                    fontSize: textSizeMedium,
-                                    fontFamily: fontMedium),
+                                text("CVV", textColor: Colors.white.withOpacity(0.7), fontSize: textSizeMedium),
+                                text("***", textColor: Colors.white, fontSize: textSizeMedium, fontFamily: fontMedium),
                               ],
                             )
                           ],

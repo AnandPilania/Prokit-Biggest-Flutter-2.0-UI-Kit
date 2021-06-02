@@ -3,7 +3,7 @@ const learner_Get_Started = "Get Started";
 const learner_hint_email = "Email";
 const learner_hint_password = "Password";
 const learner_lbl_enter = "Enter";
-const learner_sign_up_info = "By Pressing 'Join' you agree to out";
+const learner_sign_up_info = "By Pressing 'Join' you agree to our";
 
 const learner_hint_full_name = "Full Name";
 const learner_lbl_login_underlined = "<u>Login</u>";

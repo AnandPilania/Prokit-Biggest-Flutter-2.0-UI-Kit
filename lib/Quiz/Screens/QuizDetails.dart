@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/Quiz/Screens/QuizCard.dart';
-import 'package:prokit_flutter/Quiz/model/QuizModels.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizColors.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizConstant.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizDataGenerator.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizExtension.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizStrings.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizWidget.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/quiz/Screens/QuizCard.dart';
+import 'package:prokit_flutter/quiz/model/QuizModels.dart';
+import 'package:prokit_flutter/quiz/utils/QuizColors.dart';
+import 'package:prokit_flutter/quiz/utils/QuizConstant.dart';
+import 'package:prokit_flutter/quiz/utils/QuizDataGenerator.dart';
+import 'package:prokit_flutter/quiz/utils/QuizStrings.dart';
+import 'package:prokit_flutter/quiz/utils/QuizWidget.dart';
 
 class QuizDetails extends StatefulWidget {
   static String tag = '/QuizDetails';
@@ -16,7 +17,7 @@ class QuizDetails extends StatefulWidget {
 }
 
 class _QuizDetailsState extends State<QuizDetails> {
-  List<QuizTestModel> mList;
+  late List<QuizTestModel> mList;
 
   @override
   void initState() {
@@ -63,8 +64,8 @@ class _QuizDetailsState extends State<QuizDetails> {
 }
 
 class quizList extends StatelessWidget {
-  var width;
-  QuizTestModel model;
+  late var width;
+  late QuizTestModel model;
 
   quizList(QuizTestModel model, int pos) {
     this.model = model;
@@ -116,7 +117,7 @@ class quizList extends StatelessWidget {
           quizButton(
               textContent: quiz_lbl_begin,
               onPressed: () {
-                launchScreen(context, QuizCards.tag);
+                QuizCards().launch(context);
               })
         ],
       ),

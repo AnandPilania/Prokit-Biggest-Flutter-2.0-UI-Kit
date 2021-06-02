@@ -7,9 +7,6 @@ const t1_colorPrimary_light = Color(0XFFFFEEEE);
 const t1_colorPrimaryDark = Color(0XFFff8080);
 const t1_colorAccent = Color(0XFFff8080);
 
-const t1_textColorPrimary = Color(0XFF333333);
-const t1_textColorSecondary = Color(0XFF747474);
-
 const t1_app_background = Color(0XFFf8f8f8);
 const t1_view_color = Color(0XFFDADADA);
 

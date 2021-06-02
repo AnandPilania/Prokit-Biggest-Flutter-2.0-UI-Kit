@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme6/utils/T6Colors.dart';
 import 'package:prokit_flutter/theme6/utils/T6Constant.dart';
-import 'package:prokit_flutter/theme6/utils/T6Extension.dart';
 import 'package:prokit_flutter/theme6/utils/T6Images.dart';
 import 'package:prokit_flutter/theme6/utils/T6Strings.dart';
 import 'package:prokit_flutter/theme6/utils/T6Widget.dart';
+
+import '../../main.dart';
 
 class T6BottomNavigation extends StatefulWidget {
   static String tag = '/T6BottomNavigation';
@@ -26,12 +29,12 @@ class T6BottomNavigationState extends State<T6BottomNavigation> {
         });
       },
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.0),
         child: Container(
           alignment: Alignment.center,
           decoration: isSelected == pos ? BoxDecoration(shape: BoxShape.rectangle, color: t6colorPrimary, borderRadius: BorderRadius.circular(8)) : BoxDecoration(),
           child: Padding(
-            padding: const EdgeInsets.all(6.0),
+            padding: EdgeInsets.all(6.0),
             child: Column(
               children: <Widget>[
                 SvgPicture.asset(
@@ -51,9 +54,9 @@ class T6BottomNavigationState extends State<T6BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(t6app_background);
+    changeStatusColor(appStore.appBarColor!);
     return Scaffold(
-      backgroundColor: t6app_background,
+      backgroundColor: appStore.scaffoldBackground,
       bottomNavigationBar: Stack(
         alignment: Alignment.topCenter,
         children: <Widget>[
@@ -61,11 +64,11 @@ class T6BottomNavigationState extends State<T6BottomNavigation> {
             margin: EdgeInsets.all(16),
             height: 70,
             decoration: BoxDecoration(
-              color: t6white,
+              color: appStore.scaffoldBackground,
               borderRadius: BorderRadius.all(Radius.circular(10)),
               boxShadow: [
                 BoxShadow(
-                  color: t6ShadowColor,
+                  color: shadowColorGlobal,
                   blurRadius: 10,
                   spreadRadius: 2,
                 ),

@@ -2,12 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/dashboard/utils/Db3Widget.dart';
-import 'package:prokit_flutter/shophop/screens/ShWalkThroughScreen.dart';
-import 'package:prokit_flutter/shophop/utils/ShColors.dart';
-import 'package:prokit_flutter/shophop/utils/ShConstant.dart';
-import 'package:prokit_flutter/shophop/utils/ShExtension.dart';
-import 'package:prokit_flutter/shophop/utils/ShImages.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/shopHop/screens/ShWalkThroughScreen.dart';
+import 'package:prokit_flutter/shopHop/utils/ShColors.dart';
+import 'package:prokit_flutter/shopHop/utils/ShImages.dart';
 
 class ShSplashScreen extends StatefulWidget {
   static String tag = '/ShophopSplash';
@@ -30,7 +29,7 @@ class ShSplashScreenState extends State<ShSplashScreen> {
 
   void navigationPage() {
     finish(context);
-    launchScreen(context, ShWalkThroughScreen.tag);
+    ShWalkThroughScreen().launch(context);
   }
 
   @override
@@ -61,8 +60,8 @@ class ShSplashScreenState extends State<ShSplashScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      text("Shop", textColor: sh_textColorPrimary, fontSize: 35.0, fontFamily: fontBold),
-                      text("hop", textColor: sh_colorPrimary, fontSize: 35.0, fontFamily: fontBold),
+                      Text("Shop", style: boldTextStyle(color: sh_textColorPrimary, size: 35, fontFamily: 'Bold')),
+                      Text("hop", style: boldTextStyle(color: sh_colorPrimary, size: 35, fontFamily: 'Bold')),
                     ],
                   )
                 ],

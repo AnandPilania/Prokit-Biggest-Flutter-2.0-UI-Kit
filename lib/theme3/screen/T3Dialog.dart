@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme3/screen/T3Dashboard.dart';
 import 'package:prokit_flutter/theme3/utils/T3Images.dart';
 import 'package:prokit_flutter/theme3/utils/colors.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class T3Dialog extends StatefulWidget {
   static var tag = "/T3Dialog";
@@ -50,7 +52,7 @@ dialogContent(BuildContext context) {
       child: Stack(
         children: <Widget>[
           ClipRRect(
-            child: CachedNetworkImage(imageUrl: t3_ic_pizza_dialog),
+            child: CachedNetworkImage(placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?, imageUrl: t3_ic_pizza_dialog),
             borderRadius: BorderRadius.circular(8),
           ),
           Column(
@@ -59,16 +61,10 @@ dialogContent(BuildContext context) {
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-                  Navigator.pop(context);
+                  finish(context);
                 },
-                child: Container(
-                    padding: EdgeInsets.all(16),
-                    alignment: Alignment.centerRight,
-                    child: Icon(Icons.close, color: t3_white)),
+                child: Container(padding: EdgeInsets.all(16), alignment: Alignment.centerRight, child: Icon(Icons.close, color: t3_white)),
               ),
-//              Container(
-//                alignment: Alignment.bottomCenter,
-//                  child: text("This offer is valid till 30th november",textColor: t3_white))
             ],
           ),
         ],

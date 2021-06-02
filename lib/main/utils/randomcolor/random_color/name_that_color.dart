@@ -1584,16 +1584,9 @@ MyColor getColorNameFromColor(Color color) {
 
 MyColor getColorNameFromString(String color) {
   color = color.toUpperCase();
-  if (color.length < 3 || color.length > 6)
-    return new MyColor(Colors.white, 'Invalid color $color');
+  if (color.length < 3 || color.length > 6) return new MyColor(Colors.white, 'Invalid color $color');
 
-  if (color.length == 3)
-    color = color.substring(0, 1) +
-        color.substring(0, 1) +
-        color.substring(1, 1) +
-        color.substring(1, 1) +
-        color.substring(2, 1) +
-        color.substring(2, 1);
+  if (color.length == 3) color = color.substring(0, 1) + color.substring(0, 1) + color.substring(1, 1) + color.substring(1, 1) + color.substring(2, 1) + color.substring(2, 1);
 
   final Color _color = Color(int.parse(color, radix: 16));
   final int r = _color.red;
@@ -1609,12 +1602,8 @@ MyColor getColorNameFromString(String color) {
   for (int i = 0; i < colorNames.length; i++) {
     if (color == colorNames[i].getCode) return colorNames[i];
 
-    ndf1 = pow(r - colorNames[i].getRed, 2) +
-        pow(g - colorNames[i].getGreen, 2) +
-        pow(b - colorNames[i].getBlue, 2);
-    ndf2 = pow(h - colorNames[i].getHue, 2) +
-        pow(s - colorNames[i].getSaturation, 2) +
-        pow(l - colorNames[i].getLightness, 2);
+    ndf1 = pow(r - colorNames[i].getRed, 2) + pow(g - colorNames[i].getGreen, 2) + pow(b - colorNames[i].getBlue, 2) as int;
+    ndf2 = pow(h - colorNames[i].getHue, 2) + pow(s - colorNames[i].getSaturation, 2) + pow(l - colorNames[i].getLightness, 2) as int;
     ndf = ndf1 + ndf2 * 2;
     if (df < 0 || df > ndf) {
       df = ndf;
@@ -1622,9 +1611,7 @@ MyColor getColorNameFromString(String color) {
     }
   }
 
-  return cl < 0
-      ? new MyColor(Colors.white, 'Color [$color] not found!')
-      : colorNames[cl];
+  return cl < 0 ? new MyColor(Colors.white, 'Color [$color] not found!') : colorNames[cl];
 }
 
 ///
@@ -1640,14 +1627,22 @@ class MyColor {
 
   final String _name;
   final HSLColor _hslColor;
+
   MyColor(this._color, this._name) : _hslColor = HSLColor.fromColor(_color);
 
   int get getBlue => _color.blue;
+
   String get getCode => _color.value.toRadixString(16);
+
   int get getGreen => _color.green;
+
   int get getHue => _hslColor.hue.toInt();
+
   int get getLightness => (_hslColor.lightness * 100).toInt();
+
   String get getName => _name;
+
   int get getRed => _color.red;
+
   int get getSaturation => (_hslColor.saturation * 100).toInt();
 }

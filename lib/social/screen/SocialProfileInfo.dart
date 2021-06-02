@@ -5,12 +5,14 @@ import 'package:prokit_flutter/social/model/SocialModel.dart';
 import 'package:prokit_flutter/social/utils/SocialColors.dart';
 import 'package:prokit_flutter/social/utils/SocialConstant.dart';
 import 'package:prokit_flutter/social/utils/SocialDataGenerator.dart';
-import 'package:prokit_flutter/social/utils/SocialExtension.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+
 import 'package:prokit_flutter/social/utils/SocialImages.dart';
 import 'package:prokit_flutter/social/utils/SocialStrings.dart';
 import 'package:prokit_flutter/social/utils/SocialWidget.dart';
 
 import 'SocialVerify.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class SocialProfileInfo extends StatefulWidget {
   static String tag = '/SocialProfileInfo';
@@ -22,7 +24,7 @@ class SocialProfileInfo extends StatefulWidget {
 class SocialProfileInfoState extends State<SocialProfileInfo> {
   bool mValue = false;
 
-  List<Media> mList;
+  late List<Media> mList;
 
   @override
   void initState() {
@@ -42,7 +44,7 @@ class SocialProfileInfoState extends State<SocialProfileInfo> {
     var width = MediaQuery.of(context).size.width;
     Widget mPopup() => PopupMenuButton(
           itemBuilder: (context) {
-            var list = List<PopupMenuEntry<Object>>();
+            List<PopupMenuEntry<Object>> list = [];
             list.add(
               PopupMenuItem(
                 child: text(social_lbl_share),
@@ -65,7 +67,7 @@ class SocialProfileInfoState extends State<SocialProfileInfo> {
               PopupMenuItem(
                 child: GestureDetector(
                   onTap: () {
-                    launchScreen(context, SocialVerify.tag);
+                    SocialVerify().launch(context);
                   },
                   child: text(social_lbl_verify_security_code),
                 ),
@@ -79,10 +81,7 @@ class SocialProfileInfoState extends State<SocialProfileInfo> {
               width: MediaQuery.of(context).size.width * 0.1,
               height: MediaQuery.of(context).size.width * 0.1,
               padding: EdgeInsets.all(6),
-              decoration: boxDecoration(
-                  showShadow: false,
-                  color: social_textColorPrimary,
-                  bgColor: Colors.transparent),
+              decoration: boxDecoration(showShadow: false, color: social_textColorPrimary, bgColor: Colors.transparent),
               child: Icon(
                 Icons.more_vert,
                 color: social_textColorPrimary,
@@ -95,8 +94,7 @@ class SocialProfileInfoState extends State<SocialProfileInfo> {
         height: MediaQuery.of(context).size.width * 0.22,
         width: MediaQuery.of(context).size.width,
         color: social_white,
-        padding: EdgeInsets.fromLTRB(spacing_standard_new, spacing_standard_new,
-            spacing_standard_new, spacing_standard_new),
+        padding: EdgeInsets.fromLTRB(spacing_standard_new, spacing_standard_new, spacing_standard_new, spacing_standard_new),
         child: Row(
           children: <Widget>[
             Expanded(
@@ -105,8 +103,7 @@ class SocialProfileInfoState extends State<SocialProfileInfo> {
                   onTap: () {
                     showDialog(
                       context: context,
-                      builder: (BuildContext context) =>
-                          CustomDialog(context, dialogContent),
+                      builder: (BuildContext context) => CustomDialog(context, dialogContent),
                     );
                   },
                   child: Container(
@@ -114,15 +111,13 @@ class SocialProfileInfoState extends State<SocialProfileInfo> {
                       bgColor: social_form_google,
                       showShadow: true,
                     ),
-                    padding: EdgeInsets.fromLTRB(spacing_standard,
-                        spacing_middle, spacing_standard, spacing_middle),
+                    padding: EdgeInsets.fromLTRB(spacing_standard, spacing_middle, spacing_standard, spacing_middle),
                     child: RichText(
                       text: TextSpan(
                         children: [
                           WidgetSpan(
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
                               child: Icon(
                                 Icons.block,
                                 color: social_white,
@@ -130,11 +125,7 @@ class SocialProfileInfoState extends State<SocialProfileInfo> {
                               ),
                             ),
                           ),
-                          TextSpan(
-                              text: social_lbl_block_user,
-                              style: TextStyle(
-                                  fontSize: textSizeMedium,
-                                  color: social_white)),
+                          TextSpan(text: social_lbl_block_user, style: TextStyle(fontSize: textSizeMedium, color: social_white)),
                         ],
                       ),
                     ),
@@ -147,12 +138,8 @@ class SocialProfileInfoState extends State<SocialProfileInfo> {
               flex: 1,
               child: GestureDetector(
                   child: Container(
-                decoration: boxDecoration(
-                    color: social_form_google,
-                    showShadow: true,
-                    bgColor: social_white),
-                padding: EdgeInsets.fromLTRB(spacing_standard, spacing_middle,
-                    spacing_standard, spacing_middle),
+                decoration: boxDecoration(color: social_form_google, showShadow: true, bgColor: social_white),
+                padding: EdgeInsets.fromLTRB(spacing_standard, spacing_middle, spacing_standard, spacing_middle),
                 child: RichText(
                   text: TextSpan(
                     children: [
@@ -166,11 +153,7 @@ class SocialProfileInfoState extends State<SocialProfileInfo> {
                           ),
                         ),
                       ),
-                      TextSpan(
-                          text: social_lbl_report_user,
-                          style: TextStyle(
-                              fontSize: textSizeMedium,
-                              color: social_form_google)),
+                      TextSpan(text: social_lbl_report_user, style: TextStyle(fontSize: textSizeMedium, color: social_form_google)),
                     ],
                   ),
                 ),
@@ -188,18 +171,14 @@ class SocialProfileInfoState extends State<SocialProfileInfo> {
                 forceElevated: innerBoxIsScrolled,
                 pinned: true,
                 titleSpacing: 0,
-                backgroundColor:
-                    innerBoxIsScrolled ? social_white : social_white,
+                backgroundColor: innerBoxIsScrolled ? social_white : social_white,
                 title: Container(
                   width: MediaQuery.of(context).size.width,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Center(
-                        child: text(social_lbl_notifications,
-                            fontFamily: fontBold,
-                            fontSize: textSizeLargeMedium,
-                            textAllCaps: true),
+                        child: text(social_lbl_notifications, fontFamily: fontBold, fontSize: textSizeLargeMedium, textAllCaps: true),
                       ),
                       mPopup()
                     ],
@@ -228,10 +207,7 @@ class SocialProfileInfoState extends State<SocialProfileInfo> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.only(
-                      left: spacing_standard_new,
-                      bottom: spacing_standard,
-                      top: spacing_standard_new),
+                  margin: EdgeInsets.only(left: spacing_standard_new, bottom: spacing_standard, top: spacing_standard_new),
                   child: text(social_lbl_media, fontFamily: fontMedium),
                 ),
                 SizedBox(
@@ -245,11 +221,7 @@ class SocialProfileInfoState extends State<SocialProfileInfo> {
                       }),
                 ),
                 Container(
-                  margin: EdgeInsets.only(
-                      top: spacing_standard_new,
-                      bottom: spacing_standard_new,
-                      left: spacing_standard_new,
-                      right: spacing_standard_new),
+                  margin: EdgeInsets.only(top: spacing_standard_new, bottom: spacing_standard_new, left: spacing_standard_new, right: spacing_standard_new),
                   decoration: boxDecoration(showShadow: true),
                   padding: EdgeInsets.all(spacing_middle),
                   child: Column(
@@ -258,8 +230,7 @@ class SocialProfileInfoState extends State<SocialProfileInfo> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          text(social_lbl_mute_notifications,
-                              fontFamily: fontMedium),
+                          text(social_lbl_mute_notifications, fontFamily: fontMedium),
                           Switch(
                             value: mValue,
                             onChanged: (value) {
@@ -273,13 +244,11 @@ class SocialProfileInfoState extends State<SocialProfileInfo> {
                         ],
                       ),
                       view,
-                      text(social_lbl_custom_notifications,
-                          fontFamily: fontMedium),
+                      text(social_lbl_custom_notifications, fontFamily: fontMedium),
                       view,
                       text(social_lbl_media_visibility, fontFamily: fontMedium),
                       view,
-                      SocialOption(context, social_blue, social_ic_lock,
-                          social_lbl_encryption, social_lbl_encryption_info),
+                      SocialOption(context, social_blue, social_ic_lock, social_lbl_encryption, social_lbl_encryption_info),
                     ],
                   ),
                 ),
@@ -287,8 +256,7 @@ class SocialProfileInfoState extends State<SocialProfileInfo> {
                   margin: EdgeInsets.only(
                     left: spacing_standard_new,
                   ),
-                  child: text(social_lbl_about_and_phone_number,
-                      fontFamily: fontMedium),
+                  child: text(social_lbl_about_and_phone_number, fontFamily: fontMedium),
                 ),
                 Container(
                   margin: EdgeInsets.all(spacing_standard_new),
@@ -296,17 +264,11 @@ class SocialProfileInfoState extends State<SocialProfileInfo> {
                   padding: EdgeInsets.all(spacing_middle),
                   child: Column(
                     children: <Widget>[
-                      SocialOption(
-                          context,
-                          social_blue,
-                          social_ic_help,
-                          social_lbl_hy_there_i_am_using_inmood,
-                          social_lbl__11_december_2019),
+                      SocialOption(context, social_blue, social_ic_help, social_lbl_hy_there_i_am_using_inmood, social_lbl__11_december_2019),
                       SizedBox(
                         height: spacing_standard_new,
                       ),
-                      SocialOption(context, social_blue, social_phone_fill,
-                          social_phone, social_hint_mobile_number),
+                      SocialOption(context, social_blue, social_phone_fill, social_phone, social_hint_mobile_number),
                     ],
                   ),
                 )
@@ -318,7 +280,7 @@ class SocialProfileInfoState extends State<SocialProfileInfo> {
 }
 
 class SocialMedia extends StatelessWidget {
-  Media model;
+  late Media model;
 
   SocialMedia(Media model, int pos) {
     this.model = model;
@@ -332,6 +294,7 @@ class SocialMedia extends StatelessWidget {
       child: ClipRRect(
         borderRadius: new BorderRadius.circular(12.0),
         child: CachedNetworkImage(
+          placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
           imageUrl: model.image,
           fit: BoxFit.fill,
           height: width * 0.15,
@@ -373,10 +336,8 @@ dialogContent(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min, // To make the card compact
         children: <Widget>[
-          text(social_lbl_block_matloob,
-              fontFamily: fontMedium, fontSize: textSizeNormal),
-          text(social_sample_text,
-              textColor: social_textColorSecondary, isLongText: true),
+          text(social_lbl_block_matloob, fontFamily: fontMedium, fontSize: textSizeNormal),
+          text(social_sample_text, textColor: social_textColorSecondary, isLongText: true),
           SizedBox(
             height: spacing_standard_new,
           ),
@@ -386,7 +347,7 @@ dialogContent(BuildContext context) {
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-                  Navigator.pop(context);
+                  finish(context);
                 },
                 child: Container(
                   padding: EdgeInsets.all(4),
@@ -405,7 +366,7 @@ dialogContent(BuildContext context) {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pop(context);
+                  finish(context);
                 },
                 child: Container(
                   padding: EdgeInsets.all(4),

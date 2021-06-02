@@ -1,13 +1,9 @@
 import 'package:prokit_flutter/main/utils/AppConstant.dart';
 
-const t7_ic_best_destination_japan =
-    "$BaseUrl/images/theme7/t7_ic_best_destination_japan.png";
-const t7_ic_best_destination_london =
-    "$BaseUrl/images/theme7/t7_ic_best_destination_london.png";
-const t7_ic_best_destination_malawi =
-    "$BaseUrl/images/theme7/t7_ic_best_destination_malawi.png";
-const t7_ic_best_destination_sa =
-    "$BaseUrl/images/theme7/t7_ic_best_destination_sa.png";
+const t7_ic_best_destination_japan = "$BaseUrl/images/theme7/t7_ic_best_destination_japan.png";
+const t7_ic_best_destination_london = "$BaseUrl/images/theme7/t7_ic_best_destination_london.png";
+const t7_ic_best_destination_malawi = "$BaseUrl/images/theme7/t7_ic_best_destination_malawi.png";
+const t7_ic_best_destination_sa = "$BaseUrl/images/theme7/t7_ic_best_destination_sa.png";
 const t7_ic_hotel1 = "$BaseUrl/images/theme7/t7_ic_hotel1.png";
 const t7_ic_hotel2 = "$BaseUrl/images/theme7/t7_ic_hotel2.jpeg";
 const t7_ic_hotel3 = "$BaseUrl/images/theme7/t7_ic_hotel3.jpeg";

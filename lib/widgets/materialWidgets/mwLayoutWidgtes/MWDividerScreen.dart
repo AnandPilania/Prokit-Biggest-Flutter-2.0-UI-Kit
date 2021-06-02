@@ -3,7 +3,6 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/main.dart';
 import 'package:prokit_flutter/main/utils/AppColors.dart';
 import 'package:prokit_flutter/main/utils/AppWidget.dart';
-import 'package:nb_utils/nb_utils.dart';
 
 class MWDividerScreen extends StatefulWidget {
   static String tag = '/MWDividerScreen';
@@ -116,8 +115,7 @@ class Separator extends StatelessWidget {
   final double dashWidth;
   final Color color;
 
-  const Separator(
-      {this.height = 1, this.dashWidth = 10, this.color = Colors.black});
+  const Separator({this.height = 1, this.dashWidth = 10, this.color = Colors.black});
 
   @override
   Widget build(BuildContext context) {

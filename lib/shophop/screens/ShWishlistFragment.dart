@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:prokit_flutter/shophop/models/ShProduct.dart';
-import 'package:prokit_flutter/shophop/utils/ShColors.dart';
-import 'package:prokit_flutter/shophop/utils/ShConstant.dart';
-import 'package:prokit_flutter/shophop/utils/ShExtension.dart';
-import 'package:prokit_flutter/shophop/utils/ShStrings.dart';
-import 'package:prokit_flutter/shophop/utils/ShWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/shopHop/models/ShProduct.dart';
+import 'package:prokit_flutter/shopHop/utils/ShColors.dart';
+import 'package:prokit_flutter/shopHop/utils/ShConstant.dart';
+import 'package:prokit_flutter/shopHop/utils/ShExtension.dart';
+import 'package:prokit_flutter/shopHop/utils/ShStrings.dart';
 
 class ShWishlistFragment extends StatefulWidget {
   static String tag = '/ShProfileFragment';
@@ -18,7 +18,7 @@ class ShWishlistFragment extends StatefulWidget {
 }
 
 class ShWishlistFragmentState extends State<ShWishlistFragment> {
-  var list = List<ShProduct>();
+  List<ShProduct> list = [];
 
   @override
   void initState() {
@@ -64,7 +64,7 @@ class ShWishlistFragmentState extends State<ShWishlistFragment> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     Image.asset(
-                      "images/shophop/img/products" + list[index].images[0].src,
+                      "images/shophop/img/products" + list[index].images![0].src!,
                       width: width * 0.25,
                       height: width * 0.3,
                       fit: BoxFit.fill,

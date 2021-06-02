@@ -2,13 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prokit_flutter/social/utils/SocialColors.dart';
 import 'package:prokit_flutter/social/utils/SocialConstant.dart';
-import 'package:prokit_flutter/social/utils/SocialExtension.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+
 import 'package:prokit_flutter/social/utils/SocialImages.dart';
 import 'package:prokit_flutter/social/utils/SocialStrings.dart';
 import 'package:prokit_flutter/social/utils/SocialWidget.dart';
 
 import 'SocialChangeNumber.dart';
 import 'SocialDeleteAccount.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class SocialAccount extends StatefulWidget {
   static String tag = '/SocialAccount';
@@ -50,7 +52,9 @@ class SocialAccountState extends State<SocialAccount> {
                             SizedBox(
                               height: spacing_standard_new,
                             ),
-                            SocialOption(context, social_blue, social_smartphone, social_lbl_change_number, social_lbl_change_number_info, tags: SocialChangeNumber.tag),
+                            SocialOption(context, social_blue, social_smartphone, social_lbl_change_number, social_lbl_change_number_info, onTap: () {
+                              SocialChangeNumber().launch(context);
+                            }),
                             SizedBox(
                               height: spacing_standard_new,
                             ),
@@ -58,7 +62,9 @@ class SocialAccountState extends State<SocialAccount> {
                             SizedBox(
                               height: spacing_standard_new,
                             ),
-                            SocialOption(context, social_blue, social_ic_delete_bin, social_lbl_delete_account, social_lbl_delete_account_info, tags: SocialDeleteAccount.tag),
+                            SocialOption(context, social_blue, social_ic_delete_bin, social_lbl_delete_account, social_lbl_delete_account_info, onTap: () {
+                              SocialDeleteAccount().launch(context);
+                            }),
                           ],
                         ),
                       ),

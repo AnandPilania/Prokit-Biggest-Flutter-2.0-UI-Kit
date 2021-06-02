@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/main.dart';
 import 'package:prokit_flutter/main/utils/AppWidget.dart';
-import 'package:nb_utils/nb_utils.dart';
 
 class MWListViewScreen3 extends StatefulWidget {
   static const tag = '/MWListViewScreen3';
@@ -11,7 +11,7 @@ class MWListViewScreen3 extends StatefulWidget {
 }
 
 class _MWListViewScreen3State extends State<MWListViewScreen3> {
-  List<ItemModel> mListing;
+  late List<ItemModel> mListing;
 
   @override
   void initState() {
@@ -37,22 +37,21 @@ class _MWListViewScreen3State extends State<MWListViewScreen3> {
         appBar: appBar(context, 'Horizontal List View'),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             16.height,
-            Text(
-              "Product",
-              style: boldTextStyle(color: appStore.textPrimaryColor, size: 18),
-            ).paddingLeft(16),
+            Text("Product", style: boldTextStyle(color: appStore.textPrimaryColor, size: 18)).paddingLeft(16),
             SizedBox(
               height: 220,
               child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: mListing.length,
-                  shrinkWrap: true,
-                  padding: EdgeInsets.only(right: 16),
-                  itemBuilder: (context, index) {
-                    return Product(mListing[index], index);
-                  }),
+                scrollDirection: Axis.horizontal,
+                itemCount: mListing.length,
+                shrinkWrap: true,
+                padding: EdgeInsets.only(right: 16),
+                itemBuilder: (context, index) {
+                  return Product(mListing[index], index);
+                },
+              ),
             ),
           ],
         ),
@@ -61,8 +60,9 @@ class _MWListViewScreen3State extends State<MWListViewScreen3> {
   }
 }
 
+// ignore: must_be_immutable
 class Product extends StatelessWidget {
-  ItemModel model;
+  late ItemModel model;
 
   Product(ItemModel model, int pos) {
     this.model = model;
@@ -92,8 +92,7 @@ class Product extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(model.name,
-                    style: primaryTextStyle(color: appStore.textPrimaryColor)),
+                Text(model.name, style: primaryTextStyle(color: appStore.textPrimaryColor)),
               ],
             ),
           )
@@ -109,35 +108,29 @@ class ItemModel {
 }
 
 List<ItemModel> getData() {
-  List<ItemModel> popularArrayList = List<ItemModel>();
+  List<ItemModel> popularArrayList = [];
   ItemModel item1 = ItemModel();
-  item1.img =
-      'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item3.jpg';
+  item1.img = 'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item3.jpg';
   item1.name = "Black Jacket";
 
   ItemModel item2 = ItemModel();
-  item2.img =
-      'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item1.jpg';
+  item2.img = 'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item1.jpg';
   item2.name = "Denim Jacket";
 
   ItemModel item3 = ItemModel();
-  item3.img =
-      'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item5.jpg';
+  item3.img = 'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item5.jpg';
   item3.name = "Blazer";
 
   ItemModel item4 = ItemModel();
-  item4.img =
-      'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item2.jpg';
+  item4.img = 'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item2.jpg';
   item4.name = "T-shirt";
 
   ItemModel item5 = ItemModel();
-  item5.img =
-      'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item4.jpg';
+  item5.img = 'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item4.jpg';
   item5.name = "Sunglasses";
 
   ItemModel item6 = ItemModel();
-  item6.img =
-      'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item7.jpg';
+  item6.img = 'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item7.jpg';
   item6.name = "Sunglasses";
 
   popularArrayList.add(item1);

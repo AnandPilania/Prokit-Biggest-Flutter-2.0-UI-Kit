@@ -3,8 +3,8 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/grocery/utils/GeoceryStrings.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryColors.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
-import 'package:prokit_flutter/grocery/utils/GroceryExtension.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class GroceryTermCondition extends StatefulWidget {
   static String tag = '/GroceryTermCondition';
@@ -18,6 +18,7 @@ class _GroceryTermConditionState extends State<GroceryTermCondition> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     changeStatusColor(grocery_colorPrimary);
+
     return Scaffold(
       backgroundColor: grocery_app_background,
       appBar: PreferredSize(
@@ -30,29 +31,28 @@ class _GroceryTermConditionState extends State<GroceryTermCondition> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              text("Product Terms", textColor: grocery_textColorPrimary, fontSize: textSizeMedium, fontFamily: fontBold)
+              Text(
+                "Product Terms",
+                style: boldTextStyle(color: grocery_textColorPrimary, size: 16),
+              ).paddingOnly(top: spacing_standard_new, left: spacing_standard_new, right: spacing_standard_new),
+              Text(grocery_lbl_Long_text, style: secondaryTextStyle(color: grocery_textColorPrimary, size: 16))
                   .paddingOnly(top: spacing_standard_new, left: spacing_standard_new, right: spacing_standard_new),
-              text(grocery_lbl_Long_text, textColor: grocery_textColorPrimary, fontSize: textSizeMedium, fontFamily: fontRegular, isLongText: true)
+              SizedBox(height: spacing_large),
+              Text(
+                "1. Use of the site",
+                style: boldTextStyle(color: grocery_textColorPrimary, size: 16),
+              ).paddingOnly(top: spacing_standard_new, left: spacing_standard_new, right: spacing_standard_new),
+              Text(grocery_lbl_Long_text, style: secondaryTextStyle(color: grocery_textColorPrimary, size: 16))
                   .paddingOnly(top: spacing_standard_new, left: spacing_standard_new, right: spacing_standard_new),
-              SizedBox(
-                height: spacing_large,
-              ),
-              text("1. Use of the site", textColor: grocery_textColorPrimary, fontSize: textSizeMedium, fontFamily: fontBold)
+              SizedBox(height: spacing_standard_new),
+              Text("THESE TERMS AND CONDITIONS DO NOT AFFECT YOUR STATUTORY RIGHTS", style: boldTextStyle(color: grocery_textColorPrimary, size: 16))
                   .paddingOnly(top: spacing_standard_new, left: spacing_standard_new, right: spacing_standard_new),
-              text(grocery_lbl_Long_text, textColor: grocery_textColorPrimary, fontSize: textSizeMedium, fontFamily: fontRegular, isLongText: true)
-                  .paddingOnly(top: spacing_standard_new, left: spacing_standard_new, right: spacing_standard_new),
-              SizedBox(
-                height: spacing_standard_new,
-              ),
-              text("THESE TERMS AND CONDITIONS DO NOT AFFECT YOUR STATUTORY RIGHTS", textColor: grocery_textColorPrimary, fontSize: textSizeMedium, fontFamily: fontBold, isLongText: true)
-                  .paddingOnly(top: spacing_standard_new, left: spacing_standard_new, right: spacing_standard_new),
-              SizedBox(
-                height: spacing_standard_new,
-              ),
-              text("2. Amendments", textColor: grocery_textColorPrimary, fontSize: textSizeMedium, fontFamily: fontBold)
-                  .paddingOnly(top: spacing_standard_new, left: spacing_standard_new, right: spacing_standard_new),
-              text("we may revise the terms and conditions from time to time without notice to you. Lorem ipsum dolor sit.",
-                      textColor: grocery_textColorPrimary, fontSize: textSizeMedium, fontFamily: fontBold, isLongText: true)
+              SizedBox(height: spacing_standard_new),
+              Text(
+                "2. Amendments",
+                style: boldTextStyle(color: grocery_textColorPrimary, size: 16),
+              ).paddingOnly(top: spacing_standard_new, left: spacing_standard_new, right: spacing_standard_new),
+              Text("we may revise the terms and conditions from time to time without notice to you. Lorem ipsum dolor sit.", style: boldTextStyle(color: grocery_textColorPrimary, size: 16))
                   .paddingOnly(top: spacing_standard_new, left: spacing_standard_new, right: spacing_standard_new),
             ],
           ),

@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/main/utils/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/main/utils/flutter_rating_bar.dart';
 import 'package:prokit_flutter/qibus/model/QiBusModel.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusColors.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusConstant.dart';
@@ -18,7 +19,7 @@ class QIBusViewPackage extends StatefulWidget {
 }
 
 class QIBusViewPackageState extends State<QIBusViewPackage> {
-  List<QIBusNewPackageModel> mList1;
+  late List<QIBusNewPackageModel> mList1;
 
   @override
   void initState() {
@@ -52,7 +53,7 @@ class QIBusViewPackageState extends State<QIBusViewPackage> {
 }
 
 class ViewPackage extends StatelessWidget {
-  QIBusNewPackageModel model;
+  late QIBusNewPackageModel model;
 
   ViewPackage(QIBusNewPackageModel model, int pos) {
     this.model = model;
@@ -64,15 +65,12 @@ class ViewPackage extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.fromLTRB(16, 0, 16, 16),
-      decoration: boxDecoration(
-          radius: spacing_middle, bgColor: qIBus_white, showShadow: true),
+      decoration: boxDecoration(radius: spacing_middle, bgColor: qIBus_white, showShadow: true),
       child: Column(
         children: <Widget>[
           ClipRRect(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(spacing_middle),
-                topLeft: Radius.circular(spacing_middle)),
-            child: Image.asset(
+            borderRadius: BorderRadius.only(topRight: Radius.circular(spacing_middle), topLeft: Radius.circular(spacing_middle)),
+            child: Image.network(
               model.image,
               height: width * 0.32,
               width: width,
@@ -86,10 +84,7 @@ class ViewPackage extends StatelessWidget {
               children: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    text(model.destination, fontFamily: fontMedium),
-                    text(model.newPrice, textColor: qIBus_colorPrimary)
-                  ],
+                  children: <Widget>[text(model.destination, fontFamily: fontMedium), text(model.newPrice, textColor: qIBus_colorPrimary)],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

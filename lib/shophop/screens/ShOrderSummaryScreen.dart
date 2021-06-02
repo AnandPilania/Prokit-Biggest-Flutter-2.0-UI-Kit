@@ -2,15 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/shophop/models/ShAddress.dart';
-import 'package:prokit_flutter/shophop/models/ShProduct.dart';
-import 'package:prokit_flutter/shophop/screens/ShAdressManagerScreen.dart';
-import 'package:prokit_flutter/shophop/screens/ShPaymentsScreen.dart';
-import 'package:prokit_flutter/shophop/utils/ShColors.dart';
-import 'package:prokit_flutter/shophop/utils/ShConstant.dart';
-import 'package:prokit_flutter/shophop/utils/ShExtension.dart';
-import 'package:prokit_flutter/shophop/utils/ShStrings.dart';
-import 'package:prokit_flutter/shophop/utils/ShWidget.dart';
+import 'package:prokit_flutter/shopHop/models/ShAddress.dart';
+import 'package:prokit_flutter/shopHop/models/ShProduct.dart';
+import 'package:prokit_flutter/shopHop/screens/ShAdressManagerScreen.dart';
+import 'package:prokit_flutter/shopHop/screens/ShPaymentsScreen.dart';
+import 'package:prokit_flutter/shopHop/utils/ShColors.dart';
+import 'package:prokit_flutter/shopHop/utils/ShConstant.dart';
+import 'package:prokit_flutter/shopHop/utils/ShExtension.dart';
+import 'package:prokit_flutter/shopHop/utils/ShStrings.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class ShOrderSummaryScreen extends StatefulWidget {
   static String tag = '/ShOrderSummaryScreen';
@@ -20,12 +21,12 @@ class ShOrderSummaryScreen extends StatefulWidget {
 }
 
 class ShOrderSummaryScreenState extends State<ShOrderSummaryScreen> {
-  var list = List<ShProduct>();
-  var addressList = List<ShAddressModel>();
+  List<ShProduct> list = [];
+  List<ShAddressModel> addressList = [];
   var selectedPosition = 0;
-  var images = List<String>();
+  List<String> images = [];
   var currentIndex = 0;
-  Timer timer;
+  Timer? timer;
   var isLoaded = false;
 
   @override
@@ -53,7 +54,7 @@ class ShOrderSummaryScreenState extends State<ShOrderSummaryScreen> {
   void dispose() {
     super.dispose();
     if (timer != null) {
-      timer.cancel();
+      timer!.cancel();
     }
   }
 
@@ -75,7 +76,7 @@ class ShOrderSummaryScreenState extends State<ShOrderSummaryScreen> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
+
     var cartList = isLoaded
         ? ListView.builder(
             scrollDirection: Axis.vertical,
@@ -92,7 +93,7 @@ class ShOrderSummaryScreenState extends State<ShOrderSummaryScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       Image.asset(
-                        "images/shophop/img/products" + list[index].images[0].src,
+                        "images/shophop/img/products" + list[index].images![0].src!,
                         width: width * 0.25,
                         height: width * 0.3,
                         fit: BoxFit.fill,
@@ -158,7 +159,7 @@ class ShOrderSummaryScreenState extends State<ShOrderSummaryScreen> {
                                     child: Row(
                                       crossAxisAlignment: CrossAxisAlignment.end,
                                       children: <Widget>[
-                                        text(list[index].on_sale ? list[index].sale_price.toString().toCurrencyFormat() : list[index].price.toString().toCurrencyFormat(),
+                                        text(list[index].on_sale! ? list[index].sale_price.toString().toCurrencyFormat() : list[index].price.toString().toCurrencyFormat(),
                                             textColor: sh_colorPrimary, fontSize: textSizeNormal, fontFamily: fontMedium),
                                         SizedBox(
                                           width: spacing_control,
@@ -166,7 +167,7 @@ class ShOrderSummaryScreenState extends State<ShOrderSummaryScreen> {
                                         Padding(
                                           padding: const EdgeInsets.only(bottom: 3.0),
                                           child: Text(
-                                            list[index].regular_price.toString().toCurrencyFormat(),
+                                            list[index].regular_price.toString().toCurrencyFormat()!,
                                             style: TextStyle(color: sh_textColorSecondary, fontFamily: fontRegular, fontSize: textSizeSMedium, decoration: TextDecoration.lineThrough),
                                           ),
                                         ),
@@ -242,10 +243,10 @@ class ShOrderSummaryScreenState extends State<ShOrderSummaryScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          text(addressList[selectedPosition].first_name + " " + addressList[selectedPosition].last_name, textColor: sh_textColorPrimary, fontFamily: fontMedium, fontSize: textSizeLargeMedium),
+          text(addressList[selectedPosition].first_name! + " " + addressList[selectedPosition].last_name!, textColor: sh_textColorPrimary, fontFamily: fontMedium, fontSize: textSizeLargeMedium),
           text(addressList[selectedPosition].address, textColor: sh_textColorPrimary, fontSize: textSizeMedium),
-          text(addressList[selectedPosition].city + "," + addressList[selectedPosition].state, textColor: sh_textColorPrimary, fontSize: textSizeMedium),
-          text(addressList[selectedPosition].country + "," + addressList[selectedPosition].pinCode, textColor: sh_textColorPrimary, fontSize: textSizeMedium),
+          text(addressList[selectedPosition].city! + "," + addressList[selectedPosition].state!, textColor: sh_textColorPrimary, fontSize: textSizeMedium),
+          text(addressList[selectedPosition].country! + "," + addressList[selectedPosition].pinCode!, textColor: sh_textColorPrimary, fontSize: textSizeMedium),
           SizedBox(
             height: spacing_standard_new,
           ),
@@ -295,7 +296,7 @@ class ShOrderSummaryScreenState extends State<ShOrderSummaryScreen> {
                 height: double.infinity,
               ),
               onTap: () {
-                launchScreen(context, ShPaymentsScreen.tag);
+                ShPaymentsScreen().launch(context);
               },
             ),
           )

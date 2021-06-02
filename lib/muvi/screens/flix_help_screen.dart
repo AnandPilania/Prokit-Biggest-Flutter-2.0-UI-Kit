@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/muvi/screens/flix_faq_screen.dart';
 import 'package:prokit_flutter/muvi/utils/flix_app_localizations.dart';
 import 'package:prokit_flutter/muvi/utils/flix_app_widgets.dart';
-import 'package:prokit_flutter/muvi/utils/flix_widget_extensions.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_colors.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_images.dart';
 
@@ -26,7 +26,7 @@ class HelpScreenState extends State<HelpScreen> {
             subType(context, "report_problem", () {}, ic_report),
             subType(context, "help_center", () {}, ic_help),
             subType(context, "faq", () {
-              launchScreen(context, FaqScreen.tag);
+              FaqScreen().launch(context);
             }, ic_faq),
           ],
         ),

@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/shophop/models/ShOrder.dart';
-import 'package:prokit_flutter/shophop/utils/ShColors.dart';
-import 'package:prokit_flutter/shophop/utils/ShConstant.dart';
-import 'package:prokit_flutter/shophop/utils/ShExtension.dart';
-import 'package:prokit_flutter/shophop/utils/ShStrings.dart';
-import 'package:prokit_flutter/shophop/utils/ShWidget.dart';
+import 'package:prokit_flutter/shopHop/models/ShOrder.dart';
+import 'package:prokit_flutter/shopHop/utils/ShColors.dart';
+import 'package:prokit_flutter/shopHop/utils/ShConstant.dart';
+import 'package:prokit_flutter/shopHop/utils/ShExtension.dart';
+import 'package:prokit_flutter/shopHop/utils/ShStrings.dart';
+import 'package:prokit_flutter/shopHop/utils/ShWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class ShOrderDetailScreen extends StatefulWidget {
   static String tag = '/ShOrderDetailScreen';
-  ShOrder order;
+  ShOrder? order;
 
   ShOrderDetailScreen({this.order});
 
@@ -30,7 +31,7 @@ class ShOrderDetailScreenState extends State<ShOrderDetailScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Image.asset(
-              "images/shophop/img/products" + widget.order.item.image,
+              "images/shophop/img/products" + widget.order!.item!.image!,
               width: width * 0.3,
               height: width * 0.35,
               fit: BoxFit.fill,
@@ -50,7 +51,7 @@ class ShOrderDetailScreenState extends State<ShOrderDetailScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 16.0),
-                          child: text(widget.order.item.name, textColor: sh_textColorPrimary, fontSize: textSizeLargeMedium, fontFamily: fontMedium),
+                          child: text(widget.order!.item!.name, textColor: sh_textColorPrimary, fontSize: textSizeLargeMedium, fontFamily: fontMedium),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 16.0, top: spacing_control),
@@ -81,14 +82,14 @@ class ShOrderDetailScreenState extends State<ShOrderDetailScreen> {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: <Widget>[
-                              text(widget.order.item.price.toString().toCurrencyFormat(), textColor: sh_colorPrimary, fontSize: textSizeNormal, fontFamily: fontMedium),
+                              text(widget.order!.item!.price.toString().toCurrencyFormat(), textColor: sh_colorPrimary, fontSize: textSizeNormal, fontFamily: fontMedium),
                               SizedBox(
                                 width: spacing_control,
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 3.0),
                                 child: Text(
-                                  "0".toString().toCurrencyFormat(),
+                                  "0".toString().toCurrencyFormat()!,
                                   style: TextStyle(color: sh_textColorSecondary, fontFamily: fontRegular, fontSize: textSizeSMedium, decoration: TextDecoration.lineThrough),
                                 ),
                               ),
@@ -144,7 +145,7 @@ class ShOrderDetailScreenState extends State<ShOrderDetailScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  text(widget.order.order_date + "\n Order Placed", maxLine: 2, fontSize: textSizeMedium, textColor: sh_textColorPrimary),
+                  text(widget.order!.order_date! + "\n Order Placed", maxLine: 2, fontSize: textSizeMedium, textColor: sh_textColorPrimary),
                   text("Order Pending", fontSize: textSizeMedium, textColor: sh_textColorPrimary),
                 ],
               ),
@@ -222,7 +223,7 @@ class ShOrderDetailScreenState extends State<ShOrderDetailScreen> {
                 Row(
                   children: <Widget>[
                     text(sh_lbl_order_id),
-                    text(widget.order.order_number, textColor: sh_textColorPrimary, fontFamily: fontMedium),
+                    text(widget.order!.order_number, textColor: sh_textColorPrimary, fontFamily: fontMedium),
                   ],
                 ),
                 SizedBox(
@@ -231,7 +232,7 @@ class ShOrderDetailScreenState extends State<ShOrderDetailScreen> {
                 Row(
                   children: <Widget>[
                     text(sh_lbl_order_date),
-                    text(widget.order.order_date, textColor: sh_textColorPrimary, fontFamily: fontMedium),
+                    text(widget.order!.order_date, textColor: sh_textColorPrimary, fontFamily: fontMedium),
                   ],
                 ),
                 SizedBox(

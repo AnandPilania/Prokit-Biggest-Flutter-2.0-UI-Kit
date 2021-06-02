@@ -54,10 +54,7 @@ class CWTabBarScreenState extends State<CWTabBarScreen> {
               return ExampleItemWidget(
                 example[index],
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => example[index].widget));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => example[index].widget!));
                 },
               );
             }));

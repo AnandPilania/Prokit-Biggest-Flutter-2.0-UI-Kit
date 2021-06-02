@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme1/utils/T1Colors.dart';
 import 'package:prokit_flutter/theme1/utils/T1Images.dart';
 import 'package:prokit_flutter/theme1/utils/T1Strings.dart';
 import 'package:prokit_flutter/theme1/utils/T1Widget.dart';
+
+import '../../main.dart';
 
 class T1BottomNavigation extends StatefulWidget {
   static var tag = "/T1BottomNavigation";
@@ -16,46 +21,33 @@ class T1BottomNavigationState extends State<T1BottomNavigation> {
   var isSelected = 1;
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  Widget tabItem(var pos, var icon) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          isSelected = pos;
-        });
-      },
-      child: Container(
-        width: 45,
-        height: 45,
-        alignment: Alignment.center,
-        decoration: isSelected == pos ? BoxDecoration(shape: BoxShape.circle, color: t1_colorPrimary_light) : BoxDecoration(),
-        child: SvgPicture.asset(
-          icon,
-          width: 20,
-          height: 20,
-          color: isSelected == pos ? t1_colorPrimary : t1_textColorSecondary,
-        ),
-      ),
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        alignment: Alignment.topCenter,
-        children: <Widget>[
-          Container(
-            width: 180,
-            alignment: Alignment.center,
-            child: ring(t1_lbl_welcome_to_bottom_n_navigation_baar),
+    Widget tabItem(var pos, var icon) {
+      return GestureDetector(
+        onTap: () {
+          setState(() {
+            isSelected = pos;
+          });
+        },
+        child: Container(
+          width: 45,
+          height: 45,
+          alignment: Alignment.center,
+          decoration: isSelected == pos ? BoxDecoration(shape: BoxShape.circle, color: t1_colorPrimary_light) : BoxDecoration(),
+          child: SvgPicture.asset(
+            icon,
+            width: 20,
+            height: 20,
+            color: isSelected == pos ? t1_colorPrimary : appStore.textSecondaryColor,
           ),
-          TopBar(t1_bottom_navigation),
-        ],
+        ),
+      );
+    }
+
+    return Scaffold(
+      appBar: appBar(context, t1_bottom_navigation),
+      body: Observer(
+        builder: (_) => ring(t1_lbl_welcome_to_bottom_n_navigation_baar).center(),
       ),
       bottomNavigationBar: Stack(
         alignment: Alignment.topCenter,
@@ -64,11 +56,13 @@ class T1BottomNavigationState extends State<T1BottomNavigation> {
             margin: EdgeInsets.only(top: 30),
             height: 60,
             decoration: BoxDecoration(
-              color: t1_white,
-              boxShadow: [BoxShadow(color: shadow_color, blurRadius: 10, spreadRadius: 2, offset: Offset(0, 3.0))],
+              color: appStore.scaffoldBackground,
+              boxShadow: [
+                BoxShadow(color: shadowColorGlobal, blurRadius: 10, spreadRadius: 2, offset: Offset(0, 3.0)),
+              ],
             ),
             child: Padding(
-              padding: const EdgeInsets.only(left: 16.0, right: 16),
+              padding: EdgeInsets.only(left: 16.0, right: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -87,10 +81,7 @@ class T1BottomNavigationState extends State<T1BottomNavigation> {
               onPressed: () {
                 //
               },
-              child: Icon(
-                Icons.mic,
-                color: t1_white,
-              ),
+              child: Icon(Icons.mic, color: t1_white),
             ),
           )
         ],

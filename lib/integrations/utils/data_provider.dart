@@ -1,4 +1,5 @@
 import 'package:prokit_flutter/integrations/models/ContentModel.dart';
+import 'package:prokit_flutter/integrations/screens/FingerprintAuthentication.dart';
 import 'package:prokit_flutter/integrations/screens/LikeButton/LBHomePage.dart';
 import 'package:prokit_flutter/integrations/screens/Marquee/MHomePage.dart';
 import 'package:prokit_flutter/integrations/screens/Shimmer/SHomePage.dart';
@@ -26,7 +27,7 @@ import 'package:prokit_flutter/integrations/screens/wave_screen.dart';
 import 'package:prokit_flutter/integrations/utils/colors.dart';
 
 Future<List<ContentModel>> getContents(context) async {
-  List<ContentModel> list = List();
+  List<ContentModel> list = [];
 
   var cat1Item1 = ContentModel(title: 'Before After Image', pageName: BeforeAfterImageScreen());
   var cat1Item2 = ContentModel(title: 'Google Sign In', pageName: GoogleSignInScreen());
@@ -39,18 +40,10 @@ Future<List<ContentModel>> getContents(context) async {
   var cat1Item7 = ContentModel(title: 'Confitte', pageName: CHomePage());
   var cat1Item8 = ContentModel(title: 'TinderCard', pageName: TinderHomePage());
   var cat1Item9 = ContentModel(title: 'Show Case View', pageName: SVCHomePage());
+  var cat1tem10 = ContentModel(title: 'Fingerprint Authentication', pageName: FingerprintAuthentication());
 
-  list.add(ContentModel(title: 'Integrations', subTitle: 'Ready-made code', bgColor: appCat1, items: [
-    cat1Item1,
-    cat1Item2,
-    cat1Item3,
-    cat1Item4,
-    cat1Item5,
-    cat1Item6,
-    cat1Item7,
-    cat1Item8,
-    cat1Item9,
-  ]));
+  list.add(ContentModel(
+      title: 'Integrations', subTitle: 'Ready-made code', bgColor: appCat1, items: [cat1Item1, cat1Item2, cat1Item3, cat1Item4, cat1Item5, cat1Item6, cat1Item7, cat1Item8, cat1Item9, cat1tem10]));
 
   var cat2Item1 = ContentModel(title: 'Custom Buttons', bgColor: appCat4, pageName: ButtonScreen());
   var cat2Item2 = ContentModel(title: 'Pickers', bgColor: appCat6, pageName: PickerScreen());
@@ -94,8 +87,8 @@ Future<List<ContentModel>> getContents(context) async {
   var cat6Item1 = ContentModel(title: 'RazorPay Payment', pageName: RazorPayScreen());
   list.add(ContentModel(title: 'Payment Gateways', subTitle: 'Payment Gateways Integrations', bgColor: appCat5, icon: 'ic_payment.png', items: [cat6Item1]));
 
-  var cat7Item1 = ContentModel(title: 'GET example with FutureBuilder', pageName: GETMethodExampleScreen(),tag: 'New');
-  var cat7Item2 = ContentModel(title: 'POST example', pageName: PostMethodExampleScreen(),tag: 'New');
+  var cat7Item1 = ContentModel(title: 'GET example with FutureBuilder', pageName: GETMethodExampleScreen(), tag: 'New');
+  var cat7Item2 = ContentModel(title: 'POST example', pageName: PostMethodExampleScreen(), tag: 'New');
   list.add(
     ContentModel(
       title: 'REST API Integrations',

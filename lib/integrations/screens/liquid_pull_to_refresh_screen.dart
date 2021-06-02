@@ -2,25 +2,21 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lipsum/lipsum.dart' as lipsum;
-
-import 'package:prokit_flutter/integrations/utils/colors.dart';
-import 'package:prokit_flutter/integrations/utils/common.dart';
-import 'package:prokit_flutter/integrations/utils/styles.dart';
+import 'package:prokit_flutter/main/utils/Lipsum.dart' as lipsum;
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppColors.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/main/utils/liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:prokit_flutter/muvi/utils/flix_app_localizations.dart';
 
 class LiquidPullToRefreshScreen extends StatefulWidget {
   static String tag = '/LiquidPullToRefreshScreen';
 
   @override
-  LiquidPullToRefreshScreenState createState() =>
-      LiquidPullToRefreshScreenState();
+  LiquidPullToRefreshScreenState createState() => LiquidPullToRefreshScreenState();
 }
 
 class LiquidPullToRefreshScreenState extends State<LiquidPullToRefreshScreen> {
-  final GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
-      GlobalKey<RefreshIndicatorState>();
+  final GlobalKey<RefreshIndicatorState> refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {
@@ -30,20 +26,22 @@ class LiquidPullToRefreshScreenState extends State<LiquidPullToRefreshScreen> {
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(primaryColor);
+    changeStatusColor(appColorPrimary);
 
     return Scaffold(
-      appBar: getAppBar(context,
-          'Liquid Pull To Refresh'),
+      appBar: appBar(context, 'Liquid Pull To Refresh'),
       body: LiquidPullToRefresh(
           key: refreshIndicatorKey,
-          color: primaryColor,
+          color: appColorPrimary,
           child: ListView.builder(
             itemBuilder: (context, index) {
               return Container(
                 padding: EdgeInsets.all(16),
-                child: text((index + 1).toString() + ' ' + lipsum.createText(),
-                    maxLine: 1),
+                child: Text(
+                  (index + 1).toString() + ' ' + lipsum.createText(),
+                  maxLines: 1,
+                  style: primaryTextStyle(),
+                ),
               );
             },
             itemCount: 100,
@@ -59,7 +57,7 @@ class LiquidPullToRefreshScreenState extends State<LiquidPullToRefreshScreen> {
       completer.complete();
     });
     return completer.future.then<void>((_) {
-      refreshIndicatorKey.currentState.show();
+      refreshIndicatorKey.currentState!.show();
     });
   }
 }

@@ -2,12 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/food/utils/FoodColors.dart';
-import 'package:prokit_flutter/food/utils/FoodConstant.dart';
-import 'package:prokit_flutter/food/utils/FoodExtension.dart';
 import 'package:prokit_flutter/food/utils/FoodImages.dart';
 import 'package:prokit_flutter/food/utils/FoodString.dart';
-import 'package:prokit_flutter/food/utils/FoodWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 import '../utils/FoodColors.dart';
 
@@ -26,7 +25,7 @@ class FoodBookDetailState extends State<FoodBookDetail> {
   var now = new DateTime.now();
   var count = 1;
   var formatter = new DateFormat('dd  MMM');
-  String formatted;
+  late String formatted;
 
   @override
   void initState() {
@@ -39,7 +38,7 @@ class FoodBookDetailState extends State<FoodBookDetail> {
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(food_app_background);
+    //changeStatusColor(food_app_background);
     var width = MediaQuery.of(context).size.width;
 
     final mPeopleInfo = Container(
@@ -57,10 +56,10 @@ class FoodBookDetailState extends State<FoodBookDetail> {
             },
             child: Container(
               alignment: Alignment.center,
-              margin: EdgeInsets.only(right: spacing_standard_new, top: spacing_control),
-              decoration: boxDecoration(radius: spacing_middle, bgColor: mPeople == index ? food_colorPrimary : food_colorPrimary_light),
+              margin: EdgeInsets.only(right: 16, top: 4),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: mPeople == index ? food_colorPrimary : food_colorPrimary_light),
               padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
-              child: text(mPeopleList[index], textColor: mPeople == index ? food_white : food_textColorPrimary, isCentered: true),
+              child: Text(mPeopleList[index], style: primaryTextStyle(color: mPeople == index ? food_white : food_textColorPrimary)).center(),
             ),
           );
         },
@@ -81,9 +80,9 @@ class FoodBookDetailState extends State<FoodBookDetail> {
           },
           child: Container(
             alignment: Alignment.center,
-            decoration: boxDecoration(radius: spacing_middle, bgColor: mTime == index ? food_colorPrimary : food_colorPrimary_light),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: mTime == index ? food_colorPrimary : food_colorPrimary_light),
             padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: text(mTimeList[index], textColor: mTime == index ? food_white : food_textColorPrimary, isCentered: true),
+            child: Text(mTimeList[index], style: primaryTextStyle(color: mTime == index ? food_white : food_textColorPrimary)).center(),
           ),
         );
       },
@@ -105,10 +104,10 @@ class FoodBookDetailState extends State<FoodBookDetail> {
             },
             child: Container(
               alignment: Alignment.center,
-              margin: EdgeInsets.only(right: spacing_standard_new, top: spacing_control),
-              decoration: boxDecoration(radius: spacing_middle, bgColor: mFood == index ? food_colorPrimary : food_colorPrimary_light),
+              margin: EdgeInsets.only(right: 16, top: 4),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: mFood == index ? food_colorPrimary : food_colorPrimary_light),
               padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
-              child: text(mFoodList[index], textColor: mFood == index ? food_white : food_textColorPrimary, isCentered: true),
+              child: Text(mFoodList[index], style: primaryTextStyle(color: mFood == index ? food_white : food_textColorPrimary)).center(),
             ),
           );
         },
@@ -117,42 +116,45 @@ class FoodBookDetailState extends State<FoodBookDetail> {
 
     return Scaffold(
       backgroundColor: food_app_background,
+      appBar: appBar(context, food_lbl_reserve_table),
       body: SafeArea(
         child: Column(
           children: <Widget>[
-            TopBar(food_lbl_reserve_table),
             Expanded(
               child: SingleChildScrollView(
                 child: Container(
-                  margin: EdgeInsets.only(left: spacing_standard_new, right: spacing_standard_new),
+                  margin: EdgeInsets.only(left: 16, right: 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Align(alignment: Alignment.topCenter, child: SvgPicture.asset(food_dinner_table, height: width * 0.4, width: width * 0.4)),
-                      SizedBox(height: spacing_standard_new),
-                      text(food_lbl_how_many_people, fontFamily: fontMedium),
-                      SizedBox(height: spacing_control),
+                      Align(
+                        alignment: Alignment.topCenter,
+                        child: SvgPicture.asset(food_dinner_table, height: width * 0.4, width: width * 0.4),
+                      ),
+                      SizedBox(height: 16),
+                      Text(food_lbl_how_many_people, style: boldTextStyle()),
+                      SizedBox(height: 4),
                       mPeopleInfo,
-                      SizedBox(height: spacing_standard_new),
-                      text(food_lbl_reservation_date, fontFamily: fontMedium),
-                      SizedBox(height: spacing_control),
-                      text(formatted, textColor: food_colorPrimary),
-                      SizedBox(height: spacing_standard_new),
-                      text(food_lbl_set_your_time, fontFamily: fontMedium),
-                      SizedBox(height: spacing_standard),
+                      SizedBox(height: 16),
+                      Text(food_lbl_reservation_date, style: boldTextStyle()),
+                      SizedBox(height: 4),
+                      Text(formatted, style: primaryTextStyle()),
+                      SizedBox(height: 16),
+                      Text(food_lbl_set_your_time, style: boldTextStyle()),
+                      SizedBox(height: 4),
                       mTimeInfo,
-                      SizedBox(height: spacing_standard_new),
-                      text(food_lbl_any_food_preference, fontFamily: fontMedium),
-                      SizedBox(height: spacing_control),
+                      SizedBox(height: 16),
+                      Text(food_lbl_any_food_preference, style: boldTextStyle()),
+                      SizedBox(height: 4),
                       mFoodInfo,
-                      SizedBox(height: spacing_large),
+                      SizedBox(height: 24),
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        padding: EdgeInsets.only(top: spacing_middle, bottom: spacing_middle),
-                        decoration: boxDecoration(bgColor: food_colorPrimary, radius: 50, showShadow: true),
-                        child: text(food_lbl_book_table, textColor: food_white, isCentered: true),
+                        padding: EdgeInsets.only(top: 10, bottom: 10),
+                        decoration: BoxDecoration(color: food_colorPrimary, borderRadius: BorderRadius.circular(50), boxShadow: defaultBoxShadow()),
+                        child: Text(food_lbl_book_table, style: primaryTextStyle(color: white)).center(),
                       ),
-                      SizedBox(height: spacing_standard_new),
+                      SizedBox(height: 16),
                     ],
                   ),
                 ),

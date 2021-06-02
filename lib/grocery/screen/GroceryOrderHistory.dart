@@ -4,8 +4,8 @@ import 'package:prokit_flutter/grocery/model/grocery_compleated_model.dart';
 import 'package:prokit_flutter/grocery/utils/GeoceryStrings.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryColors.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
-import 'package:prokit_flutter/grocery/utils/GroceryExtension.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 import 'GroceryTrackOrder.dart';
 
@@ -13,8 +13,7 @@ class GroceryOrderHistoryScreen extends StatefulWidget {
   static String tag = '/GroceryOrderHistoryScreen';
 
   @override
-  _GroceryOrderHistoryScreenState createState() =>
-      _GroceryOrderHistoryScreenState();
+  _GroceryOrderHistoryScreenState createState() => _GroceryOrderHistoryScreenState();
 }
 
 class _GroceryOrderHistoryScreenState extends State<GroceryOrderHistoryScreen> {
@@ -27,7 +26,7 @@ class _GroceryOrderHistoryScreenState extends State<GroceryOrderHistoryScreen> {
         shrinkWrap: true,
         itemBuilder: (context, index) {
           return Container(
-            decoration: boxDecoration(showShadow: true),
+            decoration: boxDecoration(showShadow: true, radius: 10.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
@@ -53,21 +52,11 @@ class _GroceryOrderHistoryScreenState extends State<GroceryOrderHistoryScreen> {
                             fontFamily: fontMedium,
                           ).paddingOnly(bottom: 16),
                           text(
-                            grocery_subtotal +
-                                ' ' +
-                                grocery_currency +
-                                ' ' +
-                                listCompleated[index].orderAmount,
+                            grocery_subtotal + ' ' + grocery_currency + ' ' + listCompleated[index].orderAmount,
                             fontSize: textSizeMedium,
                             fontFamily: fontMedium,
                           ),
-                          text(
-                              grocery_totalItems +
-                                  ': ' +
-                                  listCompleated[index].totelItem,
-                              fontSize: textSizeMedium,
-                              fontFamily: fontMedium,
-                              textColor: textSecondaryColor)
+                          text(grocery_totalItems + ': ' + listCompleated[index].totelItem, fontSize: textSizeMedium, fontFamily: fontMedium, textColor: textSecondaryColor)
                         ],
                       ).paddingOnly(left: 16, right: 16),
                     ),
@@ -81,16 +70,13 @@ class _GroceryOrderHistoryScreenState extends State<GroceryOrderHistoryScreen> {
                 Row(
                   children: <Widget>[
                     Expanded(child: SizedBox()),
-                    button(context, grocery_viewCart,
-                        backgroundColor: grocery_textColorSecondary,
-                        height: 40,
-                        width: 150),
+                    button(context, grocery_viewCart, backgroundColor: grocery_textColorSecondary, height: 40, width: 150),
                   ],
                 ).paddingOnly(top: 16)
               ],
             ).paddingOnly(left: 16, right: 16, top: 16, bottom: 16),
           ).paddingOnly(left: 16, right: 16, top: 16).onTap(() {
-            launchScreen(context, GroceryTrackOrderScreen.tag);
+            GroceryTrackOrderScreen().launch(context);
           });
         });
 
@@ -117,13 +103,9 @@ class _GroceryOrderHistoryScreenState extends State<GroceryOrderHistoryScreen> {
                             size: 30,
                             color: grocery_color_white,
                           ).paddingOnly(right: 24).onTap(() {
-                            back(context);
+                            finish(context);
                           }),
-                          Expanded(
-                              child: text(grocery_orderHistory,
-                                  fontSize: textSizeNormal,
-                                  textColor: grocery_color_white,
-                                  fontFamily: fontBold)),
+                          Expanded(child: text(grocery_orderHistory, fontSize: textSizeNormal, textColor: grocery_color_white, fontFamily: fontBold)),
                           Icon(
                             Icons.search,
                             size: 30,
@@ -143,8 +125,7 @@ class _GroceryOrderHistoryScreenState extends State<GroceryOrderHistoryScreen> {
                             indicatorColor: grocery_color_white,
                             labelColor: grocery_color_white,
                             isScrollable: true,
-                            unselectedLabelColor:
-                                grocery_color_white.withOpacity(0.5),
+                            unselectedLabelColor: grocery_color_white.withOpacity(0.5),
                             tabs: [
                               Container(
                                 padding: const EdgeInsets.only(bottom: 16),

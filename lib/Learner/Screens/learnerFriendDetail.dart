@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/Learner/model/LearnerModels.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerColors.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerConstant.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerDataGenerator.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerImages.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerStrings.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerWidget.dart';
+import 'package:prokit_flutter/learner/model/LearnerModels.dart';
+import 'package:prokit_flutter/learner/utils/LearnerColors.dart';
+import 'package:prokit_flutter/learner/utils/LearnerConstant.dart';
+import 'package:prokit_flutter/learner/utils/LearnerDataGenerator.dart';
+import 'package:prokit_flutter/learner/utils/LearnerImages.dart';
+import 'package:prokit_flutter/learner/utils/LearnerStrings.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class LearnerFriendDetail extends StatefulWidget {
   @override
@@ -15,7 +15,7 @@ class LearnerFriendDetail extends StatefulWidget {
 }
 
 class _LearnerFriendDetailState extends State<LearnerFriendDetail> {
-  List<LearnerBadgeModel> mList2;
+  late List<LearnerBadgeModel> mList2;
 
   @override
   void initState() {
@@ -34,6 +34,7 @@ class _LearnerFriendDetailState extends State<LearnerFriendDetail> {
           alignment: Alignment.topRight,
           children: <Widget>[
             CachedNetworkImage(
+              placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
               imageUrl: learner_ic_profile1,
               height: width * 0.3,
               width: width * 0.3,
@@ -43,45 +44,22 @@ class _LearnerFriendDetailState extends State<LearnerFriendDetail> {
             Container(
               height: 15,
               width: 15,
-              decoration: BoxDecoration(
-                  color: learner_green.withOpacity(1.0),
-                  shape: BoxShape.circle,
-                  border: Border.all(color: learner_white, width: 1.5)),
-            )
-                .cornerRadiusWithClipRRect(7)
-                .paddingOnly(left: 80, top: 25)
-                .center()
+              decoration: BoxDecoration(color: learner_green.withOpacity(1.0), shape: BoxShape.circle, border: Border.all(color: learner_white, width: 1.5)),
+            ).cornerRadiusWithClipRRect(7).paddingOnly(left: 80, top: 25).center()
           ],
         ),
-        text("Marc Elliot",
-                textColor: learner_textColorPrimary,
-                fontSize: textSizeNormal,
-                fontFamily: fontBold)
-            .center()
-            .paddingOnly(top: 8),
-        text(learner_lbl_Student,
-                textColor: textSecondaryColor,
-                fontSize: textSizeMedium,
-                fontFamily: fontBold)
-            .center()
-            .paddingOnly(top: 4),
+        text("Marc Elliot", textColor: learner_textColorPrimary, fontSize: textSizeNormal, fontFamily: fontBold).center().paddingOnly(top: 8),
+        text(learner_lbl_Student, textColor: textSecondaryColor, fontSize: textSizeMedium, fontFamily: fontBold).center().paddingOnly(top: 4),
         SizedBox(
           height: 25,
         ),
-        FlatButton(
+        TextButton(
           onPressed: () {},
-          child: text("Add Friend",
-                  textColor: learner_colorPrimary,
-                  fontSize: textSizeMedium,
-                  fontFamily: fontSemibold)
-              .paddingAll(8),
-          textColor: learner_colorPrimary,
-          shape: RoundedRectangleBorder(
-              side: BorderSide(
-                  color: learner_colorPrimary,
-                  width: 1.5,
-                  style: BorderStyle.solid),
-              borderRadius: BorderRadius.circular(50)),
+          child: text("Add Friend", textColor: learner_colorPrimary, fontSize: textSizeMedium, fontFamily: fontSemibold).paddingAll(8),
+          style: TextButton.styleFrom(
+            textStyle: TextStyle(color:learner_colorPrimary),
+            shape: RoundedRectangleBorder(side: BorderSide(color: learner_colorPrimary, width: 1.5, style: BorderStyle.solid), borderRadius: BorderRadius.circular(50)),
+          ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -90,42 +68,24 @@ class _LearnerFriendDetailState extends State<LearnerFriendDetail> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                text("7",
-                    textColor: learner_textColorPrimary,
-                    fontSize: textSizeMedium,
-                    fontFamily: fontMedium),
-                text(learner_lbl_Course,
-                    textColor: learner_textColorSecondary,
-                    fontSize: textSizeMedium,
-                    fontFamily: fontMedium),
+                text("7", textColor: learner_textColorPrimary, fontSize: textSizeMedium, fontFamily: fontMedium),
+                text(learner_lbl_Course, textColor: learner_textColorSecondary, fontSize: textSizeMedium, fontFamily: fontMedium),
               ],
             ).center(),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                text("193,79",
-                    textColor: learner_textColorPrimary,
-                    fontSize: textSizeMedium,
-                    fontFamily: fontMedium),
-                text(learner_lbl_Points,
-                    textColor: learner_textColorSecondary,
-                    fontSize: textSizeMedium,
-                    fontFamily: fontMedium),
+                text("193,79", textColor: learner_textColorPrimary, fontSize: textSizeMedium, fontFamily: fontMedium),
+                text(learner_lbl_Points, textColor: learner_textColorSecondary, fontSize: textSizeMedium, fontFamily: fontMedium),
               ],
             ).center(),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                text("11",
-                    textColor: learner_textColorPrimary,
-                    fontSize: textSizeMedium,
-                    fontFamily: fontMedium),
-                text(learner_lbl_Ranks,
-                    textColor: learner_textColorSecondary,
-                    fontSize: textSizeMedium,
-                    fontFamily: fontMedium),
+                text("11", textColor: learner_textColorPrimary, fontSize: textSizeMedium, fontFamily: fontMedium),
+                text(learner_lbl_Ranks, textColor: learner_textColorSecondary, fontSize: textSizeMedium, fontFamily: fontMedium),
               ],
             ).paddingAll(8)
           ],
@@ -205,7 +165,7 @@ class _LearnerFriendDetailState extends State<LearnerFriendDetail> {
 }
 
 class LearnerBadges extends StatelessWidget {
-  LearnerBadgeModel model;
+  late LearnerBadgeModel model;
 
   LearnerBadges(LearnerBadgeModel model, int pos) {
     this.model = model;
@@ -221,8 +181,7 @@ class LearnerBadges extends StatelessWidget {
             margin: EdgeInsets.only(right: 10),
             width: MediaQuery.of(context).size.width / 7,
             height: MediaQuery.of(context).size.width / 7,
-            decoration:
-                BoxDecoration(shape: BoxShape.circle, color: model.color),
+            decoration: BoxDecoration(shape: BoxShape.circle, color: model.color),
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Image.asset(model.img),
@@ -235,10 +194,7 @@ class LearnerBadges extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                text(model.name,
-                    fontFamily: fontMedium,
-                    fontSize: textSizeLargeMedium,
-                    textColor: learner_textColorPrimary),
+                text(model.name, fontFamily: fontMedium, fontSize: textSizeLargeMedium, textColor: learner_textColorPrimary),
                 SizedBox(
                   width: 4,
                 ),

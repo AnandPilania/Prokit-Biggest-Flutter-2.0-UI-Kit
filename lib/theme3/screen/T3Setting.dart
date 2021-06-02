@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/main/utils/AppConstant.dart';
-import 'package:prokit_flutter/theme3/utils/Extension.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme3/utils/T3Images.dart';
+import 'package:prokit_flutter/theme3/utils/T3widgets.dart';
 import 'package:prokit_flutter/theme3/utils/colors.dart';
 import 'package:prokit_flutter/theme3/utils/strings.dart';
-import 'package:prokit_flutter/theme3/utils/widgets.dart';
+
+import '../../main.dart';
 
 class T3Setting extends StatefulWidget {
   static String tag = '/T3Setting';
@@ -21,43 +23,29 @@ class T3SettingState extends State<T3Setting> {
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(t3_app_background);
+    changeStatusColor(appStore.appBarColor!);
 
     return Scaffold(
+      appBar: appBar(context, t3_lbl_setting),
       body: SafeArea(
         child: Container(
-          color: t3_app_background,
+          color: appStore.scaffoldBackground,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Row(
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    color: t3_textColorPrimary,
-                    onPressed: () {
-                      back(context);
-                    },
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    child: Center(child: text(t3_lbl_setting, fontFamily: fontBold, textColor: t3_textColorPrimary, fontSize: 22.0)),
-                  )
-                ],
-              ),
               SizedBox(height: 10),
               Padding(
-                padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+                padding: EdgeInsets.fromLTRB(16, 12, 16, 12),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    text(t3_lbl_language, textColor: t3_textColorPrimary, fontSize: textSizeMedium),
+                    Text(t3_lbl_language, style: boldTextStyle(size: 14)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         CircleAvatar(backgroundImage: AssetImage(t3_ic_flag), radius: 6),
-                        Container(margin: EdgeInsets.only(left: 4, right: 12), child: text(t3_lbl_French, textColor: t3_textColorPrimary, fontSize: textSizeMedium)),
-                        text(t3_lbl_change, textColor: t3_textColorPrimary, fontSize: textSizeMedium, fontFamily: fontMedium),
+                        Container(margin: EdgeInsets.only(left: 4, right: 12), child: Text(t3_lbl_French, style: primaryTextStyle(size: 14))),
+                        Text(t3_lbl_change, style: primaryTextStyle(size: 14)),
                       ],
                     ),
                   ],
@@ -65,33 +53,33 @@ class T3SettingState extends State<T3Setting> {
               ),
               divider(),
               Padding(
-                padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+                padding: EdgeInsets.fromLTRB(16, 12, 16, 12),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    text(t3_hint_password, textColor: t3_textColorPrimary, fontSize: textSizeMedium),
-                    text(t3_lbl_change, textColor: t3_textColorPrimary, fontSize: textSizeMedium, fontFamily: fontMedium),
+                    Text(t3_hint_password, style: boldTextStyle(size: 14)),
+                    Text(t3_lbl_change, style: primaryTextStyle(size: 14)),
                   ],
                 ),
               ),
               divider(),
               Padding(
-                padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+                padding: EdgeInsets.fromLTRB(16, 12, 16, 12),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    text(t3_lbl_location, textColor: t3_textColorPrimary, fontSize: textSizeMedium),
-                    text(t3_lbl_edit, textColor: t3_textColorPrimary, fontSize: textSizeMedium, fontFamily: fontMedium),
+                    Text(t3_lbl_location, style: boldTextStyle(size: 14)),
+                    Text(t3_lbl_edit, style: primaryTextStyle(size: 14)),
                   ],
                 ),
               ),
               divider(),
               Padding(
-                padding: const EdgeInsets.fromLTRB(16, 4, 6, 4),
+                padding: EdgeInsets.fromLTRB(16, 4, 6, 4),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    text(t3_lbl_receive_notification, textColor: t3_textColorPrimary, fontSize: textSizeMedium),
+                    Text(t3_lbl_receive_notification, style: boldTextStyle(size: 14)),
                     Switch(
                       value: isSwitched1,
                       onChanged: (value) {
@@ -107,11 +95,11 @@ class T3SettingState extends State<T3Setting> {
               ),
               divider(),
               Padding(
-                padding: const EdgeInsets.fromLTRB(16, 4, 6, 4),
+                padding: EdgeInsets.fromLTRB(16, 4, 6, 4),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    text(t3_lbl_receive_newsletter, textColor: t3_textColorPrimary, fontSize: textSizeMedium),
+                    Text(t3_lbl_receive_newsletter, style: boldTextStyle(size: 14)),
                     Switch(
                       value: isSwitched2,
                       onChanged: (value) {
@@ -127,11 +115,11 @@ class T3SettingState extends State<T3Setting> {
               ),
               divider(),
               Padding(
-                padding: const EdgeInsets.fromLTRB(16, 4, 6, 4),
+                padding: EdgeInsets.fromLTRB(16, 4, 6, 4),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    text(t3_lbl_receive_special_news_offer, textColor: t3_textColorPrimary, fontSize: textSizeMedium),
+                    Text(t3_lbl_receive_special_news_offer, style: boldTextStyle(size: 14)),
                     Switch(
                       value: isSwitched3,
                       onChanged: (value) {

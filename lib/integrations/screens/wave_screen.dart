@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/integrations/utils/colors.dart';
-import 'package:prokit_flutter/integrations/utils/common.dart';
+import 'package:prokit_flutter/main/utils/AppColors.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/main/utils/wave/config.dart';
 import 'package:prokit_flutter/main/utils/wave/wave.dart';
 
@@ -15,9 +15,9 @@ class WaveScreen extends StatefulWidget {
 class WaveScreenState extends State<WaveScreen> {
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(primaryColor);
+    changeStatusColor(appColorPrimary);
     return Scaffold(
-      appBar: getAppBar(context, "Wave Widget"),
+      appBar: appBar(context, "Wave Widget"),
       body: WaveWidget(
         config: CustomConfig(
           gradients: [

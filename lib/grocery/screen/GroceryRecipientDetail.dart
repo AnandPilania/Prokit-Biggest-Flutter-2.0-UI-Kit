@@ -4,10 +4,10 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/grocery/utils/GeoceryStrings.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryColors.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
-import 'package:prokit_flutter/grocery/utils/GroceryExtension.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryImages.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryWidget.dart';
-import 'package:prokit_flutter/grocery/utils/codePicker/country_code_picker.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/main/utils/codePicker/country_code_picker.dart';
 
 class GroceryRecipientDetail extends StatefulWidget {
   static String tag = '/GroceryRecipientDetail';
@@ -38,47 +38,34 @@ class _GroceryRecipientDetailState extends State<GroceryRecipientDetail> {
                 bottomLeft: Radius.circular(20.0),
                 bottomRight: const Radius.circular(20.0),
               ),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                    color: grocery_ShadowColor,
-                    blurRadius: 20.0,
-                    offset: Offset(0.0, 0.9))
-              ]),
+              boxShadow: <BoxShadow>[BoxShadow(color: grocery_ShadowColor, blurRadius: 20.0, offset: Offset(0.0, 0.9))]),
           child: Column(
             children: <Widget>[
-              title1(grocery_lbl_Recipient_Details, grocery_color_white,
-                  grocery_textColorPrimary, context),
+              title1(grocery_lbl_Recipient_Details, grocery_color_white, grocery_textColorPrimary, context),
               Row(
                 children: <Widget>[
                   Stack(
                     children: <Widget>[
                       CachedNetworkImage(
+                        placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                         imageUrl: Grocery_ic_Profile,
                         height: 70,
                         width: 70,
                         fit: BoxFit.fill,
-                      ).cornerRadiusWithClipRRect(40.0).paddingOnly(
-                          left: spacing_standard_new,
-                          top: spacing_standard_new),
+                      ).cornerRadiusWithClipRRect(40.0).paddingOnly(left: spacing_standard_new, top: spacing_standard_new),
                       Container(
                         width: 70,
                         height: 70,
-                        decoration: boxDecoration(
-                            radius: 40.0,
-                            bgColor: grocery_textColorPrimary.withOpacity(0.4)),
+                        decoration: boxDecoration(radius: 40.0, bgColor: grocery_textColorPrimary.withOpacity(0.4)),
                         child: Icon(
                           Icons.camera_alt,
                           size: 30,
                           color: grocery_color_white,
                         ).center(),
-                      ).paddingOnly(
-                          left: spacing_standard_new, top: spacing_standard_new)
+                      ).paddingOnly(left: spacing_standard_new, top: spacing_standard_new)
                     ],
                   ),
-                  text("Change image",
-                          textColor: grocery_textColorSecondary,
-                          fontSize: textSizeLargeMedium,
-                          fontFamily: fontMedium)
+                  text("Change image", textColor: grocery_textColorSecondary, fontSize: textSizeLargeMedium, fontFamily: fontMedium)
                       .paddingOnly(
                         left: spacing_standard_new,
                       )
@@ -103,9 +90,7 @@ class _GroceryRecipientDetailState extends State<GroceryRecipientDetail> {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          CountryCodePicker(
-                            onChanged: print,
-                          ),
+                          CountryCodePicker(onChanged: print),
                           Icon(
                             Icons.arrow_drop_down,
                             size: 30,
@@ -116,26 +101,16 @@ class _GroceryRecipientDetailState extends State<GroceryRecipientDetail> {
                       Container(
                         height: 1,
                         width: width * 0.22,
-                        decoration: boxDecoration(
-                            bgColor:
-                                grocery_textColorSecondary.withOpacity(0.5)),
+                        decoration: boxDecoration(bgColor: grocery_textColorSecondary.withOpacity(0.5), radius: 10.0),
                       ).paddingOnly(left: spacing_standard_new)
                     ],
                   ),
                   Expanded(
-                    child: EditText(
-                            text: "71 878 6729",
-                            isPassword: false,
-                            keyboardType: TextInputType.number)
-                        .paddingOnly(
-                            left: spacing_standard_new,
-                            right: spacing_standard_new),
+                    child: EditText(text: "71 878 6729", isPassword: false, keyboardType: TextInputType.number).paddingOnly(left: spacing_standard_new, right: spacing_standard_new),
                   )
                 ],
               ).paddingOnly(top: spacing_standard_new),
-              SizedBox(
-                height: spacing_standard_new,
-              ),
+              SizedBox(height: spacing_standard_new),
               Align(
                 alignment: Alignment.centerRight,
                 child: FittedBox(
@@ -143,13 +118,7 @@ class _GroceryRecipientDetailState extends State<GroceryRecipientDetail> {
                     textContent: grocery_lbl_Save,
                     color: grocery_colorPrimary,
                     onPressed: (() {}),
-                  )
-                      .paddingOnly(
-                          right: spacing_standard_new,
-                          bottom: spacing_standard_new)
-                      .paddingOnly(
-                          top: spacing_standard_new,
-                          bottom: spacing_standard_new),
+                  ).paddingOnly(right: spacing_standard_new, bottom: spacing_standard_new).paddingOnly(top: spacing_standard_new, bottom: spacing_standard_new),
                 ),
               )
             ],

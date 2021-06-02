@@ -3,5 +3,5 @@
 // found in the LICENSE file.
 library sticky_headers;
 
-export 'sticky_headers/widget.dart';
 export 'sticky_headers/render.dart';
+export 'sticky_headers/widget.dart';

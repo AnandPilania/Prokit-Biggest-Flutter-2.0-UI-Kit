@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/Quiz/Screens/QuizMobileVerify.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizColors.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizConstant.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizExtension.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizStrings.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizWidget.dart';
+import 'package:prokit_flutter/quiz/Screens/QuizMobileVerify.dart';
+import 'package:prokit_flutter/quiz/utils/QuizColors.dart';
+import 'package:prokit_flutter/quiz/utils/QuizConstant.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+
+import 'package:prokit_flutter/quiz/utils/QuizStrings.dart';
+import 'package:prokit_flutter/quiz/utils/QuizWidget.dart';
 
 class QuizCreatePassword extends StatefulWidget {
   static String tag = '/QuizCreatePassword';
@@ -83,7 +84,7 @@ class _QuizCreatePasswordState extends State<QuizCreatePassword> {
                     ],
                   ),
                 ).onTap(() {
-                  Navigator.popUntil(context, ModalRoute.withName('/'));
+                  finish(context);
                 }),
                 SizedBox(height: 20),
                 Container(
@@ -92,7 +93,7 @@ class _QuizCreatePasswordState extends State<QuizCreatePassword> {
                     textContent: quiz_lbl_continue,
                     onPressed: () {
                       setState(() {
-                        launchScreen(context, QuizMobileVerify.tag);
+                        QuizMobileVerify().launch(context);
                       });
                     },
                   ),

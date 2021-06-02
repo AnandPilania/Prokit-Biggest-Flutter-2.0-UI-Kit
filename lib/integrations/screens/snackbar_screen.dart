@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/integrations/utils/colors.dart';
-import 'package:prokit_flutter/integrations/utils/common.dart';
 import 'package:prokit_flutter/integrations/utils/constants.dart';
-import 'package:prokit_flutter/integrations/utils/styles.dart';
+import 'package:prokit_flutter/main/utils/AppColors.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class SnackBarScreen extends StatefulWidget {
   static String tag = '/SnackBarScreen';
@@ -18,10 +18,10 @@ class SnackBarScreenState extends State<SnackBarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(primaryColor);
+    changeStatusColor(appColorPrimary);
 
     return Scaffold(
-      appBar: getAppBar(context, "Snackbar"),
+      appBar: appBar(context, "Snackbar"),
       key: scaffoldKey,
       body: GridView(
         shrinkWrap: true,
@@ -30,8 +30,8 @@ class SnackBarScreenState extends State<SnackBarScreen> {
         children: <Widget>[
           GestureDetector(
             onTap: () {
-              scaffoldKey.currentState.hideCurrentSnackBar();
-              scaffoldKey.currentState.showSnackBar(SnackBar(
+              ScaffoldMessengerState().hideCurrentSnackBar();
+              ScaffoldMessengerState().showSnackBar(SnackBar(
                 content: text('This is simple Snackbar'),
               ));
             },
@@ -39,15 +39,16 @@ class SnackBarScreenState extends State<SnackBarScreen> {
           ),
           GestureDetector(
             onTap: () {
-              scaffoldKey.currentState.hideCurrentSnackBar();
-              scaffoldKey.currentState.showSnackBar(
+              ScaffoldMessengerState().hideCurrentSnackBar();
+              ScaffoldMessengerState().showSnackBar(
                 SnackBar(
                   content: text('This is Snackbar with Action'),
                   action: SnackBarAction(
-                      label: 'Undo',
-                      onPressed: () {
-                        toastSimple('Undo pressed');
-                      }),
+                    label: 'Undo',
+                    onPressed: () {
+                      toast('Undo pressed');
+                    },
+                  ),
                 ),
               );
             },
@@ -55,24 +56,24 @@ class SnackBarScreenState extends State<SnackBarScreen> {
           ),
           GestureDetector(
             onTap: () {
-              scaffoldKey.currentState.hideCurrentSnackBar();
-              scaffoldKey.currentState.showSnackBar(SnackBar(
+              ScaffoldMessengerState().hideCurrentSnackBar();
+              ScaffoldMessengerState().showSnackBar(SnackBar(
                 content: text('This is custom Snackbar', fontSize: 20),
-                backgroundColor: primaryColor,
+                backgroundColor: appColorPrimary,
               ));
             },
             child: simpleCard('Custom Snackbar'),
           ),
           GestureDetector(
             onTap: () {
-              scaffoldKey.currentState.hideCurrentSnackBar();
-              scaffoldKey.currentState.showSnackBar(SnackBar(
+              ScaffoldMessengerState().hideCurrentSnackBar();
+              ScaffoldMessengerState().showSnackBar(SnackBar(
                 content: text('This is infinite Snackbar with some info'),
                 duration: Duration(days: 365),
                 action: SnackBarAction(
                     label: 'Ok',
                     onPressed: () {
-                      scaffoldKey.currentState.hideCurrentSnackBar();
+                      ScaffoldMessengerState().hideCurrentSnackBar();
                     }),
               ));
             },
@@ -80,8 +81,8 @@ class SnackBarScreenState extends State<SnackBarScreen> {
           ),
           GestureDetector(
             onTap: () {
-              scaffoldKey.currentState.hideCurrentSnackBar();
-              scaffoldKey.currentState.showSnackBar(SnackBar(
+              ScaffoldMessengerState().hideCurrentSnackBar();
+              ScaffoldMessengerState().showSnackBar(SnackBar(
                 content: text('This is Floating Snackbar'),
                 behavior: SnackBarBehavior.floating,
               ));
@@ -90,8 +91,8 @@ class SnackBarScreenState extends State<SnackBarScreen> {
           ),
           GestureDetector(
             onTap: () {
-              scaffoldKey.currentState.hideCurrentSnackBar();
-              scaffoldKey.currentState.showSnackBar(SnackBar(
+              ScaffoldMessengerState().hideCurrentSnackBar();
+              ScaffoldMessengerState().showSnackBar(SnackBar(
                 content: text('This is Rounded Snackbar'),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30))),
                 behavior: SnackBarBehavior.floating,
@@ -101,10 +102,10 @@ class SnackBarScreenState extends State<SnackBarScreen> {
           ),
           GestureDetector(
             onTap: () {
-              scaffoldKey.currentState.hideCurrentSnackBar();
-              scaffoldKey.currentState.showSnackBar(SnackBar(
-                content: text('This is Bordered Snackbar', textColor: primaryColor),
-                shape: Border.all(color: primaryColor),
+              ScaffoldMessengerState().hideCurrentSnackBar();
+              ScaffoldMessengerState().showSnackBar(SnackBar(
+                content: text('This is Bordered Snackbar', textColor: appColorPrimary),
+                shape: Border.all(color: appColorPrimary),
                 backgroundColor: whiteColor,
                 behavior: SnackBarBehavior.floating,
               ));

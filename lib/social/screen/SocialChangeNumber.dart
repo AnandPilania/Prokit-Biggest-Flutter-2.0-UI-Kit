@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/main/utils/codePicker/country_code_picker.dart';
 import 'package:prokit_flutter/social/utils/SocialColors.dart';
 import 'package:prokit_flutter/social/utils/SocialConstant.dart';
-import 'package:prokit_flutter/social/utils/SocialExtension.dart';
 import 'package:prokit_flutter/social/utils/SocialStrings.dart';
 import 'package:prokit_flutter/social/utils/SocialWidget.dart';
-import 'package:prokit_flutter/social/utils/codePicker/country_code_picker.dart';
 
 import 'SocialDashboard.dart';
 
@@ -124,7 +125,7 @@ class SocialChangeNumberState extends State<SocialChangeNumber> {
                         ),
                         SocialAppButton(
                           onPressed: () {
-                            launchScreen(context, SocialDashboard.tag);
+                            SocialDashboard().launch(context);
                           },
                           textContent: social_lbl_continue,
                         ),

@@ -8,8 +8,8 @@ import 'enums/confetti_controller_state.dart';
 
 class ConfettiWidget extends StatefulWidget {
   const ConfettiWidget({
-    Key key,
-    @required this.confettiController,
+    Key? key,
+    required this.confettiController,
     this.emissionFrequency = 0.02,
     this.numberOfParticles = 10,
     this.maxBlastForce = 20,
@@ -25,20 +25,9 @@ class ConfettiWidget extends StatefulWidget {
     this.particleDrag = 0.05,
     this.canvas,
     this.child,
-  })  : assert(
-            confettiController != null,
-            emissionFrequency != null &&
-                numberOfParticles != null &&
-                maxBlastForce != null &&
-                minBlastForce != null &&
-                blastDirectionality != null &&
-                blastDirection != null),
-        assert(emissionFrequency >= 0 &&
-            emissionFrequency <= 1 &&
-            numberOfParticles > 0 &&
-            maxBlastForce > 0 &&
-            minBlastForce > 0 &&
-            maxBlastForce > minBlastForce),
+  })  : assert(confettiController != null,
+            emissionFrequency != null && numberOfParticles != null && maxBlastForce != null && minBlastForce != null && blastDirectionality != null && blastDirection != null),
+        assert(emissionFrequency >= 0 && emissionFrequency <= 1 && numberOfParticles > 0 && maxBlastForce > 0 && minBlastForce > 0 && maxBlastForce > minBlastForce),
         assert(gravity >= 0 && gravity <= 1),
         super(key: key);
 
@@ -84,7 +73,7 @@ class ConfettiWidget extends StatefulWidget {
   final bool displayTarget;
 
   /// List of Colors to iterate over - if null then random values will be chosen
-  final List<Color> colors;
+  final List<Color>? colors;
 
   /// An optional parameter to set the minimum size potential size for the confetti.
   /// Must be smaller than the [maximumSize] attribute. Cannot be null
@@ -100,25 +89,24 @@ class ConfettiWidget extends StatefulWidget {
 
   /// An optional parameter to specify the area size where the confetti will be thrown.
   /// By default this is set to screen size.
-  final Size canvas;
+  final Size? canvas;
 
   /// Child widget to display
-  final Widget child;
+  final Widget? child;
 
   @override
   _ConfettiWidgetState createState() => _ConfettiWidgetState();
 }
 
-class _ConfettiWidgetState extends State<ConfettiWidget>
-    with SingleTickerProviderStateMixin {
+class _ConfettiWidgetState extends State<ConfettiWidget> with SingleTickerProviderStateMixin {
   final GlobalKey _particleSystemKey = GlobalKey();
 
-  AnimationController _animController;
-  Animation<double> _animation;
-  ParticleSystem _particleSystem;
+  AnimationController? _animController;
+  late Animation<double> _animation;
+  ParticleSystem? _particleSystem;
 
   /// Keeps track of emition position on screen layout changes
-  Offset _emitterPosition;
+  Offset? _emitterPosition;
 
   /// Keeps track of the screen size on layout changes
   /// Controls the sizing restrictions for when confetti should be vissible
@@ -141,16 +129,15 @@ class _ConfettiWidgetState extends State<ConfettiWidget>
         maximumsize: widget.maximumSize,
         particleDrag: widget.particleDrag);
 
-    _particleSystem.addListener(_particleSystemListener);
+    _particleSystem!.addListener(_particleSystemListener);
 
     _initAnimation();
     super.initState();
   }
 
   void _initAnimation() {
-    _animController = AnimationController(
-        vsync: this, duration: widget.confettiController.duration);
-    _animation = Tween<double>(begin: 0, end: 1).animate(_animController);
+    _animController = AnimationController(vsync: this, duration: widget.confettiController.duration);
+    _animation = Tween<double>(begin: 0, end: 1).animate(_animController!);
     _animation.addListener(_animationListener);
     _animation.addStatusListener(_animationStatusListener);
 
@@ -164,18 +151,17 @@ class _ConfettiWidgetState extends State<ConfettiWidget>
     if (widget.confettiController.state == ConfettiControllerState.playing) {
       _startAnimation();
       _startEmission();
-    } else if (widget.confettiController.state ==
-        ConfettiControllerState.stopped) {
+    } else if (widget.confettiController.state == ConfettiControllerState.stopped) {
       _stopEmission();
     }
   }
 
   void _animationListener() {
-    if (_particleSystem.particleSystemStatus == ParticleSystemStatus.finished) {
-      _animController.stop();
+    if (_particleSystem!.particleSystemStatus == ParticleSystemStatus.finished) {
+      _animController!.stop();
       return;
     }
-    _particleSystem.update();
+    _particleSystem!.update();
   }
 
   void _animationStatusListener(AnimationStatus status) {
@@ -188,52 +174,51 @@ class _ConfettiWidgetState extends State<ConfettiWidget>
   }
 
   void _particleSystemListener() {
-    if (_particleSystem.particleSystemStatus == ParticleSystemStatus.finished) {
+    if (_particleSystem!.particleSystemStatus == ParticleSystemStatus.finished) {
       _stopAnimation();
     }
   }
 
   void _startEmission() {
-    _particleSystem.startParticleEmission();
+    _particleSystem!.startParticleEmission();
   }
 
   void _stopEmission() {
-    if (_particleSystem.particleSystemStatus == ParticleSystemStatus.stopped) {
+    if (_particleSystem!.particleSystemStatus == ParticleSystemStatus.stopped) {
       return;
     }
-    _particleSystem.stopParticleEmission();
+    _particleSystem!.stopParticleEmission();
   }
 
   void _startAnimation() {
     // Make sure widgets are built before setting screen size and position
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       _setScreenSize();
       _setEmitterPosition();
-      _animController.forward(from: 0);
+      _animController!.forward(from: 0);
     });
   }
 
   void _stopAnimation() {
-    _animController.stop();
+    _animController!.stop();
   }
 
   void _continueAnimation() {
-    _animController.forward(from: 0);
+    _animController!.forward(from: 0);
   }
 
   void _setScreenSize() {
     _screenSize = _getScreenSize();
-    _particleSystem.screenSize = _screenSize;
+    _particleSystem!.screenSize = _screenSize;
   }
 
   void _setEmitterPosition() {
     _emitterPosition = _getContainerPosition();
-    _particleSystem.particleSystemPosition = _emitterPosition;
+    _particleSystem!.particleSystemPosition = _emitterPosition;
   }
 
   Offset _getContainerPosition() {
-    final RenderBox containerRenderBox =
-        _particleSystemKey.currentContext.findRenderObject();
+    final RenderBox containerRenderBox = _particleSystemKey.currentContext!.findRenderObject() as RenderBox;
     return containerRenderBox.localToGlobal(Offset.zero);
   }
 
@@ -265,7 +250,7 @@ class _ConfettiWidgetState extends State<ConfettiWidget>
         key: _particleSystemKey,
         foregroundPainter: ParticlePainter(
           _animController,
-          particles: _particleSystem.particles,
+          particles: _particleSystem!.particles,
           paintEmitterTarget: widget.displayTarget,
         ),
         child: widget.child,
@@ -276,19 +261,16 @@ class _ConfettiWidgetState extends State<ConfettiWidget>
   @override
   void dispose() {
     widget.confettiController.stop();
-    _animController.dispose();
+    _animController!.dispose();
     widget.confettiController.removeListener(_handleChange);
-    _particleSystem.removeListener(_particleSystemListener);
+    _particleSystem!.removeListener(_particleSystemListener);
     _particleSystem = null;
     super.dispose();
   }
 }
 
 class ParticlePainter extends CustomPainter {
-  ParticlePainter(Listenable repaint,
-      {@required this.particles,
-      paintEmitterTarget = true,
-      emitterTargetColor = Colors.black})
+  ParticlePainter(Listenable? repaint, {required this.particles, paintEmitterTarget = true, emitterTargetColor = Colors.black})
       : _paintEmitterTarget = paintEmitterTarget,
         _emitterPaint = Paint()
           ..color = emitterTargetColor
@@ -349,10 +331,7 @@ class ParticlePainter extends CustomPainter {
 }
 
 class ConfettiController extends ChangeNotifier {
-  ConfettiController({this.duration = const Duration(seconds: 30)})
-      : assert(duration != null &&
-            !duration.isNegative &&
-            duration.inMicroseconds > 0);
+  ConfettiController({this.duration = const Duration(seconds: 30)}) : assert(duration != null && !duration.isNegative && duration.inMicroseconds > 0);
 
   Duration duration;
 

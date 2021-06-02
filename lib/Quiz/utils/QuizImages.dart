@@ -1,8 +1,7 @@
 import 'package:prokit_flutter/main/utils/AppConstant.dart';
 
 const quiz_ic_communication = "$BaseUrl/images/quiz/quiz_ic_communication.png";
-const quiz_ic_communication2 =
-    "$BaseUrl/images/quiz/quiz_ic_communication2.png";
+const quiz_ic_communication2 = "$BaseUrl/images/quiz/quiz_ic_communication2.png";
 const quiz_ic_course1 = "$BaseUrl/images/quiz/quiz_ic_course1.png";
 const quiz_ic_course2 = "$BaseUrl/images/quiz/quiz_ic_course2.png";
 const quiz_ic_course3 = "$BaseUrl/images/quiz/quiz_ic_course3.png";

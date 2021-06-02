@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/social/model/SocialModel.dart';
 import 'package:prokit_flutter/social/utils/SocialColors.dart';
 import 'package:prokit_flutter/social/utils/SocialConstant.dart';
@@ -16,7 +17,7 @@ class SocialVerify extends StatefulWidget {
 }
 
 class SocialVerifyState extends State<SocialVerify> {
-  List<Qr> mList;
+  late List<Qr> mList;
 
   @override
   void initState() {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/orapay/utils/Style.dart';
 
 import 'op_login_screen.dart';
-import 'package:nb_utils/nb_utils.dart' as style;
 
 class OPWalkThroughScreen extends StatefulWidget {
   static String tag = '/OPWalkThroughScreen';
@@ -14,7 +14,7 @@ class OPWalkThroughScreen extends StatefulWidget {
 class _OPWalkThroughScreenState extends State<OPWalkThroughScreen> {
   PageController pageController = PageController(initialPage: 0);
   int pageChanged = 0;
-  DateTime backbuttonpressedTime;
+  DateTime? backbuttonpressedTime;
 
   @override
   Widget build(BuildContext context) {
@@ -184,7 +184,7 @@ class _OPWalkThroughScreenState extends State<OPWalkThroughScreen> {
                               color: Color(0xFF343EDB),
                               title: 'Login',
                               onPressed: () {
-                                Navigator.pop(context);
+                                finish(context);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(

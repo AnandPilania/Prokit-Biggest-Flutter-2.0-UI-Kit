@@ -1,9 +1,9 @@
 class ScoreboardModel {
-  String image;
-  String title;
-  String subtitle;
-  double status;
-  String backgroundImages;
+  String? image;
+  String? title;
+  String? subtitle;
+  double? status;
+  String? backgroundImages;
 
   ScoreboardModel({
     this.image,

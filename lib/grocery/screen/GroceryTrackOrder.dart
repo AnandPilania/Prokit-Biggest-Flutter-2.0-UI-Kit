@@ -5,6 +5,7 @@ import 'package:prokit_flutter/grocery/utils/GeoceryStrings.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryColors.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class GroceryTrackOrderScreen extends StatefulWidget {
   static String tag = '/GroceryTrackOrderScreen';
@@ -23,7 +24,7 @@ class _GroceryTrackOrderScreenState extends State<GroceryTrackOrderScreen> {
         shrinkWrap: true,
         itemBuilder: (context, index) {
           return Container(
-            decoration: boxDecoration(showShadow: true),
+            decoration: boxDecoration(showShadow: true, radius: 10.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
@@ -84,7 +85,7 @@ class _GroceryTrackOrderScreenState extends State<GroceryTrackOrderScreen> {
           size: 30,
           color: grocery_color_white,
         ).onTap(() {
-          Navigator.pop(context);
+          finish(context);
         }),
         title: text(grocery_trackOrders, fontSize: textSizeNormal, textColor: grocery_color_white, fontFamily: fontBold),
       ),

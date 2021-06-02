@@ -1,15 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/Learner/Screens/learnerFriendDetail.dart';
-import 'package:prokit_flutter/Learner/model/LearnerModels.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerColors.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerConstant.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerDataGenerator.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerExtension.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerImages.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerStrings.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerWidget.dart';
+import 'package:prokit_flutter/learner/Screens/learnerFriendDetail.dart';
+import 'package:prokit_flutter/learner/model/LearnerModels.dart';
+import 'package:prokit_flutter/learner/utils/LearnerColors.dart';
+import 'package:prokit_flutter/learner/utils/LearnerConstant.dart';
+import 'package:prokit_flutter/learner/utils/LearnerDataGenerator.dart';
+import 'package:prokit_flutter/learner/utils/LearnerImages.dart';
+import 'package:prokit_flutter/learner/utils/LearnerStrings.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class LearnerMyFriends extends StatefulWidget {
   @override
@@ -17,8 +16,8 @@ class LearnerMyFriends extends StatefulWidget {
 }
 
 class _LearnerMyFriendsState extends State<LearnerMyFriends> {
-  List<LearnerPeopleModel> mList1;
-  List<LearnerPeopleModel> mList2;
+  late List<LearnerPeopleModel> mList1;
+  late List<LearnerPeopleModel> mList2;
 
   @override
   void initState() {
@@ -30,7 +29,7 @@ class _LearnerMyFriendsState extends State<LearnerMyFriends> {
   @override
   Widget build(BuildContext context) {
     changeStatusColor(learner_layout_background);
-    var width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: SafeArea(
         child: DefaultTabController(
@@ -47,9 +46,7 @@ class _LearnerMyFriendsState extends State<LearnerMyFriends> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        SizedBox(
-                          height: 8,
-                        ),
+                        SizedBox(height: 8),
                         Container(
                           alignment: Alignment.centerLeft,
                           width: MediaQuery.of(context).size.width,
@@ -63,16 +60,11 @@ class _LearnerMyFriendsState extends State<LearnerMyFriends> {
                             },
                           ),
                         ),
-                        text(learner_lbl_My_Friends,
-                            fontSize: textSizeLarge,
-                            fontFamily: fontBold,
-                            textColor: learner_textColorPrimary),
-                        SizedBox(
-                          height: 10,
-                        ),
+                        text(learner_lbl_My_Friends, fontSize: textSizeLarge, fontFamily: fontBold, textColor: learner_textColorPrimary),
+                        SizedBox(height: 10),
                         Container(
                           width: MediaQuery.of(context).size.width / 1.3,
-                          child: new TabBar(
+                          child: TabBar(
                             labelPadding: EdgeInsets.only(left: 0, right: 0),
                             indicatorWeight: 4.0,
                             indicatorSize: TabBarIndicatorSize.label,
@@ -82,34 +74,23 @@ class _LearnerMyFriendsState extends State<LearnerMyFriends> {
                             unselectedLabelColor: learner_textColorSecondary,
                             tabs: [
                               Container(
-                                padding: const EdgeInsets.all(8.0),
-                                child: new Text(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
                                   learner_lbl_Accepted,
-                                  style: TextStyle(
-                                      fontSize: 18.0, fontFamily: fontBold),
+                                  style: TextStyle(fontSize: 18.0, fontFamily: fontBold),
                                 ),
                               ),
                               Container(
                                 padding: const EdgeInsets.all(12.0),
                                 child: Row(
                                   children: <Widget>[
-                                    Text(
-                                      learner_lbl_pending,
-                                      style: TextStyle(
-                                          fontSize: 18.0, fontFamily: fontBold),
-                                    ),
+                                    Text(learner_lbl_pending, style: TextStyle(fontSize: 18.0, fontFamily: fontBold)),
                                     Container(
                                       color: learner_colorPrimary,
                                       height: 25,
                                       width: 40,
-                                      child: text("80+",
-                                              textColor: learner_white,
-                                              fontSize: textSizeSMedium)
-                                          .paddingOnly(
-                                              top: 2, left: 8, right: 4),
-                                    )
-                                        .cornerRadiusWithClipRRect(15)
-                                        .paddingOnly(left: 8)
+                                      child: text("80+", textColor: learner_white, fontSize: textSizeSMedium).paddingOnly(top: 2, left: 8, right: 4),
+                                    ).cornerRadiusWithClipRRect(15).paddingOnly(left: 8)
                                   ],
                                 ),
                               )
@@ -125,19 +106,21 @@ class _LearnerMyFriendsState extends State<LearnerMyFriends> {
             body: TabBarView(
               children: <Widget>[
                 ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: mList1.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return LearnerAccepted(mList1[index], index);
-                    }),
+                  scrollDirection: Axis.vertical,
+                  itemCount: mList1.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return LearnerAccepted(mList1[index], index);
+                  },
+                ),
                 ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: mList2.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return LearnerPending(mList2[index], index);
-                    }),
+                  scrollDirection: Axis.vertical,
+                  itemCount: mList2.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return LearnerPending(mList2[index], index);
+                  },
+                ),
               ],
             ),
           ),
@@ -148,7 +131,7 @@ class _LearnerMyFriendsState extends State<LearnerMyFriends> {
 }
 
 class LearnerPending extends StatelessWidget {
-  LearnerPeopleModel model;
+  late LearnerPeopleModel model;
 
   LearnerPending(LearnerPeopleModel model, int pos) {
     this.model = model;
@@ -177,28 +160,21 @@ class LearnerPending extends StatelessWidget {
                       height: 15,
                       width: 15,
                       decoration: BoxDecoration(
-                          color: model.isOnline
-                              ? learner_green
-                              : learner_greyColor.withOpacity(1.0),
-                          shape: BoxShape.circle,
-                          border: Border.all(color: learner_white, width: 1.5)),
+                        color: model.isOnline ? learner_green : learner_greyColor.withOpacity(1.0),
+                        shape: BoxShape.circle,
+                        border: Border.all(color: learner_white, width: 1.5),
+                      ),
                     ).cornerRadiusWithClipRRect(7).paddingOnly(top: 4, right: 2)
                   ],
                 ),
-                SizedBox(
-                  width: 16,
-                ),
+                SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      text(model.name,
-                          fontFamily: fontMedium,
-                          textColor: learner_textColorPrimary),
-                      SizedBox(
-                        width: 4,
-                      ),
+                      text(model.name, fontFamily: fontMedium, textColor: learner_textColorPrimary),
+                      SizedBox(width: 4),
                       text(model.email, textColor: learner_textColorSecondary),
                     ],
                   ).paddingOnly(right: 16),
@@ -211,13 +187,7 @@ class LearnerPending extends StatelessWidget {
                       learner_ic_uncheck,
                       height: 40,
                       width: 40,
-                    )
-                        .withShadow(
-                            shadowColor: learner_ShadowColor,
-                            blurRadius: 10.0,
-                            spreadRadius: 4.0)
-                        .paddingOnly(right: 16)
-                        .onTap(() {
+                    ).withShadow(shadowColor: learner_ShadowColor, blurRadius: 10.0, spreadRadius: 4.0).paddingOnly(right: 16).onTap(() {
                       print("uncheck");
                     }),
                     Image.asset(
@@ -227,8 +197,7 @@ class LearnerPending extends StatelessWidget {
                     ).paddingOnly(right: 8).onTap(() {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => LearnerFriendDetail()),
+                        MaterialPageRoute(builder: (context) => LearnerFriendDetail()),
                       );
                     }),
                   ],
@@ -243,7 +212,7 @@ class LearnerPending extends StatelessWidget {
 }
 
 class LearnerAccepted extends StatelessWidget {
-  LearnerPeopleModel model;
+  late LearnerPeopleModel model;
 
   LearnerAccepted(LearnerPeopleModel model, int pos) {
     this.model = model;
@@ -270,27 +239,16 @@ class LearnerAccepted extends StatelessWidget {
                   Container(
                     height: 15,
                     width: 15,
-                    decoration: BoxDecoration(
-                        color: model.isOnline
-                            ? learner_green
-                            : learner_greyColor.withOpacity(1.0),
-                        shape: BoxShape.circle,
-                        border: Border.all(color: learner_white, width: 1.5)),
+                    decoration: BoxDecoration(color: model.isOnline ? learner_green : learner_greyColor.withOpacity(1.0), shape: BoxShape.circle, border: Border.all(color: learner_white, width: 1.5)),
                   ).cornerRadiusWithClipRRect(7).paddingOnly(top: 4, right: 2)
                 ],
               ),
-              SizedBox(
-                width: 16,
-              ),
+              SizedBox(width: 16),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  text(model.name,
-                      fontFamily: fontMedium,
-                      textColor: learner_textColorPrimary),
-                  SizedBox(
-                    width: 4,
-                  ),
+                  text(model.name, fontFamily: fontMedium, textColor: learner_textColorPrimary),
+                  SizedBox(width: 4),
                   text(model.email, textColor: learner_textColorSecondary),
                 ],
               )

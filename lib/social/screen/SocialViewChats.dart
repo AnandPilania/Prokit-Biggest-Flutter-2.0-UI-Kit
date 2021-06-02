@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/social/model/SocialModel.dart';
 import 'package:prokit_flutter/social/utils/SocialColors.dart';
 import 'package:prokit_flutter/social/utils/SocialConstant.dart';
 import 'package:prokit_flutter/social/utils/SocialDataGenerator.dart';
-import 'package:prokit_flutter/social/utils/SocialExtension.dart';
 import 'package:prokit_flutter/social/utils/SocialWidget.dart';
 
 import 'SocialHomeChats.dart';
@@ -17,7 +17,7 @@ class SocialViewChat extends StatefulWidget {
 }
 
 class SocialViewChatState extends State<SocialViewChat> {
-  List<SocialUser> mList;
+  late List<SocialUser> mList;
 
   @override
   void initState() {

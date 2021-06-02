@@ -10,5 +10,5 @@ class DB1FoodModel {
 class Db1CategoryModel {
   var name = "";
   var img = "";
-  Color color;
+  Color? color;
 }

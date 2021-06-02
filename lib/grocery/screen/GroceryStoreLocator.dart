@@ -1,18 +1,17 @@
 import 'dart:async';
 
-import 'package:clustering_google_maps/clustering_google_maps.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoder/geocoder.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/grocery/model/grocery_allStores_model.dart';
 import 'package:prokit_flutter/grocery/utils/GeoceryStrings.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryColors.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
-import 'package:prokit_flutter/grocery/utils/GroceryExtension.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryWidget.dart';
-import 'package:prokit_flutter/grocery/utils/grocery_common.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/main/utils/clusteringGoogleMaps/clustering_helper.dart';
+import 'package:prokit_flutter/main/utils/clusteringGoogleMaps/lat_lang_geohash.dart';
 
 class GroceryStoreLocatorScreen extends StatefulWidget {
   static String tag = '/GroceryStoreLocatorScreen';
@@ -25,13 +24,13 @@ class _GroceryStoreLocatorScreenState extends State<GroceryStoreLocatorScreen> {
   List<AllStores> listAllStores = allStores;
   Completer<GoogleMapController> _controller = Completer();
 
-  ClusteringHelper clusteringHelper;
-  List<LatLngAndGeohash> list;
+  ClusteringHelper? clusteringHelper;
+  List<LatLngAndGeohash>? list;
 
-  List<Marker> markers = List();
+  List<Marker> markers = [];
   var mMapType = MapType.normal;
-
-  initMemoryClustering(context) async {
+// TODO Without NullSafety Geo coder
+ /* initMemoryClustering(context) async {
     list = await getListOfLatLngAndGeoHash(context);
     clusteringHelper = ClusteringHelper.forMemory(
       list: list,
@@ -39,7 +38,7 @@ class _GroceryStoreLocatorScreenState extends State<GroceryStoreLocatorScreen> {
       aggregationSetup: AggregationSetup(markerSize: 150), // You can customize marker size, colors and size limits
     );
     setState(() {});
-  }
+  }*/
 
   updateMarkers(Set<Marker> markers) {
     this.markers = markers.toList();
@@ -47,7 +46,7 @@ class _GroceryStoreLocatorScreenState extends State<GroceryStoreLocatorScreen> {
 
   @override
   void afterFirstLayout(BuildContext context) {
-    initMemoryClustering(context);
+   // initMemoryClustering(context);
   }
 
   @override
@@ -64,7 +63,7 @@ class _GroceryStoreLocatorScreenState extends State<GroceryStoreLocatorScreen> {
         shrinkWrap: true,
         itemBuilder: (context, index) {
           return Container(
-            decoration: boxDecoration(showShadow: true),
+            decoration: boxDecoration(showShadow: true, radius: 10.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
@@ -110,8 +109,8 @@ class _GroceryStoreLocatorScreenState extends State<GroceryStoreLocatorScreen> {
             ).paddingOnly(left: 16, right: 16, top: 16, bottom: 16),
           ).paddingOnly(left: 16, right: 16, top: 16).onTap(() {});
         });
-
-    final nearby = GoogleMap(
+// TODO Without NullSafety Geo coder
+/*    final nearby = GoogleMap(
       compassEnabled: true,
       indoorViewEnabled: true,
       trafficEnabled: true,
@@ -120,18 +119,18 @@ class _GroceryStoreLocatorScreenState extends State<GroceryStoreLocatorScreen> {
       onCameraMove: (newPosition) => clusteringHelper.onCameraMove(newPosition, forceUpdate: false),
       onCameraIdle: clusteringHelper != null ? clusteringHelper.onMapIdle : null,
       initialCameraPosition: initialPosition,
-      onTap: _handleTap,
+      //onTap: _handleTap,
       onMapCreated: (GoogleMapController controller) {
         clusteringHelper.mapController = controller;
         _controller.complete(controller);
         clusteringHelper.updateMap();
       },
-    );
+    );*/
 
     return Scaffold(
       body: SafeArea(
         child: DefaultTabController(
-          length: 2,
+          length: 1,
           child: Scaffold(
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(120),
@@ -144,7 +143,7 @@ class _GroceryStoreLocatorScreenState extends State<GroceryStoreLocatorScreen> {
                       children: <Widget>[
                         IconButton(
                           onPressed: () {
-                            back(context);
+                            finish(context);
                           },
                           icon: Icon(
                             Icons.clear,
@@ -173,7 +172,8 @@ class _GroceryStoreLocatorScreenState extends State<GroceryStoreLocatorScreen> {
                           if (index == 0) {
                             print('Hellooo');
                           } else if (index == 1) {
-                            initMemoryClustering(context);
+                            // TODO Without NullSafety Geo coder
+                            //initMemoryClustering(context);
                           }
                         },
                         tabs: [
@@ -184,13 +184,14 @@ class _GroceryStoreLocatorScreenState extends State<GroceryStoreLocatorScreen> {
                               style: TextStyle(fontSize: textSizeMedium),
                             ),
                           ),
-                          Container(
+                          // TODO Without NullSafety Geo coder
+                          /*Container(
                             padding: const EdgeInsets.only(bottom: 16),
                             child: Text(
                               grocery_nearby,
                               style: TextStyle(fontSize: textSizeMedium),
                             ),
-                          ),
+                          ),*/
                         ],
                       ),
                     ).paddingOnly(top: 24),
@@ -199,22 +200,24 @@ class _GroceryStoreLocatorScreenState extends State<GroceryStoreLocatorScreen> {
               ),
             ),
             body: TabBarView(
+              children: <Widget>[allStores],
               physics: NeverScrollableScrollPhysics(),
-              children: <Widget>[allStores, nearby],
+              // TODO Without NullSafety Geo coder
+             // children: <Widget>[allStores, nearby],
             ),
           ),
         ),
       ),
     );
   }
-
-  getLocation(LatLng point) async {
+//TODO Geo coder Without null safety
+/*  getLocation(LatLng point) async {
     var coordinates = Coordinates(point.latitude, point.longitude);
     var addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
     return addresses.first.addressLine;
-  }
-
-  void _handleTap(LatLng point) async {
+  }*/
+//TODO Geo coder Without null safety
+ /* void _handleTap(LatLng point) async {
     toast('Fetching Location');
     var location = await getLocation(point);
     setState(() {
@@ -228,5 +231,5 @@ class _GroceryStoreLocatorScreenState extends State<GroceryStoreLocatorScreen> {
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
       ));
     });
-  }
+  }*/
 }

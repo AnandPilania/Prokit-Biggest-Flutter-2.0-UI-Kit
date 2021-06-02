@@ -3,8 +3,7 @@ import 'package:prokit_flutter/main/utils/AppConstant.dart';
 const social_walk = "$BaseUrl/images/social/social_walk.png";
 const social_briefcase = "images/social/social_briefcase.svg";
 const social_chat_line = "images/social/social_chat_line.svg";
-const social_double_tick_indicator =
-    "images/social/social_double_tick_indicator.svg";
+const social_double_tick_indicator = "images/social/social_double_tick_indicator.svg";
 const social_frame = "images/social/social_frame.svg";
 const social_group_line = "images/social/social_group_line.svg";
 const social_ic_item1 = "$BaseUrl/images/social/social_ic_item1.png";

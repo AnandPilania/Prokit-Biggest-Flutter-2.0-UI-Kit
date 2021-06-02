@@ -12,8 +12,8 @@ class MWProgressBarScreen extends StatefulWidget {
 }
 
 class MWProgressBarScreenState extends State<MWProgressBarScreen> with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  Animation<double> animation;
+  late AnimationController controller;
+  late Animation<double> animation;
 
   @override
   void initState() {
@@ -102,7 +102,7 @@ class MWProgressBarScreenState extends State<MWProgressBarScreen> with SingleTic
 
     return SafeArea(
       child: Scaffold(
-        appBar: appBar(context, 'ProgressBar'),
+        appBar: appBar(context, 'Progress Bar'),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

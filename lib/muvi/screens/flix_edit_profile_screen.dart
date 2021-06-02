@@ -3,11 +3,12 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/muvi/utils/flix_app_localizations.dart';
 import 'package:prokit_flutter/muvi/utils/flix_app_widgets.dart';
 import 'package:prokit_flutter/muvi/utils/flix_constants.dart';
-import 'package:prokit_flutter/muvi/utils/flix_widget_extensions.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_colors.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_images.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_size.dart';
@@ -39,7 +40,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   var userName;
   var userEmail;
   var userId;
-  File imageFile;
+  late File imageFile;
   bool isLoading = false;
   bool loadFromFile = false;
   var selectedGender;
@@ -77,20 +78,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     });
   }
 
-  Future getImage(ImgSource source) async {
-    var image = await ImagePickerGC.pickImage(
-      context: context,
-      source: source,
-      cameraIcon: Icon(
-        Icons.add,
-        color: Colors.red,
-      ), //cameraIcon and galleryIcon can change. If no icon provided default icon will be present
-    );
+  Future getImage(ImageSource source) async {
+    var image = await ImagePicker().getImage(source: source);
     if (image != null) {
-      setState(() {
-        imageFile = image;
-        loadFromFile = true;
-      });
+      imageFile = File(image.path);
+      loadFromFile = true;
+      setState(() {});
     }
   }
 
@@ -128,9 +121,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      selectedGender = getGenders(context).first;
-    });
+    selectedGender = getGenders(context).first;
+
     final profilePhoto = Container(
         width: double.infinity,
         child: Column(
@@ -160,15 +152,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         )
                       : Image.asset(ic_profile, width: 95, height: 95),
             ).onTap(() {
-              getImage(ImgSource.Both);
+              getImage(ImageSource.gallery);
             }),
-            text(context, keyString(context, "change_photo"), textColor: muvi_textColorPrimary, fontFamily: font_bold, fontSize: ts_medium).paddingTop(spacing_standard_new).onTap(() {})
+            text(keyString(context, "change_photo"), textColor: muvi_textColorPrimary, fontFamily: font_bold, fontSize: ts_medium).paddingTop(spacing_standard_new).onTap(() {})
           ],
         ).paddingOnly(top: 16));
 
     final fields = Form(
       key: _formKey,
-      autovalidate: _autoValidate,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -178,10 +170,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             controller: _emailController,
             focusNode: _emailFocusNode,
             nextFocus: _nameFocusNode,
-            validator: (value) {
-              return value.validateEMail(context);
+            validator: (String? value) {
+              if (!value.validateEmail()) return keyString(context, "error_invalid_email");
+              return null;
             },
-            onSaved: (String value) {
+            onSaved: (String? value) {
               userEmail = value;
             },
             suffixIcon: Icons.mail_outline,
@@ -193,9 +186,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             focusNode: _nameFocusNode,
             nextFocus: _contactFocusNode,
             validator: (value) {
-              return value.isEmpty ? keyString(context, "error_name_required") : null;
+              return value!.isEmpty ? keyString(context, "error_name_required") : null;
             },
-            onSaved: (String value) {
+            onSaved: (String? value) {
               name = value;
             },
             suffixIcon: Icons.person_outline,
@@ -208,9 +201,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             keyboardType: TextInputType.phone,
             textInputAction: TextInputAction.done,
             validator: (value) {
-              return value.isEmpty ? keyString(context, "error_phone_requires") : null;
+              return value!.isEmpty ? keyString(context, "error_phone_requires") : null;
             },
-            onSaved: (String value) {
+            onSaved: (String? value) {
               contact = value;
             },
             suffixIcon: Icons.phone,
@@ -219,7 +212,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                keyString(context, "gender"),
+                keyString(context, "gender")!,
                 style: TextStyle(fontSize: ts_medium_small, fontFamily: font_regular, color: muvi_textColorPrimary),
               ),
               Theme(
@@ -227,14 +220,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 child: DropdownButton(
                   value: selectedGender,
                   isExpanded: true,
-                  onChanged: (newValue) {
+                  onChanged: (dynamic newValue) {
                     setState(() {
                       selectedGender = newValue;
                     });
                   },
                   items: getGenders(context).map((value) {
                     return DropdownMenuItem(
-                      child: text(context, value, fontSize: ts_normal, textColor: muvi_textColorPrimary),
+                      child: text(value, fontSize: ts_normal, textColor: muvi_textColorPrimary),
                       value: value,
                     );
                   }).toList(),
@@ -267,7 +260,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       if (isLoading) {
                         return;
                       }
-                      final form = _formKey.currentState;
+                      final form = _formKey.currentState!;
                       if (form.validate()) {
                         form.save();
 //                      saveProfile(context);

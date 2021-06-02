@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:prokit_flutter/main.dart';
 import 'package:prokit_flutter/theme5/utils/T5BubbleBotoomBar.dart';
 import 'package:prokit_flutter/theme5/utils/T5Colors.dart';
-import 'package:prokit_flutter/theme5/utils/T5Extension.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme5/utils/T5Images.dart';
 import 'package:prokit_flutter/theme5/utils/T5Strings.dart';
 import 'package:prokit_flutter/theme5/utils/T5Widget.dart';
@@ -31,22 +32,19 @@ class T5BottomNavigationState extends State<T5BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(t5White);
+    changeStatusColor(appStore.appBarColor!);
 
     return Scaffold(
       bottomNavigationBar: BubbleBottomBar(
         opacity: .2,
         currentIndex: currentIndex,
+        backgroundColor: appStore.appBarColor,
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
         elevation: 8,
         onTap: changePage,
-        //new
         hasNotch: false,
-        //new
         hasInk: true,
-        //new, gives a cute ink effect
         inkColor: t5ColorPrimaryLight,
-        //optional, uses theme color if not specified
         items: <BubbleBottomBarItem>[
           tab(t5_img_home, t5_home),
           tab(t5_list_check, t5_lbl_listing),

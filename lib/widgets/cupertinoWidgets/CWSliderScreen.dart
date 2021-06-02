@@ -13,7 +13,6 @@ class CWSliderScreen extends StatefulWidget {
 }
 
 class CWSliderScreenState extends State<CWSliderScreen> {
-
   double progressValue = 10.0;
   double divisionsProgressValue = 40.0;
 
@@ -23,7 +22,7 @@ class CWSliderScreenState extends State<CWSliderScreen> {
     init();
   }
 
-  init() async{
+  init() async {
     //
   }
 
@@ -41,7 +40,10 @@ class CWSliderScreenState extends State<CWSliderScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             8.height,
-            Text("Default Slider",style: primaryTextStyle(),).paddingOnly(top: 12,left: 12,right: 12),
+            Text(
+              "Default Slider",
+              style: primaryTextStyle(),
+            ).paddingOnly(top: 12, left: 12, right: 12),
             Card(
                 color: appStore.appBarColor,
                 margin: EdgeInsets.fromLTRB(12, 12, 12, 0),
@@ -58,8 +60,14 @@ class CWSliderScreenState extends State<CWSliderScreen> {
                         setState(() {});
                       },
                     ),
-                    trailing: Text("Value =  ${progressValue.toInt()}",style: primaryTextStyle(),))),
-            Text("Discrete Slider",style: primaryTextStyle(),).paddingOnly(top: 12,left: 12,right: 12),
+                    trailing: Text(
+                      "Value =  ${progressValue.toInt()}",
+                      style: primaryTextStyle(),
+                    ))),
+            Text(
+              "Discrete Slider",
+              style: primaryTextStyle(),
+            ).paddingOnly(top: 12, left: 12, right: 12),
             Card(
                 color: appStore.appBarColor,
                 margin: EdgeInsets.fromLTRB(12, 12, 12, 0),
@@ -78,7 +86,10 @@ class CWSliderScreenState extends State<CWSliderScreen> {
                         setState(() {});
                       },
                     ),
-                    trailing: Text("Value =  ${divisionsProgressValue.toInt()}",style: primaryTextStyle(),))),
+                    trailing: Text(
+                      "Value =  ${divisionsProgressValue.toInt()}",
+                      style: primaryTextStyle(),
+                    ))),
           ],
         ),
       ),

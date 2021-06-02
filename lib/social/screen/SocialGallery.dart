@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/social/model/SocialModel.dart';
 import 'package:prokit_flutter/social/utils/SocialColors.dart';
 import 'package:prokit_flutter/social/utils/SocialConstant.dart';
@@ -45,9 +46,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final double _initFabHeight = 90.0;
-  double _fabHeight;
-  double _panelHeightOpen;
-  List<Media> mList;
+  double? _fabHeight;
+  double? _panelHeightOpen;
+  late List<Media> mList;
 
   @override
   void initState() {
@@ -74,13 +75,10 @@ class _HomePageState extends State<HomePage> {
             parallaxEnabled: true,
             parallaxOffset: .5,
             body: _body(),
-            panelBuilder: (sc) => _panel(sc),
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(18.0),
-                topRight: Radius.circular(18.0)),
+            panelBuilder: (sc) => _panel(sc!),
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(18.0), topRight: Radius.circular(18.0)),
             onPanelSlide: (double pos) => setState(() {
-              _fabHeight = pos * (_panelHeightOpen - _panelHeightClosed) +
-                  _initFabHeight;
+              _fabHeight = pos * (_panelHeightOpen! - _panelHeightClosed) + _initFabHeight;
             }),
           ),
 
@@ -106,17 +104,10 @@ class _HomePageState extends State<HomePage> {
                     height: width * 0.2,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100.0),
-                      border: Border.all(
-                        width: 6.0,
-                        color: social_white,
-                      ),
+                      border: Border.all(width: 6.0, color: social_white),
                     ),
                   ),
-                  Icon(
-                    Icons.camera_alt,
-                    color: social_white,
-                    size: width * 0.09,
-                  ),
+                  Icon(Icons.camera_alt, color: social_white, size: width * 0.09),
                 ],
               ),
             ),
@@ -142,39 +133,28 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           controller: sc,
           children: <Widget>[
-            SizedBox(
-              height: 12.0,
-            ),
+            SizedBox(height: 12.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
                   width: 30,
                   height: 5,
-                  decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.all(Radius.circular(12.0))),
+                  decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.all(Radius.circular(12.0))),
                 ),
               ],
             ),
-            SizedBox(
-              height: 18.0,
-            ),
+            SizedBox(height: 18.0),
             Container(
-                margin: EdgeInsets.only(
-                    left: spacing_middle, right: spacing_middle),
-                width:
-                    double.infinity, //To make it use as much space as it wants
+                margin: EdgeInsets.only(left: spacing_middle, right: spacing_middle),
+                width: double.infinity, //To make it use as much space as it wants
                 height: _panelHeightOpen,
                 child: Column(children: <Widget>[
                   Expanded(
                     child: GridView.builder(
                       scrollDirection: Axis.vertical,
                       physics: NeverScrollableScrollPhysics(),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, crossAxisSpacing: 10, mainAxisSpacing: 10),
                       itemCount: mList.length,
                       itemBuilder: (context, index) {
                         return SocialMedia(mList[index], index);
@@ -182,20 +162,22 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ])),
-            SizedBox(
-              height: 36.0,
-            ),
+            SizedBox(height: 36.0),
           ],
         ));
   }
 
   Widget _body() {
-    return CachedNetworkImage(imageUrl: social_ic_user1);
+    return CachedNetworkImage(
+      placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
+      imageUrl: social_ic_user1,
+    );
   }
 }
 
+// ignore: must_be_immutable
 class SocialMedia extends StatelessWidget {
-  Media model;
+  late Media model;
 
   SocialMedia(Media model, int pos) {
     this.model = model;
@@ -208,6 +190,7 @@ class SocialMedia extends StatelessWidget {
       child: ClipRRect(
         borderRadius: new BorderRadius.circular(12.0),
         child: CachedNetworkImage(
+          placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
           imageUrl: model.image,
           fit: BoxFit.fill,
           height: width * 0.15,

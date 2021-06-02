@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/dashboard/model/db3/Db3Model.dart';
-import 'package:prokit_flutter/dashboard/utils/Db3Widget.dart';
 import 'package:prokit_flutter/dashboard/utils/DbColors.dart';
-import 'package:prokit_flutter/dashboard/utils/DbConstant.dart';
 import 'package:prokit_flutter/dashboard/utils/DbDataGenerator.dart';
-import 'package:prokit_flutter/dashboard/utils/DbExtension.dart';
 import 'package:prokit_flutter/dashboard/utils/DbImages.dart';
 import 'package:prokit_flutter/dashboard/utils/DbStrings.dart';
+import 'package:prokit_flutter/main/utils/AppConstant.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class Dashboard3 extends StatefulWidget {
   static String tag = '/Dashboard3';
@@ -17,9 +17,9 @@ class Dashboard3 extends StatefulWidget {
 }
 
 class Dashboard3State extends State<Dashboard3> {
-  List<Db3FurnitureModel> mList1;
-  List<Db3FurnitureModel> mList2;
-  List<Db3FurnitureModel> mList3;
+  late List<Db3FurnitureModel> mList1;
+  late List<Db3FurnitureModel> mList2;
+  late List<Db3FurnitureModel> mList3;
 
   @override
   void initState() {
@@ -31,7 +31,37 @@ class Dashboard3State extends State<Dashboard3> {
 
   @override
   Widget build(BuildContext context) {
+    Widget db3Label(var text) {
+      return Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(text, style: primaryTextStyle(size: 20, color: db2_textColorPrimary, fontFamily: fontBold)),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(text: db2_lbl_view_all, style: primaryTextStyle(size: 14, color: db2_textColorSecondary)),
+                  WidgetSpan(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4.0),
+                      child: Icon(
+                        Icons.keyboard_arrow_right,
+                        color: db2_textColorSecondary,
+                        size: 16,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      );
+    }
+
     changeStatusColor(Colors.transparent);
+
     double expandHeight = MediaQuery.of(context).size.height * 0.33;
     return Scaffold(
       body: NestedScrollView(
@@ -54,31 +84,22 @@ class Dashboard3State extends State<Dashboard3> {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-//                          IconButton(
-//                            icon: Icon(Icons.menu, color: db3_textColorPrimary,),
-//                            onPressed: () {
-//                              finish(context);
-//                            },
-//                          ),
-                          text(db3_lbl_home, textColor: db3_textColorPrimary, fontSize: textSizeNormal, fontFamily: fontBold),
+                          Text(
+                            db3_lbl_home,
+                            style: boldTextStyle(color: db3_textColorPrimary, size: 20, fontFamily: fontBold),
+                          ),
                         ],
                       ),
                       Row(
                         children: <Widget>[
                           IconButton(
-                            icon: Icon(
-                              Icons.search,
-                              color: db3_textColorPrimary,
-                            ),
+                            icon: Icon(Icons.search, color: db3_textColorPrimary),
                             onPressed: () {
                               finish(context);
                             },
                           ),
                           IconButton(
-                            icon: Icon(
-                              Icons.shopping_cart,
-                              color: db3_textColorPrimary,
-                            ),
+                            icon: Icon(Icons.shopping_cart, color: db3_textColorPrimary),
                             onPressed: () {
                               finish(context);
                             },
@@ -161,7 +182,7 @@ class Dashboard3State extends State<Dashboard3> {
 class Db3Slider extends StatelessWidget {
   final String img, heading, subheading;
 
-  Db3Slider({Key key, @required this.img, @required this.heading, @required this.subheading}) : super(key: key);
+  Db3Slider({Key? key, required this.img, required this.heading, required this.subheading}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -171,19 +192,15 @@ class Db3Slider extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                text(heading, textColor: db3_white, fontSize: textSizeLarge, fontFamily: fontBold, maxLine: 2),
-                SizedBox(
-                  height: 4,
-                ),
-                text(subheading, textColor: db3_white, fontFamily: fontMedium, isLongText: true),
-                SizedBox(
-                  height: 8,
-                ),
+                Text(heading, style: primaryTextStyle(color: db3_white, size: 24, fontFamily: fontBold), maxLines: 2),
+                SizedBox(height: 4),
+                Text(subheading, style: primaryTextStyle(color: db3_white, fontFamily: fontMedium), maxLines: 2),
+                SizedBox(height: 8),
               ],
             ),
           ),
@@ -193,8 +210,9 @@ class Db3Slider extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class Db3Product extends StatelessWidget {
-  Db3FurnitureModel model;
+  late Db3FurnitureModel model;
 
   Db3Product(Db3FurnitureModel model, int pos) {
     this.model = model;
@@ -209,25 +227,20 @@ class Db3Product extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           ClipRRect(
-            borderRadius: new BorderRadius.circular(8.0),
-            child: Image.asset(
-              model.img,
-              fit: BoxFit.cover,
-              height: 160,
-              width: MediaQuery.of(context).size.width,
-            ),
+            borderRadius: BorderRadius.circular(8.0),
+            child: Image.asset(model.img, fit: BoxFit.cover, height: 160, width: MediaQuery.of(context).size.width),
           ),
           SizedBox(
             height: 4,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 4, right: 4),
+            padding: EdgeInsets.only(left: 4, right: 4),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                text(model.name, fontFamily: fontMedium),
-                text(model.price, textColor: db3_textColorSecondary),
+                Text(model.name, style: primaryTextStyle(fontFamily: fontMedium)),
+                Text(model.price, style: primaryTextStyle(color: db3_textColorSecondary)),
               ],
             ),
           )
@@ -237,8 +250,9 @@ class Db3Product extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class Db3Seller extends StatelessWidget {
-  Db3FurnitureModel model;
+  late Db3FurnitureModel model;
 
   Db3Seller(Db3FurnitureModel model, int pos) {
     this.model = model;
@@ -251,29 +265,20 @@ class Db3Seller extends StatelessWidget {
       child: Row(
         children: <Widget>[
           ClipRRect(
-            borderRadius: new BorderRadius.circular(8.0),
-            child: Image.asset(
-              model.img,
-              fit: BoxFit.fill,
-              height: 80,
-              width: 80,
-            ),
+            borderRadius: BorderRadius.circular(8.0),
+            child: Image.asset(model.img, fit: BoxFit.fill, height: 80, width: 80),
           ),
-          SizedBox(
-            width: 10,
-          ),
+          SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              text(model.name, fontFamily: fontMedium),
-              SizedBox(
-                height: 6,
+              Text(
+                model.name,
+                style: primaryTextStyle(fontFamily: fontMedium),
               ),
-              text(model.price, textColor: db1_textColorSecondary, fontSize: textSizeSMedium),
-              Divider(
-                height: 0.5,
-                color: db3_textColorSecondary,
-              )
+              SizedBox(height: 6),
+              Text(model.price, style: primaryTextStyle(color: db1_textColorSecondary, size: 14)),
+              Divider(height: 0.5, color: db3_textColorSecondary)
             ],
           )
         ],

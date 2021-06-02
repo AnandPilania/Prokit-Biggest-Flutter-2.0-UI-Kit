@@ -12,7 +12,7 @@ class MWGridViewScreen extends StatefulWidget {
 }
 
 class MWGridViewScreenState extends State<MWGridViewScreen> {
-  List<ItemModel> mListing;
+  late List<ItemModel> mListing;
 
   @override
   void initState() {
@@ -38,17 +38,13 @@ class MWGridViewScreenState extends State<MWGridViewScreen> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: appBar(context, 'GridView'),
+        appBar: appBar(context, 'Grid View'),
         body: GridView.builder(
           scrollDirection: Axis.vertical,
           itemCount: mListing.length,
           padding: EdgeInsets.all(16),
           shrinkWrap: true,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
-              childAspectRatio: cardWidth / cardHeight),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, crossAxisSpacing: 16, mainAxisSpacing: 16, childAspectRatio: cardWidth / cardHeight),
           itemBuilder: (context, index) => Product(mListing[index], index),
         ),
       ),
@@ -56,8 +52,9 @@ class MWGridViewScreenState extends State<MWGridViewScreen> {
   }
 }
 
+// ignore: must_be_immutable
 class Product extends StatelessWidget {
-  ItemModel model;
+  late ItemModel model;
 
   Product(ItemModel model, int pos) {
     this.model = model;
@@ -86,8 +83,7 @@ class Product extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(model.name,
-                    style: primaryTextStyle(color: appStore.textPrimaryColor)),
+                Text(model.name, style: primaryTextStyle(color: appStore.textPrimaryColor)),
               ],
             ),
           )
@@ -103,35 +99,29 @@ class ItemModel {
 }
 
 List<ItemModel> getData() {
-  List<ItemModel> popularArrayList = List<ItemModel>();
+  List<ItemModel> popularArrayList = [];
   ItemModel item1 = ItemModel();
-  item1.img =
-      'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item3.jpg';
+  item1.img = 'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item3.jpg';
   item1.name = "Black Jacket";
 
   ItemModel item2 = ItemModel();
-  item2.img =
-      'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item1.jpg';
+  item2.img = 'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item1.jpg';
   item2.name = "Denim Jacket";
 
   ItemModel item3 = ItemModel();
-  item3.img =
-      'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item5.jpg';
+  item3.img = 'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item5.jpg';
   item3.name = "Blazer";
 
   ItemModel item4 = ItemModel();
-  item4.img =
-      'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item2.jpg';
+  item4.img = 'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item2.jpg';
   item4.name = "T-shirt";
 
   ItemModel item5 = ItemModel();
-  item5.img =
-      'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item4.jpg';
+  item5.img = 'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item4.jpg';
   item5.name = "Sunglasses";
 
   ItemModel item6 = ItemModel();
-  item6.img =
-      'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item7.jpg';
+  item6.img = 'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item7.jpg';
   item6.name = "Shirt";
 
   popularArrayList.add(item1);

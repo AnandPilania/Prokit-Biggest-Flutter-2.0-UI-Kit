@@ -4,7 +4,7 @@ import 'package:prokit_flutter/theme3/model/T3_Model.dart';
 import 'package:prokit_flutter/theme3/utils/T3Images.dart';
 
 List<T3DashboardSliderModel> getDashboardSlider() {
-  List<T3DashboardSliderModel> list = List<T3DashboardSliderModel>();
+  List<T3DashboardSliderModel> list = [];
   list.add(T3DashboardSliderModel("Delicious Italian Pizzas", "Veg", "Fast Food", "John smith", t3_ic_dish1, t3_ic_profile));
   list.add(T3DashboardSliderModel("Delicious Italian Pizzas", "Veg", "Fast Food", "John smith", t3_ic_dish1, t3_ic_profile));
   list.add(T3DashboardSliderModel("Delicious Italian Pizzas", "Veg", "Fast Food", "John smith", t3_ic_dish1, t3_ic_profile));
@@ -20,7 +20,7 @@ List<T3DashboardSliderModel> getDashboardSlider() {
 }
 
 List<Theme3Dish> getDashboardList() {
-  List<Theme3Dish> list = List<Theme3Dish>();
+  List<Theme3Dish> list = [];
   Theme3Dish model1 = Theme3Dish();
   model1.dishName = "Cheese roll Recipe by";
   model1.name = "Rajiv Kapoor";
@@ -63,7 +63,7 @@ List<Theme3Dish> getDashboardList() {
 }
 
 List<Theme3Dish> getList() {
-  List<Theme3Dish> list = List<Theme3Dish>();
+  List<Theme3Dish> list = [];
   Theme3Dish model1 = Theme3Dish();
   model1.dishName = "Cheese roll Recipe by Jon Doe";
   model1.description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.";
@@ -99,7 +99,7 @@ List<Theme3Dish> getList() {
 }
 
 List<Theme3Dish> getSearchData() {
-  List<Theme3Dish> list = List<Theme3Dish>();
+  List<Theme3Dish> list = [];
   Theme3Dish model1 = Theme3Dish();
   model1.dishName = "Cheese roll";
   model1.description = "Total 21 Hours";
@@ -141,7 +141,7 @@ List<Theme3Dish> getSearchData() {
 }
 
 List<Theme3Follower> getFollowers() {
-  List<Theme3Follower> list = List<Theme3Follower>();
+  List<Theme3Follower> list = [];
 
   Theme3Follower model1 = Theme3Follower();
   model1.location = "California";

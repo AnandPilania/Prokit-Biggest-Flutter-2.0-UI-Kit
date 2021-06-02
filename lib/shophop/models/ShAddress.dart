@@ -1,14 +1,14 @@
 class ShAddressModel {
-  int id;
-  String first_name;
-  String last_name;
-  String pinCode;
-  String city;
-  String state;
-  String address_type;
-  String address;
-  String phone_number;
-  String country;
+  int? id;
+  String? first_name;
+  String? last_name;
+  String? pinCode;
+  String? city;
+  String? state;
+  String? address_type;
+  String? address;
+  String? phone_number;
+  String? country;
 
   ShAddressModel({this.id, this.first_name, this.last_name, this.pinCode, this.city, this.state, this.address_type, this.address, this.phone_number, this.country});
 

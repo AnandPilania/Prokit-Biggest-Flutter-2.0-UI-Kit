@@ -1,14 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/main/utils/flutter_rating_bar.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/grocery/model/GroceryModel.dart';
 import 'package:prokit_flutter/grocery/utils/GeoceryStrings.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryColors.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryDataGenerator.dart';
-import 'package:prokit_flutter/grocery/utils/GroceryExtension.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/main/utils/flutter_rating_bar.dart';
 
 import 'GroceryWriteReview.dart';
 
@@ -20,7 +21,7 @@ class GroceryReviews extends StatefulWidget {
 }
 
 class GroceryReviewsState extends State<GroceryReviews> {
-  List<ReviewModel> mList;
+  late List<ReviewModel> mList;
 
   @override
   void initState() {
@@ -37,7 +38,7 @@ class GroceryReviewsState extends State<GroceryReviews> {
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, width * 0.25),
         child: TopBar(Icons.arrow_back, grocery_title_review, Icons.edit, () {
-          callNext(GroceryWriteReview(), context);
+          GroceryWriteReview().launch(context);
         }),
       ),
       body: SafeArea(
@@ -54,7 +55,7 @@ class GroceryReviewsState extends State<GroceryReviews> {
 }
 
 class Review extends StatelessWidget {
-  ReviewModel model;
+  late ReviewModel model;
 
   Review(ReviewModel model, int pos) {
     this.model = model;
@@ -63,12 +64,9 @@ class Review extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: boxDecoration(showShadow: true),
+      decoration: boxDecoration(showShadow: true, radius: 10.0),
       padding: EdgeInsets.all(spacing_middle),
-      margin: EdgeInsets.only(
-          left: spacing_standard_new,
-          right: spacing_standard_new,
-          top: spacing_standard_new),
+      margin: EdgeInsets.only(left: spacing_standard_new, right: spacing_standard_new, top: spacing_standard_new),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,10 +84,7 @@ class Review extends StatelessWidget {
               children: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    text(model.name, fontFamily: fontMedium),
-                    text(model.duration, fontSize: textSizeSmall)
-                  ],
+                  children: <Widget>[text(model.name, fontFamily: fontMedium), text(model.duration, fontSize: textSizeSmall)],
                 ),
                 SizedBox(
                   height: spacing_control,
@@ -109,8 +104,7 @@ class Review extends StatelessWidget {
                 SizedBox(
                   height: spacing_control,
                 ),
-                text(model.description,
-                    textColor: grocery_textColorSecondary, isLongText: true)
+                text(model.description, textColor: grocery_textColorSecondary, isLongText: true)
               ],
             ),
           )

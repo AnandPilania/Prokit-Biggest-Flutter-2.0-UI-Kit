@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+
 import '../../main.dart';
 
 class AMAnimatedOpacityScreen extends StatefulWidget {
@@ -51,30 +52,24 @@ class AMAnimatedOpacityScreenState extends State<AMAnimatedOpacityScreen> {
               AnimatedOpacity(
                 opacity: opacityLevel2,
                 duration: Duration(seconds: 3),
-                child: Image.asset(
-                  'images/widgets/animationAndMotionWidgets/ic_opacity.png',
-                  height: 100,
-                  fit: BoxFit.fill,
+                child: FlutterLogo(
+                  size: 130,
                 ),
               ),
               16.height,
               AnimatedOpacity(
                 opacity: opacityLevel1,
                 duration: Duration(seconds: 3),
-                child: Image.asset(
-                  'images/widgets/animationAndMotionWidgets/ic_opacity.png',
-                  height: 100,
-                  fit: BoxFit.fill,
+                child: FlutterLogo(
+                  size: 130,
                 ),
               ),
               16.height,
               AnimatedOpacity(
                 opacity: opacityLevel3,
                 duration: Duration(seconds: 3),
-                child: Image.asset(
-                  'images/widgets/animationAndMotionWidgets/ic_opacity.png',
-                  height: 100,
-                  fit: BoxFit.fill,
+                child: FlutterLogo(
+                  size: 130,
                 ),
               ),
               16.height,

@@ -2,15 +2,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/Quiz/Screens/QuizDetails.dart';
-import 'package:prokit_flutter/Quiz/model/QuizModels.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizColors.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizConstant.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizDataGenerator.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizExtension.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizImages.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizStrings.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizWidget.dart';
+import 'package:prokit_flutter/quiz/Screens/QuizDetails.dart';
+import 'package:prokit_flutter/quiz/model/QuizModels.dart';
+import 'package:prokit_flutter/quiz/utils/QuizColors.dart';
+import 'package:prokit_flutter/quiz/utils/QuizConstant.dart';
+import 'package:prokit_flutter/quiz/utils/QuizDataGenerator.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+
+import 'package:prokit_flutter/quiz/utils/QuizImages.dart';
+import 'package:prokit_flutter/quiz/utils/QuizStrings.dart';
+import 'package:prokit_flutter/quiz/utils/QuizWidget.dart';
 
 class QuizListing extends StatefulWidget {
   static String tag = '/QuizListing';
@@ -20,7 +21,7 @@ class QuizListing extends StatefulWidget {
 }
 
 class _QuizListingState extends State<QuizListing> {
-  List<NewQuizModel> mListings;
+  late List<NewQuizModel> mListings;
 
   var selectedGrid = true;
   var selectedList = false;
@@ -44,12 +45,11 @@ class _QuizListingState extends State<QuizListing> {
         itemBuilder: (BuildContext context, int index) => GestureDetector(
           onTap: () {
             setState(() {
-              launchScreen(context, QuizDetails.tag);
+              QuizDetails().launch(context);
             });
           },
           child: Container(
-            decoration: boxDecoration(
-                radius: 16, showShadow: true, bgColor: quiz_white),
+            decoration: boxDecoration(radius: 16, showShadow: true, bgColor: quiz_white),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -57,13 +57,9 @@ class _QuizListingState extends State<QuizListing> {
                   alignment: Alignment.topRight,
                   children: <Widget>[
                     ClipRRect(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(16.0),
-                          topRight: Radius.circular(16.0)),
-                      child: Image.asset(mListings[index].quizImage,
-                          height: w * 0.4,
-                          width: MediaQuery.of(context).size.width,
-                          fit: BoxFit.cover),
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
+                      child: CachedNetworkImage(
+                          placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?, imageUrl: mListings[index].quizImage, height: w * 0.4, width: MediaQuery.of(context).size.width / 0.25, fit: BoxFit.cover),
                     ),
                   ],
                 ),
@@ -72,13 +68,9 @@ class _QuizListingState extends State<QuizListing> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      text(mListings[index].quizName,
-                          fontSize: textSizeMedium,
-                          isLongText: true,
-                          fontFamily: fontMedium),
+                      text(mListings[index].quizName, fontSize: textSizeMedium, isLongText: true, fontFamily: fontMedium),
                       SizedBox(height: 8),
-                      text(mListings[index].totalQuiz,
-                          textColor: quiz_textColorSecondary),
+                      text(mListings[index].totalQuiz, textColor: quiz_textColorSecondary),
                     ],
                   ),
                 ),
@@ -108,10 +100,9 @@ class _QuizListingState extends State<QuizListing> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               ClipRRect(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(16.0),
-                    topRight: Radius.circular(16.0)),
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
                 child: CachedNetworkImage(
+                  placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                   imageUrl: mListings[index].quizImage,
                   height: w * 0.4,
                   width: MediaQuery.of(context).size.width / 0.25,
@@ -120,29 +111,21 @@ class _QuizListingState extends State<QuizListing> {
               ),
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(16.0),
-                      bottomRight: Radius.circular(16.0)),
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(16.0), bottomRight: Radius.circular(16.0)),
                   color: quiz_white,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    text(mListings[index].quizName,
-                            fontSize: textSizeMedium,
-                            maxLine: 2,
-                            fontFamily: fontMedium)
-                        .paddingOnly(top: 8, left: 16, right: 16, bottom: 8),
-                    text(mListings[index].totalQuiz,
-                            textColor: quiz_textColorSecondary)
-                        .paddingOnly(left: 16, right: 16, bottom: 16),
+                    text(mListings[index].quizName, fontSize: textSizeMedium, maxLine: 2, fontFamily: fontMedium).paddingOnly(top: 8, left: 16, right: 16, bottom: 8),
+                    text(mListings[index].totalQuiz, textColor: quiz_textColorSecondary).paddingOnly(left: 16, right: 16, bottom: 16),
                   ],
                 ),
               ),
             ],
           ),
         ).cornerRadiusWithClipRRect(16).onTap(() {
-          launchScreen(context, QuizDetails.tag);
+          QuizDetails().launch(context);
         });
       },
       //gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.58, crossAxisSpacing: 16, mainAxisSpacing: 16),
@@ -152,8 +135,7 @@ class _QuizListingState extends State<QuizListing> {
 
     return Scaffold(
       appBar: AppBar(
-        title: text(quiz_lbl_new_quiz,
-            fontSize: textSizeLargeMedium, fontFamily: fontMedium),
+        title: text(quiz_lbl_new_quiz, fontSize: textSizeLargeMedium, fontFamily: fontMedium),
         leading: Icon(
           Icons.arrow_back,
           color: quiz_colorPrimary,

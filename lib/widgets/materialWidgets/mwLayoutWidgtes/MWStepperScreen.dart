@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prokit_flutter/main/model/ListModels.dart';
 import 'package:prokit_flutter/main/utils/AppWidget.dart';
+
 import 'MWStepperWidget/MWStepperScreen1.dart';
 import 'MWStepperWidget/MWStepperScreen2.dart';
 import 'MWStepperWidget/MWStepperScreen3.dart';
@@ -51,17 +52,16 @@ class MWStepperScreenState extends State<MWStepperScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          appBar: appBar(context, 'Stepper'),
-          body: ListView.builder(
-              itemCount: example.length == null ? 0 : example.length,
-              itemBuilder: (BuildContext context, index) {
-                return ExampleItemWidget(example[index],onTap: (){
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => example[index].widget));
-                });
-              })),
+        appBar: appBar(context, 'Stepper'),
+        body: ListView.builder(
+          itemCount: example.length,
+          itemBuilder: (BuildContext context, index) {
+            return ExampleItemWidget(example[index], onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => example[index].widget!));
+            });
+          },
+        ),
+      ),
     );
   }
 }

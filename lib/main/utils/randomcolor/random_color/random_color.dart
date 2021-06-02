@@ -13,7 +13,7 @@ part of random_color;
 class RandomColor {
   /// Constructor for random generator
   /// [seed] Random seed to use for generating colors
-  RandomColor([int seed]) {
+  RandomColor([int? seed]) {
     if (seed != null) {
       _random = new Random(seed);
     }
@@ -25,7 +25,7 @@ class RandomColor {
 
   final int minBrightness = 16;
   final int maxBrightness = 84;
-  Random _random;
+  Random? _random;
 
   ///
   /// Get random color
@@ -48,9 +48,9 @@ class RandomColor {
     int h;
     int b;
 
-    h = colorHue.returnHue(_random);
-    s = colorSaturation.returnSaturation(_random);
-    b = colorBrightness.returnBrightness(_random);
+    h = colorHue.returnHue(_random!);
+    s = colorSaturation.returnSaturation(_random!);
+    b = colorBrightness.returnBrightness(_random!);
 
     _log('Color hue: $h');
     _log('Color saturation: $s');
@@ -59,17 +59,14 @@ class RandomColor {
     return _getColor(h, s, b);
   }
 
-  MaterialColor randomMaterialColor(
-      {ColorHue colorHue = ColorHue.random,
-      ColorSaturation colorSaturation = ColorSaturation.random,
-      bool debug = false}) {
+  MaterialColor randomMaterialColor({ColorHue colorHue = ColorHue.random, ColorSaturation colorSaturation = ColorSaturation.random, bool debug = false}) {
     int saturation;
     int hue;
     int brightness;
 
-    hue = colorHue.returnHue(_random);
-    saturation = colorSaturation.returnSaturation(_random);
-    brightness = const ColorBrightness.custom(Range(45, 55)).returnBrightness(_random);
+    hue = colorHue.returnHue(_random!);
+    saturation = colorSaturation.returnSaturation(_random!);
+    brightness = const ColorBrightness.custom(Range(45, 55)).returnBrightness(_random!);
 
     /// Middle color
     final Color _baseColor = _getColor(hue, saturation, brightness);
@@ -102,17 +99,16 @@ class RandomColor {
   /// Calls [randomColor] for [count] number of times.
   /// [count] Number of colors
   List<Color> randomColors({
-    @required int count,
-    ColorHue colorHue,
-    ColorSaturation colorSaturation,
-    ColorBrightness colorBrightness,
+    required int count,
+    ColorHue? colorHue,
+    ColorSaturation? colorSaturation,
+    ColorBrightness? colorBrightness,
     bool debug = false,
   }) {
     final List<Color> colors = <Color>[];
 
     for (int i = 0; i < count; i++) {
-      colors.add(randomColor(
-          colorHue: colorHue, colorSaturation: colorSaturation, colorBrightness: colorBrightness, debug: debug));
+      colors.add(randomColor(colorHue: colorHue!, colorSaturation: colorSaturation!, colorBrightness: colorBrightness!, debug: debug));
     }
 
     return colors;

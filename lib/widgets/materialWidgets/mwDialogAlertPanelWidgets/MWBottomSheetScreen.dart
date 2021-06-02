@@ -68,36 +68,42 @@ class MWBottomSheetScreenState extends State<MWBottomSheetScreen> {
               color: Colors.transparent,
               child: Column(
                 children: [
-                  mOption(Icons.share, "Share"),
-                  mOption(Icons.link, "Get Link"),
-                  mOption(Icons.edit, "Edit Name"),
+                  mOption(Icons.share, "Share").onTap(() {
+                    finish(context);
+                    toast('share');
+                  }),
+                  mOption(Icons.link, "Get Link").onTap(() {
+                    finish(context);
+                    toast('Get Link');
+                  }),
+                  mOption(Icons.edit, "Edit Name").onTap(() {
+                    finish(context);
+                    toast('Edit Name');
+                  }),
                 ],
               ),
             );
           });
     }
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-          backgroundColor: appStore.scaffoldBackground,
-          appBar: appBar(context, 'Bottom Sheet'),
-          body: ListView.builder(
-              itemCount: example.length,
-              itemBuilder: (BuildContext context, index) {
-                return ExampleItemWidget(example[index], onTap: () {
-                  if (index == 0) {
-                    mSimpleBottomSheet();
-                  } else if (index == 1) {
-                    mCornerBottomSheet(context);
-                  } else if (index == 2) {
-                    mExpandedSheet(context);
-                  } else if (index == 3) {
-                    mFormBottomSheet(context);
-                  }
-                });
-              })),
-    );
+    return Scaffold(
+        backgroundColor: appStore.scaffoldBackground,
+        appBar: appBar(context, 'Bottom Sheet'),
+        body: ListView.builder(
+            itemCount: example.length,
+            itemBuilder: (BuildContext context, index) {
+              return ExampleItemWidget(example[index], onTap: () {
+                if (index == 0) {
+                  mSimpleBottomSheet();
+                } else if (index == 1) {
+                  mCornerBottomSheet(context);
+                } else if (index == 2) {
+                  mExpandedSheet(context);
+                } else if (index == 3) {
+                  mFormBottomSheet(context);
+                }
+              });
+            }));
   }
 }
 
@@ -147,17 +153,22 @@ mExpandedSheet(BuildContext context) {
       builder: (context, scrollController) {
         return Container(
           color: appStore.scaffoldBackground,
-          child: ListView.builder(
-            controller: scrollController,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(
-                  'Item $index',
-                  style: primaryTextStyle(color: appStore.textPrimaryColor),
-                ),
-              );
+          child: GestureDetector(
+            onTap: () {
+              finish(context);
             },
-            itemCount: 20,
+            child: ListView.builder(
+              controller: scrollController,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(
+                    'Item $index',
+                    style: primaryTextStyle(color: appStore.textPrimaryColor),
+                  ),
+                );
+              },
+              itemCount: 20,
+            ),
           ),
         );
       },
@@ -215,7 +226,7 @@ mFormBottomSheet(BuildContext aContext) {
             30.height,
             GestureDetector(
               onTap: () {
-                Navigator.pop(context);
+                finish(context);
               },
               child: Container(
                 width: MediaQuery.of(context).size.width,
@@ -247,8 +258,8 @@ Padding editTextStyle(var hintText) {
         hintStyle: primaryTextStyle(color: appStore.isDarkModeOn ? white.withOpacity(0.5) : grey),
         filled: true,
         fillColor: appStore.appBarColor,
-        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide(color: appStore.iconSecondaryColor, width: 1.0)),
-        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide(color: appStore.iconSecondaryColor, width: 1.0)),
+        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide(color: appStore.iconSecondaryColor!, width: 1.0)),
+        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide(color: appStore.iconSecondaryColor!, width: 1.0)),
       ),
     ),
   );

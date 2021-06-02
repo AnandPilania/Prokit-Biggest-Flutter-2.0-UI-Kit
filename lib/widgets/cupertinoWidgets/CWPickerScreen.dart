@@ -42,10 +42,9 @@ class CWPickerScreenState extends State<CWPickerScreen> {
     "Japan"
   ];
 
-  String selectedValue;
-  String time;
-  String date;
-
+  String? selectedValue;
+  String? time;
+  String? date;
 
   @override
   void initState() {
@@ -76,9 +75,9 @@ class CWPickerScreenState extends State<CWPickerScreen> {
               return ExampleItemWidget(example[index], onTap: () {
                 if (index == 0) {
                   dateBottomSheet(context);
-                }else if(index == 1) {
+                } else if (index == 1) {
                   timeBottomSheet(context);
-                }else if(index == 2) {
+                } else if (index == 2) {
                   pickerBottomSheet(context);
                 }
               });
@@ -86,6 +85,7 @@ class CWPickerScreenState extends State<CWPickerScreen> {
       ),
     );
   }
+
   Future<void> timeBottomSheet(context) async {
     var now = DateTime.now();
     var today = DateTime(now.year, now.month, now.day);
@@ -109,7 +109,7 @@ class CWPickerScreenState extends State<CWPickerScreen> {
                     }),
                     Text('Done', style: primaryTextStyle(size: 18)).onTap(() {
                       finish(context, time);
-                      toast(time.isNotEmpty ? time : 'Please select time');
+                      toast(time!.isNotEmpty ? time : 'Please select time');
                     })
                   ],
                 ).paddingAll(8.0),
@@ -117,11 +117,7 @@ class CWPickerScreenState extends State<CWPickerScreen> {
               Container(
                 height: 200,
                 child: CupertinoTheme(
-                  data: CupertinoThemeData(
-                      textTheme: CupertinoTextThemeData(
-                          dateTimePickerTextStyle: primaryTextStyle(size: 20)
-                      )
-                  ),
+                  data: CupertinoThemeData(textTheme: CupertinoTextThemeData(dateTimePickerTextStyle: primaryTextStyle(size: 20))),
                   child: CupertinoDatePicker(
                     backgroundColor: appStore.scaffoldBackground,
                     minimumDate: today,
@@ -181,10 +177,7 @@ class CWPickerScreenState extends State<CWPickerScreen> {
                 Container(
                   height: 200,
                   child: CupertinoTheme(
-                    data: CupertinoThemeData(
-                        textTheme: CupertinoTextThemeData(
-                            dateTimePickerTextStyle:
-                            primaryTextStyle(size: 20))),
+                    data: CupertinoThemeData(textTheme: CupertinoTextThemeData(dateTimePickerTextStyle: primaryTextStyle(size: 20))),
                     child: CupertinoDatePicker(
                       backgroundColor: appStore.appBarColor,
                       minimumDate: today,
@@ -226,7 +219,7 @@ class CWPickerScreenState extends State<CWPickerScreen> {
                     }),
                     Text('Done', style: primaryTextStyle(size: 18)).onTap(() {
                       finish(context);
-                      toast(selectedValue.isNotEmpty ? selectedValue : 'Please select value');
+                      toast(selectedValue!.isNotEmpty ? selectedValue : 'Please select value');
                     })
                   ],
                 ).paddingAll(8.0),

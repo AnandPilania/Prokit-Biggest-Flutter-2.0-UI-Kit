@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme1/utils/T1Colors.dart';
-import 'package:prokit_flutter/theme1/utils/T1Constant.dart';
-import 'package:prokit_flutter/theme1/utils/T1Extension.dart';
 import 'package:prokit_flutter/theme1/utils/T1Images.dart';
 import 'package:prokit_flutter/theme1/utils/T1Strings.dart';
 import 'package:prokit_flutter/theme1/utils/T1Widget.dart';
+
+import '../../main.dart';
 
 class T1BottomSheet extends StatefulWidget {
   static var tag = "/T1BottomSheet";
@@ -24,14 +27,14 @@ class T1BottomSheetState extends State<T1BottomSheet> {
 
   Future showBottomSheet() async {
     showModalBottomSheet(
-      backgroundColor: Colors.transparent,
       context: context,
+      backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
         return Stack(
           alignment: Alignment.topCenter,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 22),
+              padding: EdgeInsets.only(top: 22),
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: 150,
@@ -42,7 +45,7 @@ class T1BottomSheetState extends State<T1BottomSheet> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         SizedBox(height: 40),
-                        text(t1_lbl_share_to, textColor: t1TextColorPrimary, fontFamily: fontMedium),
+                        text(t1_lbl_share_to, textColor: Colors.black),
                         SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,13 +79,13 @@ class T1BottomSheetState extends State<T1BottomSheet> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 20),
+              padding: EdgeInsets.only(right: 20),
               child: Container(
                 width: 45,
                 height: 45,
                 child: FloatingActionButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    finish(context);
                   },
                   child: Icon(Icons.share, color: t1_colorPrimary),
                   backgroundColor: t1_white,
@@ -97,22 +100,19 @@ class T1BottomSheetState extends State<T1BottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(t1White);
+    changeStatusColor(appStore.appBarColor!);
 
     Future.delayed(
-      const Duration(milliseconds: 1000),
+      Duration(milliseconds: 1000),
       () {
         showBottomSheet();
       },
     );
 
     return Scaffold(
-      body: Stack(
-        alignment: Alignment.topCenter,
-        children: <Widget>[
-          TopBar(t1_Bottom_Sheet),
-          InkWell(child: ring(t1_lbl_welcome_to_bottom_n_sheet), onTap: () => showBottomSheet()),
-        ],
+      appBar: appBar(context, t1_Bottom_Sheet),
+      body: Observer(
+        builder: (_) => InkWell(child: ring(t1_lbl_welcome_to_bottom_n_sheet), onTap: () => showBottomSheet()).center(),
       ),
     );
   }

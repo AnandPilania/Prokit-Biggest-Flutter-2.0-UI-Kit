@@ -39,13 +39,8 @@ const learner_ic_fab_back = "images/learner/learner_ic_fab_back.png";
 const learner_ic_smile = "images/learner/learner_ic_smile.png";
 const learner_ic_upload = "images/learner/learner_ic_upload.png";
 
-const Learner_ic_chart_navigation =
-    "images/learner/learner_ic_chart_navigation.svg";
-const Learner_ic_home_navigation =
-    "images/learner/learner_ic_home_navigation.svg";
-const Learner_ic_message_navigation =
-    "images/learner/learner_ic_message_navigation.svg";
-const Learner_ic_more_navigation =
-    "images/learner/learner_ic_more_navigation.svg";
-const Learner_ic_search_navigation =
-    "images/learner/learner_ic_search_navigation.svg";
+const Learner_ic_chart_navigation = "images/learner/learner_ic_chart_navigation.svg";
+const Learner_ic_home_navigation = "images/learner/learner_ic_home_navigation.svg";
+const Learner_ic_message_navigation = "images/learner/learner_ic_message_navigation.svg";
+const Learner_ic_more_navigation = "images/learner/learner_ic_more_navigation.svg";
+const Learner_ic_search_navigation = "images/learner/learner_ic_search_navigation.svg";

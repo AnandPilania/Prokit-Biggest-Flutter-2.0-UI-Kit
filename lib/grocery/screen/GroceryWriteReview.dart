@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/main/utils/flutter_rating_bar.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/grocery/utils/GeoceryStrings.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryColors.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
-import 'package:prokit_flutter/grocery/utils/GroceryExtension.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryImages.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/main/utils/flutter_rating_bar.dart';
 
 class GroceryWriteReview extends StatefulWidget {
   static String tag = '/GroceryWriteReview';
@@ -21,6 +21,7 @@ class GroceryWriteReviewState extends State<GroceryWriteReview> {
   @override
   Widget build(BuildContext context) {
     changeStatusColor(grocery_color_white);
+
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: grocery_app_background,
@@ -33,12 +34,7 @@ class GroceryWriteReviewState extends State<GroceryWriteReview> {
                 bottomLeft: Radius.circular(20.0),
                 bottomRight: const Radius.circular(20.0),
               ),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                    color: grocery_ShadowColor,
-                    blurRadius: 20.0,
-                    offset: Offset(0.0, 0.9))
-              ]),
+              boxShadow: <BoxShadow>[BoxShadow(color: grocery_ShadowColor, blurRadius: 20.0, offset: Offset(0.0, 0.9))]),
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
@@ -46,7 +42,7 @@ class GroceryWriteReviewState extends State<GroceryWriteReview> {
                   children: <Widget>[
                     IconButton(
                       onPressed: () {
-                        back(context);
+                        finish(context);
                       },
                       icon: Icon(
                         Icons.close,
@@ -63,8 +59,7 @@ class GroceryWriteReviewState extends State<GroceryWriteReview> {
                   children: <Widget>[
                     CircleAvatar(
                       radius: 20,
-                      backgroundImage:
-                          CachedNetworkImageProvider(Grocery_ic_Profile),
+                      backgroundImage: CachedNetworkImageProvider(Grocery_ic_Profile),
                     ),
                     SizedBox(
                       width: spacing_standard_new,
@@ -93,8 +88,7 @@ class GroceryWriteReviewState extends State<GroceryWriteReview> {
                   text: grocery_title_write_review,
                   isPassword: false,
                   keyboardType: TextInputType.text,
-                ).paddingOnly(
-                    left: spacing_standard_new, right: spacing_standard_new),
+                ).paddingOnly(left: spacing_standard_new, right: spacing_standard_new),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[

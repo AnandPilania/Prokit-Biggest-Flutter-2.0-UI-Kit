@@ -1,8 +1,10 @@
 import 'dart:async';
-
+import 'package:nb_utils/nb_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusImages.dart';
+
+import 'QIBusSignIn.dart';
 
 class QIBusSplash extends StatefulWidget {
   static String tag = '/QIBusSplash';
@@ -24,7 +26,7 @@ class QIBusSplashState extends State<QIBusSplash> {
   }
 
   void navigationPage() {
-    Navigator.of(context).pushReplacementNamed('/QIBusSignIn');
+    QIBusSignIn().launch(context);
   }
 
   @override

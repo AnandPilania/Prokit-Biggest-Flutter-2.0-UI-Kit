@@ -23,10 +23,8 @@ const t2_list_1 = "$BaseUrl/images/theme2/theme2_list_1.png";
 const t2_list_2 = "$BaseUrl/images/theme2/theme2_list_2.png";
 const t2_list_3 = "$BaseUrl/images/theme2/theme2_list_3.png";
 const t2_profile = "$BaseUrl/images/theme2/theme2_profile.png";
-const t2_profile_cover_page =
-    "$BaseUrl/images/theme2/theme2_profile_cover_page.jpg";
-const t2_profile_cover_page_54 =
-    "$BaseUrl/images/theme2/theme2_profile_cover_page_54.jpg";
+const t2_profile_cover_page = "$BaseUrl/images/theme2/theme2_profile_cover_page.jpg";
+const t2_profile_cover_page_54 = "$BaseUrl/images/theme2/theme2_profile_cover_page_54.jpg";
 const t2_clock = "images/theme2/t2_clock.svg";
 const t2_arrow_right = "images/theme2/t2_arrow_right.svg";
 const t2_user = "images/theme2/t2_user.svg";

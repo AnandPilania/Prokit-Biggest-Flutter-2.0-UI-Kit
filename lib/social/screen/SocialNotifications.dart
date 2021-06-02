@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/social/utils/SocialColors.dart';
 import 'package:prokit_flutter/social/utils/SocialConstant.dart';
-import 'package:prokit_flutter/social/utils/SocialExtension.dart';
 import 'package:prokit_flutter/social/utils/SocialImages.dart';
 import 'package:prokit_flutter/social/utils/SocialStrings.dart';
-import 'package:prokit_flutter/social/utils/SocialWidget.dart';
 
 class SocialNotification extends StatefulWidget {
   static String tag = '/SocialNotification';
@@ -57,7 +57,7 @@ class SocialNotificationState extends State<SocialNotification> {
 
   Widget mPopup() => PopupMenuButton(
         itemBuilder: (context) {
-          var list = List<PopupMenuEntry<Object>>();
+          List<PopupMenuEntry<Object>> list = [];
           list.add(
             PopupMenuItem(
               child: text(social_reset_settings),
@@ -71,7 +71,7 @@ class SocialNotificationState extends State<SocialNotification> {
             width: MediaQuery.of(context).size.width * 0.1,
             height: MediaQuery.of(context).size.width * 0.1,
             padding: EdgeInsets.all(6),
-            decoration: boxDecoration(showShadow: false, color: social_view_color),
+            decoration: boxDecoration(showShadow: false, color: social_view_color, radius: 12),
             child: Icon(
               Icons.more_vert,
               color: social_textColorPrimary,
@@ -89,23 +89,20 @@ class SocialNotificationState extends State<SocialNotification> {
         children: <Widget>[
           GestureDetector(
             onTap: () {
-              back(context);
+              finish(context);
             },
             child: Container(
               margin: EdgeInsets.only(left: spacing_standard_new),
               width: width * 0.1,
               height: width * 0.1,
-              decoration: boxDecoration(showShadow: false, bgColor: social_colorPrimary),
-              child: Icon(
-                Icons.keyboard_arrow_left,
-                color: social_white,
-              ),
+              decoration: boxDecoration(showShadow: false, bgColor: social_colorPrimary, radius: 12),
+              child: Icon(Icons.keyboard_arrow_left, color: social_white),
             ),
           ),
           Center(
             child: text(social_lbl_notifications, fontFamily: fontBold, fontSize: textSizeLargeMedium, textAllCaps: true),
           ),
-          mPopup()
+          mPopup(),
         ],
       ),
     );

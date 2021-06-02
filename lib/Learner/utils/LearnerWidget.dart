@@ -1,30 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerColors.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerConstant.dart';
-
-Widget text(String text,
-    {var fontSize = textSizeMedium,
-    textColor = learner_textColorPrimary,
-    var fontFamily = fontRegular,
-    var isCentered = false,
-    var maxLine = 1,
-    var latterSpacing = 0.25,
-    var textAllCaps = false,
-    var isLongText = false}) {
-  return Text(textAllCaps ? text.toUpperCase() : text,
-      textAlign: isCentered ? TextAlign.center : TextAlign.start,
-      maxLines: isLongText ? null : maxLine,
-      style: TextStyle(fontFamily: fontFamily, fontSize: fontSize, color: textColor, height: 1.5, letterSpacing: latterSpacing));
-}
-
-BoxDecoration boxDecoration({double radius = 2, Color color = Colors.transparent, Color bgColor = learner_white, var showShadow = false}) {
-  return BoxDecoration(
-      color: bgColor,
-      //gradient: LinearGradient(colors: [bgColor, whiteColor]),
-      boxShadow: showShadow ? [BoxShadow(color: learner_ShadowColor, blurRadius: 10, spreadRadius: 2)] : [BoxShadow(color: Colors.transparent)],
-      border: Border.all(color: color),
-      borderRadius: BorderRadius.all(Radius.circular(radius)));
-}
+import 'package:prokit_flutter/learner/utils/LearnerColors.dart';
+import 'package:prokit_flutter/learner/utils/LearnerConstant.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 Container LearnerEditTextStyle(var hintText, {isPassword = false}) {
   return Container(
@@ -54,7 +31,7 @@ class LearnerButton extends StatefulWidget {
   var textContent;
   VoidCallback onPressed;
 
-  LearnerButton({@required this.textContent, @required this.onPressed});
+  LearnerButton({required this.textContent, required this.onPressed});
 
   @override
   State<StatefulWidget> createState() {
@@ -65,7 +42,8 @@ class LearnerButton extends StatefulWidget {
 class T9ButtonState extends State<LearnerButton> {
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
+    return
+      RaisedButton(
         onPressed: widget.onPressed,
         textColor: learner_white,
         elevation: 4,
@@ -90,7 +68,7 @@ class T9ButtonState extends State<LearnerButton> {
   }
 
   @override
-  State<StatefulWidget> createState() {
+  State<StatefulWidget>? createState() {
     // TODO: implement createState
     return null;
   }

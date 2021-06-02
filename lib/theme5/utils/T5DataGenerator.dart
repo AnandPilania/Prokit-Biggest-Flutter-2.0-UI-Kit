@@ -4,7 +4,7 @@ import 'package:prokit_flutter/theme5/utils/T5Images.dart';
 import 'T5Colors.dart';
 
 List<T5Category> getCategoryItems() {
-  var list = List<T5Category>();
+  List<T5Category> list = [];
 
   var category1 = T5Category();
   category1.name = "Transfer";
@@ -42,7 +42,7 @@ List<T5Category> getCategoryItems() {
 }
 
 List<T5Category> getBottomSheetItems() {
-  var list = List<T5Category>();
+  List<T5Category> list = [];
   var category1 = T5Category();
   category1.name = "Transfer";
   category1.color = t5Cat1;
@@ -114,7 +114,7 @@ List<T5Category> getBottomSheetItems() {
 }
 
 List<T5Slider> getSliders() {
-  List<T5Slider> list = List<T5Slider>();
+  List<T5Slider> list = [];
   T5Slider model1 = T5Slider();
   model1.balance = "\$150000";
   model1.accountNo = "145 250 230 120 150";
@@ -135,7 +135,7 @@ List<T5Slider> getSliders() {
 }
 
 List<T5Bill> getListData() {
-  var list = List<T5Bill>();
+  List<T5Bill> list = [];
   var bill = T5Bill();
   bill.name = "Electric bill";
   bill.day = "22";
@@ -206,7 +206,7 @@ List<T5Bill> getListData() {
 }
 
 List<T5Contact> getRecents() {
-  var list = List<T5Contact>();
+  List<T5Contact> list = [];
 
   var people5 = T5Contact();
   people5.img = t5_profile_8;
@@ -228,7 +228,7 @@ List<T5Contact> getRecents() {
 }
 
 List<T5Contact> getPending() {
-  var list = List<T5Contact>();
+  List<T5Contact> list = [];
 
   var people = T5Contact();
   people.img = t5_profile_3;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class T9BadgeModel {
   var img = "";
-  Color color;
+  Color? color;
 
   var name = "";
   var comment = "";

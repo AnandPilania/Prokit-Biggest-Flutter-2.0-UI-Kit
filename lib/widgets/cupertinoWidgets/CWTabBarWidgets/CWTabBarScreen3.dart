@@ -1,11 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lipsum/lipsum.dart' as lipsum;
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/integrations/utils/colors.dart';
 import 'package:prokit_flutter/main.dart';
 import 'package:prokit_flutter/main/utils/AppColors.dart';
+import 'package:prokit_flutter/main/utils/Lipsum.dart' as lipsum;
 
 import '../../../main/utils/AppWidget.dart';
 
@@ -17,7 +16,7 @@ class CWTabBarScreen3 extends StatefulWidget {
 }
 
 class CWTabBarScreen3State extends State<CWTabBarScreen3> {
-  int selectIndex;
+  int? selectIndex;
 
   @override
   void initState() {
@@ -42,10 +41,11 @@ class CWTabBarScreen3State extends State<CWTabBarScreen3> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
-                child: Text(
-              value,
-              style: boldTextStyle(),
-            )),
+              child: Text(
+                value,
+                style: boldTextStyle(),
+              ),
+            ),
             Padding(
               padding: EdgeInsets.only(left: 20, right: 20, top: 16),
               child: Text(
@@ -82,7 +82,7 @@ class CWTabBarScreen3State extends State<CWTabBarScreen3> {
               ),
               BottomNavigationBarItem(
                 icon: Container(
-                  decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: selectIndex == 3 ? primaryColor : Colors.transparent, width: 2)),
+                  decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: selectIndex == 3 ? appColorPrimary : Colors.transparent, width: 2)),
                   child: CachedNetworkImage(
                     imageUrl: 'https://www.attractivepartners.co.uk/wp-content/uploads/2017/06/profile.jpg',
                   ).cornerRadiusWithClipRRect(30.0),
@@ -96,16 +96,12 @@ class CWTabBarScreen3State extends State<CWTabBarScreen3> {
             switch (index) {
               case 0:
                 return mPage("Home");
-                break;
               case 1:
                 return mPage("Favourite");
-                break;
               case 2:
                 return mPage("Cart");
-                break;
               default:
                 return mPage("Profile");
-                break;
             }
           },
         ),

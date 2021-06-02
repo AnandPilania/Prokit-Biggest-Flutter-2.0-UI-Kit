@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prokit_flutter/main/model/ListModels.dart';
 import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/widgets/materialWidgets/mwLayoutWidgtes/MWUserAccountDrawerHeaderWidget/MWUserAccountDrawerHeaderScreen4.dart';
+
 import 'MWUserAccountDrawerHeaderWidget/MWUserAccountDrawerHeaderScreen1.dart';
 import 'MWUserAccountDrawerHeaderWidget/MWUserAccountDrawerHeaderScreen2.dart';
 import 'MWUserAccountDrawerHeaderWidget/MWUserAccountDrawerHeaderScreen3.dart';
@@ -10,12 +11,10 @@ class MWUserAccountsDrawerHeaderScreen extends StatefulWidget {
   static String tag = '/MWUserAccountsDrawerHeaderScreen';
 
   @override
-  MWUserAccountsDrawerHeaderScreenState createState() =>
-      MWUserAccountsDrawerHeaderScreenState();
+  MWUserAccountsDrawerHeaderScreenState createState() => MWUserAccountsDrawerHeaderScreenState();
 }
 
-class MWUserAccountsDrawerHeaderScreenState
-    extends State<MWUserAccountsDrawerHeaderScreen> {
+class MWUserAccountsDrawerHeaderScreenState extends State<MWUserAccountsDrawerHeaderScreen> {
   @override
   void initState() {
     super.initState();
@@ -61,10 +60,7 @@ class MWUserAccountsDrawerHeaderScreenState
                 return ExampleItemWidget(
                   example[index],
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => example[index].widget));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => example[index].widget!));
                   },
                 );
               })),

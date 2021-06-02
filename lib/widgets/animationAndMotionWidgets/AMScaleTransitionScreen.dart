@@ -11,8 +11,8 @@ class AMScaleTransitionScreen extends StatefulWidget {
 }
 
 class AMScaleTransitionScreenState extends State<AMScaleTransitionScreen> with TickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<double> _animation;
+  late AnimationController _controller;
+  late Animation<double> _animation;
 
   @override
   void initState() {
@@ -49,16 +49,8 @@ class AMScaleTransitionScreenState extends State<AMScaleTransitionScreen> with T
           child: ScaleTransition(
             scale: _animation,
             alignment: Alignment.center,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'images/widgets/animationAndMotionWidgets/ic_item1.jpg',
-                  height: 200,
-                  width: 200,
-                  fit: BoxFit.cover,
-                )
-              ],
+            child: FlutterLogo(
+              size: 200,
             ),
           ),
         ),

@@ -1,20 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/main.dart';
 import 'package:prokit_flutter/main/utils/AppWidget.dart';
-import 'package:lipsum/lipsum.dart' as lipsum;
+import 'package:prokit_flutter/main/utils/Lipsum.dart' as lipsum;
+
 
 class CWSlidingSegmentedControlScreen extends StatefulWidget {
   static String tag = '/CWSlidingSegmentedControlScreen';
 
   @override
-  CWSlidingSegmentedControlScreenState createState() =>
-      CWSlidingSegmentedControlScreenState();
+  CWSlidingSegmentedControlScreenState createState() => CWSlidingSegmentedControlScreenState();
 }
 
-class CWSlidingSegmentedControlScreenState
-    extends State<CWSlidingSegmentedControlScreen> {
+class CWSlidingSegmentedControlScreenState extends State<CWSlidingSegmentedControlScreen> {
   @override
   void initState() {
     super.initState();
@@ -26,11 +24,8 @@ class CWSlidingSegmentedControlScreenState
   }
 
   int segmentedControlGroupValue = 0;
-  final Map<int, Widget> myTabs = <int, Widget>{
-    0: Text("Item 1"),
-    1: Text("Item 2")
-  };
-  int _sliding = 0;
+  final Map<int, Widget> myTabs = <int, Widget>{0: Text("Item 1"), 1: Text("Item 2")};
+  int? _sliding = 0;
 
   @override
   void setState(fn) {
@@ -70,14 +65,16 @@ class CWSlidingSegmentedControlScreenState
               child: CupertinoSlidingSegmentedControl(
                   children: {
                     0: Container(
-                        padding: EdgeInsets.all(8), child: Text('Home', style: primaryTextStyle(color: _sliding== 0 ? blackColor: grey),)),
-                    1: Container(
-                        padding: EdgeInsets.all(8), child: Text('Booking',style: primaryTextStyle(color: _sliding== 1 ? blackColor: grey))),
-                    2: Container(
-                        padding: EdgeInsets.all(8), child: Text('Setting',style: primaryTextStyle(color: _sliding== 2 ? blackColor: grey))),
+                        padding: EdgeInsets.all(8),
+                        child: Text(
+                          'Home',
+                          style: primaryTextStyle(color: _sliding == 0 ? blackColor : grey),
+                        )),
+                    1: Container(padding: EdgeInsets.all(8), child: Text('Booking', style: primaryTextStyle(color: _sliding == 1 ? blackColor : grey))),
+                    2: Container(padding: EdgeInsets.all(8), child: Text('Setting', style: primaryTextStyle(color: _sliding == 2 ? blackColor : grey))),
                   },
                   groupValue: _sliding,
-                  onValueChanged: (newValue) {
+                  onValueChanged: (dynamic newValue) {
                     setState(() {
                       _sliding = newValue;
                     });

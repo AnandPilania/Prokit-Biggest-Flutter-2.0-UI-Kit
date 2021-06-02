@@ -3,36 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryColors.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
-import 'package:prokit_flutter/grocery/utils/GroceryExtension.dart';
-
-Widget text(String text,
-    {var fontSize = textSizeMedium,
-    textColor = grocery_textColorPrimary,
-    var fontFamily = fontRegular,
-    var isCentered = false,
-    var maxLine = 1,
-    var latterSpacing = 0.25,
-    var textAllCaps = false,
-    var isLongText = false}) {
-  return Text(
-    textAllCaps ? text.toUpperCase() : text,
-    textAlign: isCentered ? TextAlign.center : TextAlign.start,
-    maxLines: isLongText ? null : maxLine,
-    style: TextStyle(
-      fontFamily: fontFamily,
-      fontSize: fontSize,
-      color: textColor,
-      height: 1.5,
-      letterSpacing: latterSpacing,
-    ),
-  );
-}
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 Widget button(
   BuildContext context,
   String text, {
-  String tag,
-  Object arguments,
   Color textColor = grocery_color_white,
   Color backgroundColor = grocery_colorPrimary,
   double height = 40,
@@ -40,28 +15,15 @@ Widget button(
 }) {
   return MaterialButton(
     onPressed: () {
-      launchScreen(context, tag, arguments: arguments);
+      //
     },
     height: height,
     minWidth: width,
     padding: const EdgeInsets.all(0.0),
-    child: Text(
-      text,
-      style: TextStyle(fontSize: 18),
-      textAlign: TextAlign.center,
-    ).cornerRadiusWithClipRRect(25),
+    child: Text(text, style: TextStyle(fontSize: 18), textAlign: TextAlign.center).cornerRadiusWithClipRRect(25),
     textColor: textColor,
     color: backgroundColor,
   ).cornerRadiusWithClipRRect(10).paddingOnly(left: 8, right: 8);
-}
-
-BoxDecoration boxDecoration({double radius = 10.0, Color color = Colors.transparent, Color bgColor = grocery_color_white, double borderWidth = 1.0, var showShadow = false}) {
-  return BoxDecoration(
-      color: bgColor,
-      //gradient: LinearGradient(colors: [bgColor, whiteColor]),
-      boxShadow: showShadow ? [BoxShadow(color: grocery_ShadowColor, blurRadius: 10, spreadRadius: 3)] : [BoxShadow(color: Colors.transparent)],
-      border: Border.all(color: color, width: borderWidth),
-      borderRadius: BorderRadius.all(Radius.circular(radius)));
 }
 
 class groceryButton extends StatefulWidget {
@@ -72,9 +34,9 @@ class groceryButton extends StatefulWidget {
   var height = 50.0;
   var radius = 5.0;
   var bgColors = grocery_colorPrimary;
-  var color = grocery_colorPrimary;
+  Color? color = grocery_colorPrimary;
 
-  groceryButton({@required this.textContent, @required this.onPressed, this.isStroked = false, this.height = 50.0, this.radius = 5.0, this.color, this.bgColors = grocery_colorPrimary});
+  groceryButton({required this.textContent, required this.onPressed, this.isStroked = false, this.height = 50.0, this.radius = 5.0, this.color, this.bgColors = grocery_colorPrimary});
 
   @override
   groceryButtonState createState() => groceryButtonState();
@@ -103,7 +65,7 @@ class groceryButton1 extends StatefulWidget {
   var isStroked = false;
   var height = 50.0;
 
-  groceryButton1({@required this.textContent, @required this.onPressed, this.isStroked = false, this.height = 50.0});
+  groceryButton1({required this.textContent, required this.onPressed, this.isStroked = false, this.height = 50.0});
 
   @override
   groceryButton1State createState() => groceryButton1State();
@@ -134,9 +96,9 @@ class EditText extends StatefulWidget {
   var text;
   var maxLine;
   var keyboardType;
-  TextEditingController mController;
+  TextEditingController? mController;
 
-  VoidCallback onPressed;
+  VoidCallback? onPressed;
 
   EditText(
       {var this.fontSize = textSizeMedium,
@@ -206,14 +168,9 @@ class EditTextState extends State<EditText> {
       );
     }
   }
-
-  @override
-  State<StatefulWidget> createState() {
-    return null;
-  }
 }
 
-Widget title(var title, Color headerColor, Color textColor, BuildContext context) {
+Widget title(String title, Color headerColor, Color textColor, BuildContext context) {
   return Stack(
     alignment: Alignment.topCenter,
     children: <Widget>[
@@ -222,13 +179,7 @@ Widget title(var title, Color headerColor, Color textColor, BuildContext context
         child: Row(
           children: <Widget>[
             IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                size: 30,
-                color: textColor,
-              ).paddingOnly(
-                top: spacing_standard_new,
-              ),
+              icon: Icon(Icons.arrow_back, size: 30, color: textColor).paddingOnly(top: spacing_standard_new),
               onPressed: () {
                 finish(context);
               },
@@ -241,36 +192,33 @@ Widget title(var title, Color headerColor, Color textColor, BuildContext context
   );
 }
 
-Widget title1(var title, Color color1, Color textColor, BuildContext context) {
+Widget title1(String title, Color color1, Color textColor, BuildContext context) {
   return Stack(
     alignment: Alignment.topCenter,
     children: <Widget>[
-      Container(color: color1,),
+      Container(color: color1),
       Center(
         child: Row(
           children: <Widget>[
             IconButton(
-              icon: Icon(
-                Icons.close,
-                size: 30,
-                color: textColor,
-              ).paddingOnly(
-                top: spacing_standard_new,
-              ),
+              icon: Icon(Icons.close, size: 30, color: textColor).paddingOnly(top: spacing_standard_new),
               onPressed: () {
                 finish(context);
               },
             ),
             text(title, textColor: textColor, fontSize: textSizeNormal, fontFamily: fontBold, isCentered: true).paddingOnly(left: spacing_standard, top: 26)
           ],
-        ).paddingOnly(left: spacing_standard, right: spacing_standard,),
+        ).paddingOnly(
+          left: spacing_standard,
+          right: spacing_standard,
+        ),
       )
     ],
   );
 }
 
 class PinEntryTextField extends StatefulWidget {
-  final String lastPin;
+  final String? lastPin;
   final int fields;
   final onSubmit;
   final fieldWidth;
@@ -287,23 +235,23 @@ class PinEntryTextField extends StatefulWidget {
 }
 
 class PinEntryTextFieldState extends State<PinEntryTextField> {
-  List<String> _pin;
-  List<FocusNode> _focusNodes;
-  List<TextEditingController> _textControllers;
+  late List<String?> _pin;
+  late List<FocusNode?> _focusNodes;
+  late List<TextEditingController?> _textControllers;
 
   Widget textfields = Container();
 
   @override
   void initState() {
     super.initState();
-    _pin = List<String>(widget.fields);
-    _focusNodes = List<FocusNode>(widget.fields);
-    _textControllers = List<TextEditingController>(widget.fields);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    _pin = List<String?>.filled(widget.fields, null, growable: false);
+    _focusNodes = List<FocusNode?>.filled(widget.fields, null, growable: false);
+    _textControllers = List<TextEditingController?>.filled(widget.fields, null, growable: false);
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       setState(() {
         if (widget.lastPin != null) {
-          for (var i = 0; i < widget.lastPin.length; i++) {
-            _pin[i] = widget.lastPin[i];
+          for (var i = 0; i < widget.lastPin!.length; i++) {
+            _pin[i] = widget.lastPin![i];
           }
         }
         textfields = generateTextFields(context);
@@ -313,7 +261,7 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
 
   @override
   void dispose() {
-    _textControllers.forEach((TextEditingController t) => t.dispose());
+    _textControllers.forEach((TextEditingController? t) => t!.dispose());
     super.dispose();
   }
 
@@ -330,7 +278,7 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
   }
 
   void clearTextFields() {
-    _textControllers.forEach((TextEditingController tEditController) => tEditController.clear());
+    _textControllers.forEach((TextEditingController? tEditController) => tEditController!.clear());
     _pin.clear();
   }
 
@@ -341,15 +289,15 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
     if (_textControllers[i] == null) {
       _textControllers[i] = TextEditingController();
       if (widget.lastPin != null) {
-        _textControllers[i].text = widget.lastPin[i];
+        _textControllers[i]!.text = widget.lastPin![i];
       }
     }
 
-    _focusNodes[i].addListener(() {
-      if (_focusNodes[i].hasFocus) {}
+    _focusNodes[i]!.addListener(() {
+      if (_focusNodes[i]!.hasFocus) {}
     });
 
-    final String lastDigit = _textControllers[i].text;
+    final String lastDigit = _textControllers[i]!.text;
 
     return Container(
       width: widget.fieldWidth,
@@ -368,24 +316,24 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
             _pin[i] = str;
           });
           if (i + 1 != widget.fields) {
-            _focusNodes[i].unfocus();
+            _focusNodes[i]!.unfocus();
             if (lastDigit != null && _pin[i] == '') {
               FocusScope.of(context).requestFocus(_focusNodes[i - 1]);
             } else {
               FocusScope.of(context).requestFocus(_focusNodes[i + 1]);
             }
           } else {
-            _focusNodes[i].unfocus();
+            _focusNodes[i]!.unfocus();
             if (lastDigit != null && _pin[i] == '') {
               FocusScope.of(context).requestFocus(_focusNodes[i - 1]);
             }
           }
-          if (_pin.every((String digit) => digit != null && digit != '')) {
+          if (_pin.every((String? digit) => digit != null && digit != '')) {
             widget.onSubmit(_pin.join());
           }
         },
         onSubmitted: (String str) {
-          if (_pin.every((String digit) => digit != null && digit != '')) {
+          if (_pin.every((String? digit) => digit != null && digit != '')) {
             widget.onSubmit(_pin.join());
           }
         },
@@ -431,7 +379,7 @@ class TopBarState extends State<TopBar> {
                   icon: Icon(widget.leftIcon),
                   color: grocery_color_white,
                   onPressed: () {
-                    back(context);
+                    finish(context);
                   },
                 ),
                 Padding(
@@ -456,7 +404,7 @@ class TopBarState extends State<TopBar> {
   }
 
   @override
-  State<StatefulWidget> createState() {
+  State<StatefulWidget>? createState() {
     return null;
   }
 }

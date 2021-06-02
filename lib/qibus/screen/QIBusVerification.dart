@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusColors.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusConstant.dart';
-import 'package:prokit_flutter/qibus/utils/QiBusExtension.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusImages.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusStrings.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusWidget.dart';
@@ -20,7 +21,7 @@ class QIBusVerification extends StatefulWidget {
 }
 
 class QIBusVerificationState extends State<QIBusVerification> {
-  Timer _timer;
+  late Timer _timer;
   int _start = 60;
 
   void startTimer() {
@@ -66,13 +67,13 @@ class QIBusVerificationState extends State<QIBusVerification> {
                 child: Column(
                   children: <Widget>[
                     CachedNetworkImage(
+                      placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                       imageUrl: qibus_ic_gr_mobile_otp,
                       fit: BoxFit.contain,
                       width: width * 0.5,
                       height: width * 0.5,
                     ),
-                    text(QIBus_lbl_verification,
-                        isLongText: true, isCentered: true),
+                    text(QIBus_lbl_verification, isLongText: true, isCentered: true),
                     SizedBox(
                       height: 16,
                     ),
@@ -89,14 +90,8 @@ class QIBusVerificationState extends State<QIBusVerification> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           _start == 0
-                              ? Text(QIBus_txt_Resend,
-                                  style: TextStyle(
-                                      color: qIBus_colorPrimary,
-                                      fontSize: textSizeMedium))
-                              : Text("$_start Seconds",
-                                  style: TextStyle(
-                                      color: qIBus_colorPrimary,
-                                      fontSize: textSizeMedium)),
+                              ? Text(QIBus_txt_Resend, style: TextStyle(color: qIBus_colorPrimary, fontSize: textSizeMedium))
+                              : Text("$_start Seconds", style: TextStyle(color: qIBus_colorPrimary, fontSize: textSizeMedium)),
                           Row(
                             children: <Widget>[
                               text(
@@ -108,7 +103,7 @@ class QIBusVerificationState extends State<QIBusVerification> {
                               GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    launchScreen(context, QIBusDashboard.tag);
+                                    QIBusDashboard().launch(context);
                                   });
                                 },
                                 child: Container(

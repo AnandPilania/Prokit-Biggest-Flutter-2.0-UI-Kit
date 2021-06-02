@@ -12,9 +12,9 @@ class T4EditText extends StatefulWidget {
   var text;
   var hint;
   var maxLine;
-  TextEditingController mController;
+  TextEditingController? mController;
 
-  VoidCallback onPressed;
+  VoidCallback? onPressed;
 
   T4EditText(
       {var this.fontSize = textSizeNormal,
@@ -68,7 +68,7 @@ class T4EditTextState extends State<T4EditText> {
   }
 
   @override
-  State<StatefulWidget> createState() {
+  State<StatefulWidget>? createState() {
     return null;
   }
 }

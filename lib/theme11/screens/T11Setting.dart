@@ -17,8 +17,8 @@ class _T11SettingState extends State<T11Setting> {
   bool isAutoPlay = true;
   bool isVolume = true;
   bool isDataServer = true;
-  String selectedValue = 'High';
-  String downloadSpeed = 'High';
+  String? selectedValue = 'High';
+  String? downloadSpeed = 'High';
 
   Widget build(BuildContext context) {
     final listView = Column(
@@ -146,7 +146,7 @@ class _T11SettingState extends State<T11Setting> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Icon(Icons.navigate_before, size: 40, color: t11_PrimaryColor).onTap(() {
-                    Navigator.pop(context);
+                    finish(context);
                   }),
                   text(t11_lbl_Settings, textColor: t11_blackColor, fontSize: textSizeNormal, fontFamily: fontBold).paddingAll(24),
                   Icon(Icons.navigate_before, color: Colors.transparent),

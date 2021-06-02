@@ -13,7 +13,7 @@ import 'package:prokit_flutter/dashboard/utils/DbImages.dart';
 import 'DbColors.dart';
 
 List<Db1CategoryModel> getFilterFavourites() {
-  List<Db1CategoryModel> categoryModelArrayList = List<Db1CategoryModel>();
+  List<Db1CategoryModel> categoryModelArrayList = [];
 
   Db1CategoryModel item1 = Db1CategoryModel();
   item1.img = db1_ic_burger;
@@ -55,7 +55,7 @@ List<Db1CategoryModel> getFilterFavourites() {
 }
 
 List<Db1CategoryModel> getCategories() {
-  List<Db1CategoryModel> categoryModelArrayList = List<Db1CategoryModel>();
+  List<Db1CategoryModel> categoryModelArrayList = [];
   Db1CategoryModel item1 = Db1CategoryModel();
   item1.img = db_restau_1;
   item1.name = "Morimoto";
@@ -89,7 +89,7 @@ List<Db1CategoryModel> getCategories() {
 }
 
 List<DB1FoodModel> getFoodItems() {
-  List<DB1FoodModel> foodModelArrayList = List<DB1FoodModel>();
+  List<DB1FoodModel> foodModelArrayList = [];
   DB1FoodModel item1 = DB1FoodModel();
   item1.img = db1_ic_waffles;
   item1.name = "Paneer Tikka Dry";
@@ -122,7 +122,7 @@ List<DB1FoodModel> getFoodItems() {
 }
 
 List<DB1FoodModel> getPopular() {
-  List<DB1FoodModel> foodModelArrayList = List<DB1FoodModel>();
+  List<DB1FoodModel> foodModelArrayList = [];
   DB1FoodModel item1 = DB1FoodModel();
   item1.img = db1_ic_waffles;
   item1.name = "Hungry Birds";
@@ -155,7 +155,7 @@ List<DB1FoodModel> getPopular() {
 }
 
 List<Db2ShopModel> db2getCategory() {
-  List<Db2ShopModel> popularArrayList = List<Db2ShopModel>();
+  List<Db2ShopModel> popularArrayList = [];
   Db2ShopModel item1 = Db2ShopModel();
   item1.img = db2_mens;
   item1.name = "Mens";
@@ -185,7 +185,7 @@ List<Db2ShopModel> db2getCategory() {
 }
 
 List<Db2ShopModel> db2getProduct() {
-  List<Db2ShopModel> popularArrayList = List<Db2ShopModel>();
+  List<Db2ShopModel> popularArrayList = [];
   Db2ShopModel item1 = Db2ShopModel();
   item1.img = db2_item2;
   item1.name = "Sunglasses";
@@ -210,7 +210,7 @@ List<Db2ShopModel> db2getProduct() {
 }
 
 List<Db2ShopModel> db2getFeatured() {
-  List<Db2ShopModel> popularArrayList = List<Db2ShopModel>();
+  List<Db2ShopModel> popularArrayList = [];
   Db2ShopModel item1 = Db2ShopModel();
   item1.img = db2_women;
   item1.name = "Black Jacket";
@@ -235,7 +235,7 @@ List<Db2ShopModel> db2getFeatured() {
 }
 
 List<Db3FurnitureModel> db3FurnitureItems() {
-  List<Db3FurnitureModel> furnitureModelArrayList = List<Db3FurnitureModel>();
+  List<Db3FurnitureModel> furnitureModelArrayList = [];
   Db3FurnitureModel item1 = Db3FurnitureModel();
   item1.img = ic_chair3;
   item1.name = "Chair";
@@ -265,7 +265,7 @@ List<Db3FurnitureModel> db3FurnitureItems() {
 }
 
 List<Db3FurnitureModel> db3SellerItems() {
-  List<Db3FurnitureModel> furnitureModelArrayList = List<Db3FurnitureModel>();
+  List<Db3FurnitureModel> furnitureModelArrayList = [];
   Db3FurnitureModel item1 = Db3FurnitureModel();
   item1.img = ic_chair3;
   item1.name = "Houndstooth Side Zipper";
@@ -295,7 +295,7 @@ List<Db3FurnitureModel> db3SellerItems() {
 }
 
 List<Db4Category> db5GetCategoryItems() {
-  var list = List<Db4Category>();
+  List<Db4Category> list = [];
 
   var category1 = Db4Category();
   category1.name = "Transfer";
@@ -333,7 +333,7 @@ List<Db4Category> db5GetCategoryItems() {
 }
 
 List<Db4Slider> db4GetSliders() {
-  List<Db4Slider> list = List<Db4Slider>();
+  List<Db4Slider> list = [];
   Db4Slider model1 = Db4Slider();
   model1.balance = "\$150000";
   model1.accountNo = "145 250 230 120 150";
@@ -354,7 +354,7 @@ List<Db4Slider> db4GetSliders() {
 }
 
 List<Db5CategoryData> generateCategories() {
-  List<Db5CategoryData> categories = List<Db5CategoryData>();
+  List<Db5CategoryData> categories = [];
 
   Db5CategoryData model = Db5CategoryData();
   model.name = "Hotels";
@@ -380,7 +380,7 @@ List<Db5CategoryData> generateCategories() {
 }
 
 List<Db6BestDestinationData> generateBestDestination() {
-  List<Db6BestDestinationData> bestDestinationData = List<Db6BestDestinationData>();
+  List<Db6BestDestinationData> bestDestinationData = [];
 
   Db6BestDestinationData model = Db6BestDestinationData();
   model.name = "Malawi";
@@ -412,7 +412,7 @@ List<Db6BestDestinationData> generateBestDestination() {
 }
 
 List<DB6Service> getTopLaundryService() {
-  List<DB6Service> categories = List<DB6Service>();
+  List<DB6Service> categories = [];
 
   DB6Service model = DB6Service();
   model.name = "Wash & Fold";
@@ -438,7 +438,7 @@ List<DB6Service> getTopLaundryService() {
 }
 
 List<DB6Laundry> getLaundry() {
-  List<DB6Laundry> categories = List<DB6Laundry>();
+  List<DB6Laundry> categories = [];
 
   DB6Laundry model = DB6Laundry();
   model.name = "My Laundry";
@@ -471,7 +471,7 @@ List<DB6Laundry> getLaundry() {
 }
 
 List<DB6Offer> getOffer() {
-  List<DB6Offer> categories = List<DB6Offer>();
+  List<DB6Offer> categories = [];
   DB6Offer model = DB6Offer();
   model.img = db6_washing_clothes;
   model.subTitle = "Get 50% off";
@@ -499,7 +499,7 @@ List<DB6Offer> getOffer() {
 }
 
 List<DB7Topic> getDB7TodayData() {
-  List<DB7Topic> data = List<DB7Topic>();
+  List<DB7Topic> data = [];
   data.add(DB7Topic("Participation in Extracurricular Activities", db7_item4, "Civil Hospital", 200, 20));
   data.add(DB7Topic("Depression", db7_item5, "Orange Hospital", 200, 20));
   data.add(DB7Topic("illnesses", db7_item3, "Fudan University Hospital", 200, 20));
@@ -508,7 +508,7 @@ List<DB7Topic> getDB7TodayData() {
 }
 
 List<DB8Scene> getScene() {
-  List<DB8Scene> categories = List<DB8Scene>();
+  List<DB8Scene> categories = [];
   categories.add(DB8Scene(db8_ic_home, "Home"));
   categories.add(DB8Scene(db8_ic_door, "Away"));
   categories.add(DB8Scene(db8_ic_sleep, "Sleep"));
@@ -518,7 +518,7 @@ List<DB8Scene> getScene() {
 }
 
 List<DB8Rooms> getRooms() {
-  List<DB8Rooms> categories = List<DB8Rooms>();
+  List<DB8Rooms> categories = [];
   categories.add(DB8Rooms("Living Room", db8_ic_item6, "6 device"));
   categories.add(DB8Rooms("Bed Rooms", db8_ic_item5, "1 device"));
   categories.add(DB8Rooms("Rest Room", db8_ic_item7, "3 device"));

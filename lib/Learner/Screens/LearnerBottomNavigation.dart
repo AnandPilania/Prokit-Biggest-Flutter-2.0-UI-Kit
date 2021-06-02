@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerBottomNavigationBar.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerColors.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerExtension.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerImages.dart';
+import 'package:prokit_flutter/learner/utils/LearnerBottomNavigationBar.dart';
+import 'package:prokit_flutter/learner/utils/LearnerColors.dart';
+import 'package:prokit_flutter/learner/utils/LearnerImages.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class LearnerBottomNavigation extends StatefulWidget {
   static String tag = '/T9BottomNavigation';
@@ -32,6 +32,7 @@ class LearnerBottomNavigationState extends State<LearnerBottomNavigation> {
   @override
   Widget build(BuildContext context) {
     changeStatusColor(learner_layout_background);
+
     return Scaffold(
       backgroundColor: learner_layout_background,
       bottomNavigationBar: Container(

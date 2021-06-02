@@ -1,13 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/dashboard/utils/DbExtension.dart';
+import 'package:prokit_flutter/main/utils/AppConstant.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme11/models/T11Models.dart';
 import 'package:prokit_flutter/theme11/utils/T11Colors.dart';
-import 'package:prokit_flutter/theme11/utils/T11Constant.dart';
 import 'package:prokit_flutter/theme11/utils/T11DataGenerator.dart';
 import 'package:prokit_flutter/theme11/utils/T11Strings.dart';
-import 'package:prokit_flutter/theme11/utils/T11Widget.dart';
 
 class T11List extends StatefulWidget {
   static String tag = '/T11List';
@@ -17,7 +16,7 @@ class T11List extends StatefulWidget {
 }
 
 class _T11ListState extends State<T11List> {
-  List<Theme11SongsList> mList1;
+  late List<Theme11SongsList> mList1;
 
   void initState() {
     super.initState();
@@ -39,6 +38,7 @@ class _T11ListState extends State<T11List> {
                 height: 350,
                 width: MediaQuery.of(context).size.width - 24,
                 child: CachedNetworkImage(
+                  placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                   imageUrl: mList1[index].img,
                   fit: BoxFit.fill,
                 ).cornerRadiusWithClipRRect(20).paddingTop(16),
@@ -50,17 +50,13 @@ class _T11ListState extends State<T11List> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    text(
-                      mList1[index].title,
-                      textColor: t11_blackColor,
-                      fontSize: textSizeNormal,
-                      fontFamily: fontBold,
-                    ),
-                    text(mList1[index].subtitle,
-                            textColor: t11_blackColor,
-                            fontSize: textSizeMedium,
-                            fontFamily: fontRegular)
-                        .paddingTop(4),
+                    Text(mList1[index].title,
+                        style: boldTextStyle(
+                          color: t11_blackColor,
+                          size: 20,
+                          fontFamily: fontBold,
+                        )),
+                    Text(mList1[index].subtitle, style: primaryTextStyle(color: t11_blackColor, size: 16, fontFamily: fontRegular)).paddingTop(4),
                   ],
                 ).paddingAll(16),
               ).cornerRadiusWithClipRRect(20)
@@ -76,9 +72,7 @@ class _T11ListState extends State<T11List> {
           ),
           Column(
             children: <Widget>[
-              SizedBox(
-                height: 40,
-              ),
+              SizedBox(height: 40),
               Container(
                 width: MediaQuery.of(context).size.width,
                 child: Row(
@@ -89,19 +83,13 @@ class _T11ListState extends State<T11List> {
                       size: 40,
                       color: t11_PrimaryColor,
                     ).paddingTop(24).onTap(() {
-                      Navigator.pop(context);
+                      finish(context);
                     }),
                     Expanded(
                       child: Container(
                         color: t11_WhiteColor,
-                        child: text(t11_lbl_header_text,
-                                textColor: t11_blackColor,
-                                fontSize: textSizeMedium,
-                                fontFamily: fontRegular)
-                            .paddingAll(16),
-                      )
-                          .cornerRadiusWithClipRRect(30)
-                          .paddingOnly(top: 16, bottom: 8, left: 16, right: 16),
+                        child: Text(t11_lbl_header_text, style: primaryTextStyle(color: t11_blackColor, size: 16, fontFamily: fontRegular)).paddingAll(16),
+                      ).cornerRadiusWithClipRRect(30).paddingOnly(top: 16, bottom: 8, left: 16, right: 16),
                     )
                   ],
                 ),

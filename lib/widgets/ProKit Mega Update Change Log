@@ -30,7 +30,7 @@ Input & Selection
 Dialogs, Alerts & Panels
 - AlertDialog (4 examples)
 - BottomSheet (4 examples)
-- ExpansionPanel (1 examples)
+- ExpansionPanel
 - SimpleDialog (7 examples)
 - SnackBar (7 examples)
 
@@ -39,7 +39,7 @@ Information Display
 - Chip (5 examples)
 - ProgressBar (Circuler, Linear) (5 examples)
 - DataTable (3 examples)
-- GridView (1 examples)
+- GridView
 - Icon (7 examples)
 - Image (assets,Network,Placeholders) (5 examples)
 - Tooltip (2 examples)
@@ -48,26 +48,26 @@ Information Display
 
 Layout
 - Divider (7 examples)
-- ListTile (1 examples)
+- ListTile
 - Stepper (4 examples)
 - UserAccountsDrawerHeader (4 examples)
 
 Cupertino Widgets
 - Cupertino Action Sheet (3 examples)
-- Cupertino Activity Indicator (1 examples)
+- Cupertino Activity Indicator
 - Cupertino Alert Dialog (2 examples)
 - Cupertino Button (7 examples)
-- Cupertino Context Menu (1 examples)
-- Cupertino Date Picker (1 examples)
-- Cupertino Dialog (1 examples)
+- Cupertino Context Menu
+- Cupertino Date Picker
+- Cupertino Dialog
 - Cupertino Dialog Action (4 examples)
 - Cupertino Navigation Bar (6 examples)
-- Cupertino Picker (1 examples)
-- Cupertino Segmented Control (1 examples)
+- Cupertino Picker
+- Cupertino Segmented Control
 - Cupertino Slider (2 examples)
-- Cupertino Sliding Segmented Control (1 examples)
+- Cupertino Sliding Segmented Control
 - Cupertino Switch (3 examples)
 - Cupertino TabBar (3 examples)
-- Cupertino TabView (1 examples)
+- Cupertino TabView
 - Cupertino TextField (7 examples)
-- Cupertino TimePicker (1 examples)
+- Cupertino TimePicker

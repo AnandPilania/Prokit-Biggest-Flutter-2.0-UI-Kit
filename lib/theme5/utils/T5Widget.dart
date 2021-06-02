@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/main/utils/dots_indicator/dots_indicator.dart';
-import 'package:snaplist/snaplist_view.dart';
 
+import '../../main.dart';
 import 'T5Colors.dart';
 import 'T5Constant.dart';
-
-Widget text(var text, {var fontSize = textSizeLargeMedium, textColor = t5TextColorSecondary, var fontFamily = fontRegular, var isCentered = false, var maxLine = 1, var latterSpacing = 0.25}) {
-  return Text(text,
-      textAlign: isCentered ? TextAlign.center : TextAlign.start,
-      maxLines: maxLine,
-      style: TextStyle(fontFamily: fontFamily, fontSize: fontSize, color: textColor, height: 1.5, letterSpacing: latterSpacing));
-}
 
 class EditText extends StatefulWidget {
   var isPassword;
@@ -22,9 +16,9 @@ class EditText extends StatefulWidget {
   var text;
   var hint;
   var maxLine;
-  TextEditingController mController;
+  TextEditingController? mController;
 
-  VoidCallback onPressed;
+  VoidCallback? onPressed;
 
   EditText(
       {var this.fontSize = textSizeNormal,
@@ -49,7 +43,7 @@ class EditTextState extends State<EditText> {
     return TextFormField(
       controller: widget.mController,
       obscureText: widget.isPassword,
-      style: TextStyle(fontSize: textSizeLargeMedium, fontFamily: fontRegular),
+      style: TextStyle(color: appStore.textPrimaryColor, fontSize: textSizeLargeMedium, fontFamily: fontRegular),
       decoration: InputDecoration(
         suffixIcon: widget.isSecure
             ? GestureDetector(
@@ -58,7 +52,10 @@ class EditTextState extends State<EditText> {
                     widget.isPassword = !widget.isPassword;
                   });
                 },
-                child: new Icon(widget.isPassword ? Icons.visibility : Icons.visibility_off),
+                child: new Icon(
+                  widget.isPassword ? Icons.visibility : Icons.visibility_off,
+                  color: appStore.iconColor,
+                ),
               )
             : null,
         contentPadding: EdgeInsets.fromLTRB(16, 10, 16, 10),
@@ -77,7 +74,7 @@ class EditTextState extends State<EditText> {
   }
 
   @override
-  State<StatefulWidget> createState() {
+  State<StatefulWidget>? createState() {
     return null;
   }
 }
@@ -102,14 +99,14 @@ TextFormField editTextStyle(var hintText, {isPassword = true}) {
   );
 }
 
-Widget checkbox(String title, bool boolValue) {
+Widget checkbox(String title, bool? boolValue) {
   return Row(
     children: <Widget>[
       Text(title),
       Checkbox(
         activeColor: t5ColorPrimary,
         value: boolValue,
-        onChanged: (bool value) {
+        onChanged: (bool? value) {
           boolValue = value;
         },
       )
@@ -135,6 +132,7 @@ class TopBarState extends State<TopBar> {
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: 60,
+        color: appStore.appBarColor,
         child: Stack(
           children: <Widget>[
             IconButton(
@@ -143,7 +141,7 @@ class TopBarState extends State<TopBar> {
                 finish(context);
               },
             ),
-            Center(child: text(widget.titleName, textColor: t5TextColorPrimary, fontSize: textSizeNormal, fontFamily: fontBold))
+            Center(child: text(widget.titleName, textColor: appStore.textPrimaryColor, fontSize: textSizeNormal, fontFamily: fontBold))
           ],
         ),
       ),
@@ -151,7 +149,7 @@ class TopBarState extends State<TopBar> {
   }
 
   @override
-  State<StatefulWidget> createState() {
+  State<StatefulWidget>? createState() {
     return null;
   }
 }
@@ -181,7 +179,8 @@ class HorizontalTabState extends State<HorizontalTab> {
         Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.width / 2,
-          child: SnapList(
+          // TODO Without NullSafety SnapList
+          /*child: SnapList(
             padding: EdgeInsets.only(left: 16),
             sizeProvider: (index, data) => cardSize,
             separatorProvider: (index, data) => Size(12, 12),
@@ -198,7 +197,7 @@ class HorizontalTabState extends State<HorizontalTab> {
               );
             },
             count: widget.images.length,
-          ),
+          ),*/
         ),
         DotsIndicator(
             dotsCount: 3,
@@ -228,7 +227,7 @@ Widget ring(String description) {
         ),
       ),
       SizedBox(height: 16),
-      text(description, textColor: t5TextColorPrimary, fontSize: textSizeNormal, fontFamily: fontSemibold, isCentered: true, maxLine: 2)
+      text(description, textColor: appStore.textPrimaryColor, fontSize: textSizeNormal, fontFamily: fontSemibold, isCentered: true, maxLine: 2)
     ],
   );
 }
@@ -240,26 +239,10 @@ Widget shareIcon(String iconPath) {
   );
 }
 
-BoxDecoration boxDecoration({double radius = 2, Color color = Colors.transparent, Color bgColor = t5White, var showShadow = false}) {
-  return BoxDecoration(
-      //gradient: LinearGradient(colors: [bgColor, whiteColor]),
-      color: bgColor,
-      boxShadow: showShadow ? [BoxShadow(color: t5ShadowColor, blurRadius: 10, spreadRadius: 2)] : [BoxShadow(color: Colors.transparent)],
-      border: Border.all(color: color),
-      borderRadius: BorderRadius.all(Radius.circular(radius)));
-}
-
-class ScrollingBehavior extends ScrollBehavior {
-  @override
-  Widget buildViewportChrome(BuildContext context, Widget child, AxisDirection axisDirection) {
-    return child;
-  }
-}
-
 class Slider extends StatelessWidget {
   final String file;
 
-  Slider({Key key, @required this.file}) : super(key: key);
+  Slider({Key? key, required this.file}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -284,7 +267,7 @@ showToast(BuildContext aContext, String caption) {
 }
 
 class PinEntryTextField extends StatefulWidget {
-  final String lastPin;
+  final String? lastPin;
   final int fields;
   final onSubmit;
   final fieldWidth;
@@ -301,23 +284,23 @@ class PinEntryTextField extends StatefulWidget {
 }
 
 class PinEntryTextFieldState extends State<PinEntryTextField> {
-  List<String> _pin;
-  List<FocusNode> _focusNodes;
-  List<TextEditingController> _textControllers;
+  late List<String?> _pin;
+  late List<FocusNode?> _focusNodes;
+  late List<TextEditingController?> _textControllers;
 
   Widget textfields = Container();
 
   @override
   void initState() {
     super.initState();
-    _pin = List<String>(widget.fields);
-    _focusNodes = List<FocusNode>(widget.fields);
-    _textControllers = List<TextEditingController>(widget.fields);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    _pin = List<String?>.filled(widget.fields, null, growable: false);
+    _focusNodes = List<FocusNode?>.filled(widget.fields, null, growable: false);
+    _textControllers = List<TextEditingController?>.filled(widget.fields, null, growable: false);
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       setState(() {
         if (widget.lastPin != null) {
-          for (var i = 0; i < widget.lastPin.length; i++) {
-            _pin[i] = widget.lastPin[i];
+          for (var i = 0; i < widget.lastPin!.length; i++) {
+            _pin[i] = widget.lastPin![i];
           }
         }
         textfields = generateTextFields(context);
@@ -327,7 +310,7 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
 
   @override
   void dispose() {
-    _textControllers.forEach((TextEditingController t) => t.dispose());
+    _textControllers.forEach((TextEditingController? t) => t!.dispose());
     super.dispose();
   }
 
@@ -344,7 +327,7 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
   }
 
   void clearTextFields() {
-    _textControllers.forEach((TextEditingController tEditController) => tEditController.clear());
+    _textControllers.forEach((TextEditingController? tEditController) => tEditController!.clear());
     _pin.clear();
   }
 
@@ -355,15 +338,15 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
     if (_textControllers[i] == null) {
       _textControllers[i] = TextEditingController();
       if (widget.lastPin != null) {
-        _textControllers[i].text = widget.lastPin[i];
+        _textControllers[i]!.text = widget.lastPin![i];
       }
     }
 
-    _focusNodes[i].addListener(() {
-      if (_focusNodes[i].hasFocus) {}
+    _focusNodes[i]!.addListener(() {
+      if (_focusNodes[i]!.hasFocus) {}
     });
 
-    final String lastDigit = _textControllers[i].text;
+    final String lastDigit = _textControllers[i]!.text;
 
     return Container(
       width: widget.fieldWidth,
@@ -373,33 +356,46 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,
         maxLength: 1,
-        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontFamily: fontMedium, fontSize: widget.fontSize),
+        style: TextStyle(fontWeight: FontWeight.bold, color: appStore.textPrimaryColor, fontFamily: fontMedium, fontSize: widget.fontSize),
         focusNode: _focusNodes[i],
         obscureText: widget.isTextObscure,
-        decoration: InputDecoration(counterText: "", border: widget.showFieldAsBox ? OutlineInputBorder(borderSide: BorderSide(width: 2.0)) : null),
+        decoration: InputDecoration(
+          counterText: "",
+          border: widget.showFieldAsBox
+              ? OutlineInputBorder(
+                  borderSide: BorderSide(width: 2.0, color: appStore.iconColor!),
+                )
+              : null,
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: appStore.iconColor!),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: t5ColorPrimary),
+          ),
+        ),
         onChanged: (String str) {
           setState(() {
             _pin[i] = str;
           });
           if (i + 1 != widget.fields) {
-            _focusNodes[i].unfocus();
+            _focusNodes[i]!.unfocus();
             if (lastDigit != null && _pin[i] == '') {
               FocusScope.of(context).requestFocus(_focusNodes[i - 1]);
             } else {
               FocusScope.of(context).requestFocus(_focusNodes[i + 1]);
             }
           } else {
-            _focusNodes[i].unfocus();
+            _focusNodes[i]!.unfocus();
             if (lastDigit != null && _pin[i] == '') {
               FocusScope.of(context).requestFocus(_focusNodes[i - 1]);
             }
           }
-          if (_pin.every((String digit) => digit != null && digit != '')) {
+          if (_pin.every((String? digit) => digit != null && digit != '')) {
             widget.onSubmit(_pin.join());
           }
         },
         onSubmitted: (String str) {
-          if (_pin.every((String digit) => digit != null && digit != '')) {
+          if (_pin.every((String? digit) => digit != null && digit != '')) {
             widget.onSubmit(_pin.join());
           }
         },

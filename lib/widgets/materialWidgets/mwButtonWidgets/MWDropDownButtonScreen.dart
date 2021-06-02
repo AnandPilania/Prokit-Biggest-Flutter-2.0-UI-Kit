@@ -12,9 +12,9 @@ class MWDropDownButtonScreen extends StatefulWidget {
 
 class _MWDropDownButtonScreenState extends State<MWDropDownButtonScreen> {
   List<String> listOfCategory = ['It', 'Computer Science', 'Business', 'Data Science', 'Infromation Technologies', 'Health', 'Physics'];
-  String selectedIndexCategory = 'Business';
-  String dropdownNames;
-  String dropdownScrollable = 'I';
+  String? selectedIndexCategory = 'Business';
+  String? dropdownNames;
+  String? dropdownScrollable = 'I';
 
   @override
   void initState() {
@@ -45,7 +45,7 @@ class _MWDropDownButtonScreenState extends State<MWDropDownButtonScreen> {
                       color: appStore.iconColor,
                     ),
                     underline: 0.height,
-                    onChanged: (newValue) {
+                    onChanged: (dynamic newValue) {
                       setState(() {
                         toast(newValue);
                         selectedIndexCategory = newValue;
@@ -73,7 +73,7 @@ class _MWDropDownButtonScreenState extends State<MWDropDownButtonScreen> {
                   Icons.arrow_drop_down,
                   color: appStore.iconColor,
                 ).paddingLeft(10),
-                onChanged: (String newValue) {
+                onChanged: (String? newValue) {
                   setState(() {
                     toast(newValue);
                     dropdownNames = newValue;
@@ -97,7 +97,7 @@ class _MWDropDownButtonScreenState extends State<MWDropDownButtonScreen> {
                   Icons.arrow_drop_down,
                   color: appStore.iconColor,
                 ).paddingLeft(10),
-                onChanged: (String newValue) {
+                onChanged: (String? newValue) {
                   toast(newValue);
                   setState(() {
                     dropdownScrollable = newValue;

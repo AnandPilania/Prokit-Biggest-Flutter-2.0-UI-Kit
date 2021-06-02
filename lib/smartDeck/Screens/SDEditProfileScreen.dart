@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/integrations/screens/ShowViewCase/SVCHomePage.dart';
 import 'package:prokit_flutter/smartDeck/SDUtils/SDStyle.dart';
 
@@ -10,8 +11,8 @@ class SDEditProfileScreen extends StatefulWidget {
 class _SDEditProfileScreenState extends State<SDEditProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    String _selectedLocation = 'Female';
-    String _selectedValue = '12th Grade';
+    String? _selectedLocation = 'Female';
+    String? _selectedValue = '12th Grade';
 
     Widget mInput(var mLabel) {
       return Padding(
@@ -27,7 +28,7 @@ class _SDEditProfileScreenState extends State<SDEditProfileScreen> {
         appBar: AppBar(
           leading: InkWell(
             onTap: () {
-              Navigator.pop(context);
+              finish(context);
             },
             child: Icon(Icons.arrow_back, color: Colors.black),
           ),
@@ -47,7 +48,7 @@ class _SDEditProfileScreenState extends State<SDEditProfileScreen> {
                   padding: EdgeInsets.fromLTRB(10, 4, 10, 4),
                   decoration: boxDecorations(radius: 4, bgColor: sdPrimaryColor),
                   child: Center(
-                    child: Text('Change Profile Photo', style: boldTextStyle(size: 12, textColor: Colors.white)),
+                    child: Text('Change Profile Photo', style: boldTextStyle(size: 12, color: Colors.white)),
                   ),
                 ),
               ),
@@ -68,7 +69,7 @@ class _SDEditProfileScreenState extends State<SDEditProfileScreen> {
                         items: <String>['Female', 'Male', 'Other'].map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value, style: primaryTextStyle(size: 16, textColor: sdTextPrimaryColor)),
+                            child: Text(value, style: primaryTextStyle(size: 16, color: sdTextPrimaryColor)),
                           );
                         }).toList(),
                         onChanged: (newValue) {
@@ -90,7 +91,7 @@ class _SDEditProfileScreenState extends State<SDEditProfileScreen> {
                         items: <String>['12th Grade', 'B.Tech', '10th Grade'].map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value, style: primaryTextStyle(size: 16, textColor: sdTextPrimaryColor)),
+                            child: Text(value, style: primaryTextStyle(size: 16, color: sdTextPrimaryColor)),
                           );
                         }).toList(),
                         onChanged: (newValue) {
@@ -117,20 +118,20 @@ class _SDEditProfileScreenState extends State<SDEditProfileScreen> {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                    Navigator.pop(context);
+                    finish(context);
                   },
                   child: Text('Cancel', style: secondaryTextStyle()),
                 ),
                 FittedBox(
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.pop(context);
+                      finish(context);
                     },
                     child: Container(
                       padding: EdgeInsets.fromLTRB(16, 10, 16, 10),
                       decoration: boxDecorations(radius: 4, bgColor: sdPrimaryColor),
                       child: Center(
-                        child: Text('Save', style: boldTextStyle(size: 12, textColor: Colors.white)),
+                        child: Text('Save', style: boldTextStyle(size: 12, color: Colors.white)),
                       ),
                     ),
                   ),

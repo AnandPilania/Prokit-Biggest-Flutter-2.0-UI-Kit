@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:geocoder/geocoder.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/integrations/utils/colors.dart';
 import 'package:prokit_flutter/integrations/utils/common.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/integrations/utils/constants.dart';
 import 'package:prokit_flutter/integrations/utils/styles.dart';
+import 'package:prokit_flutter/main.dart';
+import 'package:prokit_flutter/main/utils/AppColors.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart' as aw;
 
 class PickerScreen extends StatefulWidget {
   static String tag = '/PickerScreen';
@@ -20,13 +22,20 @@ class PickerScreen extends StatefulWidget {
 class PickerScreenState extends State<PickerScreen> {
   var mSelectedDate = '';
   DateTime selectedDate = DateTime.now();
-  Color pickerColor = primaryColor;
+  Color? pickerColor = appStore.textPrimaryColor;
   var mSelectedColor = '';
 
   var mSelectedAddress = '';
 
   Future<Null> selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(context: context, initialDate: selectedDate, firstDate: DateTime(selectedDate.year, selectedDate.month, selectedDate.day), lastDate: DateTime(2101));
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(selectedDate.year, selectedDate.month, selectedDate.day),
+        lastDate: DateTime(2101),
+        builder: (BuildContext context, Widget? child) {
+          return aw.CustomTheme(child: child);
+        });
     setState(() {
       if (picked != null && picked != selectedDate) selectedDate = picked;
       mSelectedDate = DateFormat.yMMMd().format(selectedDate.toLocal());
@@ -36,15 +45,15 @@ class PickerScreenState extends State<PickerScreen> {
   Future pickColor(BuildContext context) async {
     await showDialog(
       context: context,
-      child: AlertDialog(
+      builder: (_) => AlertDialog(
         content: SingleChildScrollView(
           child: ColorPicker(
-            pickerColor: pickerColor,
+            pickerColor: pickerColor!,
             onColorChanged: changeColor,
           ),
         ),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             child: text("Pick"),
             onPressed: () {
               Navigator.of(context).pop();
@@ -58,16 +67,16 @@ class PickerScreenState extends State<PickerScreen> {
   void changeColor(Color color) {
     setState(() {
       pickerColor = color;
-      mSelectedColor = intToHex(pickerColor.value);
+      mSelectedColor = intToHex(pickerColor!.value);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(primaryColor);
-
-    getLocation() async {
-      var position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    changeStatusColor(appColorPrimary);
+//TODO Without NullSafety Geo coder
+/*    getLocation() async {
+      var position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       var coordinates = Coordinates(position.latitude, position.longitude);
       var addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
       var first = addresses.first;
@@ -75,10 +84,10 @@ class PickerScreenState extends State<PickerScreen> {
       setState(() {
         mSelectedAddress = first.addressLine;
       });
-    }
+    }*/
 
     return Scaffold(
-      appBar: getAppBar(context, "Pickers"),
+      appBar: appBar(context, "Pickers"),
       body: SingleChildScrollView(
         child: Container(
           child: Column(
@@ -88,7 +97,7 @@ class PickerScreenState extends State<PickerScreen> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: text("Date Selection Picker:", textColor: primaryColor, fontFamily: fontMedium, fontSize: textSizeLargeMedium),
+                child: text("Date Selection Picker:", textColor: appColorPrimary, fontFamily: fontMedium, fontSize: textSizeLargeMedium),
               ),
               Container(
                 margin: EdgeInsets.only(left: 16, right: 16),
@@ -98,14 +107,14 @@ class PickerScreenState extends State<PickerScreen> {
                   children: <Widget>[
                     Padding(
                         padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-                        child: text(mSelectedDate.isEmpty ? "Select your date" : mSelectedDate, textColor: mSelectedDate.isEmpty ? Theme.of(context).secondaryHeaderColor : textPrimaryColor)),
+                        child: text(mSelectedDate.isEmpty ? "Select your date" : mSelectedDate, textColor: mSelectedDate.isEmpty ? appStore.textSecondaryColor : appStore.textPrimaryColor)),
                     GestureDetector(
                       onTap: () {
                         selectDate(context);
                       },
                       child: Container(
                           padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-                          decoration: BoxDecoration(color: primaryColor, borderRadius: BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10))),
+                          decoration: BoxDecoration(color: appColorPrimary, borderRadius: BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10))),
                           child: textPrimary('Pick Date', aFontFamily: fontMedium)),
                     )
                   ],
@@ -118,21 +127,21 @@ class PickerScreenState extends State<PickerScreen> {
               SizedBox(height: 4),
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: text("Your Location Picker:", textColor: primaryColor, fontFamily: fontMedium, fontSize: textSizeLargeMedium),
+                child: text("Your Location Picker:", textColor: appColorPrimary, fontFamily: fontMedium, fontSize: textSizeLargeMedium),
               ),
               Container(
                 margin: EdgeInsets.only(left: 16, right: 16),
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(border: Border.all(color: Theme.of(context).dividerColor, width: 0.5), borderRadius: BorderRadius.all(Radius.circular(10))),
                 padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-                child: text(mSelectedAddress.isEmpty ? "Your Address" : mSelectedAddress, textColor: mSelectedAddress.isEmpty ? Theme.of(context).secondaryHeaderColor : textPrimaryColor, maxLine: 5),
+                child: text(mSelectedAddress.isEmpty ? "Your Address" : mSelectedAddress, textColor: mSelectedAddress.isEmpty ? appStore.textSecondaryColor : appStore.textPrimaryColor, maxLine: 5),
               ),
               SizedBox(
                 height: 16,
               ),
               GestureDetector(
                 onTap: () {
-                  getLocation();
+                  //getLocation();
                 },
                 child: Container(
                     margin: EdgeInsets.only(left: 16, right: 16),
@@ -140,7 +149,7 @@ class PickerScreenState extends State<PickerScreen> {
                     width: MediaQuery.of(context).size.width,
                     padding: EdgeInsets.fromLTRB(0, 16, 0, 16),
                     decoration: BoxDecoration(
-                        color: primaryColor,
+                        color: appColorPrimary,
                         borderRadius: BorderRadius.all(
                           Radius.circular(10),
                         )),
@@ -153,7 +162,7 @@ class PickerScreenState extends State<PickerScreen> {
               SizedBox(height: 4),
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: text("Color Picker:", textColor: primaryColor, fontFamily: fontMedium, fontSize: textSizeLargeMedium),
+                child: text("Color Picker:", textColor: appColorPrimary, fontFamily: fontMedium, fontSize: textSizeLargeMedium),
               ),
               Row(
                 children: <Widget>[
@@ -186,7 +195,7 @@ class PickerScreenState extends State<PickerScreen> {
                             alignment: Alignment.center,
                             padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
                             decoration: BoxDecoration(
-                                color: primaryColor,
+                                color: appColorPrimary,
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(10),
                                 )),

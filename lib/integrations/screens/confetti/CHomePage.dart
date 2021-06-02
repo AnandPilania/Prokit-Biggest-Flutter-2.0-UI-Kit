@@ -1,34 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/main/utils/confetti/confetti.dart';
 
 class CHomePage extends StatefulWidget {
+  static String tag = '/CHomePage';
+
   @override
   _CHomePageState createState() => _CHomePageState();
 }
 
 class _CHomePageState extends State<CHomePage> {
   //  Use this to control the duration.
-  ConfettiController _controllerCenter;
-  ConfettiController _controllerCenterRight;
-  ConfettiController _controllerCenterLeft;
-  ConfettiController _controllerTopCenter;
-  ConfettiController _controllerBottomCenter;
+  late ConfettiController _controllerCenter;
+  late ConfettiController _controllerCenterRight;
+  late ConfettiController _controllerCenterLeft;
+  late ConfettiController _controllerTopCenter;
+  late ConfettiController _controllerBottomCenter;
 
   @override
   void initState() {
     //  Set the duration of the animation
-    _controllerCenter =
-        ConfettiController(duration: const Duration(seconds: 5));
-    _controllerCenterRight =
-        ConfettiController(duration: const Duration(seconds: 5));
-    _controllerCenterLeft =
-        ConfettiController(duration: const Duration(seconds: 5));
-    _controllerTopCenter =
-        ConfettiController(duration: const Duration(seconds: 5));
-    _controllerBottomCenter =
-        ConfettiController(duration: const Duration(seconds: 5));
+    _controllerCenter = ConfettiController(duration: const Duration(seconds: 5));
+    _controllerCenterRight = ConfettiController(duration: const Duration(seconds: 5));
+    _controllerCenterLeft = ConfettiController(duration: const Duration(seconds: 5));
+    _controllerTopCenter = ConfettiController(duration: const Duration(seconds: 5));
+    _controllerBottomCenter = ConfettiController(duration: const Duration(seconds: 5));
     super.initState();
   }
 
@@ -57,21 +56,7 @@ class _CHomePageState extends State<CHomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color(0xFF8998FF),
-          title: Text('Confetti'),
-          leading: InkWell(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              child: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
+        appBar: appBar(context, 'Confetti'),
         body: Stack(
           children: <Widget>[
             Column(
@@ -85,14 +70,7 @@ class _CHomePageState extends State<CHomePage> {
                     margin: EdgeInsets.only(top: 10),
                     child: Column(
                       children: <Widget>[
-                        Text(
-                          'Congratulations !!',
-                          style: TextStyle(
-                            fontSize: 30,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        Text('Congratulations !!', style: boldTextStyle(size: 30)),
                       ],
                     )),
               ],
@@ -107,8 +85,7 @@ class _CHomePageState extends State<CHomePage> {
                 shouldLoop: false,
                 //  speed of the animation
                 emissionFrequency: 0.1,
-                canvas:
-                    Size.fromRadius(MediaQuery.of(context).size.height * .35),
+                canvas: Size.fromRadius(MediaQuery.of(context).size.height * .35),
                 colors: const [
                   //  manually specify the colors to be used
                   Colors.green,
@@ -124,57 +101,40 @@ class _CHomePageState extends State<CHomePage> {
               alignment: Alignment.bottomCenter,
               child: ConfettiWidget(
                 confettiController: _controllerBottomCenter,
-                blastDirectionality: BlastDirectionality
-                    .explosive, // don't specify a direction, blast randomly
-                shouldLoop: false, //
+                blastDirectionality: BlastDirectionality.explosive,
+                // don't specify a direction, blast randomly
+                shouldLoop: false,
+                //
                 emissionFrequency: 0.3,
 
                 canvas: Size.fromRadius(350),
-                colors: const [
-                  Colors.green,
-                  Colors.blue,
-                  Colors.pink,
-                  Colors.orange,
-                  Colors.purple
-                ], // manually specify the colors to be used
+                colors: const [Colors.green, Colors.blue, Colors.pink, Colors.orange, Colors.purple], // manually specify the colors to be used
               ),
             ),
             Container(
               alignment: Alignment.centerRight,
               child: ConfettiWidget(
                 confettiController: _controllerCenterRight,
-                blastDirectionality: BlastDirectionality
-                    .explosive, // don't specify a direction, blast randomly
-                shouldLoop: false, //
+                blastDirectionality: BlastDirectionality.explosive,
+                // don't specify a direction, blast randomly
+                shouldLoop: false,
+                //
                 emissionFrequency: 0.2,
-                canvas:
-                    Size.fromRadius(MediaQuery.of(context).size.height * .35),
-                colors: const [
-                  Colors.black,
-                  Colors.redAccent,
-                  Colors.tealAccent,
-                  Colors.yellowAccent,
-                  Colors.orange
-                ], // manually specify the colors to be used
+                canvas: Size.fromRadius(MediaQuery.of(context).size.height * .35),
+                colors: const [Colors.black, Colors.redAccent, Colors.tealAccent, Colors.yellowAccent, Colors.orange], // manually specify the colors to be used
               ),
             ),
             Container(
               alignment: Alignment.centerLeft,
               child: ConfettiWidget(
                 confettiController: _controllerCenterLeft,
-                blastDirectionality: BlastDirectionality
-                    .explosive, // don't specify a direction, blast randomly
-                shouldLoop: false, //
-                canvas:
-                    Size.fromRadius(MediaQuery.of(context).size.height * .35),
+                blastDirectionality: BlastDirectionality.explosive,
+                // don't specify a direction, blast randomly
+                shouldLoop: false,
+                //
+                canvas: Size.fromRadius(MediaQuery.of(context).size.height * .35),
                 emissionFrequency: 0.8,
-                colors: const [
-                  Colors.deepPurple,
-                  Colors.yellow,
-                  Colors.blueAccent,
-                  Colors.green,
-                  Colors.purple
-                ], // manually specify the colors to be used
+                colors: const [Colors.deepPurple, Colors.yellow, Colors.blueAccent, Colors.green, Colors.purple], // manually specify the colors to be used
               ),
             ),
             Container(
@@ -187,10 +147,8 @@ class _CHomePageState extends State<CHomePage> {
                     flex: 1,
                     child: Container(
                       margin: EdgeInsets.only(right: 4),
-                      decoration: BoxDecoration(
-                          color: Color(0xFF8998FF),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: FlatButton(
+                      decoration: BoxDecoration(color: Color(0xFF8998FF), borderRadius: BorderRadius.circular(10)),
+                      child: TextButton(
                         onPressed: () {
                           _controllerCenterLeft.play();
                         },
@@ -202,10 +160,8 @@ class _CHomePageState extends State<CHomePage> {
                     flex: 1,
                     child: Container(
                       margin: EdgeInsets.only(right: 4),
-                      decoration: BoxDecoration(
-                          color: Color(0xFF8998FF),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: FlatButton(
+                      decoration: BoxDecoration(color: Color(0xFF8998FF), borderRadius: BorderRadius.circular(10)),
+                      child: TextButton(
                         onPressed: () {
                           _controllerCenter.play();
                         },
@@ -217,10 +173,8 @@ class _CHomePageState extends State<CHomePage> {
                     flex: 1,
                     child: Container(
                       margin: EdgeInsets.only(right: 4),
-                      decoration: BoxDecoration(
-                          color: Color(0xFF8998FF),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: FlatButton(
+                      decoration: BoxDecoration(color: Color(0xFF8998FF), borderRadius: BorderRadius.circular(10)),
+                      child: TextButton(
                         onPressed: () {
                           _controllerBottomCenter.play();
                         },
@@ -231,10 +185,8 @@ class _CHomePageState extends State<CHomePage> {
                   Expanded(
                     flex: 1,
                     child: Container(
-                      decoration: BoxDecoration(
-                          color: Color(0xFF8998FF),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: FlatButton(
+                      decoration: BoxDecoration(color: Color(0xFF8998FF), borderRadius: BorderRadius.circular(10)),
+                      child: TextButton(
                         onPressed: () {
                           _controllerCenterRight.play();
                         },

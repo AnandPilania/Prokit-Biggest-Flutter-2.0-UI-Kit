@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/orapay/utils/Colors.dart';
 import 'package:prokit_flutter/orapay/utils/Style.dart';
 
@@ -87,7 +88,7 @@ class _OPLoginScreenState extends State<OPLoginScreen> {
                   ),
                   elevation: 1,
                   onPressed: () {
-                    Navigator.pop(context);
+                    finish(context);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -98,7 +99,7 @@ class _OPLoginScreenState extends State<OPLoginScreen> {
                   child: Text(
                     "Login",
                     textAlign: TextAlign.center,
-                    style: primaryTextStyle(size: 16, textColor: Colors.white),
+                    style: primaryTextStyle(size: 16, color: Colors.white),
                   ),
                 ),
               ),

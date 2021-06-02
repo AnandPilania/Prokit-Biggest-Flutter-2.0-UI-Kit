@@ -12,12 +12,11 @@ class MWIconScreen extends StatefulWidget {
   MWIconScreenState createState() => MWIconScreenState();
 }
 
-class MWIconScreenState extends State<MWIconScreen>
-    with SingleTickerProviderStateMixin {
+class MWIconScreenState extends State<MWIconScreen> with SingleTickerProviderStateMixin {
   bool isPress = false;
   bool isBookMarkPress = true;
   List<bool> isSelected = [false, false, false];
-  AnimationController _animationController;
+  late AnimationController _animationController;
   bool isPlaying1 = false;
   bool isPlaying2 = false;
   bool isPlaying3 = false;
@@ -29,8 +28,7 @@ class MWIconScreenState extends State<MWIconScreen>
   }
 
   init() async {
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 450));
+    _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 450));
   }
 
   @override
@@ -96,9 +94,7 @@ class MWIconScreenState extends State<MWIconScreen>
                 ],
                 onPressed: (int index) {
                   setState(() {
-                    for (int buttonIndex = 0;
-                        buttonIndex < isSelected.length;
-                        buttonIndex++) {
+                    for (int buttonIndex = 0; buttonIndex < isSelected.length; buttonIndex++) {
                       if (buttonIndex == index) {
                         isSelected[buttonIndex] = true;
                       } else {
@@ -129,13 +125,9 @@ class MWIconScreenState extends State<MWIconScreen>
                       padding: EdgeInsets.all(16),
                       child: IconButton(
                         icon: Icon(
-                          isBookMarkPress
-                              ? Icons.bookmark_border
-                              : Icons.bookmark,
+                          isBookMarkPress ? Icons.bookmark_border : Icons.bookmark,
                           size: 40,
-                          color: isBookMarkPress
-                              ? appStore.iconColor
-                              : appColorPrimary,
+                          color: isBookMarkPress ? appStore.iconColor : appColorPrimary,
                         ),
                         onPressed: () {
                           setState(() {
@@ -164,9 +156,7 @@ class MWIconScreenState extends State<MWIconScreen>
                     onPressed: () {
                       setState(() {
                         isPlaying1 = !isPlaying1;
-                        isPlaying1
-                            ? _animationController.forward()
-                            : _animationController.reverse();
+                        isPlaying1 ? _animationController.forward() : _animationController.reverse();
                       });
                     },
                   ).paddingLeft(16),
@@ -180,9 +170,7 @@ class MWIconScreenState extends State<MWIconScreen>
                     onPressed: () {
                       setState(() {
                         isPlaying3 = !isPlaying3;
-                        isPlaying3
-                            ? _animationController.forward()
-                            : _animationController.reverse();
+                        isPlaying3 ? _animationController.forward() : _animationController.reverse();
                       });
                     },
                   ).paddingLeft(16),

@@ -1,17 +1,17 @@
 import 'package:flutter/widgets.dart';
 
 class T12Category {
-  var name = "";
-  Color color;
-  var icon = "";
+  String? name = "";
+  Color? color;
+  String? icon = "";
 
   T12Category({this.name, this.color, this.icon});
 }
 
 class T12Slider {
-  var image = "";
-  var balance = "";
-  var accountNo = "";
+  String? image = "";
+  String? balance = "";
+  String? accountNo = "";
 
   T12Slider({this.image, this.balance, this.accountNo});
 }
@@ -42,14 +42,14 @@ class T12Transactions {
   var type;
   var subType;
   var time;
-  double amount;
+  double? amount;
   var transactionType;
   var transactionDate;
 
-  T12Transactions({this.img, this.type, this.subType, this.time, this.amount,this.transactionType,this.transactionDate});
+  T12Transactions({this.img, this.type, this.subType, this.time, this.amount, this.transactionType, this.transactionDate});
 }
 
-class T12Service{
+class T12Service {
   var img;
   var serviceName;
 

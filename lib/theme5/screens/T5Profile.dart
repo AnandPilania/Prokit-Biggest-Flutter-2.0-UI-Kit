@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme5/utils/T5BubbleBotoomBar.dart';
 import 'package:prokit_flutter/theme5/utils/T5Colors.dart';
 import 'package:prokit_flutter/theme5/utils/T5Constant.dart';
-import 'package:prokit_flutter/theme5/utils/T5Extension.dart';
 import 'package:prokit_flutter/theme5/utils/T5Images.dart';
 import 'package:prokit_flutter/theme5/utils/T5Strings.dart';
-import 'package:prokit_flutter/theme5/utils/T5Widget.dart';
 
 class T5Profile extends StatefulWidget {
   static var tag = "/T5Profile";
@@ -20,7 +20,7 @@ class T5Profile extends StatefulWidget {
 }
 
 class T5ProfileState extends State<T5Profile> {
-  double width;
+  double? width;
 
   @override
   void initState() {
@@ -28,18 +28,8 @@ class T5ProfileState extends State<T5Profile> {
   }
 
   var currentIndex = 0;
-  var iconList = <String>[
-    t5_analysis,
-    t5_wallet_2,
-    t5_customer_service,
-    t5_img_settings
-  ];
-  var nameList = <String>[
-    t5_statistics,
-    t5_manage_wallet,
-    t5_support,
-    t5_settings
-  ];
+  var iconList = <String>[t5_analysis, t5_wallet_2, t5_customer_service, t5_img_settings];
+  var nameList = <String>[t5_statistics, t5_manage_wallet, t5_support, t5_settings];
 
   void changePage(int index) {
     setState(() {
@@ -49,22 +39,19 @@ class T5ProfileState extends State<T5Profile> {
 
   Widget gridItem(int pos) {
     return Container(
-        width: (width - (16 * 3)) / 2,
-        height: (width - (16 * 3)) / 2,
-        decoration:
-            boxDecoration(radius: 24, showShadow: true, bgColor: t5White),
+        width: (width! - (16 * 3)) / 2,
+        height: (width! - (16 * 3)) / 2,
+        decoration: boxDecoration(radius: 24, showShadow: true, bgColor: t5White),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SvgPicture.asset(
               iconList[pos],
-              width: width / 7,
-              height: width / 7,
+              width: width! / 7,
+              height: width! / 7,
+              color: black,
             ),
-            text(nameList[pos],
-                fontSize: textSizeNormal,
-                textColor: t5TextColorPrimary,
-                fontFamily: fontSemibold)
+            text(nameList[pos], fontSize: textSizeNormal, textColor: t5TextColorPrimary, fontFamily: fontSemibold)
           ],
         ));
   }
@@ -89,27 +76,15 @@ class T5ProfileState extends State<T5Profile> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     IconButton(
-                      icon: Icon(
-                        Icons.keyboard_arrow_left,
-                        size: 40,
-                        color: t5White,
-                      ),
+                      icon: Icon(Icons.keyboard_arrow_left, size: 40, color: t5White),
                       onPressed: () {
                         finish(context);
                       },
                     ),
-                    text("Account",
-                        textColor: t5White,
-                        fontSize: textSizeNormal,
-                        fontFamily: fontMedium),
+                    text("Account", textColor: t5White, fontSize: textSizeNormal, fontFamily: fontMedium),
                     Padding(
-                      padding: const EdgeInsets.only(right: 16.0),
-                      child: SvgPicture.asset(
-                        t5_options,
-                        width: 25,
-                        height: 25,
-                        color: t5White,
-                      ),
+                      padding: EdgeInsets.only(right: 16.0),
+                      child: SvgPicture.asset(t5_options, width: 25, height: 25, color: t5White),
                     ),
                   ],
                 ),
@@ -124,23 +99,15 @@ class T5ProfileState extends State<T5Profile> {
                     margin: EdgeInsets.only(top: 50),
                     padding: EdgeInsets.only(top: 60),
                     alignment: Alignment.topCenter,
-                    decoration: BoxDecoration(
-                        color: t5LayoutBackgroundWhite,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(24),
-                            topRight: Radius.circular(24))),
+                    decoration: BoxDecoration(color: t5LayoutBackgroundWhite, borderRadius: BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24))),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        text("Emily Jonas",
-                            textColor: t5TextColorPrimary,
-                            fontFamily: fontMedium,
-                            fontSize: textSizeNormal),
-                        text(t5_txt_phone_number,
-                            fontSize: textSizeLargeMedium),
+                        text("Emily Jonas", textColor: t5TextColorPrimary, fontFamily: fontMedium, fontSize: textSizeNormal),
+                        text(t5_txt_phone_number, fontSize: textSizeLargeMedium),
                         Padding(
-                          padding: const EdgeInsets.all(24.0),
+                          padding: EdgeInsets.all(24.0),
                           child: Column(
                             children: <Widget>[
                               ClipRRect(
@@ -149,24 +116,17 @@ class T5ProfileState extends State<T5Profile> {
                                   height: 8,
                                   child: LinearProgressIndicator(
                                     value: 0.5, // percent filled
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                        t5SkyBlue),
+                                    valueColor: AlwaysStoppedAnimation<Color>(t5SkyBlue),
                                     backgroundColor: Color(0XFFD7DCE0),
                                   ),
                                 ),
                               ),
                               SizedBox(height: 4),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  text("Wallet Security",
-                                      fontSize: textSizeMedium,
-                                      fontFamily: fontSemibold),
-                                  text("50%",
-                                      textColor: t5SkyBlue,
-                                      fontFamily: fontBold,
-                                      fontSize: textSizeNormal)
+                                  text("Wallet Security", fontSize: textSizeMedium, fontFamily: fontSemibold),
+                                  text("50%", textColor: t5SkyBlue, fontFamily: fontBold, fontSize: textSizeNormal)
                                 ],
                               )
                             ],
@@ -187,10 +147,7 @@ class T5ProfileState extends State<T5Profile> {
                       ],
                     ),
                   ),
-                  CircleAvatar(
-                    backgroundImage: CachedNetworkImageProvider(t5_profile_8),
-                    radius: 50,
-                  )
+                  CircleAvatar(backgroundImage: CachedNetworkImageProvider(t5_profile_8), radius: 50)
                 ],
               ),
             ),

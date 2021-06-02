@@ -2,12 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme1/model/T1_model.dart';
 import 'package:prokit_flutter/theme1/utils/T1Colors.dart';
 import 'package:prokit_flutter/theme1/utils/T1Constant.dart';
 import 'package:prokit_flutter/theme1/utils/T1DataGenerator.dart';
 import 'package:prokit_flutter/theme1/utils/T1Strings.dart';
-import 'package:prokit_flutter/theme1/utils/T1Widget.dart';
 
 class T1Listing extends StatefulWidget {
   static var tag = "/T1Listing";
@@ -20,7 +23,7 @@ class T1Listing extends StatefulWidget {
 }
 
 class T1ListingState extends State<T1Listing> {
-  List<T1Model> mListings;
+  late List<T1Model> mListings;
 
   @override
   void initState() {
@@ -30,30 +33,36 @@ class T1ListingState extends State<T1Listing> {
 
   @override
   Widget build(BuildContext context) {
+    changeStatusColor(appStore.appBarColor!);
     return Scaffold(
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            TopBar(t1_Listing),
-            Expanded(
-              child: ListView.builder(
+      appBar: appBar(context, t1_Listing),
+      body: Observer(
+        builder: (_) => Container(
+          child: Column(
+            children: <Widget>[
+              16.height,
+              Expanded(
+                child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: mListings.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return T1ListItem(mListings[index], index);
-                  }),
-            )
-          ],
+                  },
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
+// ignore: must_be_immutable
 class T1ListItem extends StatelessWidget {
-  T1Model model;
-  int pos;
+  late T1Model model;
+  late int pos;
 
   T1ListItem(T1Model model, int pos) {
     this.model = model;
@@ -64,9 +73,9 @@ class T1ListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     return Padding(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+        padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
         child: Container(
-          decoration: boxDecoration(radius: 10, showShadow: true),
+          decoration: boxDecoration(bgColor: appStore.scaffoldBackground, radius: 10, showShadow: true),
           child: Stack(
             children: <Widget>[
               Container(
@@ -77,6 +86,7 @@ class T1ListItem extends StatelessWidget {
                       children: <Widget>[
                         ClipRRect(
                           child: CachedNetworkImage(
+                            placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                             imageUrl: model.img,
                             width: width / 5.5,
                             height: width / 6,
@@ -90,22 +100,13 @@ class T1ListItem extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
-                                    text(model.name,
-                                        textColor: t1TextColorPrimary,
-                                        fontFamily: fontBold,
-                                        fontSize: textSizeNormal,
-                                        maxLine: 2),
-                                    text(model.duration,
-                                        fontSize: textSizeMedium),
+                                    text(model.name, textColor: appStore.textPrimaryColor, fontFamily: fontBold, fontSize: textSizeNormal, maxLine: 2),
+                                    text(model.duration, textColor: appStore.textSecondaryColor, fontSize: textSizeMedium),
                                   ],
                                 ),
-                                text(model.designation,
-                                    fontSize: textSizeLargeMedium,
-                                    textColor: t1TextColorPrimary,
-                                    fontFamily: fontMedium),
+                                text(model.designation, fontSize: textSizeLargeMedium, textColor: appStore.textPrimaryColor, fontFamily: fontMedium),
                               ],
                             ),
                           ),
@@ -113,13 +114,8 @@ class T1ListItem extends StatelessWidget {
                       ],
                       mainAxisAlignment: MainAxisAlignment.start,
                     ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    text(t1_samplelong_text,
-                        fontSize: textSizeMedium,
-                        maxLine: 2,
-                        textColor: t1TextColorPrimary),
+                    SizedBox(height: 16),
+                    text(t1_samplelong_text, fontSize: textSizeMedium, maxLine: 2, textColor: appStore.textPrimaryColor),
                   ],
                 ),
               ),

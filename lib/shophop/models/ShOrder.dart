@@ -1,8 +1,8 @@
 class ShOrder {
-  Item item;
-  String order_date;
-  String order_status;
-  String order_number;
+  Item? item;
+  String? order_date;
+  String? order_status;
+  String? order_number;
 
   ShOrder({this.item, this.order_date, this.order_status, this.order_number});
 
@@ -21,17 +21,17 @@ class ShOrder {
     data['order_status'] = this.order_status;
     data['order_number'] = this.order_number;
     if (this.item != null) {
-      data['item'] = this.item.toJson();
+      data['item'] = this.item!.toJson();
     }
     return data;
   }
 }
 
 class Item {
-  int id;
-  String name;
-  String price;
-  String image;
+  int? id;
+  String? name;
+  String? price;
+  String? image;
 
   Item({this.id, this.name, this.price, this.image});
 

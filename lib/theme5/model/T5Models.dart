@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 
 class T5Category {
   var name = "";
-  Color color;
+  Color? color;
 
   var icon = "";
 }
@@ -18,13 +18,13 @@ class T5Bill {
   var day;
   var date;
   var isPaid = false;
-  var icon;
+  late var icon;
   var amount;
   var wallet = "Mastercard";
 }
 
 class T5Contact {
-  var img;
+  late var img;
 
   var name;
 

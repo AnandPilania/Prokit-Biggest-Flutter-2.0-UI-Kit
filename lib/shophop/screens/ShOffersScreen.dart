@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/shophop/models/ShProduct.dart';
-import 'package:prokit_flutter/shophop/utils/ShColors.dart';
-import 'package:prokit_flutter/shophop/utils/ShConstant.dart';
-import 'package:prokit_flutter/shophop/utils/ShExtension.dart';
-import 'package:prokit_flutter/shophop/utils/ShStrings.dart';
-import 'package:prokit_flutter/shophop/utils/ShWidget.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/shopHop/models/ShProduct.dart';
+import 'package:prokit_flutter/shopHop/utils/ShColors.dart';
+import 'package:prokit_flutter/shopHop/utils/ShConstant.dart';
+import 'package:prokit_flutter/shopHop/utils/ShExtension.dart';
+import 'package:prokit_flutter/shopHop/utils/ShStrings.dart';
+import 'package:prokit_flutter/shopHop/utils/ShWidget.dart';
 
 import 'ShProductDetail.dart';
 
@@ -17,7 +19,7 @@ class ShOffersScreen extends StatefulWidget {
 }
 
 class ShOffersScreenState extends State<ShOffersScreen> {
-  var mProductModel = List<ShProduct>();
+  List<ShProduct> mProductModel = [];
 
   @override
   void initState() {
@@ -27,9 +29,9 @@ class ShOffersScreenState extends State<ShOffersScreen> {
 
   fetchData() async {
     var products = await loadProducts();
-    var offers = List<ShProduct>();
+    List<ShProduct> offers = [];
     products.forEach((product) {
-      if (product.on_sale) {
+      if (product.on_sale!) {
         offers.add(product);
       }
     });
@@ -52,7 +54,7 @@ class ShOffersScreenState extends State<ShOffersScreen> {
           itemBuilder: (_, index) {
             return InkWell(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ShProductDetail(product: mProductModel[index])));
+                ShProductDetail(product: mProductModel[index]).launch(context);
               },
               child: Container(
                 child: Wrap(
@@ -67,7 +69,7 @@ class ShOffersScreenState extends State<ShOffersScreen> {
                             padding: EdgeInsets.all(1),
                             decoration: BoxDecoration(border: Border.all(color: sh_view_color, width: 0.5)),
                             child: Image.asset(
-                              "images/shophop/img/products" + mProductModel[index].images[0].src,
+                              "images/shophop/img/products" + mProductModel[index].images![0].src!,
                               fit: BoxFit.cover,
                               width: double.infinity,
                               height: double.infinity,
@@ -89,13 +91,13 @@ class ShOffersScreenState extends State<ShOffersScreen> {
                     SizedBox(height: 2),
                     Row(
                       children: <Widget>[
-                        text(mProductModel[index].on_sale ? mProductModel[index].sale_price.toString().toCurrencyFormat() : mProductModel[index].price.toString().toCurrencyFormat(),
+                        text(mProductModel[index].on_sale! ? mProductModel[index].sale_price.toString().toCurrencyFormat() : mProductModel[index].price.toString().toCurrencyFormat(),
                             textColor: sh_colorPrimary, fontFamily: fontMedium, fontSize: textSizeNormal),
                         SizedBox(
                           width: spacing_control,
                         ),
                         Text(
-                          mProductModel[index].regular_price.toString().toCurrencyFormat(),
+                          mProductModel[index].regular_price.toString().toCurrencyFormat()!,
                           style: TextStyle(color: sh_textColorSecondary, fontFamily: fontRegular, fontSize: textSizeSMedium, decoration: TextDecoration.lineThrough),
                         ),
                       ],

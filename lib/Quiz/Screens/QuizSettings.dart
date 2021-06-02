@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/Quiz/Screens/QuizChangePassword.dart';
-import 'package:prokit_flutter/Quiz/Screens/QuizContactUs.dart';
-import 'package:prokit_flutter/Quiz/Screens/QuizEditProfile.dart';
-import 'package:prokit_flutter/Quiz/Screens/QuizHelpCenter.dart';
-import 'package:prokit_flutter/Quiz/Screens/QuizUpdateEmail.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizColors.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizConstant.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizStrings.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizWidget.dart';
-import 'package:prokit_flutter/dashboard/utils/DbExtension.dart';
+import 'package:prokit_flutter/quiz/Screens/QuizChangePassword.dart';
+import 'package:prokit_flutter/quiz/Screens/QuizContactUs.dart';
+import 'package:prokit_flutter/quiz/Screens/QuizEditProfile.dart';
+import 'package:prokit_flutter/quiz/Screens/QuizHelpCenter.dart';
+import 'package:prokit_flutter/quiz/Screens/QuizUpdateEmail.dart';
+import 'package:prokit_flutter/quiz/utils/QuizColors.dart';
+import 'package:prokit_flutter/quiz/utils/QuizStrings.dart';
+import 'package:prokit_flutter/main/utils/AppConstant.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class QuizSettings extends StatefulWidget {
   static String tag = '/QuizSetting';
@@ -25,7 +24,10 @@ class _QuizSettingsState extends State<QuizSettings> {
     return Scaffold(
       backgroundColor: quiz_app_background,
       appBar: AppBar(
-        title: text(quiz_lbl_setting, fontSize: textSizeLargeMedium, fontFamily: fontMedium),
+        title: Text(
+          quiz_lbl_setting,
+          style: primaryTextStyle(size: 18, fontFamily: fontMedium),
+        ),
         leading: Icon(
           Icons.arrow_back,
           color: quiz_colorPrimary,
@@ -47,31 +49,31 @@ class _QuizSettingsState extends State<QuizSettings> {
                   children: <Widget>[
                     SizedBox(height: 8),
                     Container(
-                      decoration: boxDecoration(bgColor: quiz_white, radius: 8, showShadow: true),
+                      decoration: BoxDecoration(color: quiz_white, borderRadius: BorderRadius.circular(8), boxShadow: defaultBoxShadow()),
                       margin: EdgeInsets.only(bottom: 20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           quizSettingOptionPattern1(Icons.person, quiz_lbl_edit_profile, quiz_username).onTap(() {
                             setState(() {
-                              launchScreen(context, QuizEditProfile.tag);
+                              QuizEditProfile().launch(context);
                             });
                           }),
                           quizSettingOptionPattern1(Icons.email, quiz_lbl_email, quiz_email).onTap(() {
                             setState(() {
-                              launchScreen(context, QuizUpdateEmail.tag);
+                              QuizUpdateEmail().launch(context);
                             });
                           }),
                           quizSettingOptionPattern1(Icons.vpn_key, quiz_lbl_password, quiz_sub_info_password).onTap(() {
                             setState(() {
-                              launchScreen(context, QuizChangePassword.tag);
+                              QuizChangePassword().launch(context);
                             });
                           }),
                         ],
                       ),
                     ),
                     Container(
-                      decoration: boxDecoration(bgColor: quiz_white, radius: 8, showShadow: true),
+                      decoration: BoxDecoration(color: quiz_white, borderRadius: BorderRadius.circular(8), boxShadow: defaultBoxShadow()),
                       margin: EdgeInsets.only(bottom: 20),
                       child: Column(
                         children: <Widget>[
@@ -82,26 +84,29 @@ class _QuizSettingsState extends State<QuizSettings> {
                       ),
                     ),
                     Container(
-                      decoration: boxDecoration(bgColor: quiz_white, radius: 8, showShadow: true),
+                      decoration: BoxDecoration(color: quiz_white, borderRadius: BorderRadius.circular(8), boxShadow: defaultBoxShadow()),
                       margin: EdgeInsets.only(bottom: 20),
                       child: Column(
                         children: <Widget>[
                           quizSettingOptionPattern3(Icons.help, quiz_lbl_help).onTap(() {
                             setState(() {
-                              launchScreen(context, QuizHelpCenter.tag);
+                              QuizHelpCenter().launch(context);
                             });
                           }),
                           quizSettingOptionPattern3(Icons.security, quiz_lbl_privacy),
                           quizSettingOptionPattern3(Icons.chat_bubble, quiz_lbl_contact_us).onTap(() {
                             setState(() {
-                              launchScreen(context, QuizContactUs.tag);
+                              QuizContactUs().launch(context);
                             });
                           }),
                         ],
                       ),
                     ),
-                    text(quiz_lbl_logout, textColor: quiz_colorPrimary, fontSize: textSizeLargeMedium, textAllCaps: true, fontFamily: fontBold).paddingAll(16).onTap(() {
-                      Navigator.popUntil(context, ModalRoute.withName('/'));
+                    Text(
+                      quiz_lbl_logout,
+                      style: boldTextStyle(color: quiz_colorPrimary, size: 18),
+                    ).paddingAll(16).onTap(() {
+                      finish(context);
                     })
                   ],
                 ),
@@ -137,7 +142,13 @@ Widget quizSettingOptionPattern1(var settingIcon, var heading, var info) {
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[text(heading), text(info, textColor: quiz_textColorSecondary, fontSize: textSizeSMedium)],
+              children: <Widget>[
+                Text(heading),
+                Text(
+                  info,
+                  style: primaryTextStyle(color: quiz_textColorSecondary, size: 14),
+                )
+              ],
             ),
           ],
         ),
@@ -173,7 +184,7 @@ Widget quizSettingOptionPattern2(var icon, var heading) {
             SizedBox(
               width: 16,
             ),
-            text(heading),
+            Text(heading),
           ],
         ),
         Switch(
@@ -212,7 +223,7 @@ Widget quizSettingOptionPattern3(var icon, var heading) {
             SizedBox(
               width: 16,
             ),
-            text(heading),
+            Text(heading),
           ],
         ),
         Icon(

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme5/utils/T5Colors.dart';
 import 'package:prokit_flutter/theme5/utils/T5Constant.dart';
-import 'package:prokit_flutter/theme5/utils/T5Extension.dart';
 import 'package:prokit_flutter/theme5/utils/T5Images.dart';
 import 'package:prokit_flutter/theme5/utils/T5Strings.dart';
 import 'package:prokit_flutter/theme5/utils/T5Widget.dart';
 import 'package:prokit_flutter/theme5/utils/widgets/T5Expandable.dart';
+
+import '../../main.dart';
 
 class T5Settings extends StatefulWidget {
   static var tag = "/T5Settings";
@@ -22,9 +24,9 @@ class T5SettingsState extends State<T5Settings> {
   bool gift = false;
   bool fastPayment = false;
   ExpandableController _controller = new ExpandableController();
-  String _selectedLocation = 'English';
+  String? _selectedLocation = 'English';
 
-  double width;
+  late double width;
 
   @override
   void initState() {
@@ -43,15 +45,10 @@ class T5SettingsState extends State<T5Settings> {
               width: width / 7.5,
               height: width / 7.5,
               padding: EdgeInsets.all(width / 30),
-              decoration: icon.isNotEmpty
-                  ? boxDecoration(radius: 4, bgColor: t5White, showShadow: true)
-                  : null,
-              child: SvgPicture.asset(icon),
+              decoration: icon.isNotEmpty ? boxDecoration(radius: 4, bgColor: appStore.scaffoldBackground, showShadow: true) : null,
+              child: icon.isNotEmpty ? SvgPicture.asset(icon) : SizedBox(),
             ),
-            text(name,
-                textColor: t5TextColorPrimary,
-                fontFamily: fontMedium,
-                fontSize: textSizeLargeMedium)
+            text(name, textColor: appStore.textPrimaryColor, fontFamily: fontMedium, fontSize: textSizeLargeMedium)
           ],
         ),
       ),
@@ -61,10 +58,10 @@ class T5SettingsState extends State<T5Settings> {
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
-    changeStatusColor(t5LayoutBackgroundWhite);
+    changeStatusColor(appStore.appBarColor!);
 
     return Scaffold(
-      backgroundColor: t5LayoutBackgroundWhite,
+      backgroundColor: appStore.scaffoldBackground,
       body: Container(
         alignment: Alignment.topLeft,
         child: Column(
@@ -73,26 +70,20 @@ class T5SettingsState extends State<T5Settings> {
           children: <Widget>[
             TopBar(),
             Padding(
-              padding: const EdgeInsets.only(left: 20.0, top: 10),
-              child: text(t5_settings,
-                  textColor: t5TextColorPrimary,
-                  fontFamily: fontBold,
-                  fontSize: textSizeXLarge),
+              padding: EdgeInsets.only(left: 20.0, top: 10),
+              child: text(t5_settings, textColor: appStore.textPrimaryColor, fontFamily: fontBold, fontSize: textSizeXLarge),
             ),
             Expanded(
               child: SingleChildScrollView(
                 child: Container(
                   child: Column(
                     children: <Widget>[
-                      SizedBox(
-                        height: 24,
-                      ),
+                      SizedBox(height: 24),
                       T5ExpandablePanel(
                         hasIcon: false,
                         header: Row(
                           children: <Widget>[
-                            settingItem(t5_notification,
-                                icon: t5_img_notification),
+                            settingItem(t5_notification, icon: t5_img_notification),
                             Switch(
                               value: notification,
                               onChanged: (value) {
@@ -163,8 +154,7 @@ class T5SettingsState extends State<T5Settings> {
                       divider(),
                       Row(
                         children: <Widget>[
-                          settingItem(t5_fingerprint,
-                              icon: t5_img_fingerprint_2),
+                          settingItem(t5_fingerprint, icon: t5_img_fingerprint_2),
                           IconButton(
                             icon: Icon(
                               Icons.keyboard_arrow_right,
@@ -178,29 +168,25 @@ class T5SettingsState extends State<T5Settings> {
                       Row(
                         children: <Widget>[
                           settingItem(t5_language, icon: t5_translate),
-                          DropdownButton<String>(
-                            icon: Icon(Icons.keyboard_arrow_right,
-                                color: t5TextColorSecondary),
-                            underline: SizedBox(),
-                            value: _selectedLocation,
-                            items: <String>['English', 'French', 'German']
-                                .map((String value) {
-                              return new DropdownMenuItem<String>(
-                                value: value,
-                                child: text(value,
-                                    fontSize: textSizeLargeMedium,
-                                    textColor: t5TextColorPrimary),
-                              );
-                            }).toList(),
-                            onChanged: (newValue) {
-                              setState(() {
-                                _selectedLocation = newValue;
-                              });
-                            },
+                          CustomTheme(
+                            child: DropdownButton<String>(
+                              icon: Icon(Icons.keyboard_arrow_right, color: t5TextColorSecondary),
+                              underline: SizedBox(),
+                              value: _selectedLocation,
+                              items: <String>['English', 'French', 'German'].map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: text(value, fontSize: textSizeLargeMedium, textColor: appStore.textPrimaryColor),
+                                );
+                              }).toList(),
+                              onChanged: (newValue) {
+                                setState(() {
+                                  _selectedLocation = newValue;
+                                });
+                              },
+                            ),
                           ),
-                          SizedBox(
-                            width: 16,
-                          )
+                          SizedBox(width: 16)
                         ],
                       )
                     ],

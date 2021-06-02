@@ -10,11 +10,9 @@ const qibus_ic_completed = "$BaseUrl/images/qibus/qibus_ic_completed.png";
 const qibus_ic_delhi = "$BaseUrl/images/qibus/qibus_ic_delhi.jpg";
 const qibus_ic_goa = "$BaseUrl/images/qibus/qibus_ic_goa.png";
 const qibus_ic_gr_wallet = "$BaseUrl/images/qibus/qibus_ic_gr_wallet.png";
-const qibus_ic_gr_mobile_otp =
-    "$BaseUrl/images/qibus/qibus_ic_gr_mobile_otp.png";
+const qibus_ic_gr_mobile_otp = "$BaseUrl/images/qibus/qibus_ic_gr_mobile_otp.png";
 const qibus_ic_udaipur = "$BaseUrl/images/qibus/qibus_ic_udaipur.png";
-const qibus_ic_refer_and_earn =
-    "$BaseUrl/images/qibus/qibus_ic_refer_and_earn.png";
+const qibus_ic_refer_and_earn = "$BaseUrl/images/qibus/qibus_ic_refer_and_earn.png";
 const qibus_ic_ticket = "$BaseUrl/images/qibus/qibus_ic_ticket.png";
 const qibus_ic_sleeper = "images/qibus/qibus_ic_sleeper.png";
 const qibus_ic_sale_1 = "$BaseUrl/images/qibus/qibus_ic_sale_1.png";

@@ -1,26 +1,22 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/orapay/utils/Colors.dart';
 import 'package:prokit_flutter/orapay/utils/Style.dart';
 
-import 'op_transfer_screen.dart';
-
 class OPTransactionDetailsScreen extends StatefulWidget {
   @override
-  _OPTransactionDetailsScreenState createState() =>
-      _OPTransactionDetailsScreenState();
+  _OPTransactionDetailsScreenState createState() => _OPTransactionDetailsScreenState();
 }
 
-class _OPTransactionDetailsScreenState
-    extends State<OPTransactionDetailsScreen> {
+class _OPTransactionDetailsScreenState extends State<OPTransactionDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         appBar: getAppBar('12 March 1997', pressed: () {
-          Navigator.pop(context);
+          finish(context);
         }),
         body: Container(
           child: Column(
@@ -29,9 +25,9 @@ class _OPTransactionDetailsScreenState
               Column(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.only(left: 24,right: 24,top: 16,bottom: 30),
+                    padding: EdgeInsets.only(left: 24, right: 24, top: 16, bottom: 30),
                     margin: EdgeInsets.all(16),
-                    decoration: boxDecoration(radius: 16,shadowColor: opPrimaryColor.withOpacity(0.2)),
+                    decoration: boxDecoration(radius: 16, shadowColor: opPrimaryColor.withOpacity(0.2)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -41,8 +37,7 @@ class _OPTransactionDetailsScreenState
                           padding: const EdgeInsets.all(24.0),
                           child: Text(
                             '₹250.00',
-                            style:
-                                boldTextStyle(size: 30, textColor: Colors.white),
+                            style: boldTextStyle(size: 30, color: Colors.white),
                           ),
                         ),
                         Divider(
@@ -51,17 +46,12 @@ class _OPTransactionDetailsScreenState
                         ),
                         FittedBox(
                           child: RichText(
-                            text: TextSpan(
-                                text: 'You Successfully sent to',
-                                style: secondaryTextStyle(
-                                    textColor: Colors.white60),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: ' JennieYRB',
-                                    style: primaryTextStyle(
-                                        textColor: Colors.white),
-                                  )
-                                ]),
+                            text: TextSpan(text: 'You Successfully sent to', style: secondaryTextStyle(color: Colors.white60), children: <TextSpan>[
+                              TextSpan(
+                                text: ' JennieYRB',
+                                style: primaryTextStyle(color: Colors.white),
+                              )
+                            ]),
                           ),
                         ),
                       ],
@@ -79,8 +69,7 @@ class _OPTransactionDetailsScreenState
                           style: secondaryTextStyle(size: 18),
                         ),
                         Padding(
-                          padding:
-                              EdgeInsets.only(left: 5, top: 10, bottom: 20),
+                          padding: EdgeInsets.only(left: 5, top: 10, bottom: 20),
                           child: Divider(
                             thickness: 0.8,
                           ),
@@ -90,8 +79,7 @@ class _OPTransactionDetailsScreenState
                           style: secondaryTextStyle(size: 18),
                         ),
                         Padding(
-                          padding:
-                              EdgeInsets.only(left: 5, top: 10, bottom: 20),
+                          padding: EdgeInsets.only(left: 5, top: 10, bottom: 20),
                           child: Divider(
                             thickness: 0.8,
                           ),
@@ -119,9 +107,7 @@ class _OPTransactionDetailsScreenState
                         title: 'Refund',
                         icon: Icons.assignment_return,
                         color: opOrangeColor,
-                        onPressed: () {
-
-                        },
+                        onPressed: () {},
                       ),
                     ],
                   ),

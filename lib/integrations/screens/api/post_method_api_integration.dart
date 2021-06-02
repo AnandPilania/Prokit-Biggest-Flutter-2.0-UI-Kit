@@ -7,7 +7,7 @@ import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import '../../../main.dart';
 
 class PostMethodExampleScreen extends StatefulWidget {
-  static String tag = '/PostMethodScreen';
+  static String tag = '/PostMethodExampleScreen';
 
   @override
   PostMethodExampleScreenState createState() => PostMethodExampleScreenState();
@@ -28,7 +28,7 @@ class PostMethodExampleScreenState extends State<PostMethodExampleScreen> {
 
   save() async {
     hideKeyboard(context);
-    if (formKey.currentState.validate()) {
+    if (formKey.currentState!.validate()) {
       isLoading = true;
       setState(() {});
 
@@ -75,10 +75,17 @@ class PostMethodExampleScreenState extends State<PostMethodExampleScreen> {
                       controller: nameCont,
                       keyboardType: TextInputType.name,
                       textCapitalization: TextCapitalization.words,
-                      decoration: InputDecoration(labelText: 'Name', border: OutlineInputBorder()),
+                      style: primaryTextStyle(),
+                      decoration: InputDecoration(
+                        labelText: 'Name',
+                        border: OutlineInputBorder(),
+                        labelStyle: primaryTextStyle(),
+                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
+                        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
+                      ),
                       focusNode: nameNode,
                       validator: (s) {
-                        if (s.isEmpty) return 'Field is required';
+                        if (s!.isEmpty) return 'Field is required';
                         return null;
                       },
                       onFieldSubmitted: (s) => FocusScope.of(context).requestFocus(salaryNode),
@@ -88,10 +95,17 @@ class PostMethodExampleScreenState extends State<PostMethodExampleScreen> {
                     TextFormField(
                       controller: salaryCont,
                       keyboardType: TextInputType.number,
-                      decoration: InputDecoration(labelText: 'Salary', border: OutlineInputBorder()),
+                      style: primaryTextStyle(),
+                      decoration: InputDecoration(
+                        labelText: 'Salary',
+                        border: OutlineInputBorder(),
+                        labelStyle: primaryTextStyle(),
+                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
+                        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
+                      ),
                       focusNode: salaryNode,
                       validator: (s) {
-                        if (s.isEmpty) return 'Field is required';
+                        if (s!.isEmpty) return 'Field is required';
                         if (!s.isDigit()) return 'Please enter valid data';
                         return null;
                       },
@@ -102,10 +116,17 @@ class PostMethodExampleScreenState extends State<PostMethodExampleScreen> {
                     TextFormField(
                       controller: ageCont,
                       keyboardType: TextInputType.number,
-                      decoration: InputDecoration(labelText: 'Age', border: OutlineInputBorder()),
+                      style: primaryTextStyle(),
+                      decoration: InputDecoration(
+                        labelText: 'Age',
+                        border: OutlineInputBorder(),
+                        labelStyle: primaryTextStyle(),
+                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
+                        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: appStore.textSecondaryColor!)),
+                      ),
                       focusNode: ageNode,
                       validator: (s) {
-                        if (s.isEmpty) return 'Field is required';
+                        if (s!.isEmpty) return 'Field is required';
                         if (!s.isDigit()) return 'Please enter valid data';
                         return null;
                       },
@@ -121,7 +142,7 @@ class PostMethodExampleScreenState extends State<PostMethodExampleScreen> {
                         decoration: boxDecoration(bgColor: appColorPrimary, radius: 16),
                         padding: EdgeInsets.all(16),
                         child: Center(
-                          child: Text("Submit", style: primaryTextStyle(color: appStore.appColorPrimaryLightColor)),
+                          child: Text("Submit", style: primaryTextStyle(color: white)),
                         ),
                       ),
                     ),

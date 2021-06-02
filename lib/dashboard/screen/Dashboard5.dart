@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/dashboard/model/db5/Db5Model.dart';
 import 'package:prokit_flutter/dashboard/utils/Db5BottomNavigationBar.dart';
-import 'package:prokit_flutter/dashboard/utils/Db5Widget.dart';
 import 'package:prokit_flutter/dashboard/utils/DbColors.dart';
-import 'package:prokit_flutter/dashboard/utils/DbConstant.dart';
 import 'package:prokit_flutter/dashboard/utils/DbDataGenerator.dart';
-import 'package:prokit_flutter/dashboard/utils/DbExtension.dart';
 import 'package:prokit_flutter/dashboard/utils/DbImages.dart';
 import 'package:prokit_flutter/dashboard/utils/DbStrings.dart';
+import 'package:prokit_flutter/main/utils/AppConstant.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class Dashboard5 extends StatefulWidget {
   static String tag = '/Dashboard5';
@@ -20,8 +20,8 @@ class Dashboard5 extends StatefulWidget {
 }
 
 class Dashboard5State extends State<Dashboard5> {
-  List<Db5CategoryData> mListings;
-  List<Db6BestDestinationData> mListings1;
+  late List<Db5CategoryData> mListings;
+  late List<Db6BestDestinationData> mListings1;
   var _selectedIndex = 0;
 
   @override
@@ -32,18 +32,6 @@ class Dashboard5State extends State<Dashboard5> {
     _selectedIndex = 0;
   }
 
-  void changePage(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     changeStatusColor(db5_colorPrimary);
@@ -52,7 +40,7 @@ class Dashboard5State extends State<Dashboard5> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(boxShadow: [BoxShadow(color: dbShadowColor, offset: Offset.fromDirection(3, 1), spreadRadius: 1, blurRadius: 5)]),
         child: Db5BottomNavigationBar(
-          items: const <Db5BottomNavigationBarItem>[
+          items: <Db5BottomNavigationBarItem>[
             Db5BottomNavigationBarItem(
               icon: db5_ic_home,
             ),
@@ -69,7 +57,11 @@ class Dashboard5State extends State<Dashboard5> {
           currentIndex: _selectedIndex,
           unselectedIconTheme: IconThemeData(color: db5_icon_color, size: 24),
           selectedIconTheme: IconThemeData(color: db5_colorPrimary, size: 24),
-          onTap: _onItemTapped,
+          onTap: (int index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
           type: Db5BottomNavigationBarType.fixed,
         ),
       ),
@@ -78,23 +70,20 @@ class Dashboard5State extends State<Dashboard5> {
           shrinkWrap: true,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      text(db5_hi_juila, fontSize: textSizeNormal, textColor: db5_colorPrimary),
-                      Icon(
-                        Icons.search,
-                        color: db5_icon_color,
-                      )
+                      Text(db5_hi_juila, style: primaryTextStyle(size: 20, color: db5_colorPrimary)),
+                      Icon(Icons.search, color: db5_icon_color),
                     ],
                   ),
                   Row(
                     children: <Widget>[
-                      text(db5_you_are_in_54_king_ports, textColor: db5_textColorSecondary),
+                      Text(db5_you_are_in_54_king_ports, style: primaryTextStyle(color: db5_textColorSecondary, size: 14)),
                     ],
                   )
                 ],
@@ -104,9 +93,7 @@ class Dashboard5State extends State<Dashboard5> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  SizedBox(
-                    height: 16,
-                  ),
+                  SizedBox(height: 16),
                   SizedBox(
                     height: 120,
                     child: ListView.builder(
@@ -118,25 +105,15 @@ class Dashboard5State extends State<Dashboard5> {
                           return category(mListings[index], index);
                         }),
                   ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Divider(
-                    height: 4,
-                    color: db5_viewColor,
-                    thickness: 2,
-                  ),
+                  SizedBox(height: 8),
+                  Divider(height: 4, color: db5_viewColor, thickness: 2),
                   Container(
                     margin: EdgeInsets.fromLTRB(16, 16, 16, 16),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        text(
-                          db5_best_destination,
-                          textColor: db5_colorPrimary,
-                          fontSize: textSizeLarge,
-                        ),
-                        text(db5_see_All, textColor: db5_textColorSecondary, textAllCaps: true),
+                        Text(db5_best_destination, style: primaryTextStyle(color: db5_colorPrimary, size: 24)),
+                        Text(db5_see_All.toUpperCase(), style: primaryTextStyle(color: db5_textColorSecondary)),
                       ],
                     ),
                   ),
@@ -149,50 +126,44 @@ class Dashboard5State extends State<Dashboard5> {
                       primary: false,
                       mainAxisSpacing: 16.0,
                       crossAxisSpacing: 16.0,
-                      staggeredTileBuilder: (index) => new StaggeredTile.fit(2),
+                      staggeredTileBuilder: (index) => StaggeredTile.fit(2),
                       itemCount: mListings1.length,
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (BuildContext context, int index) => Container(
                         margin: EdgeInsets.only(left: 4, bottom: 4, top: 4),
                         child: ClipRRect(
-                          borderRadius: new BorderRadius.circular(16.0),
+                          borderRadius: BorderRadius.circular(16.0),
                           child: Stack(
                             alignment: Alignment.bottomCenter,
                             children: <Widget>[
-                              Image.asset(
-                                mListings1[index].image,
-                              ),
+                              Image.asset(mListings1[index].image),
                               Padding(
-                                padding: const EdgeInsets.all(16.0),
+                                padding: EdgeInsets.all(16.0),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
-                                    text(mListings1[index].name, textColor: db5_white),
+                                    Text(mListings1[index].name, style: primaryTextStyle(color: white)),
                                     Container(
                                         child: Padding(
-                                          padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
+                                          padding: EdgeInsets.fromLTRB(10, 4, 10, 4),
                                           child: RichText(
                                             text: TextSpan(
-                                              style: Theme.of(context).textTheme.body1,
+                                              style: Theme.of(context).textTheme.bodyText2,
                                               children: [
                                                 WidgetSpan(
                                                   child: Padding(
-                                                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                                                    child: Icon(
-                                                      Icons.star_border,
-                                                      color: db5_yellow,
-                                                      size: 16,
-                                                    ),
+                                                    padding: EdgeInsets.symmetric(horizontal: 4.0),
+                                                    child: Icon(Icons.star_border, color: db5_yellow, size: 16),
                                                   ),
                                                 ),
-                                                TextSpan(text: mListings1[index].rating, style: TextStyle(fontSize: textSizeMedium, color: db5_white, fontFamily: fontMedium)),
+                                                TextSpan(text: mListings1[index].rating, style: secondaryTextStyle(size: 14, color: db5_white, fontFamily: fontMedium)),
                                               ],
                                             ),
                                           ),
                                         ),
-                                        decoration: boxDecoration(radius: 12, bgColor: db5_black_trans)),
+                                        decoration: BoxDecoration(color: db5_black_trans, borderRadius: BorderRadius.all(Radius.circular(12)))),
                                   ],
                                 ),
                               ),
@@ -213,8 +184,9 @@ class Dashboard5State extends State<Dashboard5> {
   }
 }
 
+// ignore: must_be_immutable, camel_case_types
 class category extends StatelessWidget {
-  Db5CategoryData model;
+  late Db5CategoryData model;
 
   category(Db5CategoryData model, int pos) {
     this.model = model;
@@ -227,20 +199,16 @@ class category extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Container(
-            decoration: boxDecoration(bgColor: db5_light_blue, radius: 16),
+            decoration: BoxDecoration(color: db5_light_blue, borderRadius: BorderRadius.all(Radius.circular(16))),
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: SvgPicture.asset(
-                model.image,
-                height: 40,
-                width: 40,
-              ),
+              padding: EdgeInsets.all(16.0),
+              child: SvgPicture.asset(model.image, height: 40, width: 40),
             ),
           ),
           SizedBox(
             height: 4,
           ),
-          text(model.name, textColor: db5_textColorSecondary)
+          Text(model.name, style: primaryTextStyle(color: db5_textColorSecondary))
         ],
       ),
     );

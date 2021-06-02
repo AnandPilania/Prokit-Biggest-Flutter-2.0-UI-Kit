@@ -2,19 +2,21 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/main/utils/percent_indicator/linear_percent_indicator.dart';
 import 'package:prokit_flutter/main/utils/rating_bar.dart';
-import 'package:prokit_flutter/shophop/models/ShProduct.dart';
-import 'package:prokit_flutter/shophop/models/ShReview.dart';
-import 'package:prokit_flutter/shophop/utils/ShColors.dart';
-import 'package:prokit_flutter/shophop/utils/ShConstant.dart';
-import 'package:prokit_flutter/shophop/utils/ShExtension.dart';
-import 'package:prokit_flutter/shophop/utils/ShStrings.dart';
-import 'package:prokit_flutter/shophop/utils/ShWidget.dart';
+import 'package:prokit_flutter/shopHop/models/ShProduct.dart';
+import 'package:prokit_flutter/shopHop/models/ShReview.dart';
+import 'package:prokit_flutter/shopHop/utils/ShColors.dart';
+import 'package:prokit_flutter/shopHop/utils/ShConstant.dart';
+import 'package:prokit_flutter/shopHop/utils/ShExtension.dart';
+import 'package:prokit_flutter/shopHop/utils/ShStrings.dart';
+import 'package:prokit_flutter/shopHop/utils/ShWidget.dart';
 
 class ShProductDetail extends StatefulWidget {
   static String tag = '/ShProductDetail';
-  ShProduct product;
+  ShProduct? product;
 
   ShProductDetail({this.product});
 
@@ -32,7 +34,7 @@ class ShProductDetailState extends State<ShProductDetail> {
   double threeStar = 0;
   double twoStar = 0;
   double oneStar = 0;
-  var list = List<ShReview>();
+  List<ShReview> list = [];
   bool _autoValidate = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController controller = TextEditingController();
@@ -106,9 +108,9 @@ class ShProductDetailState extends State<ShProductDetail> {
     var sliderImages = Container(
       height: 380,
       child: PageView.builder(
-        itemCount: widget.product.images.length,
+        itemCount: widget.product!.images!.length,
         itemBuilder: (context, index) {
-          return Image.asset("images/shophop/img/products" + widget.product.images[index].src, width: width, height: width * 1.05, fit: BoxFit.cover);
+          return Image.asset("images/shophop/img/products" + widget.product!.images![index].src!, width: width, height: width * 1.05, fit: BoxFit.cover);
         },
         onPageChanged: (index) {
           position = index;
@@ -124,9 +126,9 @@ class ShProductDetailState extends State<ShProductDetail> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              text(widget.product.name, textColor: sh_textColorPrimary, fontFamily: fontMedium, fontSize: textSizeXNormal),
+              text(widget.product!.name, textColor: sh_textColorPrimary, fontFamily: fontMedium, fontSize: textSizeXNormal),
               text(
-                widget.product.on_sale ? widget.product.sale_price.toCurrencyFormat() : widget.product.price.toCurrencyFormat(),
+                widget.product!.on_sale! ? widget.product!.sale_price.toCurrencyFormat() : widget.product!.price.toCurrencyFormat(),
                 textColor: sh_colorPrimary,
                 fontSize: textSizeXNormal,
                 fontFamily: fontMedium,
@@ -145,7 +147,11 @@ class ShProductDetailState extends State<ShProductDetail> {
                       padding: EdgeInsets.only(left: 12, right: 12, top: 0, bottom: 0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(spacing_standard_new)),
-                        color: double.parse(widget.product.average_rating) < 2 ? Colors.red : double.parse(widget.product.average_rating) < 4 ? Colors.orange : Colors.green,
+                        color: double.parse(widget.product!.average_rating!) < 2
+                            ? Colors.red
+                            : double.parse(widget.product!.average_rating!) < 4
+                                ? Colors.orange
+                                : Colors.green,
                       ),
                       child: Row(
                         children: <Widget>[
@@ -161,7 +167,7 @@ class ShProductDetailState extends State<ShProductDetail> {
                 ),
               ),
               Text(
-                widget.product.regular_price.toString().toCurrencyFormat(),
+                widget.product!.regular_price.toString().toCurrencyFormat()!,
                 style: TextStyle(color: sh_textColorSecondary, fontFamily: fontRegular, fontSize: textSizeLargeMedium, decoration: TextDecoration.lineThrough),
               )
             ],
@@ -170,9 +176,9 @@ class ShProductDetailState extends State<ShProductDetail> {
       ),
     );
 
-    var colorList = List();
-    widget.product.attributes.forEach((element) {
-      if (element.name == 'Color') colorList.addAll(element.options);
+    var colorList = [];
+    widget.product!.attributes!.forEach((element) {
+      if (element.name == 'Color') colorList.addAll(element.options!);
     });
 
     var colors = ListView.builder(
@@ -188,21 +194,21 @@ class ShProductDetailState extends State<ShProductDetail> {
           child: Container(
             padding: EdgeInsets.all(7),
             margin: EdgeInsets.only(right: spacing_xlarge),
-            decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: sh_textColorPrimary, width: 0.5), color: colorFromHex(colorList[index])),
+            decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: sh_textColorPrimary, width: 0.5), color: getColorFromHex(colorList[index])),
             child: selectedColor == index ? Icon(Icons.done, color: sh_white, size: 12) : Container(),
           ),
         );
       },
     );
 
-    var sizeList = List();
-    widget.product.attributes.forEach((element) {
-      if (element.name == 'Size') sizeList.addAll(element.options);
+    var sizeList = [];
+    widget.product!.attributes!.forEach((element) {
+      if (element.name == 'Size') sizeList.addAll(element.options!);
     });
 
-    var brandList = List();
-    widget.product.attributes.forEach((element) {
-      if (element.name == 'Brand') brandList.addAll(element.options);
+    var brandList = [];
+    widget.product!.attributes!.forEach((element) {
+      if (element.name == 'Brand') brandList.addAll(element.options!);
     });
 
     var bands = "";
@@ -248,7 +254,12 @@ class ShProductDetailState extends State<ShProductDetail> {
                   Container(
                     padding: EdgeInsets.only(left: 12, right: 12, top: 1, bottom: 1),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(spacing_standard_new)), color: list[index].rating < 2 ? Colors.red : list[index].rating < 4 ? Colors.orange : Colors.green),
+                        borderRadius: BorderRadius.all(Radius.circular(spacing_standard_new)),
+                        color: list[index].rating! < 2
+                            ? Colors.red
+                            : list[index].rating! < 4
+                                ? Colors.orange
+                                : Colors.green),
                     child: Row(
                       children: <Widget>[text(list[index].rating.toString(), textColor: sh_white), SizedBox(width: spacing_control_half), Icon(Icons.star, color: sh_white, size: 12)],
                     ),
@@ -267,7 +278,7 @@ class ShProductDetailState extends State<ShProductDetail> {
                 ],
               ),
               SizedBox(height: spacing_standard),
-              Image.asset("images/shophop/img/products" + widget.product.images[0].src, width: 90, height: 110, fit: BoxFit.fill),
+              Image.asset("images/shophop/img/products" + widget.product!.images![0].src!, width: 90, height: 110, fit: BoxFit.fill),
               SizedBox(height: spacing_standard),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -277,10 +288,10 @@ class ShProductDetailState extends State<ShProductDetail> {
                       Container(
                         padding: EdgeInsets.all(4),
                         margin: EdgeInsets.only(right: spacing_standard),
-                        decoration: BoxDecoration(shape: BoxShape.circle, color: list[index].verified ? Colors.green : Colors.grey.withOpacity(0.5)),
-                        child: Icon(list[index].verified ? Icons.done : Icons.clear, color: sh_white, size: 14),
+                        decoration: BoxDecoration(shape: BoxShape.circle, color: list[index].verified! ? Colors.green : Colors.grey.withOpacity(0.5)),
+                        child: Icon(list[index].verified! ? Icons.done : Icons.clear, color: sh_white, size: 14),
                       ),
-                      text(list[index].verified ? sh_lbl_verified : sh_lbl_not_verified, textColor: sh_textColorPrimary, fontFamily: fontMedium, fontSize: textSizeMedium)
+                      text(list[index].verified! ? sh_lbl_verified : sh_lbl_not_verified, textColor: sh_textColorPrimary, fontFamily: fontMedium, fontSize: textSizeMedium)
                     ],
                   ),
                   text("26 June 2019", fontSize: textSizeMedium)
@@ -301,7 +312,7 @@ class ShProductDetailState extends State<ShProductDetail> {
             Stack(
               alignment: Alignment.bottomRight,
               children: <Widget>[
-                text(widget.product.description, maxLine: 3, isLongText: isExpanded),
+                text(widget.product!.description, maxLine: 3, isLongText: isExpanded, fontSize: 16.0),
                 InkWell(
                   child: Container(
                     padding: EdgeInsets.all(spacing_control_half),
@@ -384,7 +395,7 @@ class ShProductDetailState extends State<ShProductDetail> {
                       alignment: Alignment.centerLeft,
                       padding: EdgeInsets.only(top: spacing_control, bottom: spacing_control, left: spacing_large),
                       color: sh_itemText_background,
-                      child: text(widget.product.dimensions.length + " cm", textColor: sh_textColorPrimary, fontFamily: fontMedium, fontSize: textSizeLargeMedium)),
+                      child: text(widget.product!.dimensions!.length! + " cm", textColor: sh_textColorPrimary, fontFamily: fontMedium, fontSize: textSizeLargeMedium)),
                 )
               ],
             ),
@@ -405,7 +416,7 @@ class ShProductDetailState extends State<ShProductDetail> {
                       alignment: Alignment.centerLeft,
                       padding: EdgeInsets.only(top: spacing_standard, bottom: spacing_standard, left: spacing_large),
                       color: sh_itemText_background,
-                      child: text(widget.product.dimensions.height + " cm", textColor: sh_textColorPrimary, fontFamily: fontMedium, fontSize: textSizeLargeMedium)),
+                      child: text(widget.product!.dimensions!.height! + " cm", textColor: sh_textColorPrimary, fontFamily: fontMedium, fontSize: textSizeLargeMedium)),
                 )
               ],
             ),
@@ -426,7 +437,7 @@ class ShProductDetailState extends State<ShProductDetail> {
                       alignment: Alignment.centerLeft,
                       padding: EdgeInsets.only(top: spacing_standard, bottom: spacing_standard, left: spacing_large),
                       color: sh_itemText_background,
-                      child: text(widget.product.dimensions.width + " cm", textColor: sh_textColorPrimary, fontFamily: fontMedium, fontSize: textSizeLargeMedium)),
+                      child: text(widget.product!.dimensions!.width! + " cm", textColor: sh_textColorPrimary, fontFamily: fontMedium, fontSize: textSizeLargeMedium)),
                 )
               ],
             ),
@@ -481,7 +492,7 @@ class ShProductDetailState extends State<ShProductDetail> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        reviewText("3.0", size: 28.0, fontSize: 30, fontFamily: fontBold),
+                        reviewText("3.0", size: 28.0, fontSize: 30.0, fontFamily: fontBold),
                         text(list.length.toString() + " Reviews", fontSize: textSizeMedium),
                       ],
                     ),
@@ -609,7 +620,7 @@ class ShProductDetailState extends State<ShProductDetail> {
                       ),
                       cartIcon(context, 3)
                     ],
-                    title: text(innerBoxIsScrolled ? widget.product.name : "", textColor: sh_textColorPrimary, fontSize: textSizeNormal, fontFamily: fontMedium),
+                    title: text(innerBoxIsScrolled ? widget.product!.name : "", textColor: sh_textColorPrimary, fontSize: textSizeNormal, fontFamily: fontMedium),
                     flexibleSpace: FlexibleSpaceBar(
                       background: Column(
                         children: <Widget>[
@@ -698,7 +709,7 @@ class ShProductDetailState extends State<ShProductDetail> {
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: text("Review", fontSize: 24, fontFamily: fontBold, textColor: sh_textColorPrimary),
+                          child: text("Review", fontSize: 24.0, fontFamily: fontBold, textColor: sh_textColorPrimary),
                         ),
                         Divider(
                           thickness: 0.5,
@@ -708,8 +719,8 @@ class ShProductDetailState extends State<ShProductDetail> {
                           child: RatingBar(
                             onRatingChanged: (v) {},
                             initialRating: 0.0,
-                            emptyIcon: Icon(Icons.star).icon,
-                            filledIcon: Icon(Icons.star).icon,
+                            emptyIcon: Icon(Icons.star).icon!,
+                            filledIcon: Icon(Icons.star).icon!,
                             filledColor: Colors.amber,
                             emptyColor: Colors.grey.withOpacity(0.5),
                             size: 40,
@@ -725,7 +736,7 @@ class ShProductDetailState extends State<ShProductDetail> {
                               keyboardType: TextInputType.multiline,
                               maxLines: 5,
                               validator: (value) {
-                                return value.isEmpty ? "Review Filed Required!" : null;
+                                return value!.isEmpty ? "Review Filed Required!" : null;
                               },
                               style: TextStyle(fontFamily: fontRegular, fontSize: textSizeNormal, color: sh_textColorPrimary),
                               decoration: new InputDecoration(
@@ -772,7 +783,7 @@ class ShProductDetailState extends State<ShProductDetail> {
                                     borderRadius: new BorderRadius.circular(5.0),
                                   ),
                                   onPressed: () {
-                                    final form = _formKey.currentState;
+                                    final form = _formKey.currentState!;
                                     if (form.validate()) {
                                       form.save();
                                     } else {

@@ -1,45 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 import 'Colors.dart';
 
-TextStyle primaryTextStyle(
-    {int size = 16,
-    Color textColor = opTextPrimaryColor,
-    fontFamily = fontRegular}) {
-  return TextStyle(
-      fontSize: size.toDouble(), color: textColor, fontFamily: fontFamily);
-}
-
-TextStyle secondaryTextStyle(
-    {int size = 14,
-    Color textColor = opTextSecondaryColor,
-    fontFamily = fontRegular}) {
-  return TextStyle(
-      fontSize: size.toDouble(), color: textColor, fontFamily: fontFamily);
-}
-
-TextStyle boldTextStyle(
-    {int size = 18,
-    Color textColor = opTextPrimaryColor,
-    FontWeight textWeight = FontWeight.bold,
-    double letterSpacing,
-    double wordSpacing}) {
-  return TextStyle(
-      fontSize: size.toDouble(),
-      color: textColor,
-      fontWeight: textWeight,
-      letterSpacing: letterSpacing,
-      fontFamily: fontBold,
-      wordSpacing: wordSpacing);
-}
-
-BoxDecoration boxDecoration(
-    {double radius = 80.0,
-    Color backGroundColor = opPrimaryColor,
-    double blurRadius = 8.0,
-    double spreadRadius = 8.0,
-    shadowColor = Colors.black12}) {
+BoxDecoration boxDecoration({double radius = 80.0, Color? backGroundColor = opPrimaryColor, double blurRadius = 8.0, double spreadRadius = 8.0, shadowColor = Colors.black12}) {
   return BoxDecoration(
     borderRadius: BorderRadius.circular(radius),
     boxShadow: [
@@ -67,13 +32,8 @@ Widget applogo() {
   );
 }
 
-Widget ButtonBars(
-    {String title,
-    Size size,
-    IconData icon,
-    Color color,
-    VoidCallback onPressed}) {
-  return FlatButton(
+Widget ButtonBars({required String title, Size? size, IconData? icon, Color? color, VoidCallback? onPressed}) {
+  return TextButton(
     onPressed: onPressed,
     child: Container(
       height: 50,
@@ -92,7 +52,7 @@ Widget ButtonBars(
           SizedBox(
             width: 10,
           ),
-          Text(title, style: primaryTextStyle(textColor: Colors.white))
+          Text(title, style: primaryTextStyle(color: Colors.white))
         ],
       ),
     ),
@@ -101,8 +61,7 @@ Widget ButtonBars(
 
 Widget profileCard() {
   return Container(
-    decoration:
-        boxDecoration(radius: 16, shadowColor: opPrimaryColor.withAlpha(30)),
+    decoration: boxDecoration(radius: 16, shadowColor: opPrimaryColor.withAlpha(30)),
     padding: EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 20),
     width: double.infinity,
     child: Row(
@@ -123,11 +82,11 @@ Widget profileCard() {
               children: <Widget>[
                 Text(
                   'Richard Beck',
-                  style: primaryTextStyle(textColor: Colors.white),
+                  style: primaryTextStyle(color: Colors.white),
                 ),
                 Text(
                   'Vice President of Google',
-                  style: primaryTextStyle(size: 14, textColor: Colors.white54),
+                  style: primaryTextStyle(size: 14, color: Colors.white54),
                 ),
               ],
             ),
@@ -135,11 +94,10 @@ Widget profileCard() {
         ),
         Container(
           padding: EdgeInsets.only(left: 12, right: 12, top: 4, bottom: 4),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.0), color: Colors.white),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: Colors.white),
           child: Text(
             'Edit',
-            style: primaryTextStyle(textColor: opPrimaryColor, size: 16),
+            style: primaryTextStyle(color: opPrimaryColor, size: 16),
           ),
         ),
       ],
@@ -147,7 +105,7 @@ Widget profileCard() {
   );
 }
 
-Widget profileSetting({IconData icon, String title}) {
+Widget profileSetting({IconData? icon, required String title}) {
   return Padding(
     padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
     child: Row(
@@ -169,7 +127,7 @@ Widget profileSetting({IconData icon, String title}) {
   );
 }
 
-Widget indicator({bool isActive}) {
+Widget indicator({required bool isActive}) {
   return AnimatedContainer(
     duration: Duration(milliseconds: 150),
     margin: EdgeInsets.symmetric(horizontal: 4.0),
@@ -183,9 +141,9 @@ Widget indicator({bool isActive}) {
 }
 
 Widget textField({
-  String title,
-  IconData image,
-  TextInputType textInputType,
+  String? title,
+  IconData? image,
+  TextInputType? textInputType,
 }) {
   return TextField(
     keyboardType: textInputType,
@@ -203,9 +161,9 @@ Widget textField({
 }
 
 Widget textField2({
-  String title,
-  IconData image,
-  TextInputType textInputType,
+  String? title,
+  IconData? image,
+  TextInputType? textInputType,
 }) {
   return TextField(
     keyboardType: textInputType,
@@ -213,11 +171,8 @@ Widget textField2({
     style: TextStyle(color: Colors.white, fontSize: 18),
     decoration: InputDecoration(
       hintText: title,
-      enabledBorder: UnderlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(color: Colors.white)),
-      focusedBorder:
-          UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+      enabledBorder: UnderlineInputBorder(borderRadius: BorderRadius.circular(10.0), borderSide: BorderSide(color: Colors.white)),
+      focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
       hintStyle: TextStyle(color: Colors.white54, fontSize: 14),
       fillColor: Colors.white54,
       prefixIcon: Icon(image, color: Colors.white54),
@@ -225,15 +180,9 @@ Widget textField2({
   );
 }
 
-Widget VerifyCards(
-    {final Size size,
-    String title,
-    String subtitle,
-    String image,
-    Color color}) {
+Widget VerifyCards({final Size? size, required String title, required String subtitle, required String image, Color? color}) {
   return Container(
-    decoration: boxDecoration(
-        backGroundColor: color, radius: 24, spreadRadius: 2, blurRadius: 4),
+    decoration: boxDecoration(backGroundColor: color, radius: 24, spreadRadius: 2, blurRadius: 4),
     child: Padding(
       padding: EdgeInsets.all(16),
       child: Row(
@@ -246,11 +195,11 @@ Widget VerifyCards(
               children: <Widget>[
                 Text(
                   title,
-                  style: boldTextStyle(size: 18, textColor: Colors.white),
+                  style: boldTextStyle(size: 18, color: Colors.white),
                 ),
                 Text(
                   subtitle,
-                  style: primaryTextStyle(size: 16, textColor: Colors.white54),
+                  style: primaryTextStyle(size: 16, color: Colors.white54),
                 ),
               ],
             ),
@@ -267,21 +216,16 @@ Widget VerifyCards(
 }
 
 Widget CardDetails({
-  String visaTitle,
-  Color color,
-  String creditNumber,
-  String expire,
-  String name,
+  required String visaTitle,
+  required Color color,
+  required String creditNumber,
+  required String expire,
+  required String name,
 }) {
   return Container(
     padding: EdgeInsets.all(20),
     margin: EdgeInsets.only(left: 16.0, right: 16, bottom: 16, top: 16),
-    decoration: boxDecoration(
-        radius: 20,
-        backGroundColor: color,
-        spreadRadius: 4.0,
-        blurRadius: 10.0,
-        shadowColor: color.withAlpha(50)),
+    decoration: boxDecoration(radius: 20, backGroundColor: color, spreadRadius: 4.0, blurRadius: 10.0, shadowColor: color.withAlpha(50)),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -303,7 +247,7 @@ Widget CardDetails({
                   alignment: Alignment.centerRight,
                   child: Text(
                     visaTitle,
-                    style: boldTextStyle(size: 22, textColor: Colors.white),
+                    style: boldTextStyle(size: 22, color: Colors.white),
                   ),
                 ),
               ],
@@ -314,11 +258,7 @@ Widget CardDetails({
             FittedBox(
               child: Text(
                 "**** **** **** " + creditNumber,
-                style: boldTextStyle(
-                    size: 20,
-                    textColor: Colors.white,
-                    letterSpacing: 3,
-                    wordSpacing: 2),
+                style: boldTextStyle(size: 20, color: Colors.white, letterSpacing: 3, wordSpacing: 2),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -336,7 +276,7 @@ Widget CardDetails({
                   FittedBox(
                     child: Text(
                       'CARDHOLDER',
-                      style: secondaryTextStyle(textColor: Colors.white60),
+                      style: secondaryTextStyle(color: Colors.white60),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -346,7 +286,7 @@ Widget CardDetails({
                   FittedBox(
                     child: Text(
                       name,
-                      style: primaryTextStyle(textColor: Colors.white),
+                      style: primaryTextStyle(color: Colors.white),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -358,7 +298,7 @@ Widget CardDetails({
                   FittedBox(
                     child: Text(
                       'EXPIRES',
-                      style: secondaryTextStyle(textColor: Colors.white60),
+                      style: secondaryTextStyle(color: Colors.white60),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -368,7 +308,7 @@ Widget CardDetails({
                   FittedBox(
                     child: Text(
                       expire,
-                      style: primaryTextStyle(textColor: Colors.white),
+                      style: primaryTextStyle(color: Colors.white),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -383,7 +323,7 @@ Widget CardDetails({
   );
 }
 
-getAppBar(title, {showBack = true, GestureTapCallback pressed}) {
+getAppBar(title, {showBack = true, GestureTapCallback? pressed}) {
   return PreferredSize(
     preferredSize: Size.fromHeight(60.0),
     child: Row(
@@ -447,11 +387,11 @@ Widget DashboardList({
   String name = "",
   String status = "",
   String amount = "",
-  VoidCallback onPressed,
+  VoidCallback? onPressed,
   IconData icon = Icons.call_received,
   Color colors = Colors.green,
   Color iconcolor = Colors.green,
-  Color color,
+  Color? color,
 }) {
   return GestureDetector(
     onTap: onPressed,
@@ -485,8 +425,7 @@ Widget DashboardList({
                     children: <Widget>[
                       Text(
                         name,
-                        style:
-                            primaryTextStyle(fontFamily: fontMedium, size: 18),
+                        style: primaryTextStyle(fontFamily: fontMedium, size: 18),
                       ),
                       SizedBox(
                         height: 4,
@@ -511,7 +450,7 @@ Widget DashboardList({
                     Text(
                       amount,
                       style: boldTextStyle(
-                        textColor: color,
+                        color: color,
                         size: 14,
                       ),
                     ),
@@ -530,7 +469,7 @@ Widget DashboardList({
   );
 }
 
-Widget SliderButton({Color color, String title = '', VoidCallback onPressed}) {
+Widget SliderButton({Color? color, String title = '', VoidCallback? onPressed}) {
   return RaisedButton(
       padding: EdgeInsets.only(left: 16, right: 16),
       shape: RoundedRectangleBorder(
@@ -543,11 +482,11 @@ Widget SliderButton({Color color, String title = '', VoidCallback onPressed}) {
         style: TextStyle(color: Colors.white),
       ),
       onPressed: () {
-        onPressed();
+        onPressed!();
       });
 }
 
-Widget oPDotIndicator({bool isActive}) {
+Widget oPDotIndicator({required bool isActive}) {
   return AnimatedContainer(
     duration: Duration(milliseconds: 150),
     margin: EdgeInsets.symmetric(horizontal: 4.0),
@@ -560,8 +499,7 @@ Widget oPDotIndicator({bool isActive}) {
   );
 }
 
-Widget SliderPage(
-    {final Size size, String image, String title, String description}) {
+Widget SliderPage({required final Size size, required String image, required String title, required String description}) {
   return Column(
     children: <Widget>[
       Container(
@@ -575,15 +513,13 @@ Widget SliderPage(
       Center(
         child: Padding(
           padding: EdgeInsets.only(top: 40),
-          child: Text(title,
-              textAlign: TextAlign.center, style: boldTextStyle(size: 18)),
+          child: Text(title, textAlign: TextAlign.center, style: boldTextStyle(size: 18)),
         ),
       ),
       SizedBox(height: 15.0),
       Padding(
         padding: EdgeInsets.only(left: 40, right: 40),
-        child: Text(description,
-            textAlign: TextAlign.center, style: secondaryTextStyle()),
+        child: Text(description, textAlign: TextAlign.center, style: secondaryTextStyle()),
       )
     ],
     crossAxisAlignment: CrossAxisAlignment.start,

@@ -168,7 +168,8 @@ class _MWTabBarScreen4State extends State<MWTabBarScreen4> {
     );
   }
 
-  Widget TabList({Widget icon, String title}) {
+  // ignore: non_constant_identifier_names
+  Widget TabList({Widget? icon, required String title}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,

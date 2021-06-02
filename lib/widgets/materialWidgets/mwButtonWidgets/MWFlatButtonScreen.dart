@@ -37,7 +37,7 @@ class MWFlatButtonScreenState extends State<MWFlatButtonScreen> {
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             children: [
-              FlatButton(
+              TextButton(
                 onPressed: () {
                   toast('Default Flat button');
                 },
@@ -47,7 +47,7 @@ class MWFlatButtonScreenState extends State<MWFlatButtonScreen> {
                 ),
               ),
               Divider(),
-              FlatButton.icon(
+              TextButton.icon(
                   onPressed: () {
                     toast('Flat button with icon');
                   },
@@ -60,7 +60,7 @@ class MWFlatButtonScreenState extends State<MWFlatButtonScreen> {
                     style: primaryTextStyle(),
                   )),
               Divider(),
-              FlatButton(
+              TextButton(
                 onPressed: null,
                 child: Text(
                   'Disable Flat button',
@@ -68,7 +68,7 @@ class MWFlatButtonScreenState extends State<MWFlatButtonScreen> {
                 ),
               ),
               Divider(),
-              FlatButton.icon(
+              TextButton.icon(
                   onPressed: null,
                   icon: Icon(
                     Icons.add,
@@ -79,48 +79,56 @@ class MWFlatButtonScreenState extends State<MWFlatButtonScreen> {
                     style: secondaryTextStyle(size: 16),
                   )),
               Divider(),
-              FlatButton(
+              TextButton(
                 onPressed: () {
                   toast('Border Flat button');
                 },
-                shape: Border.all(color: appStore.iconColor),
+                style: TextButton.styleFrom(
+                    //shape: Border.all(color: appStore.iconColor!),
+                    ),
                 child: Text(
                   'Border Flat button',
                   style: primaryTextStyle(),
                 ),
               ),
               Divider(),
-              FlatButton(
+              TextButton(
                 onPressed: () {
                   toast('Rounded Flat button');
                 },
-                shape: RoundedRectangleBorder(
+                style: TextButton.styleFrom(
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                     side: BorderSide(
                       color: Colors.green,
-                    )),
+                    ),
+                  ),
+                ),
                 child: Text(
                   'Rounded Flat button',
                   style: primaryTextStyle(),
                 ),
               ),
               Divider(),
-              FlatButton(
+              TextButton(
                 onPressed: () {
                   toast('Customize Rounded Flat button');
                 },
-                shape: RoundedRectangleBorder(
+                style: TextButton.styleFrom(
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                     side: BorderSide(
                       color: Colors.red,
-                    )),
+                    ),
+                  ),
+                ),
                 child: Text(
                   'Customize Rounded Flat button',
                   style: primaryTextStyle(),
                 ),
               ),
               Divider(),
-              FlatButton(
+              TextButton(
                 onPressed: () {
                   toast('Customize Text Style of label');
                 },
@@ -132,31 +140,38 @@ class MWFlatButtonScreenState extends State<MWFlatButtonScreen> {
                     fontStyle: FontStyle.italic,
                   ),
                 ),
-                shape: RoundedRectangleBorder(
+                style: TextButton.styleFrom(
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                     side: BorderSide(
                       color: Colors.blue,
-                    )),
+                    ),
+                  ),
+                ),
               ),
               Divider(),
-              FlatButton(
+              TextButton(
                 onPressed: () {
                   toast('Color Fill Flat button');
                 },
-                color: getColorFromHex('#8998FF'),
+                style: TextButton.styleFrom(
+                  backgroundColor:getColorFromHex('#8998FF'),
+                    primary: getColorFromHex('#8998FF')),
                 child: Text(
                   "Color Fill Flat button",
                   style: primaryTextStyle(color: Colors.white),
                 ),
               ),
               Divider(),
-              FlatButton(
+              TextButton(
                 onPressed: () {
                   toast('Rounded color fill flat button');
                 },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)),
-                color: getColorFromHex('#f2866c'),
+                style: TextButton.styleFrom(
+                  backgroundColor:getColorFromHex('#f2866c'),
+                    primary: getColorFromHex('#f2866c'),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                ),
                 child: Text(
                   'Rounded color fill flat button',
                   style: primaryTextStyle(color: Colors.white),
@@ -170,11 +185,14 @@ class MWFlatButtonScreenState extends State<MWFlatButtonScreen> {
                     getColorFromHex('#75D7D3'),
                   ]),
                 ),
-                child: FlatButton(
+                child: TextButton(
                   onPressed: () {
                     toast('Gradient Flat button');
                   },
-                  splashColor: Colors.transparent,
+                  style: TextButton.styleFrom(
+                    primary: Colors.transparent
+                  ),
+                  //splashColor: Colors.transparent,
                   child: Text(
                     'Gradient Flat button',
                     style: primaryTextStyle(color: Colors.white),

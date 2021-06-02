@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
 import 'dart:math';
 
-List<Size> _cardSizes = new List();
-List<Alignment> _cardAligns = new List();
+import 'package:flutter/material.dart';
+
+List<Size> _cardSizes = [];
+List<Alignment> _cardAligns = [];
 
 enum TriggerDirection { none, right, left, up, down }
 
@@ -18,9 +19,9 @@ class TinderSwapCard extends StatefulWidget {
   bool _swipeUp;
   bool _swipeDown;
   bool _allowVerticalMovement;
-  CardSwipeCompleteCallback swipeCompleteCallback;
-  CardDragUpdateCallback swipeUpdateCallback;
-  CardController cardController;
+  CardSwipeCompleteCallback? swipeCompleteCallback;
+  CardDragUpdateCallback? swipeUpdateCallback;
+  CardController? cardController;
 
   @override
   _TinderSwapCardState createState() => _TinderSwapCardState();
@@ -30,24 +31,25 @@ class TinderSwapCard extends StatefulWidget {
   /// , [swipeEdge] is the edge to determine action(recover or swipe) when you release your swiping card
   /// it is the value of alignment, 0.0 means middle, so it need bigger than zero.
   /// , and size control params;
-  TinderSwapCard({@required CardBuilder cardBuilder,
-    @required int totalNum,
-    AmassOrientation orientation = AmassOrientation.BOTTOM,
-    int stackNum = 3,
-    int animDuration = 800,
-    int currentIndex = 0,
-    double swipeEdge = 3.0,
-    double swipeEdgeVertical = 8.0,
-    bool swipeUp = false,
-    bool swipeDown = false,
-    double maxWidth,
-    double maxHeight,
-    double minWidth,
-    double minHeight,
-    bool allowVerticalMovement = true,
-    this.cardController,
-    this.swipeCompleteCallback,
-    this.swipeUpdateCallback})
+  TinderSwapCard(
+      {required CardBuilder cardBuilder,
+      required int totalNum,
+      AmassOrientation orientation = AmassOrientation.BOTTOM,
+      int stackNum = 3,
+      int animDuration = 800,
+      int currentIndex = 0,
+      double swipeEdge = 3.0,
+      double swipeEdgeVertical = 8.0,
+      bool swipeUp = false,
+      bool swipeDown = false,
+      required double maxWidth,
+      required double maxHeight,
+      required double minWidth,
+      required double minHeight,
+      bool allowVerticalMovement = true,
+      this.cardController,
+      this.swipeCompleteCallback,
+      this.swipeUpdateCallback})
       : this._cardBuilder = cardBuilder,
         this._totalNum = totalNum,
         assert(stackNum > 1),
@@ -65,99 +67,64 @@ class TinderSwapCard extends StatefulWidget {
     double heightGap = maxHeight - minHeight;
 
     currentIndex = _currentIndex;
-    _cardAligns = new List();
-    _cardSizes = new List();
+    _cardAligns = [];
+    _cardSizes = [];
 
     for (int i = 0; i < _stackNum; i++) {
-      _cardSizes.add(new Size(minWidth + (widthGap / _stackNum) * i,
-          minHeight + (heightGap / _stackNum) * i));
+      _cardSizes.add(new Size(minWidth + (widthGap / _stackNum) * i, minHeight + (heightGap / _stackNum) * i));
 
       switch (orientation) {
         case AmassOrientation.BOTTOM:
-          _cardAligns.add(
-              new Alignment(0.0, (0.5 / (_stackNum - 1)) * (stackNum - i)));
+          _cardAligns.add(new Alignment(0.0, (0.5 / (_stackNum - 1)) * (stackNum - i)));
           break;
         case AmassOrientation.TOP:
-          _cardAligns.add(
-              new Alignment(0.0, (-0.5 / (_stackNum - 1)) * (stackNum - i)));
+          _cardAligns.add(new Alignment(0.0, (-0.5 / (_stackNum - 1)) * (stackNum - i)));
           break;
         case AmassOrientation.LEFT:
-          _cardAligns.add(
-              new Alignment((-0.5 / (_stackNum - 1)) * (stackNum - i), 0.0));
+          _cardAligns.add(new Alignment((-0.5 / (_stackNum - 1)) * (stackNum - i), 0.0));
           break;
         case AmassOrientation.RIGHT:
-          _cardAligns.add(
-              new Alignment((0.5 / (_stackNum - 1)) * (stackNum - i), 0.0));
+          _cardAligns.add(new Alignment((0.5 / (_stackNum - 1)) * (stackNum - i), 0.0));
           break;
       }
     }
   }
 }
 
-class _TinderSwapCardState extends State<TinderSwapCard>
-    with TickerProviderStateMixin {
-  Alignment frontCardAlign;
-  AnimationController _animationController;
-  int _currentFront;
-  static TriggerDirection _trigger;
+class _TinderSwapCardState extends State<TinderSwapCard> with TickerProviderStateMixin {
+  Alignment? frontCardAlign;
+  late AnimationController _animationController;
+  int? _currentFront;
+  static TriggerDirection? _trigger;
 
   Widget _buildCard(BuildContext context, int realIndex) {
     if (realIndex < 0) {
       return Container();
     }
-    int index = realIndex - _currentFront;
-    widget._currentIndex = realIndex - _currentFront;
+    int index = realIndex - _currentFront!;
+    widget._currentIndex = realIndex - _currentFront!;
 
     if (index == widget._stackNum - 1) {
       return Align(
         alignment: _animationController.status == AnimationStatus.forward
-            ? frontCardAlign = CardAnimation
-            .frontCardAlign(
-            _animationController,
-            frontCardAlign,
-            _cardAligns[widget._stackNum - 1],
-            widget._swipeEdge,
-            widget._swipeUp,
-            widget._swipeDown)
-            .value
-            : frontCardAlign,
+            ? frontCardAlign = CardAnimation.frontCardAlign(_animationController, frontCardAlign, _cardAligns[widget._stackNum - 1], widget._swipeEdge, widget._swipeUp, widget._swipeDown).value
+            : frontCardAlign!,
         child: Transform.rotate(
-            angle: (pi / 180.0) *
-                (_animationController.status == AnimationStatus.forward
-                    ? CardAnimation
-                    .frontCardRota(
-                    _animationController, frontCardAlign.x)
-                    .value
-                    : frontCardAlign.x),
+            angle: (pi / 180.0) * (_animationController.status == AnimationStatus.forward ? CardAnimation.frontCardRota(_animationController, frontCardAlign!.x).value : frontCardAlign!.x),
             child: new SizedBox.fromSize(
               size: _cardSizes[index],
-              child: widget._cardBuilder(
-                  context, widget._totalNum - realIndex - 1),
+              child: widget._cardBuilder(context, widget._totalNum - realIndex - 1),
             )),
       );
     }
 
     return Align(
-      alignment: _animationController.status == AnimationStatus.forward &&
-          (frontCardAlign.x > 3.0 ||
-              frontCardAlign.x < -3.0 ||
-              frontCardAlign.y > 3 ||
-              frontCardAlign.y < -3)
-          ? CardAnimation
-          .backCardAlign(_animationController,
-          _cardAligns[index], _cardAligns[index + 1])
-          .value
+      alignment: _animationController.status == AnimationStatus.forward && (frontCardAlign!.x > 3.0 || frontCardAlign!.x < -3.0 || frontCardAlign!.y > 3 || frontCardAlign!.y < -3)
+          ? CardAnimation.backCardAlign(_animationController, _cardAligns[index], _cardAligns[index + 1]).value
           : _cardAligns[index],
       child: new SizedBox.fromSize(
-        size: _animationController.status == AnimationStatus.forward &&
-            (frontCardAlign.x > 3.0 ||
-                frontCardAlign.x < -3.0 ||
-                frontCardAlign.y > 3 ||
-                frontCardAlign.y < -3)
-            ? CardAnimation
-            .backCardSize(_animationController,
-            _cardSizes[index], _cardSizes[index + 1])
-            .value
+        size: _animationController.status == AnimationStatus.forward && (frontCardAlign!.x > 3.0 || frontCardAlign!.x < -3.0 || frontCardAlign!.y > 3 || frontCardAlign!.y < -3)
+            ? CardAnimation.backCardSize(_animationController, _cardSizes[index], _cardSizes[index + 1]).value
             : _cardSizes[index],
         child: widget._cardBuilder(context, widget._totalNum - realIndex - 1),
       ),
@@ -165,8 +132,8 @@ class _TinderSwapCardState extends State<TinderSwapCard>
   }
 
   List<Widget> _buildCards(BuildContext context) {
-    List<Widget> cards = new List();
-    for (int i = _currentFront; i < _currentFront + widget._stackNum; i++) {
+    List<Widget> cards = [];
+    for (int i = _currentFront!; i < _currentFront! + widget._stackNum; i++) {
       cards.add(_buildCard(context, i));
     }
 
@@ -175,35 +142,18 @@ class _TinderSwapCardState extends State<TinderSwapCard>
         onPanUpdate: (DragUpdateDetails details) {
           setState(() {
             if (widget._allowVerticalMovement == true) {
-              frontCardAlign = new Alignment(
-                  frontCardAlign.x +
-                      details.delta.dx * 20 / MediaQuery
-                          .of(context)
-                          .size
-                          .width,
-                  frontCardAlign.y +
-                      details.delta.dy *
-                          30 /
-                          MediaQuery
-                              .of(context)
-                              .size
-                              .height);
+              frontCardAlign =
+                  new Alignment(frontCardAlign!.x + details.delta.dx * 20 / MediaQuery.of(context).size.width, frontCardAlign!.y + details.delta.dy * 30 / MediaQuery.of(context).size.height);
             } else {
-              frontCardAlign = new Alignment(
-                  frontCardAlign.x +
-                      details.delta.dx * 20 / MediaQuery
-                          .of(context)
-                          .size
-                          .width,
-                  0);
+              frontCardAlign = new Alignment(frontCardAlign!.x + details.delta.dx * 20 / MediaQuery.of(context).size.width, 0);
 
               if (widget.swipeUpdateCallback != null) {
-                widget.swipeUpdateCallback(details, frontCardAlign);
+                widget.swipeUpdateCallback!(details, frontCardAlign);
               }
             }
 
             if (widget.swipeUpdateCallback != null) {
-              widget.swipeUpdateCallback(details, frontCardAlign);
+              widget.swipeUpdateCallback!(details, frontCardAlign);
             }
           });
         },
@@ -216,8 +166,7 @@ class _TinderSwapCardState extends State<TinderSwapCard>
   }
 
   animateCards(TriggerDirection trigger) {
-    if (_animationController.isAnimating ||
-        _currentFront + widget._stackNum == 0) {
+    if (_animationController.isAnimating || _currentFront! + widget._stackNum == 0) {
       return;
     }
     _trigger = trigger;
@@ -256,28 +205,26 @@ class _TinderSwapCardState extends State<TinderSwapCard>
     widget._currentIndex = widget._totalNum - widget._stackNum;
 
     frontCardAlign = _cardAligns[_cardAligns.length - 1];
-    _animationController = new AnimationController(
-        vsync: this, duration: Duration(milliseconds: widget._animDuration));
+    _animationController = new AnimationController(vsync: this, duration: Duration(milliseconds: widget._animDuration));
     _animationController.addListener(() => setState(() {}));
     _animationController.addStatusListener((AnimationStatus status) {
-      int index = widget._totalNum - widget._stackNum - _currentFront;
+      int index = widget._totalNum - widget._stackNum - _currentFront!;
       widget._currentIndex = index;
       if (status == AnimationStatus.completed) {
         CardSwipeOrientation orientation;
-        if (frontCardAlign.x < -widget._swipeEdge)
+        if (frontCardAlign!.x < -widget._swipeEdge)
           orientation = CardSwipeOrientation.LEFT;
-        else if (frontCardAlign.x > widget._swipeEdge)
+        else if (frontCardAlign!.x > widget._swipeEdge)
           orientation = CardSwipeOrientation.RIGHT;
-        else if (frontCardAlign.y < -widget._swipeEdgeVertical)
+        else if (frontCardAlign!.y < -widget._swipeEdgeVertical)
           orientation = CardSwipeOrientation.UP;
-        else if (frontCardAlign.y > widget._swipeEdgeVertical)
+        else if (frontCardAlign!.y > widget._swipeEdgeVertical)
           orientation = CardSwipeOrientation.DOWN;
         else {
           frontCardAlign = _cardAligns[widget._stackNum - 1];
           orientation = CardSwipeOrientation.RECOVER;
         }
-        if (widget.swipeCompleteCallback != null)
-          widget.swipeCompleteCallback(orientation, widget._currentIndex);
+        if (widget.swipeCompleteCallback != null) widget.swipeCompleteCallback!(orientation, widget._currentIndex);
         if (orientation != CardSwipeOrientation.RECOVER) changeCardOrder();
       }
     });
@@ -292,7 +239,7 @@ class _TinderSwapCardState extends State<TinderSwapCard>
 
   changeCardOrder() {
     setState(() {
-      _currentFront--;
+      _currentFront!;
       frontCardAlign = _cardAligns[widget._stackNum - 1];
     });
   }
@@ -304,109 +251,85 @@ enum CardSwipeOrientation { LEFT, RIGHT, RECOVER, UP, DOWN }
 
 /// swipe card to [CardSwipeOrientation.LEFT] or [CardSwipeOrientation.RIGHT]
 /// , [CardSwipeOrientation.RECOVER] means back to start.
-typedef CardSwipeCompleteCallback = void Function(
-    CardSwipeOrientation orientation, int index);
+typedef CardSwipeCompleteCallback = void Function(CardSwipeOrientation orientation, int index);
 
 /// [DragUpdateDetails] of swiping card.
-typedef CardDragUpdateCallback = void Function(
-    DragUpdateDetails details, Alignment align);
+typedef CardDragUpdateCallback = void Function(DragUpdateDetails details, Alignment? align);
 
 enum AmassOrientation { TOP, BOTTOM, LEFT, RIGHT }
 
 class CardAnimation {
-  static Animation<Alignment> frontCardAlign(AnimationController controller,
-      Alignment beginAlign,
-      Alignment baseAlign,
-      double swipeEdge,
-      bool swipeUp,
-      bool swipeDown) {
+  static Animation<Alignment> frontCardAlign(AnimationController controller, Alignment? beginAlign, Alignment baseAlign, double swipeEdge, bool swipeUp, bool swipeDown) {
     double endX, endY;
 
     if (_TinderSwapCardState._trigger == TriggerDirection.none) {
-      endX = beginAlign.x > 0
-          ? (beginAlign.x > swipeEdge ? beginAlign.x + 10.0 : baseAlign.x)
-          : (beginAlign.x < -swipeEdge ? beginAlign.x - 10.0 : baseAlign.x);
-      endY = beginAlign.x > 3.0 || beginAlign.x < -swipeEdge
-          ? beginAlign.y
-          : baseAlign.y;
+      endX = beginAlign!.x > 0 ? (beginAlign.x > swipeEdge ? beginAlign.x + 10.0 : baseAlign.x) : (beginAlign.x < -swipeEdge ? beginAlign.x - 10.0 : baseAlign.x);
+      endY = beginAlign.x > 3.0 || beginAlign.x < -swipeEdge ? beginAlign.y : baseAlign.y;
 
       if (swipeUp || swipeDown) {
         if (beginAlign.y < 0) {
-          if (swipeUp)
-            endY =
-            beginAlign.y < -swipeEdge ? beginAlign.y - 10.0 : baseAlign.y;
+          if (swipeUp) endY = beginAlign.y < -swipeEdge ? beginAlign.y - 10.0 : baseAlign.y;
         } else if (beginAlign.y > 0) {
-          if (swipeDown)
-            endY = beginAlign.y > swipeEdge ? beginAlign.y + 10.0 : baseAlign.y;
+          if (swipeDown) endY = beginAlign.y > swipeEdge ? beginAlign.y + 10.0 : baseAlign.y;
         }
       }
     } else if (_TinderSwapCardState._trigger == TriggerDirection.left) {
-      endX = beginAlign.x - swipeEdge;
+      endX = beginAlign!.x - swipeEdge;
       endY = beginAlign.y + 0.5;
     }
     /* Trigger Swipe Up or Down */
-    else if (_TinderSwapCardState._trigger == TriggerDirection.up ||
-        _TinderSwapCardState._trigger == TriggerDirection.down) {
-      var beginY =
-      _TinderSwapCardState._trigger == TriggerDirection.up ? -10 : 10;
+    else if (_TinderSwapCardState._trigger == TriggerDirection.up || _TinderSwapCardState._trigger == TriggerDirection.down) {
+      var beginY = _TinderSwapCardState._trigger == TriggerDirection.up ? -10 : 10;
 
       endY = beginY < -swipeEdge ? beginY - 10.0 : baseAlign.y;
 
-      endX = beginAlign.x > 0
-          ? (beginAlign.x > swipeEdge ? beginAlign.x + 10.0 : baseAlign.x)
-          : (beginAlign.x < -swipeEdge ? beginAlign.x - 10.0 : baseAlign.x);
+      endX = beginAlign!.x > 0 ? (beginAlign.x > swipeEdge ? beginAlign.x + 10.0 : baseAlign.x) : (beginAlign.x < -swipeEdge ? beginAlign.x - 10.0 : baseAlign.x);
     } else {
-      endX = beginAlign.x + swipeEdge;
+      endX = beginAlign!.x + swipeEdge;
       endY = beginAlign.y + 0.5;
     }
-    return new AlignmentTween(begin: beginAlign, end: new Alignment(endX, endY))
-        .animate(
-        new CurvedAnimation(parent: controller, curve: Curves.easeOut));
+    return new AlignmentTween(begin: beginAlign, end: new Alignment(endX, endY)).animate(new CurvedAnimation(parent: controller, curve: Curves.easeOut));
   }
 
   static Animation<double> frontCardRota(AnimationController controller, double beginRot) {
-    return new Tween(begin: beginRot, end: 0.0).animate(
-        new CurvedAnimation(parent: controller, curve: Curves.easeOut));
+    return new Tween(begin: beginRot, end: 0.0).animate(new CurvedAnimation(parent: controller, curve: Curves.easeOut));
   }
 
-  static Animation<Size> backCardSize(AnimationController controller, Size beginSize, Size endSize) {
-    return new SizeTween(begin: beginSize, end: endSize).animate(
-        new CurvedAnimation(parent: controller, curve: Curves.easeOut));
+  static Animation<Size?> backCardSize(AnimationController controller, Size beginSize, Size endSize) {
+    return new SizeTween(begin: beginSize, end: endSize).animate(new CurvedAnimation(parent: controller, curve: Curves.easeOut));
   }
 
-  static Animation<Alignment> backCardAlign(AnimationController controller,
-      Alignment beginAlign, Alignment endAlign) {
-    return new AlignmentTween(begin: beginAlign, end: endAlign).animate(
-        new CurvedAnimation(parent: controller, curve: Curves.easeOut));
+  static Animation<Alignment> backCardAlign(AnimationController controller, Alignment beginAlign, Alignment endAlign) {
+    return new AlignmentTween(begin: beginAlign, end: endAlign).animate(new CurvedAnimation(parent: controller, curve: Curves.easeOut));
   }
 }
 
 typedef TriggerListener = void Function(TriggerDirection trigger);
 
 class CardController {
-  TriggerListener _listener;
+  TriggerListener? _listener;
 
   void triggerLeft() {
     if (_listener != null) {
-      _listener(TriggerDirection.left);
+      _listener!(TriggerDirection.left);
     }
   }
 
   void triggerRight() {
     if (_listener != null) {
-      _listener(TriggerDirection.right);
+      _listener!(TriggerDirection.right);
     }
   }
 
   void triggerUp() {
     if (_listener != null) {
-      _listener(TriggerDirection.up);
+      _listener!(TriggerDirection.up);
     }
   }
 
   void triggerDown() {
     if (_listener != null) {
-      _listener(TriggerDirection.down);
+      _listener!(TriggerDirection.down);
     }
   }
 

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/muvi/screens/flix_account_settings_screen.dart';
 import 'package:prokit_flutter/muvi/screens/flix_edit_profile_screen.dart';
 import 'package:prokit_flutter/muvi/screens/flix_help_screen.dart';
@@ -7,7 +9,6 @@ import 'package:prokit_flutter/muvi/screens/flix_terms_conditions_screen.dart';
 import 'package:prokit_flutter/muvi/utils/flix_app_localizations.dart';
 import 'package:prokit_flutter/muvi/utils/flix_app_widgets.dart';
 import 'package:prokit_flutter/muvi/utils/flix_constants.dart';
-import 'package:prokit_flutter/muvi/utils/flix_widget_extensions.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_colors.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_images.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_size.dart';
@@ -23,7 +24,7 @@ class MoreFragmentState extends State<MoreFragment> {
   var profileImage = "";
   var userName = "";
   var userEmail = "";
-  var isDarkMode = true;
+  bool? isDarkMode = true;
 
   @override
   void initState() {
@@ -51,16 +52,14 @@ class MoreFragmentState extends State<MoreFragment> {
               children: <Widget>[
                 CircleAvatar(
                   radius: 30,
-                  child: networkImage(
-                    profileImage,
-                  ),
+                  child: networkImage(profileImage),
                 ).paddingRight(spacing_standard_new),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      text(context, userName, fontSize: ts_extra_normal, fontFamily: font_bold, textColor: muvi_textColorPrimary),
-                      text(context, userEmail, fontSize: ts_normal, fontFamily: font_medium, textColor: muvi_textColorSecondary)
+                      text(userName, fontSize: ts_extra_normal, fontFamily: font_bold, textColor: muvi_textColorPrimary),
+                      text(userEmail, fontSize: ts_normal, fontFamily: font_medium, textColor: muvi_textColorSecondary)
                     ],
                   ),
                 ),
@@ -70,7 +69,7 @@ class MoreFragmentState extends State<MoreFragment> {
                   height: 20,
                   color: muvi_colorPrimary,
                 ).paddingAll(spacing_control).onTap(() {
-                  launchScreen(context, EditProfileScreen.tag);
+                  EditProfileScreen().launch(context);
                 })
               ],
             ),
@@ -82,7 +81,7 @@ class MoreFragmentState extends State<MoreFragment> {
                 children: <Widget>[
                   itemSubTitle(context, keyString(context, "general_settings"), colorThird: false).paddingOnly(left: spacing_standard_new, right: spacing_standard_new, top: 12, bottom: 12),
                   subType(context, "account_settings", () {
-                    launchScreen(context, AccountSettingsScreen.tag);
+                    AccountSettingsScreen().launch(context);
                   }, ic_settings),
                   Row(
                     children: <Widget>[
@@ -111,19 +110,19 @@ class MoreFragmentState extends State<MoreFragment> {
                     ],
                   ).paddingOnly(left: spacing_standard_new, right: spacing_control, top: spacing_control, bottom: spacing_control).onTap(() {
                     setState(() {
-                      isDarkMode = !isDarkMode;
+                      isDarkMode = !isDarkMode!;
                     });
                   }),
                   subType(context, "language", () {}, ic_language),
                   subType(context, "help", () {
-                    launchScreen(context, HelpScreen.tag);
+                    HelpScreen().launch(context);
                   }, ic_help),
                   itemSubTitle(context, keyString(context, "terms")).paddingOnly(left: spacing_standard_new, right: 12, top: spacing_standard_new, bottom: spacing_control),
                   subType(context, "terms_conditions", () {
-                    launchScreen(context, TermsConditionsScreen.tag);
+                    TermsConditionsScreen().launch(context);
                   }, null),
                   subType(context, "privacy_policy", () {
-                    launchScreen(context, TermsConditionsScreen.tag);
+                    TermsConditionsScreen().launch(context);
                   }, null),
                   subType(context, "logout", () {}, null),
                 ],

@@ -12,7 +12,7 @@ class MWUserAccountDrawerHeaderScreen4 extends StatefulWidget {
 }
 
 class _MWUserAccountDrawerHeaderScreen4State extends State<MWUserAccountDrawerHeaderScreen4> {
-  GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   @override
   void initState() {
@@ -22,18 +22,18 @@ class _MWUserAccountDrawerHeaderScreen4State extends State<MWUserAccountDrawerHe
 
   init() async {
     await Future.delayed(Duration(milliseconds: 500));
-    _drawerKey.currentState.openDrawer();
+    scaffoldKey.currentState!.openDrawer();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _drawerKey,
+      key: scaffoldKey,
       appBar: appBar(context, 'With Custom Background'),
       body: Center(
         child: GestureDetector(
           onTap: () {
-            _drawerKey.currentState.openDrawer();
+            scaffoldKey.currentState!.openDrawer();
           },
           child: Container(
             decoration: boxDecoration(bgColor: appColorPrimary, radius: 8),
@@ -66,18 +66,21 @@ class _MWUserAccountDrawerHeaderScreen4State extends State<MWUserAccountDrawerHe
               ListTile(
                 title: Text('My Account', style: primaryTextStyle()),
                 onTap: () {
+                  scaffoldKey.currentState!.openEndDrawer();
                   toast("My Account");
                 },
               ),
               ListTile(
                 title: Text('Setting', style: primaryTextStyle()),
                 onTap: () {
+                  scaffoldKey.currentState!.openEndDrawer();
                   toast("Setting");
                 },
               ),
               ListTile(
                 title: Text('Logout', style: primaryTextStyle()),
                 onTap: () {
+                  scaffoldKey.currentState!.openEndDrawer();
                   toast("Logout");
                 },
               )

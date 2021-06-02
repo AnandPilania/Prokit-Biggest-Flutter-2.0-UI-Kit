@@ -55,7 +55,7 @@ class CWDialogScreenState extends State<CWDialogScreen> {
                                 ).paddingBottom(6),
                                 content: Text("Hey! I'm Coflutter!", style: primaryTextStyle(color: appStore.textSecondaryColor, size: 16)).paddingBottom(6),
                                 actions: <Widget>[
-                                  FlatButton(
+                                  TextButton(
                                     child: Text(
                                       'Close me!',
                                       style: primaryTextStyle(),

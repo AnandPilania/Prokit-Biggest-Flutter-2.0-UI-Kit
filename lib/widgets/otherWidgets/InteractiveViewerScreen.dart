@@ -32,7 +32,7 @@ class InteractiveViewerScreenState extends State<InteractiveViewerScreen> {
     return Scaffold(
       appBar: appBar(context, 'Interactive Viewer'),
       body: InteractiveViewer(
-        child: CachedNetworkImage(imageUrl: SampleImageUrl, placeholder: (_, s) => placeholderWidget()).center(),
+        child: CachedNetworkImage(placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?, imageUrl: SampleImageUrl).center(),
         boundaryMargin: EdgeInsets.all(5.0),
         minScale: 0.1,
         maxScale: 5.0,

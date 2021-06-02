@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/integrations/utils/colors.dart';
 import 'package:prokit_flutter/main.dart';
+import 'package:prokit_flutter/main/utils/AppColors.dart';
 import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class CWButtonScreen extends StatefulWidget {
@@ -14,9 +14,7 @@ class CWButtonScreen extends StatefulWidget {
 }
 
 class CWButtonScreenState extends State<CWButtonScreen> {
-
   Color one = getColorFromHex('#DB7093');
-
 
   @override
   void initState() {
@@ -39,8 +37,7 @@ class CWButtonScreenState extends State<CWButtonScreen> {
       appBar: appBar(context, 'Cupertino button'),
       body: SafeArea(
           child: SingleChildScrollView(
-        child
-            : Column(
+        child: Column(
           children: [
             16.height,
             Container(
@@ -54,7 +51,7 @@ class CWButtonScreenState extends State<CWButtonScreen> {
             ),
             Container(
               width: context.width(),
-              decoration: BoxDecoration(border: Border.all(color: primaryColor, width: 1.5), borderRadius: BorderRadius.all(Radius.circular(8.0))),
+              decoration: BoxDecoration(border: Border.all(color: appColorPrimary, width: 1.5), borderRadius: BorderRadius.all(Radius.circular(8.0))),
               child: CupertinoButton(
                 child: Text('Button with Border', style: primaryTextStyle(color: getColorFromHex('#8998FF'), size: 18)),
                 onPressed: () {
@@ -102,11 +99,7 @@ class CWButtonScreenState extends State<CWButtonScreen> {
             ),
             Container(
               width: context.width(),
-              decoration: BoxDecoration(
-                color: getColorFromHex('#DB7093'),
-                border: Border.all(width: 2,color: appStore.iconColor),
-                borderRadius: BorderRadius.all(Radius.circular(30))
-              ),
+              decoration: BoxDecoration(color: getColorFromHex('#DB7093'), border: Border.all(width: 2, color: appStore.iconColor!), borderRadius: BorderRadius.all(Radius.circular(30))),
               child: CupertinoButton(
                 disabledColor: getColorFromHex('#DB7093'),
                 child: Text('Circular button with custom border color', style: primaryTextStyle(color: white, size: 18)),

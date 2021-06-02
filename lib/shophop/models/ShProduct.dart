@@ -1,61 +1,61 @@
-import 'package:prokit_flutter/shophop/models/ShCategory.dart';
+import 'package:prokit_flutter/shopHop/models/ShCategory.dart';
 
 class ShProduct {
-  int id;
-  String name;
-  String date_created;
-  String date_created_gmt;
-  String date_modified;
-  String date_modified_gmt;
-  String type;
-  String status;
-  bool featured;
-  String catalog_visibility;
-  String description;
-  String short_description;
-  String sku;
-  String price;
-  String regular_price;
-  String sale_price;
-  String price_html;
-  bool on_sale;
-  bool purchasable;
-  int total_sales;
-  bool virtual;
-  bool downloadable;
-  List<dynamic> downloads;
-  int download_limit;
-  int download_expiry;
-  String external_url;
-  String button_text;
-  String tax_status;
-  String tax_class;
-  bool manage_stock;
-  int stock_quantity;
-  String stock_status;
-  String backorders;
-  bool backorders_allowed;
-  bool backordered;
-  bool sold_individually;
-  String weight;
-  Dimensions dimensions;
-  bool shipping_required;
-  bool shipping_taxable;
-  String shipping_class;
-  int shipping_class_id;
-  bool reviews_allowed;
-  String average_rating;
-  int rating_count;
-  List<dynamic> related_ids;
-  List<dynamic> upsell_ids;
-  List<dynamic> cross_sell_ids;
-  int parent_id;
-  String purchase_note;
-  List<ShCategory> categories;
-  List<dynamic> tags;
-  List<ShImage> images;
-  List<Attribute> attributes;
-  List<dynamic> default_attributes;
+  int? id;
+  String? name;
+  String? date_created;
+  String? date_created_gmt;
+  String? date_modified;
+  String? date_modified_gmt;
+  String? type;
+  String? status;
+  bool? featured;
+  String? catalog_visibility;
+  String? description;
+  String? short_description;
+  String? sku;
+  String? price;
+  String? regular_price;
+  String? sale_price;
+  String? price_html;
+  bool? on_sale;
+  bool? purchasable;
+  int? total_sales;
+  bool? virtual;
+  bool? downloadable;
+  List<dynamic>? downloads;
+  int? download_limit;
+  int? download_expiry;
+  String? external_url;
+  String? button_text;
+  String? tax_status;
+  String? tax_class;
+  bool? manage_stock;
+  int? stock_quantity;
+  String? stock_status;
+  String? backorders;
+  bool? backorders_allowed;
+  bool? backordered;
+  bool? sold_individually;
+  String? weight;
+  Dimensions? dimensions;
+  bool? shipping_required;
+  bool? shipping_taxable;
+  String? shipping_class;
+  int? shipping_class_id;
+  bool? reviews_allowed;
+  String? average_rating;
+  int? rating_count;
+  List<dynamic>? related_ids;
+  List<dynamic>? upsell_ids;
+  List<dynamic>? cross_sell_ids;
+  int? parent_id;
+  String? purchase_note;
+  List<ShCategory>? categories;
+  List<dynamic>? tags;
+  List<ShImage>? images;
+  List<Attribute>? attributes;
+  List<dynamic>? default_attributes;
 
   ShProduct(
       {this.id,
@@ -170,14 +170,14 @@ class ShProduct {
 }
 
 class ShImage {
-  int id;
-  String date_created;
-  String date_created_gmt;
-  String date_modified;
-  String date_modified_gmt;
-  String src;
-  String name;
-  String alt;
+  int? id;
+  String? date_created;
+  String? date_created_gmt;
+  String? date_modified;
+  String? date_modified_gmt;
+  String? src;
+  String? name;
+  String? alt;
 
   ShImage({this.id, this.date_created, this.date_created_gmt, this.date_modified, this.date_modified_gmt, this.src, this.name, this.alt});
 
@@ -209,12 +209,12 @@ class ShImage {
 }
 
 class Attribute {
-  int id;
-  String name;
-  int position;
-  bool visible;
-  bool variation;
-  List<String> options;
+  int? id;
+  String? name;
+  int? position;
+  bool? visible;
+  bool? variation;
+  List<String>? options;
 
   Attribute({this.id, this.name, this.position, this.visible, this.variation, this.options});
 
@@ -244,9 +244,9 @@ class Attribute {
 }
 
 class Dimensions {
-  String length;
-  String width;
-  String height;
+  String? length;
+  String? width;
+  String? height;
 
   Dimensions({this.length, this.width, this.height});
 

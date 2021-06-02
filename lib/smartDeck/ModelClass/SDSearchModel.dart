@@ -1,5 +1,5 @@
 class SDSearchModel {
-  String value;
+  String? value;
 
   SDSearchModel({
     this.value,
@@ -7,14 +7,19 @@ class SDSearchModel {
 }
 
 List<SDSearchModel> searchList = [
-  SDSearchModel(value: 'Robotic',),
-  SDSearchModel(value: 'Eco Campus',),
-  SDSearchModel(value: 'Live discussion',),
-
+  SDSearchModel(
+    value: 'Robotic',
+  ),
+  SDSearchModel(
+    value: 'Eco Campus',
+  ),
+  SDSearchModel(
+    value: 'Live discussion',
+  ),
 ];
 
 class SDFilterModel {
-  String value;
+  String? value;
   bool isSelected = false;
 
   SDFilterModel({
@@ -23,8 +28,13 @@ class SDFilterModel {
 }
 
 List<SDFilterModel> mFilterList = [
-  SDFilterModel(value: 'Robotic',),
-  SDFilterModel(value: 'Eco Campus',),
-  SDFilterModel(value: 'Live discussion',),
-
+  SDFilterModel(
+    value: 'Robotic',
+  ),
+  SDFilterModel(
+    value: 'Eco Campus',
+  ),
+  SDFilterModel(
+    value: 'Live discussion',
+  ),
 ];

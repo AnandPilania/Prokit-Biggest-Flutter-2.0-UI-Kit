@@ -5,7 +5,7 @@ import 'GroceryColors.dart';
 import 'GroceryImages.dart';
 
 List<ProductModel> storeMemberItems() {
-  List<ProductModel> mProductList = List<ProductModel>();
+  List<ProductModel> mProductList = [];
   ProductModel item1 = ProductModel();
   item1.img = grocery_ic_ginger;
   item1.name = "Ginger";
@@ -46,7 +46,7 @@ List<ProductModel> storeMemberItems() {
 }
 
 List<CategoryModel> storeCategoryItem() {
-  List<CategoryModel> mList = List<CategoryModel>();
+  List<CategoryModel> mList = [];
   mList.add(CategoryModel("HouseHold", Grocery_ic_Home));
   mList.add(CategoryModel("Grocery", grocery_ic_grocery));
   mList.add(CategoryModel("Liquor", grocery_ic_liquor));
@@ -63,7 +63,7 @@ List<CategoryModel> storeCategoryItem() {
 }
 
 List<NotificationModel> notificationItem() {
-  List<NotificationModel> mList = List<NotificationModel>();
+  List<NotificationModel> mList = [];
   mList.add(NotificationModel("HouseHold", "now", "Lorem Ipsum is simply dummy text of the printing and typesetting industry."));
   mList.add(NotificationModel("Grocery", "4 min ago", "Lorem Ipsum is simply dummy text of the printing and typesetting industry."));
   mList.add(NotificationModel("Chilled", "30 min ago", "Lorem Ipsum is simply dummy text of the printing and typesetting industry."));
@@ -71,7 +71,7 @@ List<NotificationModel> notificationItem() {
 }
 
 List<CategoryOptionModel> categoryOptionItem() {
-  List<CategoryOptionModel> mList = List<CategoryOptionModel>();
+  List<CategoryOptionModel> mList = [];
   mList.add(CategoryOptionModel("Chocalte Drink"));
   mList.add(CategoryOptionModel("Coffee"));
   mList.add(CategoryOptionModel("Concentrated Fruit Drinks"));
@@ -86,7 +86,7 @@ List<CategoryOptionModel> categoryOptionItem() {
 }
 
 List<ReviewModel> reviewsItem() {
-  List<ReviewModel> mList = List<ReviewModel>();
+  List<ReviewModel> mList = [];
   mList.add(ReviewModel("Ella White", "Today", "Greate quality & Fresh", grocery_ic_user1));
   mList.add(ReviewModel("Lily Williams", "Yesterday", "Good Quality", grocery_ic_user2));
   mList.add(ReviewModel("John", "2 day ago", "Fresh", grocery_ic_user3));
@@ -94,14 +94,14 @@ List<ReviewModel> reviewsItem() {
 }
 
 List<CartModel> saveCartItem() {
-  List<CartModel> mList = List<CartModel>();
+  List<CartModel> mList = [];
   mList.add(CartModel("Vegetables", "1,820.00", "04"));
   mList.add(CartModel("Groceries", "5,300.00", "04"));
   return mList;
 }
 
 List<GroceryProfileModel> groceryProfileList() {
-  List<GroceryProfileModel> list = List<GroceryProfileModel>();
+  List<GroceryProfileModel> list = [];
 
   var list1 = GroceryProfileModel();
   list1.title = grocery_lbl_Recipient_Details;
@@ -137,7 +137,7 @@ List<GroceryProfileModel> groceryProfileList() {
 }
 
 List<GroceryPaymentModel> groceryPaymentMethodList() {
-  List<GroceryPaymentModel> list = List<GroceryPaymentModel>();
+  List<GroceryPaymentModel> list = [];
 
   var list1 = GroceryPaymentModel(grocery_ic_visa, grocery_blue, "Ishan Maduskha", "**** **** **** 4567", true);
   list.add(list1);

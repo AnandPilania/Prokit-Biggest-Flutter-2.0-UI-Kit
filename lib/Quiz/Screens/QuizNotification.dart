@@ -1,13 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/Quiz/Screens/QuizDashboard.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizColors.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizConstant.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizExtension.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizImages.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizStrings.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizWidget.dart';
+import 'package:prokit_flutter/quiz/Screens/QuizDashboard.dart';
+import 'package:prokit_flutter/quiz/utils/QuizColors.dart';
+import 'package:prokit_flutter/quiz/utils/QuizConstant.dart';
+
+import 'package:prokit_flutter/quiz/utils/QuizImages.dart';
+import 'package:prokit_flutter/quiz/utils/QuizStrings.dart';
+import 'package:prokit_flutter/quiz/utils/QuizWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class QuizNotification extends StatefulWidget {
   static String tag = '/QuizNotification';
@@ -46,47 +47,31 @@ class _QuizNotificationState extends State<QuizNotification> {
                   height: 50,
                 ),
                 CachedNetworkImage(
+                  placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                   imageUrl: quiz_ic_notification,
                   height: 200,
                   width: 200,
                 ).cornerRadiusWithClipRRect(100).center(),
-                text(quiz_lbl_notifications,
-                        textColor: quiz_textColorPrimary,
-                        fontSize: textSizeLarge,
-                        fontFamily: fontBold)
-                    .paddingOnly(top: 24),
-                text(quiz_info_notification,
-                    textColor: quiz_textColorSecondary,
-                    fontSize: textSizeMedium,
-                    fontFamily: fontMedium,
-                    isLongText: true,
-                    isCentered: true),
+                text(quiz_lbl_notifications, textColor: quiz_textColorPrimary, fontSize: textSizeLarge, fontFamily: fontBold).paddingOnly(top: 24),
+                text(quiz_info_notification, textColor: quiz_textColorSecondary, fontSize: textSizeMedium, fontFamily: fontMedium, isLongText: true, isCentered: true),
                 GestureDetector(
                   onTap: () {
                     setState(() {
-                      launchScreen(context, QuizDashboard.tag);
+                      QuizDashboard().launch(context);
                     });
                   },
                   child: Container(
                       width: MediaQuery.of(context).size.width / 3.0,
-                      decoration:
-                          boxDecoration(bgColor: quiz_colorPrimary, radius: 16),
+                      decoration: boxDecoration(bgColor: quiz_colorPrimary, radius: 16),
                       padding: EdgeInsets.fromLTRB(16, 10, 16, 10),
                       child: Stack(
                         alignment: Alignment.centerLeft,
                         children: <Widget>[
-                          text("Allow",
-                                  textColor: quiz_white,
-                                  fontFamily: fontMedium,
-                                  isCentered: true,
-                                  textAllCaps: false)
-                              .paddingOnly(left: 8),
+                          text("Allow", textColor: quiz_white, fontFamily: fontMedium, isCentered: true, textAllCaps: false).paddingOnly(left: 8),
                           Align(
                             alignment: Alignment.topRight,
                             child: Container(
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: quiz_colorPrimaryDark),
+                              decoration: BoxDecoration(shape: BoxShape.circle, color: quiz_colorPrimaryDark),
                               width: 35,
                               height: 35,
                               child: Padding(
@@ -105,14 +90,9 @@ class _QuizNotificationState extends State<QuizNotification> {
                 SizedBox(
                   height: 20,
                 ),
-                text(quiz_lbl_skip,
-                        textColor: quiz_textColorSecondary,
-                        fontSize: textSizeNormal,
-                        fontFamily: fontMedium,
-                        isCentered: true)
-                    .onTap(() {
+                text(quiz_lbl_skip, textColor: quiz_textColorSecondary, fontSize: textSizeNormal, fontFamily: fontMedium, isCentered: true).onTap(() {
                   setState(() {
-                    launchScreen(context, QuizDashboard.tag);
+                    QuizDashboard().launch(context);
                   });
                 }),
               ],

@@ -6,5 +6,5 @@ class T4NewsModel {
   var info = "";
   var category = "";
   var otherinfo = "";
-  Color color;
+  Color? color;
 }

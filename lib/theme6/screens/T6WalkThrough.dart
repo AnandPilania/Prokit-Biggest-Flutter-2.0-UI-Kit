@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:prokit_flutter/main/utils/dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/main/utils/dots_indicator/dots_indicator.dart';
 import 'package:prokit_flutter/theme6/utils/T6Colors.dart';
 import 'package:prokit_flutter/theme6/utils/T6Constant.dart';
-import 'package:prokit_flutter/theme6/utils/T6Extension.dart';
 import 'package:prokit_flutter/theme6/utils/T6Images.dart';
 import 'package:prokit_flutter/theme6/utils/T6Strings.dart';
 import 'package:prokit_flutter/theme6/utils/T6Widget.dart';
@@ -18,7 +18,7 @@ class T6WalkThrough extends StatefulWidget {
 
 class T6WalkThroughState extends State<T6WalkThrough> {
   int currentIndexPage = 0;
-  int pageLength;
+  int? pageLength;
 
   var titles = [
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry.This is simply text ",
@@ -43,10 +43,7 @@ class T6WalkThroughState extends State<T6WalkThrough> {
               alignment: Alignment.topRight,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: text("Skip",
-                    textAllCaps: true,
-                    textColor: t6colorPrimary,
-                    fontFamily: fontMedium),
+                child: text("Skip", textAllCaps: true, textColor: t6colorPrimary, fontFamily: fontMedium),
               )),
           Container(
             margin: EdgeInsets.only(top: 20),
@@ -54,14 +51,8 @@ class T6WalkThroughState extends State<T6WalkThrough> {
             height: MediaQuery.of(context).size.height,
             child: PageView(
               children: <Widget>[
-                WalkThrough(
-                  textContent: t6_ic_walk1,
-                  title: t6_sample_text,
-                ),
-                WalkThrough(
-                  textContent: t6_ic_walk2,
-                  title: t6_sample_text,
-                ),
+                WalkThrough(textContent: t6_ic_walk1, title: t6_sample_text),
+                WalkThrough(textContent: t6_ic_walk2, title: t6_sample_text),
               ],
               onPageChanged: (value) {
                 setState(() => currentIndexPage = value);
@@ -105,8 +96,7 @@ class WalkThrough extends StatelessWidget {
   final String textContent;
   final String title;
 
-  WalkThrough({Key key, @required this.textContent, @required this.title})
-      : super(key: key);
+  WalkThrough({Key? key, required this.textContent, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -120,6 +110,7 @@ class WalkThrough extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: CachedNetworkImage(
+              placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
               imageUrl: textContent,
               height: (MediaQuery.of(context).size.height) / 2.5,
             ),
@@ -132,8 +123,7 @@ class WalkThrough extends StatelessWidget {
             child: Center(
                 child: Text(
               title,
-              style: TextStyle(
-                  fontSize: textSizeLargeMedium, color: t6textColorSecondary),
+              style: TextStyle(fontSize: textSizeLargeMedium, color: t6textColorSecondary),
               textAlign: TextAlign.center,
             )),
           ),

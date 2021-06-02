@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/integrations/utils/colors.dart';
-import 'package:prokit_flutter/integrations/utils/common.dart';
 import 'package:prokit_flutter/integrations/utils/constants.dart';
-import 'package:prokit_flutter/integrations/utils/styles.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:prokit_flutter/main/utils/AppColors.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class RazorPayScreen extends StatefulWidget {
   static String tag = '/RazorPayScreen';
@@ -15,15 +13,17 @@ class RazorPayScreen extends StatefulWidget {
 }
 
 class RazorPayScreenState extends State<RazorPayScreen> {
-  Razorpay _razorpay;
+  //TODO Without NullSafety Razor pay
+  //Razorpay _razorpay;
 
   @override
   void initState() {
     super.initState();
-    _razorpay = Razorpay();
+    //TODO Without NullSafety Razor pay
+    /*_razorpay = Razorpay();
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);*/
   }
 
   void openCheckout() async {
@@ -37,15 +37,16 @@ class RazorPayScreenState extends State<RazorPayScreen> {
         'wallets': ['paytm']
       }
     };
-
+    //TODO Without NullSafety Razor pay
     try {
-      _razorpay.open(options);
+      //TODO Without NullSafety Razor pay
+     // _razorpay.open(options);
     } catch (e) {
-      debugPrint(e);
+      //debugPrint(e);
     }
   }
-
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+//TODO Without NullSafety Razor pay
+/*  void _handlePaymentSuccess(PaymentSuccessResponse response) {
     toast("SUCCESS: " + response.paymentId);
   }
 
@@ -55,19 +56,20 @@ class RazorPayScreenState extends State<RazorPayScreen> {
 
   void _handleExternalWallet(ExternalWalletResponse response) {
     toast("EXTERNAL_WALLET: " + response.walletName);
-  }
+  }*/
 
   @override
   void dispose() {
     super.dispose();
-    _razorpay.clear();
+    //TODO Without NullSafety Razor pay
+    //_razorpay.clear();
   }
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(primaryColor);
+    changeStatusColor(appColorPrimary);
     return Scaffold(
-      appBar: getAppBar(context, 'RazorPay Payment checkout'),
+      appBar: appBar(context, 'RazorPay Payment checkout'),
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.only(top: 24, bottom: 20),
@@ -80,7 +82,7 @@ class RazorPayScreenState extends State<RazorPayScreen> {
                 children: <Widget>[
                   Container(
                     margin: EdgeInsets.only(left: 16, right: 16, bottom: 28),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8)), boxShadow: [BoxShadow(color: shadowColor, blurRadius: 10, spreadRadius: 2)], color: whiteColor),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8)), boxShadow: defaultBoxShadow(), color: whiteColor),
                     child: Image.asset(
                       "images/integrations/icons/ic_razorpay.png",
                       width: 120,
@@ -97,36 +99,39 @@ class RazorPayScreenState extends State<RazorPayScreen> {
                         SizedBox(
                           height: 16,
                         ),
-                        text("\$2000", fontSize: textSizeXLarge, fontFamily: fontMedium),
+                        Text(
+                          "\$2000",
+                          style: boldTextStyle(size: 30),
+                        ),
                       ],
                     ),
                   )
                 ],
               ),
               Divider(height: 0.5),
-              text("Name", textColor: primaryColor, fontFamily: fontSemibold, fontSize: textSizeLargeMedium).paddingAll(16),
+              text("Name", textColor: appColorPrimary, fontFamily: fontSemibold, fontSize: textSizeLargeMedium).paddingAll(16),
               Container(
                 margin: EdgeInsets.only(left: 16, right: 16),
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(border: Border.all(color: Theme.of(context).dividerColor, width: 0.5), borderRadius: BorderRadius.all(Radius.circular(10))),
                 padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-                child: text("Acme Corp."),
+                child: Text("Acme Corp.", style: secondaryTextStyle()),
               ),
-              text("Email", textColor: primaryColor, fontFamily: fontSemibold, fontSize: textSizeLargeMedium).paddingAll(16),
+              text("Email", textColor: appColorPrimary, fontFamily: fontSemibold, fontSize: textSizeLargeMedium).paddingAll(16),
               Container(
                 margin: EdgeInsets.only(left: 16, right: 16),
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(border: Border.all(color: Theme.of(context).dividerColor, width: 0.5), borderRadius: BorderRadius.all(Radius.circular(10))),
                 padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-                child: text("test@razorpay.com"),
+                child: Text("test@razorpay.com", style: secondaryTextStyle()),
               ),
-              text("Contact", textColor: primaryColor, fontFamily: fontSemibold, fontSize: textSizeLargeMedium).paddingAll(16),
+              text("Contact", textColor: appColorPrimary, fontFamily: fontSemibold, fontSize: textSizeLargeMedium).paddingAll(16),
               Container(
                 margin: EdgeInsets.only(left: 16, right: 16),
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(border: Border.all(color: Theme.of(context).dividerColor, width: 0.5), borderRadius: BorderRadius.all(Radius.circular(10))),
                 padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-                child: text("8888888888"),
+                child: Text("8888888888", style: secondaryTextStyle()),
               ),
               Container(
                 margin: EdgeInsets.only(left: 16, right: 16, top: 80),
@@ -134,12 +139,15 @@ class RazorPayScreenState extends State<RazorPayScreen> {
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.fromLTRB(0, 16, 0, 16),
                 decoration: BoxDecoration(
-                  color: primaryColor,
+                  color: appColorPrimary,
                   borderRadius: BorderRadius.all(
                     Radius.circular(10),
                   ),
                 ),
-                child: textPrimary('Pay with RazorPay', aFontFamily: fontMedium),
+                child: Text(
+                  'Pay with RazorPay',
+                  style: primaryTextStyle(color: white),
+                ),
               ).onTap(() {
                 openCheckout();
               })
@@ -147,7 +155,7 @@ class RazorPayScreenState extends State<RazorPayScreen> {
           )
 
           /*MaterialButton(
-            color: primaryColor,
+            color: appColorPrimary,
             onPressed: () => openCheckout(),
             child: textPrimary('Pay with RazorPay'),
           )*/

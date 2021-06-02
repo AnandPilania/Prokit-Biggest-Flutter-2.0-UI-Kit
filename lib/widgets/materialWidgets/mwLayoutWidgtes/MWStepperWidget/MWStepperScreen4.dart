@@ -17,18 +17,8 @@ class _MWStepperScreen4State extends State<MWStepperScreen4> {
   @override
   Widget build(BuildContext context) {
     List<Step> mSteps = [
-      Step(
-          title: Text("Step 1"),
-          content: Text("This is our Step 1 example.",
-              style: secondaryTextStyle(color: appStore.textSecondaryColor)),
-          isActive: currStep == 0,
-          state: StepState.complete),
-      Step(
-          title: Text("Step 2"),
-          content: Text("This is our Step 2 example.",
-              style: secondaryTextStyle(color: appStore.textSecondaryColor)),
-          isActive: currStep == 1,
-          state: StepState.disabled),
+      Step(title: Text("Step 1"), content: Text("This is our Step 1 example.", style: secondaryTextStyle(color: appStore.textSecondaryColor)), isActive: currStep == 0, state: StepState.complete),
+      Step(title: Text("Step 2"), content: Text("This is our Step 2 example.", style: secondaryTextStyle(color: appStore.textSecondaryColor)), isActive: currStep == 1, state: StepState.disabled),
     ];
 
     return SafeArea(
@@ -39,18 +29,17 @@ class _MWStepperScreen4State extends State<MWStepperScreen4> {
             steps: mSteps,
             type: StepperType.horizontal,
             currentStep: this.currStep,
-            controlsBuilder: (BuildContext context,
-                {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
+            controlsBuilder: (BuildContext context, {VoidCallback? onStepContinue, VoidCallback? onStepCancel}) {
               return Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  FlatButton(
+                  TextButton(
                     onPressed: onStepContinue,
                     child: Text('CONTINUE', style: secondaryTextStyle()),
                   ),
                   10.width,
-                  FlatButton(
+                  TextButton(
                     onPressed: onStepCancel,
                     child: Text('CANCEL', style: secondaryTextStyle()),
                   ),

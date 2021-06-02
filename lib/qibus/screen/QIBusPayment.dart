@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/qibus/model/QiBusModel.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusColors.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusConstant.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusDataGenerator.dart';
-import 'package:prokit_flutter/qibus/utils/QiBusExtension.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusImages.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusStrings.dart';
-import 'package:prokit_flutter/qibus/utils/QiBusWidget.dart';
 
 import 'QIBusAddCard.dart';
 import 'QIBusCards.dart';
@@ -21,7 +21,7 @@ class QIBusPayment extends StatefulWidget {
 }
 
 class QIBusPaymentState extends State<QIBusPayment> {
-  List<QIBusCardModel> mCardsList;
+  late List<QIBusCardModel> mCardsList;
 
   @override
   void initState() {
@@ -40,10 +40,10 @@ class QIBusPaymentState extends State<QIBusPayment> {
         });
   }
 
-  Widget mOption(var icon, var lbl, {var tags}) {
+  Widget mOption(var icon, var lbl, {required Function onTap}) {
     return GestureDetector(
       onTap: () {
-        launchScreen(context, tags);
+        onTap();
       },
       child: Container(
         margin: EdgeInsets.only(left: spacing_standard_new, right: spacing_standard_new, bottom: spacing_standard_new),
@@ -103,10 +103,7 @@ class QIBusPaymentState extends State<QIBusPayment> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 IconButton(
-                                  icon: Icon(
-                                    Icons.arrow_back,
-                                    color: qIBus_white,
-                                  ),
+                                  icon: Icon(Icons.arrow_back, color: qIBus_white),
                                   onPressed: () {
                                     finish(context);
                                   },
@@ -118,18 +115,14 @@ class QIBusPaymentState extends State<QIBusPayment> {
                               ],
                             ),
                             GestureDetector(
-                                onTap: () {
-                                  launchScreen(context, QIBusAddCard.tag);
-                                },
-                                child: Container(
-                                    margin: EdgeInsets.only(
-                                      right: spacing_standard_new,
-                                    ),
-                                    child: Icon(
-                                      Icons.add_circle_outline,
-                                      color: qIBus_white,
-                                      size: 24,
-                                    )))
+                              onTap: () {
+                                QIBusAddCard().launch(context);
+                              },
+                              child: Container(
+                                margin: EdgeInsets.only(right: spacing_standard_new),
+                                child: Icon(Icons.add_circle_outline, color: qIBus_white, size: 24),
+                              ),
+                            )
                           ],
                         ),
                       ),
@@ -146,13 +139,14 @@ class QIBusPaymentState extends State<QIBusPayment> {
                   child: Column(
                     children: <Widget>[
                       mCards(),
-                      mOption(qibus_ic_banking, QIBus_text_net_banking),
-                      mOption(qibus_ic_cards, QIBus_text_credit_card, tags: QIBusAddCard.tag),
-                      mOption(qibus_ic_cards, QIBus_text_debit, tags: QIBusAddCard.tag),
-                      mOption(
-                        qibus_ic_wallet,
-                        QIBus_text_Mobilewallet,
-                      ),
+                      mOption(qibus_ic_banking, QIBus_text_net_banking, onTap: () {}),
+                      mOption(qibus_ic_cards, QIBus_text_credit_card, onTap: () {
+                        QIBusAddCard().launch(context);
+                      }),
+                      mOption(qibus_ic_cards, QIBus_text_debit, onTap: () {
+                        QIBusAddCard().launch(context);
+                      }),
+                      mOption(qibus_ic_wallet, QIBus_text_Mobilewallet, onTap: () {}),
                     ],
                   ),
                 ),

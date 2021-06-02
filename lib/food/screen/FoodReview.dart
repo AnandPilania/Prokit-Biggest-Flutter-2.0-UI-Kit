@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/food/model/FoodModel.dart';
-import 'package:prokit_flutter/food/utils/FoodConstant.dart';
 import 'package:prokit_flutter/food/utils/FoodDataGenerator.dart';
 import 'package:prokit_flutter/food/utils/FoodString.dart';
-import 'package:prokit_flutter/food/utils/FoodWidget.dart';
-import 'package:prokit_flutter/food/utils/FoodExtension.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 import '../utils/FoodColors.dart';
 import 'FoodRestaurantsDescription.dart';
@@ -18,7 +17,7 @@ class FoodReview extends StatefulWidget {
 }
 
 class FoodReviewState extends State<FoodReview> {
-  List<ReviewModel> mReviewList;
+  late List<ReviewModel> mReviewList;
 
   @override
   void initState() {
@@ -31,12 +30,13 @@ class FoodReviewState extends State<FoodReview> {
     changeStatusColor(food_white);
     return Scaffold(
       backgroundColor: food_white,
+      appBar: appBar(context, food_lbl_reviews),
       body: SafeArea(
         child: Column(
           children: <Widget>[
-            TopBar(food_lbl_reviews),
+            16.height,
             Container(
-              margin: EdgeInsets.only(left: spacing_standard_new, right: spacing_standard_new),
+              margin: EdgeInsets.only(left: 16, right: 16),
               child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: mReviewList.length,

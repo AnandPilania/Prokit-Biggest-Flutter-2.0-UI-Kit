@@ -8,6 +8,7 @@ import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryDataGenerator.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryImages.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 import 'GroceryAddPayment.dart';
 import 'GroceryChangePassword.dart';
@@ -22,7 +23,7 @@ class GroceryProfile extends StatefulWidget {
 }
 
 class _GroceryProfileState extends State<GroceryProfile> {
-  List<GroceryProfileModel> profileList;
+  late List<GroceryProfileModel> profileList;
 
   @override
   void initState() {
@@ -45,25 +46,14 @@ class _GroceryProfileState extends State<GroceryProfile> {
                 mainAxisSize: MainAxisSize.min,
                 //crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  CircleAvatar(
-                      radius: width * 0.11,
-                      backgroundImage:
-                          CachedNetworkImageProvider(grocery_ic_user1)),
+                  CircleAvatar(radius: width * 0.11, backgroundImage: CachedNetworkImageProvider(grocery_ic_user1)),
                   SizedBox(width: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      text("Ishan",
-                              fontSize: textSizeNormal, fontFamily: fontMedium)
-                          .paddingOnly(
-                              left: spacing_standard, right: spacing_standard),
-                      text("ish.maduskha@gmail.com",
-                              textColor: grocery_textColorSecondary)
-                          .paddingOnly(
-                              left: spacing_standard, right: spacing_standard),
-                      text("0718786729", textColor: grocery_textColorSecondary)
-                          .paddingOnly(
-                              left: spacing_standard, right: spacing_standard)
+                      text("Ishan", fontSize: textSizeNormal, fontFamily: fontMedium).paddingOnly(left: spacing_standard, right: spacing_standard),
+                      text("ish.maduskha@gmail.com", textColor: grocery_textColorSecondary).paddingOnly(left: spacing_standard, right: spacing_standard),
+                      text("0718786729", textColor: grocery_textColorSecondary).paddingOnly(left: spacing_standard, right: spacing_standard)
                     ],
                   )
                 ],
@@ -71,12 +61,8 @@ class _GroceryProfileState extends State<GroceryProfile> {
             ),
             SizedBox(height: spacing_standard_new),
             Container(
-              decoration:
-                  boxDecoration(radius: 10.0, bgColor: grocery_color_white),
-              padding: EdgeInsets.only(
-                  left: spacing_standard,
-                  right: spacing_standard,
-                  top: spacing_standard),
+              decoration: boxDecoration(radius: 10.0, bgColor: grocery_color_white),
+              padding: EdgeInsets.only(left: spacing_standard, right: spacing_standard, top: spacing_standard),
               child: ListView.builder(
                 itemCount: profileList.length,
                 shrinkWrap: true,
@@ -104,41 +90,26 @@ class _GroceryProfileState extends State<GroceryProfile> {
                             Container(
                               height: 45,
                               width: 45,
-                              decoration: boxDecoration(
-                                  radius: 25.0,
-                                  bgColor: profileList[index].color),
+                              decoration: boxDecoration(radius: 25.0, bgColor: profileList[index].color),
                               child: Image.asset(
                                 profileList[index].icon,
                                 height: 10,
                                 width: 10,
                                 color: grocery_color_white,
                               ).paddingAll(12),
-                            ).paddingOnly(
-                                top: spacing_control,
-                                left: spacing_standard,
-                                bottom: spacing_control),
+                            ).paddingOnly(top: spacing_control, left: spacing_standard, bottom: spacing_control),
                             Expanded(
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  text(profileList[index].title,
-                                          fontFamily: fontMedium)
-                                      .paddingOnly(
-                                          left: spacing_standard,
-                                          right: spacing_standard),
-                                  Icon(Icons.keyboard_arrow_right,
-                                          size: index == 4 ? 0 : 25,
-                                          color: grocery_textColorSecondary)
-                                      .paddingOnly(right: spacing_standard)
+                                  text(profileList[index].title, fontFamily: fontMedium).paddingOnly(left: spacing_standard, right: spacing_standard),
+                                  Icon(Icons.keyboard_arrow_right, size: index == 4 ? 0 : 25, color: grocery_textColorSecondary).paddingOnly(right: spacing_standard)
                                 ],
                               ),
                             )
                           ],
                         ),
-                        Divider()
-                            .paddingOnly(bottom: spacing_control)
-                            .visible(index != 4),
+                        Divider().paddingOnly(bottom: spacing_control).visible(index != 4),
                       ],
                     ),
                   );
@@ -164,15 +135,8 @@ class _GroceryProfileState extends State<GroceryProfile> {
           height: 200,
           decoration: BoxDecoration(
             color: grocery_color_white,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20.0),
-                topRight: const Radius.circular(20.0)),
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                  color: grocery_ShadowColor,
-                  blurRadius: 20.0,
-                  offset: Offset(0.0, 0.9))
-            ],
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0), topRight: const Radius.circular(20.0)),
+            boxShadow: <BoxShadow>[BoxShadow(color: grocery_ShadowColor, blurRadius: 20.0, offset: Offset(0.0, 0.9))],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -182,28 +146,15 @@ class _GroceryProfileState extends State<GroceryProfile> {
                   Container(
                     height: 40,
                     width: 40,
-                    decoration:
-                        boxDecoration(radius: 20.0, bgColor: grocery_Red_Color),
-                    child: Image.asset(Grocery_ic_Logout,
-                            height: 10, width: 10, color: grocery_color_white)
-                        .paddingAll(10),
-                  ).paddingOnly(
-                      top: spacing_standard_new, left: spacing_standard_new),
+                    decoration: boxDecoration(radius: 20.0, bgColor: grocery_Red_Color),
+                    child: Image.asset(Grocery_ic_Logout, height: 10, width: 10, color: grocery_color_white).paddingAll(10),
+                  ).paddingOnly(top: spacing_standard_new, left: spacing_standard_new),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        text(grocery_lbl_Logout,
-                                fontSize: textSizeLarge, fontFamily: fontMedium)
-                            .paddingOnly(
-                                top: spacing_standard_new,
-                                left: spacing_standard,
-                                right: spacing_standard),
-                        text(grocery_lbl_confirmation_for_logout,
-                                textColor: grocery_textColorSecondary,
-                                fontSize: textSizeMedium)
-                            .paddingOnly(
-                                left: spacing_standard, right: spacing_standard)
+                        text(grocery_lbl_Logout, fontSize: textSizeLarge, fontFamily: fontMedium).paddingOnly(top: spacing_standard_new, left: spacing_standard, right: spacing_standard),
+                        text(grocery_lbl_confirmation_for_logout, textColor: grocery_textColorSecondary, fontSize: textSizeMedium).paddingOnly(left: spacing_standard, right: spacing_standard)
                       ],
                     ),
                   ),
@@ -215,12 +166,8 @@ class _GroceryProfileState extends State<GroceryProfile> {
                 children: <Widget>[
                   Container(
                     width: w * 0.15,
-                    child: text("No",
-                            textColor: grocery_textColorPrimary,
-                            fontSize: textSizeLargeMedium,
-                            fontFamily: fontMedium)
-                        .onTap(() {
-                      Navigator.pop(context);
+                    child: text("No", textColor: grocery_textColorPrimary, fontSize: textSizeLargeMedium, fontFamily: fontMedium).onTap(() {
+                      finish(context);
                     }),
                   ),
                   FittedBox(
@@ -233,8 +180,7 @@ class _GroceryProfileState extends State<GroceryProfile> {
                     ),
                   ).paddingOnly(right: spacing_standard),
                 ],
-              ).paddingOnly(
-                  bottom: spacing_standard_new, right: spacing_standard),
+              ).paddingOnly(bottom: spacing_standard_new, right: spacing_standard),
               SizedBox(height: spacing_standard_new),
             ],
           ),

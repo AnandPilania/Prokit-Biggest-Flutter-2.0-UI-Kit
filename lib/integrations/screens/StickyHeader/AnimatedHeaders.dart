@@ -1,25 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/main/utils/sticky_header/sticky_headers/widget.dart';
 
 class AnimatedHeaders extends StatelessWidget {
+  static String tag = '/AnimatedHeaders';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xFF8998FF),
-        title: Text('Animated Headers with Content'),
-        leading: InkWell(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Container(
-            child: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ),
+      appBar: appBar(context, 'Animated Headers with Content'),
       body: ListView.builder(itemBuilder: (context, index) {
         return StickyHeaderBuilder(
           builder: (BuildContext context, double stuckAmount) {
@@ -44,8 +33,7 @@ class AnimatedHeaders extends StatelessWidget {
                       opacity: stuckAmount,
                       child: IconButton(
                         icon: Icon(Icons.favorite, color: Colors.white),
-                        onPressed: () => Scaffold.of(context).showSnackBar(
-                            SnackBar(content: Text('Favorite #$index'))),
+                        onPressed: () => Scaffold.of(context).showSnackBar(SnackBar(content: Text('Favorite #$index'))),
                       ),
                     ),
                   ),
@@ -54,11 +42,7 @@ class AnimatedHeaders extends StatelessWidget {
             );
           },
           content: Container(
-            child: Image.network(
-                'https://killerattitudestatus.in/wp-content/uploads/2019/12/gud-night-images.jpg',
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: 200.0),
+            child: Image.network('https://killerattitudestatus.in/wp-content/uploads/2019/12/gud-night-images.jpg', fit: BoxFit.cover, width: double.infinity, height: 200.0),
           ),
         );
       }),

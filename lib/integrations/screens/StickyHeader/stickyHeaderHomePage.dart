@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 import 'AnimatedHeaders.dart';
 import 'OverLappingHeaders.dart';
@@ -14,21 +15,7 @@ class _StickyHeaderHomePageState extends State<StickyHeaderHomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color(0xFF8998FF),
-          title: Text('Sticky Header'),
-          leading: InkWell(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              child: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
+        appBar: appBar(context, 'Sticky Header'),
         body: Container(
           margin: EdgeInsets.only(left: 10, right: 10, top: 10),
           child: ListView(
@@ -40,17 +27,9 @@ class _StickyHeaderHomePageState extends State<StickyHeaderHomePage> {
                 decoration: boxDecorations(),
                 child: ListTile(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => SimpleHeaders(),
-                      ),
-                    );
+                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => SimpleHeaders()));
                   },
-                  title: Text(
-                    'Headers and Content',
-                    textAlign: TextAlign.justify,
-                  ),
+                  title: Text('Headers and Content', textAlign: TextAlign.justify),
                 ),
               ),
               Container(
@@ -58,17 +37,9 @@ class _StickyHeaderHomePageState extends State<StickyHeaderHomePage> {
                 decoration: boxDecorations(),
                 child: ListTile(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => AnimatedHeaders(),
-                      ),
-                    );
+                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AnimatedHeaders()));
                   },
-                  title: Text(
-                    'Animated Headers with Content',
-                    textAlign: TextAlign.justify,
-                  ),
+                  title: Text('Animated Headers with Content', textAlign: TextAlign.justify),
                 ),
               ),
               Container(
@@ -77,16 +48,10 @@ class _StickyHeaderHomePageState extends State<StickyHeaderHomePage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            OverLappingHeaders(),
-                      ),
+                      MaterialPageRoute(builder: (BuildContext context) => OverLappingHeaders()),
                     );
                   },
-                  title: Text(
-                    'Headers overlapping the Content',
-                    textAlign: TextAlign.justify,
-                  ),
+                  title: Text('Headers overlapping the Content', textAlign: TextAlign.justify),
                 ),
               ),
             ],
@@ -96,7 +61,9 @@ class _StickyHeaderHomePageState extends State<StickyHeaderHomePage> {
     );
   }
 }
+
 const ShadowColor = Color(0x95E9EBF0);
+
 BoxDecoration boxDecorations({double radius = 8, Color color = Colors.transparent, Color bgColor = Colors.white, var showShadow = true}) {
   return BoxDecoration(
       color: bgColor,

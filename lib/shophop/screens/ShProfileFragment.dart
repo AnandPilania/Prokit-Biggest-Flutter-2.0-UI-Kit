@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/shophop/utils/ShColors.dart';
-import 'package:prokit_flutter/shophop/utils/ShConstant.dart';
-import 'package:prokit_flutter/shophop/utils/ShImages.dart';
-import 'package:prokit_flutter/shophop/utils/ShStrings.dart';
-import 'package:prokit_flutter/shophop/utils/ShWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/shopHop/utils/ShColors.dart';
+import 'package:prokit_flutter/shopHop/utils/ShConstant.dart';
+import 'package:prokit_flutter/shopHop/utils/ShImages.dart';
+import 'package:prokit_flutter/shopHop/utils/ShStrings.dart';
 
 class ShProfileFragment extends StatefulWidget {
   static String tag = '/ShProfileFragment';
@@ -19,7 +18,7 @@ class ShProfileFragmentState extends State<ShProfileFragment> {
   var confirmPasswordCont = TextEditingController();
   var firstNameCont = TextEditingController();
   var lastNameCont = TextEditingController();
-  var selectedValue = "Male";
+  String? selectedValue = "Male";
 
   @override
   Widget build(BuildContext context) {

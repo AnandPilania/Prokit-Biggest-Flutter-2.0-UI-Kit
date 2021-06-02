@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/Learner/Screens/LearnerDescription.dart';
-import 'package:prokit_flutter/Learner/model/LearnerModels.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerColors.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerConstant.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerDataGenerator.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerStrings.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerWidget.dart';
+import 'package:prokit_flutter/learner/Screens/LearnerDescription.dart';
+import 'package:prokit_flutter/learner/model/LearnerModels.dart';
+import 'package:prokit_flutter/learner/utils/LearnerColors.dart';
+import 'package:prokit_flutter/learner/utils/LearnerConstant.dart';
+import 'package:prokit_flutter/learner/utils/LearnerDataGenerator.dart';
+import 'package:prokit_flutter/learner/utils/LearnerStrings.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 import 'LearnerModrenMedicine.dart';
 
@@ -17,7 +17,7 @@ class LearnerChart extends StatefulWidget {
 }
 
 class _LearnerChartState extends State<LearnerChart> {
-  List<LearnerCoursesModel> mList1;
+  late List<LearnerCoursesModel> mList1;
 
   @override
   void initState() {
@@ -44,21 +44,13 @@ class _LearnerChartState extends State<LearnerChart> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 10),
                         Container(
                           alignment: Alignment.centerLeft,
                           width: MediaQuery.of(context).size.width,
                         ),
-                        text(learner_lbl_My_Courses,
-                                fontSize: textSizeXXLarge,
-                                fontFamily: fontBold,
-                                textColor: learner_textColorPrimary)
-                            .paddingOnly(left: 16),
-                        SizedBox(
-                          height: 16,
-                        ),
+                        text(learner_lbl_My_Courses, fontSize: textSizeXXLarge, fontFamily: fontBold, textColor: learner_textColorPrimary).paddingOnly(left: 16),
+                        SizedBox(height: 16),
                         Container(
                           width: MediaQuery.of(context).size.width / 1.3,
                           child: TabBar(
@@ -74,24 +66,21 @@ class _LearnerChartState extends State<LearnerChart> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   learner_lbl_All,
-                                  style: TextStyle(
-                                      fontSize: 18.0, fontFamily: fontBold),
+                                  style: TextStyle(fontSize: 18.0, fontFamily: fontBold),
                                 ),
                               ).paddingOnly(left: 8, right: 8),
                               Container(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   learner_lbl_Ongoing,
-                                  style: TextStyle(
-                                      fontSize: 18.0, fontFamily: fontBold),
+                                  style: TextStyle(fontSize: 18.0, fontFamily: fontBold),
                                 ),
                               ).paddingOnly(right: 8),
                               Container(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   learner_lbl_Completed,
-                                  style: TextStyle(
-                                      fontSize: 18.0, fontFamily: fontBold),
+                                  style: TextStyle(fontSize: 18.0, fontFamily: fontBold),
                                 ),
                               ).paddingOnly(right: 8)
                             ],
@@ -111,8 +100,7 @@ class _LearnerChartState extends State<LearnerChart> {
                   padding: EdgeInsets.only(bottom: 50),
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return LearnerCourses(
-                        mList1[index], index, LearnerDescription.tag);
+                    return LearnerCourses(mList1[index], index, LearnerDescription.tag);
                   },
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -124,8 +112,7 @@ class _LearnerChartState extends State<LearnerChart> {
                   padding: EdgeInsets.only(bottom: 50),
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return LearnerCourses(
-                        mList1[index], index, LearnerModrenMedicine.tag);
+                    return LearnerCourses(mList1[index], index, LearnerModrenMedicine.tag);
                   },
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -137,8 +124,7 @@ class _LearnerChartState extends State<LearnerChart> {
                   padding: EdgeInsets.only(bottom: 50),
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return LearnerCourses(
-                        mList1[index], index, LearnerDescription.tag);
+                    return LearnerCourses(mList1[index], index, LearnerDescription.tag);
                   },
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -154,8 +140,8 @@ class _LearnerChartState extends State<LearnerChart> {
 }
 
 class LearnerCourses extends StatelessWidget {
-  LearnerCoursesModel model;
-  String tags;
+  late LearnerCoursesModel model;
+  late String tags;
 
   LearnerCourses(LearnerCoursesModel model, int pos, String tags) {
     this.model = model;
@@ -177,6 +163,7 @@ class LearnerCourses extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 CachedNetworkImage(
+                  placeholder: (_, s) => placeholderWidget(),
                   imageUrl: model.img,
                   width: 50,
                   height: 50,
@@ -193,12 +180,7 @@ class LearnerCourses extends StatelessWidget {
             ),
             Column(
               children: <Widget>[
-                text(model.name,
-                        textColor: learner_textColorPrimary,
-                        fontSize: textSizeMedium,
-                        fontFamily: fontMedium,
-                        maxLine: 2)
-                    .paddingOnly(left: 16, right: 16, top: 16),
+                text(model.name, textColor: learner_textColorPrimary, fontSize: textSizeMedium, fontFamily: fontMedium, maxLine: 2).paddingOnly(left: 16, right: 16, top: 16),
                 Container(
                   child: LinearProgressIndicator(
                     value: 0.5,
@@ -212,10 +194,7 @@ class LearnerCourses extends StatelessWidget {
             )
           ],
         ),
-      )
-          .cornerRadiusWithClipRRect(10.0)
-          .withShadow(shadowColor: learner_ShadowColor)
-          .paddingOnly(top: 16, left: 16, right: 16),
+      ).cornerRadiusWithClipRRect(10.0).withShadow(shadowColor: learner_ShadowColor).paddingOnly(top: 16, left: 16, right: 16),
     );
   }
 }

@@ -19,11 +19,11 @@ class DottedBorder extends StatelessWidget {
   final List<double> dashPattern;
   final BorderType borderType;
   final Radius radius;
-  final PathBuilder customPath;
+  final PathBuilder? customPath;
   final StrokeCap strokeCap;
 
   DottedBorder({
-    @required this.child,
+    required this.child,
     this.color = Colors.black,
     this.strokeWidth = 1,
     this.borderType = BorderType.Rect,

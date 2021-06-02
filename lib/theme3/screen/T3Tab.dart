@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/theme3/utils/Extension.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme3/utils/FlutterSlider.dart';
+import 'package:prokit_flutter/theme3/utils/T3widgets.dart';
 import 'package:prokit_flutter/theme3/utils/colors.dart';
 import 'package:prokit_flutter/theme3/utils/strings.dart';
-import 'package:prokit_flutter/theme3/utils/widgets.dart';
 
 class T3Tab extends StatefulWidget {
   static String tag = '/T3Tab';
@@ -16,88 +19,60 @@ class T3Tab extends StatefulWidget {
 class T3TabState extends State<T3Tab> {
   double _lowerValue = 50;
   double _upperValue = 180;
+  double value = 0.0;
+  RangeValues currentRangeValues = const RangeValues(20, 60);
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(t3_white);
+    changeStatusColor(appStore.appBarColor!);
 
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Container(
-              color: Colors.transparent,
-              height: (MediaQuery.of(context).size.height) / 1.5,
-              child: MaterialApp(
-                debugShowCheckedModeBanner: false,
-                home: DefaultTabController(
-                  length: 3,
-                  child: Scaffold(
-                    appBar: PreferredSize(
-                      preferredSize: Size.fromHeight(75.0),
-                      child: AppBar(
-                        backgroundColor: t3_white,
-                        flexibleSpace: new Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            IconButton(
-                              icon: Icon(Icons.close),
-                              color: t3_textColorPrimary,
-                              onPressed: () {
-                                back(context);
-                              },
-                            ),
-                            new TabBar(
-                              labelColor: t3_colorPrimary,
-                              indicatorColor: t3_colorPrimary,
-                              unselectedLabelColor: t3_textColorPrimary,
-                              tabs: [
-                                Tab(
-                                  text: "Chef",
-                                ),
-                                Tab(
-                                  text: "Price",
-                                ),
-                                Tab(
-                                  text: "Dietary",
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    body: TabBarView(
-                      children: <Widget>[
-                        Center(
-                          child: ChefCheckboxWidget(),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 50, left: 16, right: 16),
-                          child: FlutterSlider(
-                            values: [30, 420],
-                            rangeSlider: true,
-                            max: 500,
-                            min: 0,
-                            onDragging: (handlerIndex, lowerValue, upperValue) {
-                              _lowerValue = lowerValue;
-                              _upperValue = upperValue;
-                              setState(() {});
-                            },
-                          ),
-                        ),
-                        Center(
-                          child: CheckboxWidget(),
-                        ),
-                      ],
-                    ),
+    return SafeArea(
+      child: Observer(
+        builder: (_) => DefaultTabController(
+          length: 3,
+          child: Scaffold(
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(100.0),
+              child: AppBar(
+                backgroundColor: appStore.appBarColor,
+                flexibleSpace: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: TabBar(
+                    labelColor: t3_colorPrimary,
+                    indicatorColor: t3_colorPrimary,
+                    unselectedLabelColor: appStore.textPrimaryColor,
+                    tabs: [
+                      Tab(text: "Chef"),
+                      Tab(text: "Price"),
+                      Tab(text: "Dietary"),
+                    ],
                   ),
                 ),
               ),
             ),
-          ],
+            body: TabBarView(
+              children: <Widget>[
+                Center(child: ChefCheckboxWidget()),
+                RangeSlider(
+                  activeColor: Colors.redAccent,
+                  values: currentRangeValues,
+                  min: 0,
+                  max: 100,
+                  divisions: 10,
+                  labels: RangeLabels(
+                    currentRangeValues.start.round().toString(),
+                    currentRangeValues.end.round().toString(),
+                  ),
+                  onChanged: (RangeValues values) {
+                    setState(() {
+                      currentRangeValues = values;
+                    });
+                  },
+                ),
+                Center(child: CheckboxWidget()),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -106,12 +81,12 @@ class T3TabState extends State<T3Tab> {
 
 class CheckboxWidget extends StatefulWidget {
   @override
-  CheckboxWidgetState createState() => new CheckboxWidgetState();
+  CheckboxWidgetState createState() => CheckboxWidgetState();
 }
 
 class CheckboxWidgetState extends State {
   var a = "";
-  Map<String, bool> values = {
+  Map<String, bool?> values = {
     'Vegetrain': false,
     'Vegan': false,
     'Non-Vegetrain': false,
@@ -120,31 +95,33 @@ class CheckboxWidgetState extends State {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        boxShadow: [BoxShadow(color: t3_app_background, blurRadius: 2, spreadRadius: 1)],
+      decoration: BoxDecoration(
+        boxShadow: [BoxShadow(color: appStore.scaffoldBackground!, blurRadius: 2, spreadRadius: 1)],
         borderRadius: BorderRadius.only(bottomRight: Radius.circular(50.0), bottomLeft: Radius.circular(50.0)),
       ),
       child: Column(children: <Widget>[
         Expanded(
           child: ListView(
             children: values.keys.map((String key) {
-              return new CheckboxListTile(
-                title: new Text(key),
-                value: values[key],
-                activeColor: t3_colorPrimary,
-                checkColor: Colors.white,
-                onChanged: (bool value) {
-                  setState(() {
-                    values[key] = value;
-                  });
-                },
+              return CustomTheme(
+                child: CheckboxListTile(
+                  title: Text(key, style: primaryTextStyle()),
+                  value: values[key],
+                  activeColor: t3_colorPrimary,
+                  checkColor: Colors.white,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      values[key] = value;
+                    });
+                  },
+                ),
               );
             }).toList(),
           ),
         ),
         Container(
             margin: EdgeInsets.only(left: 30, right: 30, bottom: 30),
-            child: AppButton(
+            child: T3AppButton(
               textContent: t3_lbl_done,
               onPressed: () {},
             ))
@@ -155,12 +132,12 @@ class CheckboxWidgetState extends State {
 
 class ChefCheckboxWidget extends StatefulWidget {
   @override
-  ChefCheckboxWidgetState createState() => new ChefCheckboxWidgetState();
+  ChefCheckboxWidgetState createState() => ChefCheckboxWidgetState();
 }
 
 class ChefCheckboxWidgetState extends State {
   var a = "";
-  Map<String, bool> values = {
+  Map<String, bool?> values = {
     'John Smith': false,
     'Lee': false,
     'Alexender Cinah': false,
@@ -169,35 +146,41 @@ class ChefCheckboxWidgetState extends State {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        boxShadow: [BoxShadow(color: t3_app_background, blurRadius: 2, spreadRadius: 1)],
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(color: appStore.scaffoldBackground!, blurRadius: 2, spreadRadius: 1),
+        ],
         borderRadius: BorderRadius.only(bottomRight: Radius.circular(50.0), bottomLeft: Radius.circular(50.0)),
       ),
-      child: Column(children: <Widget>[
-        Expanded(
-          child: ListView(
-            children: values.keys.map((String key) {
-              return new CheckboxListTile(
-                title: new Text(key),
-                value: values[key],
-                activeColor: t3_colorPrimary,
-                checkColor: Colors.white,
-                onChanged: (bool value) {
-                  setState(() {
-                    values[key] = value;
-                  });
-                },
-              );
-            }).toList(),
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: ListView(
+              children: values.keys.map((String key) {
+                return CustomTheme(
+                  child: CheckboxListTile(
+                    title: Text(key),
+                    value: values[key],
+                    activeColor: t3_colorPrimary,
+                    checkColor: Colors.white,
+                    onChanged: (bool? value) {
+                      values[key] = value;
+                      setState(() {});
+                    },
+                  ),
+                );
+              }).toList(),
+            ),
           ),
-        ),
-        Container(
+          Container(
             margin: EdgeInsets.only(left: 30, right: 30, bottom: 30),
-            child: AppButton(
+            child: T3AppButton(
               textContent: t3_lbl_done,
               onPressed: () {},
-            ))
-      ]),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

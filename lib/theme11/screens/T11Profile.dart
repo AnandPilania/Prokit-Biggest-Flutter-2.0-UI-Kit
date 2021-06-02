@@ -15,7 +15,7 @@ class T11Profile extends StatefulWidget {
 }
 
 class _T11ProfileState extends State<T11Profile> {
-  List<Theme11ListProfile> mList1;
+  late List<Theme11ListProfile> mList1;
 
   @override
   void initState() {
@@ -41,40 +41,36 @@ class _T11ProfileState extends State<T11Profile> {
     final details = Column(
       children: <Widget>[
         Container(
-                color: whiteColor,
-                child: Column(
+            color: whiteColor,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Expanded(
-                            child: Text(
-                          t11_lbl_emily_dosan,
-                          style: primaryTextStyle(size: 20, color: blackColor),
-                        ).paddingOnly(top: 20, left: 16)),
-                        Icon(
-                          Icons.bookmark_border,
-                          size: 30,
-                          color: t11_PrimaryColor,
-                        ).paddingOnly(top: 18, right: 16).onTap(() {}),
-                      ],
-                    ),
-                    Divider().paddingOnly(top: 12, bottom: 12),
-                    Text(
-                      t11_lbl_short_text,
-                      style:
-                          primaryTextStyle(size: 18, color: textSecondaryColor),
-                    ).paddingOnly(top: 8, left: 16, right: 16, bottom: 16),
-                    Text(
-                      t11_lbl_ReadMore,
-                      style:
-                          primaryTextStyle(size: 20, color: Colors.blueAccent),
-                    ).paddingOnly(top: 16, left: 16, bottom: 40)
+                    Expanded(
+                        child: Text(
+                      t11_lbl_emily_dosan,
+                      style: primaryTextStyle(size: 20, color: blackColor),
+                    ).paddingOnly(top: 20, left: 16)),
+                    Icon(
+                      Icons.bookmark_border,
+                      size: 30,
+                      color: t11_PrimaryColor,
+                    ).paddingOnly(top: 18, right: 16).onTap(() {}),
                   ],
-                ))
-            .cornerRadiusWithClipRRect(15.0)
-            .paddingOnly(bottom: 50, left: 24, right: 24)
+                ),
+                Divider().paddingOnly(top: 12, bottom: 12),
+                Text(
+                  t11_lbl_short_text,
+                  style: primaryTextStyle(size: 18, color: textSecondaryColor),
+                ).paddingOnly(top: 8, left: 16, right: 16, bottom: 16),
+                Text(
+                  t11_lbl_ReadMore,
+                  style: primaryTextStyle(size: 20, color: Colors.blueAccent),
+                ).paddingOnly(top: 16, left: 16, bottom: 40)
+              ],
+            )).cornerRadiusWithClipRRect(15.0).paddingOnly(bottom: 50, left: 24, right: 24)
       ],
     );
 
@@ -97,9 +93,7 @@ class _T11ProfileState extends State<T11Profile> {
                   Icon(Icons.chevron_right).paddingRight(8)
                 ],
               ).paddingLeft(16),
-            )
-                .cornerRadiusWithClipRRect(20)
-                .paddingOnly(left: 16, top: 8, bottom: 8, right: 16);
+            ).cornerRadiusWithClipRRect(20).paddingOnly(left: 16, top: 8, bottom: 8, right: 16);
           }),
     );
 
@@ -110,13 +104,10 @@ class _T11ProfileState extends State<T11Profile> {
             topImageView,
             Container(
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomLeft,
-                    colors: [
-                      t11_GradientColor1.withOpacity(0.1),
-                      t11_GradientColor2.withOpacity(0.7),
-                    ]),
+                gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomLeft, colors: [
+                  t11_GradientColor1.withOpacity(0.1),
+                  t11_GradientColor2.withOpacity(0.7),
+                ]),
               ),
             ),
             Column(

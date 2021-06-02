@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizColors.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizConstant.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizExtension.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizImages.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizStrings.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizWidget.dart';
+import 'package:prokit_flutter/quiz/utils/QuizColors.dart';
+import 'package:prokit_flutter/quiz/utils/QuizConstant.dart';
+import 'package:prokit_flutter/quiz/utils/QuizImages.dart';
+import 'package:prokit_flutter/quiz/utils/QuizStrings.dart';
+import 'package:prokit_flutter/quiz/utils/QuizWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class QuizEditProfile extends StatefulWidget {
   static String tag = '/QuizEditProfile';
@@ -27,25 +27,14 @@ class _QuizEditProfileState extends State<QuizEditProfile> {
               Container(
                 height: 150,
                 width: 150,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: quiz_white, width: 4)),
-                child: CircleAvatar(
-                    backgroundImage:
-                        CachedNetworkImageProvider(quiz_img_People2),
-                    radius: MediaQuery.of(context).size.width / 8.5),
+                decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: quiz_white, width: 4)),
+                child: CircleAvatar(backgroundImage: CachedNetworkImageProvider(quiz_img_People2), radius: MediaQuery.of(context).size.width / 8.5),
               ),
               Container(
                 height: 30,
                 width: 30,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: quiz_white, width: 2),
-                    color: quiz_white),
-                child: Icon(
-                  Icons.edit,
-                  size: 20,
-                ),
+                decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: quiz_white, width: 2), color: quiz_white),
+                child: Icon(Icons.edit, size: 20),
               ).paddingOnly(right: 16, top: 16).onTap(() {
                 print("Edit profile");
               })
@@ -59,13 +48,8 @@ class _QuizEditProfileState extends State<QuizEditProfile> {
     return Scaffold(
       backgroundColor: quiz_app_background,
       appBar: AppBar(
-        title: text(Quiz_lbl_Edit_Profile,
-            fontSize: textSizeNormal, fontFamily: fontMedium),
-        leading: Icon(
-          Icons.arrow_back,
-          color: quiz_colorPrimary,
-          size: 30,
-        ).onTap(() {
+        title: text(Quiz_lbl_Edit_Profile, fontSize: textSizeNormal, fontFamily: fontMedium),
+        leading: Icon(Icons.arrow_back, color: quiz_colorPrimary, size: 30).onTap(() {
           Navigator.of(context).pop();
         }),
         centerTitle: true,
@@ -79,44 +63,35 @@ class _QuizEditProfileState extends State<QuizEditProfile> {
           color: quiz_app_background,
           child: Column(
             children: <Widget>[
-              SizedBox(
-                height: 16,
-              ),
+              SizedBox(height: 16),
               Imgview,
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 20),
               Container(
                 margin: EdgeInsets.all(24.0),
-                decoration: boxDecoration(
-                    bgColor: quiz_white,
-                    color: quiz_white,
-                    showShadow: true,
-                    radius: 10),
+                decoration: boxDecoration(bgColor: quiz_white, color: quiz_white, showShadow: true, radius: 10),
                 child: Column(
                   children: <Widget>[
                     quizEditTextStyle(quiz_hint_First_name, isPassword: false),
                     quizDivider(),
                     quizEditTextStyle(quiz_hint_Last_name, isPassword: false),
                     quizDivider(),
-                    quizEditTextStyle(quiz_hint_Mobile_Number,
-                        isPassword: false),
+                    quizEditTextStyle(quiz_hint_Mobile_Number, isPassword: false),
                   ],
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 20),
               Container(
-                  margin: EdgeInsets.all(24.0),
-                  child: quizButton(
-                      textContent: quiz_Save_Profile,
-                      onPressed: () {
-                        setState(() {
-                          Navigator.of(context).pop();
-                          showToast(quiz_Successfully_Save_Profile);
-                        });
-                      }))
+                margin: EdgeInsets.all(24.0),
+                child: quizButton(
+                  textContent: quiz_Save_Profile,
+                  onPressed: () {
+                    setState(() {
+                      Navigator.of(context).pop();
+                      toast(quiz_Successfully_Save_Profile);
+                    });
+                  },
+                ),
+              )
             ],
           ),
         ),

@@ -14,7 +14,7 @@ class MWChipScreen extends StatefulWidget {
 
 class MWChipScreenState extends State<MWChipScreen> {
   var isSelected = false;
-  int _value = 1;
+  int? _value = 1;
   int _value1 = 1;
   int _value2 = 1;
 
@@ -33,7 +33,7 @@ class MWChipScreenState extends State<MWChipScreen> {
     "Task 2",
     "Task 3",
   ];
-  List<String> selectedProgrammingList = List();
+  List<String> selectedProgrammingList = [];
 
   @override
   void setState(fn) {
@@ -53,8 +53,7 @@ class MWChipScreenState extends State<MWChipScreen> {
               children: [
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-                  child: Text("Simple Chip",
-                      style: boldTextStyle(color: appStore.textPrimaryColor)),
+                  child: Text("Simple Chip", style: boldTextStyle(color: appStore.textPrimaryColor)),
                 ),
                 Row(
                   children: [
@@ -72,8 +71,7 @@ class MWChipScreenState extends State<MWChipScreen> {
                 Divider(thickness: 1),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-                  child: Text("Choice Chip",
-                      style: boldTextStyle(color: appStore.textPrimaryColor)),
+                  child: Text("Choice Chip", style: boldTextStyle(color: appStore.textPrimaryColor)),
                 ),
                 Wrap(
                   children: List<Widget>.generate(
@@ -96,8 +94,7 @@ class MWChipScreenState extends State<MWChipScreen> {
                 Divider(thickness: 1),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-                  child: Text("Filter Chip",
-                      style: boldTextStyle(color: appStore.textPrimaryColor)),
+                  child: Text("Filter Chip", style: boldTextStyle(color: appStore.textPrimaryColor)),
                 ),
                 Wrap(
                   children: List<Widget>.generate(
@@ -105,10 +102,7 @@ class MWChipScreenState extends State<MWChipScreen> {
                     (int index) {
                       return FilterChip(
                         label: Text('Item $index'),
-                        labelStyle: TextStyle(
-                            color: _value1 == index
-                                ? white
-                                : appStore.appBarColor),
+                        labelStyle: TextStyle(color: _value1 == index ? white : appStore.appBarColor),
                         selected: _value1 == index,
                         selectedColor: appColorPrimary,
                         checkmarkColor: appStore.appBarColor,
@@ -128,10 +122,7 @@ class MWChipScreenState extends State<MWChipScreen> {
                       return FilterChip(
                         label: Text('Item $index'),
                         shape: StadiumBorder(side: BorderSide()),
-                        labelStyle: TextStyle(
-                            color: _value2 == index
-                                ? white
-                                : appStore.appBarColor),
+                        labelStyle: TextStyle(color: _value2 == index ? white : appStore.appBarColor),
                         selected: _value2 == index,
                         selectedColor: Colors.green,
                         checkmarkColor: appStore.appBarColor,
@@ -156,33 +147,23 @@ class MWChipScreenState extends State<MWChipScreen> {
                 Row(
                   children: [
                     ActionChip(
-                      avatar: CircleAvatar(
-                          backgroundColor: Colors.grey.shade800,
-                          child: Text('L')),
+                      avatar: CircleAvatar(backgroundColor: Colors.grey.shade800, child: Text('L')),
                       label: Text('Lee'),
                       onPressed: () {
-                        print(
-                            "If you stand for nothing, Burr, what’ll you fall for?");
+                        print("If you stand for nothing, Burr, what’ll you fall for?");
                       },
                     ).paddingLeft(16.0),
                     ActionChip(
-                      avatar: CircleAvatar(
-                          backgroundColor: Colors.grey.shade800,
-                          backgroundImage: AssetImage(
-                              'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item4.jpg')),
+                      avatar: CircleAvatar(backgroundColor: Colors.grey.shade800, backgroundImage: AssetImage('images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item4.jpg')),
                       label: Text('John Smith'),
                       onPressed: () {
-                        print(
-                            "If you stand for nothing, Burr, what’ll you fall for?");
+                        print("If you stand for nothing, Burr, what’ll you fall for?");
                       },
                     ).paddingLeft(16.0),
                   ],
                 ),
                 ActionChip(
-                  avatar: isSelected
-                      ? CircularProgressIndicator(
-                          backgroundColor: black, strokeWidth: 1.5)
-                      : null,
+                  avatar: isSelected ? CircularProgressIndicator(backgroundColor: black, strokeWidth: 1.5) : null,
                   label: Text('${isSelected ? 'Downloading...' : 'Download'}'),
                   labelStyle: primaryTextStyle(color: black),
                   onPressed: () {
@@ -219,7 +200,7 @@ class MWChipScreenState extends State<MWChipScreen> {
 
 class MultiSelectChip extends StatefulWidget {
   final List<String> reportList;
-  final Function(List<String>) onSelectionChanged;
+  final Function(List<String>)? onSelectionChanged;
 
   MultiSelectChip(this.reportList, {this.onSelectionChanged});
 
@@ -228,10 +209,10 @@ class MultiSelectChip extends StatefulWidget {
 }
 
 class _MultiSelectChipState extends State<MultiSelectChip> {
-  List<String> selectedChoices = List();
+  List<String> selectedChoices = [];
 
   _buildChoiceList() {
-    List<Widget> choices = List();
+    List<Widget> choices = [];
     widget.reportList.forEach((item) {
       choices.add(Container(
         padding: const EdgeInsets.all(2.0),
@@ -240,10 +221,8 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
           selected: selectedChoices.contains(item),
           onSelected: (selected) {
             setState(() {
-              selectedChoices.contains(item)
-                  ? selectedChoices.remove(item)
-                  : selectedChoices.add(item);
-              widget.onSelectionChanged(selectedChoices);
+              selectedChoices.contains(item) ? selectedChoices.remove(item) : selectedChoices.add(item);
+              widget.onSelectionChanged!(selectedChoices);
             });
           },
         ),

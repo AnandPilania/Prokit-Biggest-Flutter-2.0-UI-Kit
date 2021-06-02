@@ -1,22 +1,22 @@
-import 'package:date_utils/date_utils.dart';
 import 'package:flutter/material.dart';
 import "package:intl/intl.dart";
+import 'package:prokit_flutter/integrations/screens/flutterCalender/date_utils.dart';
 
 class CalendarTile extends StatelessWidget {
-  final VoidCallback onDateSelected;
-  final DateTime date;
-  final String dayOfWeek;
+  final VoidCallback? onDateSelected;
+  final DateTime? date;
+  final String? dayOfWeek;
   final bool isDayOfWeek;
   final bool isSelected;
   final bool inMonth;
-  final List events;
-  final TextStyle dayOfWeekStyle;
-  final TextStyle dateStyles;
-  final Widget child;
-  final Color selectedColor;
-  final Color todayColor;
-  final Color eventColor;
-  final Color eventDoneColor;
+  final List? events;
+  final TextStyle? dayOfWeekStyle;
+  final TextStyle? dateStyles;
+  final Widget? child;
+  final Color? selectedColor;
+  final Color? todayColor;
+  final Color? eventColor;
+  final Color? eventDoneColor;
 
   CalendarTile({
     this.onDateSelected,
@@ -41,7 +41,7 @@ class CalendarTile extends StatelessWidget {
         child: new Container(
           alignment: Alignment.center,
           child: new Text(
-            dayOfWeek,
+            dayOfWeek!,
             style: dayOfWeekStyle,
           ),
         ),
@@ -56,7 +56,11 @@ class CalendarTile extends StatelessWidget {
             decoration: isSelected
                 ? BoxDecoration(
                     shape: BoxShape.circle,
-                    color: selectedColor != null ? Utils.isSameDay(this.date, DateTime.now()) ? Colors.green : selectedColor : Theme.of(context).primaryColor,
+                    color: selectedColor != null
+                        ? Utils.isSameDay(this.date!, DateTime.now())
+                            ? Colors.green
+                            : selectedColor
+                        : Theme.of(context).primaryColor,
                   )
                 : BoxDecoration(),
             alignment: Alignment.center,
@@ -64,14 +68,22 @@ class CalendarTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  DateFormat("d").format(date),
+                  DateFormat("d").format(date!),
                   style: TextStyle(
-                      fontSize: 14.0, fontWeight: FontWeight.w400, color: isSelected ? Colors.white : Utils.isSameDay(this.date, DateTime.now()) ? todayColor : inMonth ? Colors.black : Colors.grey),
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w400,
+                      color: isSelected
+                          ? Colors.white
+                          : Utils.isSameDay(this.date!, DateTime.now())
+                              ? todayColor
+                              : inMonth
+                                  ? Colors.black
+                                  : Colors.grey),
                 ),
-                events != null && events.length > 0
+                events != null && events!.length > 0
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: events.map((event) {
+                        children: events!.map((event) {
                           eventCount++;
                           print(event);
                           if (eventCount > 3) return Container();
@@ -82,8 +94,12 @@ class CalendarTile extends StatelessWidget {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: event["isDone"]
-                                  ? isSelected ? Colors.white : Colors.green
-                                  : isSelected ? Colors.white38 : Colors.black45 ?? Theme.of(context).accentColor,
+                                  ? isSelected
+                                      ? Colors.white
+                                      : Colors.green
+                                  : isSelected
+                                      ? Colors.white38
+                                      : Colors.black45,
                             ),
                           );
                         }).toList())

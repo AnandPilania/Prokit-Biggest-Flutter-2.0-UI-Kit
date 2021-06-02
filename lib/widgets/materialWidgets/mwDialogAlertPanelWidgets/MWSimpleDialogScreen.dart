@@ -117,7 +117,7 @@ class CustomDialogExample extends StatelessWidget {
           children: <Widget>[
             GestureDetector(
               onTap: () {
-                Navigator.pop(context);
+                finish(context);
               },
               child: Container(padding: EdgeInsets.all(16), alignment: Alignment.centerRight, child: Icon(Icons.close, color: appStore.textPrimaryColor)),
             ),
@@ -181,7 +181,7 @@ class FormDialogExample extends StatelessWidget {
           children: <Widget>[
             GestureDetector(
               onTap: () {
-                Navigator.pop(context);
+                finish(context);
               },
               child: Container(padding: EdgeInsets.all(4), alignment: Alignment.centerRight, child: Icon(Icons.close, color: appStore.textPrimaryColor)),
             ),
@@ -193,17 +193,17 @@ class FormDialogExample extends StatelessWidget {
                 contentPadding: EdgeInsets.fromLTRB(4, 8, 4, 8),
                 hintText: 'Enter Contact Number',
                 hintStyle: secondaryTextStyle(color: appStore.textSecondaryColor, size: 16),
-                enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: appStore.textPrimaryColor, width: 0.0)),
-                focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: appStore.textPrimaryColor, width: 0.0)),
+                enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: appStore.textPrimaryColor!, width: 0.0)),
+                focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: appStore.textPrimaryColor!, width: 0.0)),
               ),
               keyboardType: TextInputType.number,
-              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               style: primaryTextStyle(color: appStore.textPrimaryColor),
             ),
             30.height,
             GestureDetector(
               onTap: () {
-                Navigator.pop(context);
+                finish(context);
               },
               child: Container(
                 width: MediaQuery.of(context).size.width,
@@ -292,7 +292,7 @@ class CustomImage extends StatelessWidget {
             ClipRRect(child: Image.asset('images/widgets/materialWidgets/mwDialogAlertPanelWidgets/widget_food.jpg', fit: BoxFit.cover, height: 250), borderRadius: BorderRadius.circular(8)),
             GestureDetector(
               onTap: () {
-                Navigator.pop(context);
+                finish(context);
               },
               child: Container(padding: EdgeInsets.all(16), child: Icon(Icons.close, color: black)),
             ),
@@ -355,8 +355,8 @@ class CustomDelete extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ).onTap((){
-                      Navigator.pop(context);
+                    ).onTap(() {
+                      finish(context);
                     }),
                   ),
                   16.width,
@@ -374,9 +374,9 @@ class CustomDelete extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ).onTap((){
+                    ).onTap(() {
                       toast("Successfully Deleted");
-                      Navigator.pop(context);
+                      finish(context);
                     }),
                   )
                 ],
@@ -420,7 +420,7 @@ class CustomAccount extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.pop(context);
+                    finish(context);
                   },
                   child: Icon(Icons.close, color: appStore.textPrimaryColor),
                 ),
@@ -440,7 +440,7 @@ class CustomAccount extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("John Smith", style: primaryTextStyle(color: appStore.textPrimaryColor, size: 20)),
-                    Text("Johnsmith@gmail.com", style: secondaryTextStyle(color: appStore.textSecondaryColor, size: 20)),
+                    FittedBox(child: Text("Johnsmith@gmail.com", style: secondaryTextStyle(color: appStore.textSecondaryColor, size: 20))),
                   ],
                 )
               ],

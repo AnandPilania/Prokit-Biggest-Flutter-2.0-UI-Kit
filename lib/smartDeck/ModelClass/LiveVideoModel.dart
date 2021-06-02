@@ -1,8 +1,8 @@
 class LiveVideoModel {
-  String image;
-  String title;
-  String message;
-  String status;
+  String? image;
+  String? title;
+  String? message;
+  String? status;
 
   LiveVideoModel({
     this.image,

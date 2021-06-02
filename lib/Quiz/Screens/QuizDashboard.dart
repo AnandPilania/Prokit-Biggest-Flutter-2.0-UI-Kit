@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:prokit_flutter/Quiz/Screens/QuizAllList.dart';
-import 'package:prokit_flutter/Quiz/Screens/QuizHome.dart';
-import 'package:prokit_flutter/Quiz/Screens/QuizProfile.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizColors.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizExtension.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizImages.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizWidget.dart';
+import 'package:prokit_flutter/quiz/Screens/QuizAllList.dart';
+import 'package:prokit_flutter/quiz/Screens/QuizHome.dart';
+import 'package:prokit_flutter/quiz/Screens/QuizProfile.dart';
+import 'package:prokit_flutter/quiz/utils/QuizColors.dart';
+
+import 'package:prokit_flutter/quiz/utils/QuizImages.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class QuizDashboard extends StatefulWidget {
   static String tag = '/QuizDashboard';

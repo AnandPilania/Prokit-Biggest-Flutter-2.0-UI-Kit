@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lipsum/lipsum.dart' as lipsum;
 import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/main/utils/AppColors.dart';
+import 'package:prokit_flutter/main/utils/Lipsum.dart' as lipsum;
 
 import '../../../main.dart';
 import '../../../main/utils/AppWidget.dart';
@@ -59,45 +59,42 @@ class CWTabBarScreen2State extends State<CWTabBarScreen2> {
       child: Scaffold(
         appBar: appBar(context, 'TabBar with Label & Icon'),
         body: CupertinoTabScaffold(
-            tabBar: CupertinoTabBar(
-              backgroundColor: appStore.appBarColor,
-              items: <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  title: Text('Home'),
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite_border),
-                  title: Text('Favourite'),
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_cart),
-                  title: Text('Cart'),
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
-                  title: Text('Profile'),
-                ),
-              ],
-              activeColor: appColorPrimary,
-              inactiveColor: Colors.grey,
-            ),
-            tabBuilder: (BuildContext context, int index) {
-              switch (index) {
-                case 0:
-                  return mPage("Home");
-                  break;
-                case 1:
-                  return mPage("Favourite");
-                  break;
-                case 2:
-                  return mPage("Cart");
-                  break;
-                default:
-                  return mPage("Profile");
-                  break;
-              }
-            }),
+          tabBar: CupertinoTabBar(
+            backgroundColor: appStore.appBarColor,
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite_border),
+                label: 'Favourite',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_cart),
+                label: 'Cart',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+              ),
+            ],
+            activeColor: appColorPrimary,
+            inactiveColor: Colors.grey,
+          ),
+          tabBuilder: (BuildContext context, int index) {
+            switch (index) {
+              case 0:
+                return mPage("Home");
+              case 1:
+                return mPage("Favourite");
+              case 2:
+                return mPage("Cart");
+              default:
+                return mPage("Profile");
+            }
+          },
+        ),
       ),
     );
   }

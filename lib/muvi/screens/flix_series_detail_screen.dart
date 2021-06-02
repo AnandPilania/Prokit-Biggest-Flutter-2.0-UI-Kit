@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/muvi/models/flix_response.dart';
 import 'package:prokit_flutter/muvi/screens/flix_view_all_movies_screen.dart';
 import 'package:prokit_flutter/muvi/screens/flix_view_series_episodes_screen.dart';
@@ -12,10 +14,7 @@ import 'package:prokit_flutter/muvi/utils/flix_duration_formatter.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_colors.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_images.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_size.dart';
-import 'package:prokit_flutter/muvi/utils/flix_widget_extensions.dart';
 import 'package:video_player/video_player.dart';
-
-import 'flix_movie_detail_screen.dart';
 
 class SeriesDetailScreen extends StatefulWidget {
   static String tag = '/SeriesDetailScreen';
@@ -24,27 +23,24 @@ class SeriesDetailScreen extends StatefulWidget {
   SeriesDetailScreenState createState() => SeriesDetailScreenState();
 }
 
-class SeriesDetailScreenState extends State<SeriesDetailScreen>
-    with WidgetsBindingObserver {
-  VideoPlayerController _controller;
+class SeriesDetailScreenState extends State<SeriesDetailScreen> with WidgetsBindingObserver {
+  late VideoPlayerController _controller;
   var isloaded = false;
   bool showOverLay = false;
   bool isFullScreen = false;
   int _currentPosition = 0;
   int _duration = 0;
   bool isBuffering = false;
-  var actors = List<Movie>();
-  var episodes = List<Movie>();
-  var mMovieOriginalsList = List<Movie>();
+  List<Movie> actors = [];
+  List<Movie> episodes = [];
+  List<Movie> mMovieOriginalsList = [];
   var isExpanded = false;
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     // These are the callbacks
-    if (state == AppLifecycleState.inactive ||
-        state == AppLifecycleState.paused ||
-        state == AppLifecycleState.detached) {
+    if (state == AppLifecycleState.inactive || state == AppLifecycleState.paused || state == AppLifecycleState.detached) {
       setState(() {
         _controller.pause();
       });
@@ -54,7 +50,7 @@ class SeriesDetailScreenState extends State<SeriesDetailScreen>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance!.addObserver(this);
     getData();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
@@ -62,8 +58,7 @@ class SeriesDetailScreenState extends State<SeriesDetailScreen>
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    _controller = VideoPlayerController.network(
-        'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4');
+    _controller = VideoPlayerController.network('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4');
     _attachListenerToController();
     _controller.setLooping(false);
     _controller.initialize().then((_) => setState(() {
@@ -76,15 +71,12 @@ class SeriesDetailScreenState extends State<SeriesDetailScreen>
     _controller.addListener(
       () {
         isBuffering = _controller.value.isBuffering;
-        if (_controller.value.duration == null ||
-            _controller.value.position == null) {
+        if (_controller.value.duration == null || _controller.value.position == null) {
           return;
         }
         if (mounted) {
           setState(() {
-            _currentPosition = _controller.value.duration.inMilliseconds == 0
-                ? 0
-                : _controller.value.position.inMilliseconds;
+            _currentPosition = _controller.value.duration.inMilliseconds == 0 ? 0 : _controller.value.position.inMilliseconds;
             _duration = _controller.value.duration.inMilliseconds;
           });
         }
@@ -97,7 +89,7 @@ class SeriesDetailScreenState extends State<SeriesDetailScreen>
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance!.removeObserver(this);
     _controller.dispose();
     super.dispose();
   }
@@ -135,37 +127,22 @@ class SeriesDetailScreenState extends State<SeriesDetailScreen>
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
-                                    text(
-                                            context,
-                                            durationFormatter(
-                                                    _currentPosition) +
-                                                " / " +
-                                                durationFormatter(_duration),
-                                            textColor: muvi_textColorPrimary)
-                                        .paddingLeft(spacing_standard),
+                                    text(durationFormatter(_currentPosition) + " / " + durationFormatter(_duration), textColor: muvi_textColorPrimary).paddingLeft(spacing_standard),
                                     IconButton(
-                                      icon: Icon(isFullScreen
-                                          ? Icons.fullscreen_exit
-                                          : Icons.fullscreen),
+                                      icon: Icon(isFullScreen ? Icons.fullscreen_exit : Icons.fullscreen),
                                       onPressed: () {
                                         setState(() {
                                           !isFullScreen
-                                              ? SystemChrome
-                                                  .setPreferredOrientations([
-                                                  DeviceOrientation
-                                                      .landscapeRight,
-                                                  DeviceOrientation
-                                                      .landscapeLeft,
+                                              ? SystemChrome.setPreferredOrientations([
+                                                  DeviceOrientation.landscapeRight,
+                                                  DeviceOrientation.landscapeLeft,
                                                 ])
-                                              : SystemChrome
-                                                  .setPreferredOrientations([
+                                              : SystemChrome.setPreferredOrientations([
                                                   DeviceOrientation.portraitUp,
-                                                  DeviceOrientation
-                                                      .portraitDown,
+                                                  DeviceOrientation.portraitDown,
                                                 ]);
                                           isFullScreen = !isFullScreen;
                                         });
@@ -173,27 +150,20 @@ class SeriesDetailScreenState extends State<SeriesDetailScreen>
                                     ).visible(!isBuffering)
                                   ],
                                 ),
-                                VideoProgressIndicator(_controller,
-                                    allowScrubbing: true),
+                                VideoProgressIndicator(_controller, allowScrubbing: true),
                               ],
                             ),
                             Center(
                               child: IconButton(
                                 icon: Icon(
-                                  _controller.value.isPlaying
-                                      ? Icons.pause
-                                      : Icons.play_arrow,
+                                  _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
                                   color: Colors.white,
                                   size: 56.0,
                                 ),
                                 onPressed: () {
                                   setState(() {
-                                    _controller.value.isPlaying
-                                        ? _controller.pause()
-                                        : _controller.play();
-                                    showOverLay = _controller.value.isPlaying
-                                        ? false
-                                        : true;
+                                    _controller.value.isPlaying ? _controller.pause() : _controller.play();
+                                    showOverLay = _controller.value.isPlaying ? false : true;
                                   });
                                 },
                               ),
@@ -217,7 +187,7 @@ class SeriesDetailScreenState extends State<SeriesDetailScreen>
       ),
     );
     var actorsList = Container(
-      height: width * 0.32,
+      height: 130,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: actors.length,
@@ -231,19 +201,11 @@ class SeriesDetailScreenState extends State<SeriesDetailScreen>
                     radius: width * 0.1,
                     child: CircleAvatar(
                       radius: width * 0.09,
-                      backgroundImage: actors[index].slideImage != null
-                          ? CachedNetworkImageProvider(actors[index].slideImage)
-                          : CachedNetworkImageProvider(ic_profile),
+                      backgroundImage: actors[index].slideImage != null ? CachedNetworkImageProvider(actors[index].slideImage!) : CachedNetworkImageProvider(ic_profile),
                     ),
                     onTap: () {},
                   ),
-                  text(context, actors[index].title,
-                          textColor: muvi_textColorPrimary,
-                          fontFamily: font_medium,
-                          maxLine: 2,
-                          isCentered: true)
-                      .paddingOnly(
-                          left: spacing_control, right: spacing_control)
+                  text(actors[index].title, textColor: muvi_textColorPrimary, fontFamily: font_medium, maxLine: 2, isCentered: true).paddingOnly(left: spacing_control, right: spacing_control)
                 ],
               ),
             );
@@ -271,20 +233,12 @@ class SeriesDetailScreenState extends State<SeriesDetailScreen>
         )),
         Expanded(
             child: IconButton(
-          icon: Icon(
-            Icons.cloud_download,
-            size: 24,
-            color: muvi_textColorPrimary,
-          ),
+          icon: Icon(Icons.cloud_download, size: 24, color: muvi_textColorPrimary),
           onPressed: () {},
         )),
         Expanded(
             child: IconButton(
-          icon: Icon(
-            Icons.share,
-            size: 24,
-            color: muvi_textColorPrimary,
-          ),
+          icon: Icon(Icons.share, size: 24, color: muvi_textColorPrimary),
           onPressed: () {},
         )),
         Expanded(
@@ -303,8 +257,7 @@ class SeriesDetailScreenState extends State<SeriesDetailScreen>
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: episodes.length,
-          padding: EdgeInsets.only(
-              left: spacing_standard, right: spacing_standard_new),
+          padding: EdgeInsets.only(left: spacing_standard, right: spacing_standard_new),
           itemBuilder: (context, index) {
             return Container(
               margin: EdgeInsets.only(left: spacing_standard),
@@ -322,39 +275,24 @@ class SeriesDetailScreenState extends State<SeriesDetailScreen>
                           elevation: spacing_control_half,
                           margin: EdgeInsets.all(0),
                           shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(spacing_control),
+                            borderRadius: BorderRadius.circular(spacing_control),
                           ),
                           child: Stack(
                             alignment: Alignment.bottomLeft,
                             children: <Widget>[
-                              networkImage(episodes[index].slideImage,
-                                  aWidth: double.infinity,
-                                  aHeight: double.infinity),
+                              networkImage(episodes[index].slideImage, aWidth: double.infinity, aHeight: double.infinity),
                               Container(
-                                decoration: boxDecoration(context,
-                                    bgColor: Colors.white.withOpacity(0.8)),
-                                padding: EdgeInsets.only(
-                                    left: spacing_control,
-                                    right: spacing_control),
-                                child: text(context,
-                                    "EPISODE " + (index + 1).toString(),
-                                    fontSize: 10,
-                                    textColor: Colors.black,
-                                    fontFamily: font_medium),
+                                decoration: boxDecoration(bgColor: Colors.white.withOpacity(0.8)),
+                                padding: EdgeInsets.only(left: spacing_control, right: spacing_control),
+                                child: text("EPISODE " + (index + 1).toString(), fontSize: 10.0, textColor: Colors.black, fontFamily: font_medium),
                               ).paddingAll(spacing_control)
                             ],
                           ),
                         ),
                       ),
                     ),
-                    text(context, "Episode " + (index + 1).toString(),
-                            textColor: muvi_textColorPrimary,
-                            fontSize: ts_normal)
-                        .paddingTop(spacing_control_half),
-                    itemSubTitle(context,
-                        "S1 E" + (index + 1).toString() + ", 06 Mar 2020",
-                        fontsize: ts_medium),
+                    text("Episode " + (index + 1).toString(), textColor: muvi_textColorPrimary, fontSize: ts_normal).paddingTop(spacing_control_half),
+                    itemSubTitle(context, "S1 E" + (index + 1).toString() + ", 06 Mar 2020", fontsize: ts_medium),
                   ],
                 ),
                 onTap: () {},
@@ -401,8 +339,7 @@ class SeriesDetailScreenState extends State<SeriesDetailScreen>
                           }
                         },
                       ),
-                      toolBarTitle(context, "Jumanji: The Next Level")
-                          .visible(isFullScreen)
+                      toolBarTitle(context, "Jumanji: The Next Level").visible(isFullScreen)
                     ],
                   ),
                 ),
@@ -422,9 +359,7 @@ class SeriesDetailScreenState extends State<SeriesDetailScreen>
                         "Jumanij: The Next Level ",
                       )),
                       IconButton(
-                        icon: Icon(!isExpanded
-                            ? Icons.arrow_drop_down
-                            : Icons.arrow_drop_up),
+                        icon: Icon(!isExpanded ? Icons.arrow_drop_down : Icons.arrow_drop_up),
                         onPressed: () {
                           setState(() {
                             isExpanded = !isExpanded;
@@ -437,18 +372,11 @@ class SeriesDetailScreenState extends State<SeriesDetailScreen>
                     left: spacing_standard_new,
                     right: spacing_control_half,
                   ),
-                  itemSubTitle(context, "S1 E1, 06 Mar 2020").paddingOnly(
-                      left: spacing_standard_new, right: spacing_standard_new),
-                  itemSubTitle(context, "Episode 1").paddingOnly(
-                      left: spacing_standard_new, right: spacing_standard_new),
+                  itemSubTitle(context, "S1 E1, 06 Mar 2020").paddingOnly(left: spacing_standard_new, right: spacing_standard_new),
+                  itemSubTitle(context, "Episode 1").paddingOnly(left: spacing_standard_new, right: spacing_standard_new),
                   Container(
-                    decoration: boxDecoration(context,
-                        bgColor: muvi_colorPrimary, radius: spacing_control),
-                    padding: EdgeInsets.only(
-                        left: spacing_standard,
-                        right: spacing_standard,
-                        top: spacing_control,
-                        bottom: spacing_control),
+                    decoration: boxDecoration(bgColor: muvi_colorPrimary, radius: spacing_control),
+                    padding: EdgeInsets.only(left: spacing_standard, right: spacing_standard, top: spacing_control, bottom: spacing_control),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -459,11 +387,7 @@ class SeriesDetailScreenState extends State<SeriesDetailScreen>
                           width: 16,
                           height: 16,
                         ),
-                        text(context, "Trailer",
-                                fontSize: ts_15,
-                                fontFamily: font_medium,
-                                textColor: Colors.black)
-                            .paddingLeft(spacing_standard),
+                        text("Trailer", fontSize: ts_15, fontFamily: font_medium, textColor: Colors.black).paddingLeft(spacing_standard),
                       ],
                     ),
                   ).paddingAll(spacing_standard_new),
@@ -473,42 +397,22 @@ class SeriesDetailScreenState extends State<SeriesDetailScreen>
                     children: <Widget>[
                       itemSubTitle(context,
                           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."),
-                      itemSubTitle(context,
-                          "Cast: Kimen Shikla, Stanley Tucci, Miranda Otto",
-                          colorThird: true, fontsize: ts_medium),
-                      itemSubTitle(context, "Director: John R. Leonetti",
-                          colorThird: true, fontsize: ts_medium),
+                      itemSubTitle(context, "Cast: Kimen Shikla, Stanley Tucci, Miranda Otto", colorThird: true, fontsize: ts_medium),
+                      itemSubTitle(context, "Director: John R. Leonetti", colorThird: true, fontsize: ts_medium),
                     ],
-                  )
-                      .paddingOnly(
-                          left: spacing_standard_new,
-                          right: spacing_standard_new,
-                          bottom: spacing_standard_new)
-                      .visible(isExpanded),
+                  ).paddingOnly(left: spacing_standard_new, right: spacing_standard_new, bottom: spacing_standard_new).visible(isExpanded),
                   buttons,
                   Divider(
                     thickness: 1,
                     height: 1,
                   ).paddingTop(spacing_standard),
                   headingWidViewAll(context, "Episodes", () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                ViewSeriesEpisodeScreen(title: "Episodes")));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ViewSeriesEpisodeScreen(title: "Episodes")));
                   }).paddingAll(spacing_standard_new),
                   episodesList,
                   headingWidViewAll(context, "Flix Originals Action", () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ViewAllMovieScreen(
-                                title: "Flix Originals Action")));
-                  }).paddingOnly(
-                      left: spacing_standard_new,
-                      right: spacing_standard_new,
-                      top: 12,
-                      bottom: spacing_standard_new),
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ViewAllMovieScreen(title: "Flix Originals Action")));
+                  }).paddingOnly(left: spacing_standard_new, right: spacing_standard_new, top: 12, bottom: spacing_standard_new),
                   originalsMovieList.paddingBottom(spacing_standard_new),
                 ],
               ),
@@ -529,9 +433,9 @@ class SeriesDetailScreenState extends State<SeriesDetailScreen>
 }
 
 class _PlayPauseOverlay extends StatelessWidget {
-  const _PlayPauseOverlay({Key key, this.controller}) : super(key: key);
+  const _PlayPauseOverlay({Key? key, this.controller}) : super(key: key);
 
-  final VideoPlayerController controller;
+  final VideoPlayerController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -540,7 +444,7 @@ class _PlayPauseOverlay extends StatelessWidget {
         AnimatedSwitcher(
           duration: Duration(milliseconds: 50),
           reverseDuration: Duration(milliseconds: 200),
-          child: controller.value.isPlaying
+          child: controller!.value.isPlaying
               ? SizedBox.shrink()
               : Container(
                   color: Colors.black26,
@@ -555,7 +459,7 @@ class _PlayPauseOverlay extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            controller.value.isPlaying ? controller.pause() : controller.play();
+            controller!.value.isPlaying ? controller!.pause() : controller!.play();
           },
         ),
       ],

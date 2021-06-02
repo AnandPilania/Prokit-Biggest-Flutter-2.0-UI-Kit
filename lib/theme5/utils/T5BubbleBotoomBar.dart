@@ -1,13 +1,15 @@
 import 'dart:math' as math;
 
-import 'package:prokit_flutter/main/utils/auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:prokit_flutter/main/utils/AppConstant.dart';
+import 'package:prokit_flutter/main/utils/auto_size_text/auto_size_text.dart';
 import 'package:prokit_flutter/theme2/utils/T2Colors.dart';
 import 'package:prokit_flutter/theme5/utils/T5Colors.dart';
+
+import '../../main.dart';
 
 const double _kActiveFontSize = 14.0;
 const double _kBottomMargin = 8.0;
@@ -15,11 +17,11 @@ enum BubbleBottomBarFabLocation { end, center }
 
 class BubbleBottomBar extends StatefulWidget {
   BubbleBottomBar(
-      {Key key,
-      @required this.items,
+      {Key? key,
+      required this.items,
       this.onTap,
       this.currentIndex = 0,
-      @required this.opacity,
+      required this.opacity,
       this.iconSize = 24.0,
       this.borderRadius,
       this.elevation,
@@ -39,51 +41,43 @@ class BubbleBottomBar extends StatefulWidget {
         super(key: key);
 
   final List<BubbleBottomBarItem> items;
-  final ValueChanged<int> onTap;
+  final ValueChanged<int>? onTap;
   int currentIndex;
   final double iconSize;
   final double opacity;
-  final BorderRadius borderRadius;
-  final double elevation;
-  final Color backgroundColor;
+  final BorderRadius? borderRadius;
+  final double? elevation;
+  final Color? backgroundColor;
   final bool hasNotch;
   final bool hasInk;
-  final BubbleBottomBarFabLocation fabLocation;
-  final Color inkColor;
+  final BubbleBottomBarFabLocation? fabLocation;
+  final Color? inkColor;
 
   @override
   _BottomNavigationBarState createState() => _BottomNavigationBarState();
 }
 
 class _BottomNavigationTile extends StatelessWidget {
-  const _BottomNavigationTile(
-      this.item, this.opacity, this.animation, this.iconSize,
-      {this.onTap,
-      this.colorTween,
-      this.flex,
-      this.selected = false,
-      this.indexLabel,
-      this.ink = false,
-      this.inkColor})
+  const _BottomNavigationTile(this.item, this.opacity, this.animation, this.iconSize, {this.onTap, this.colorTween, this.flex, this.selected = false, this.indexLabel, this.ink = false, this.inkColor})
       : assert(selected != null);
 
   final BubbleBottomBarItem item;
   final Animation<double> animation;
   final double iconSize;
-  final VoidCallback onTap;
-  final ColorTween colorTween;
-  final double flex;
+  final VoidCallback? onTap;
+  final ColorTween? colorTween;
+  final double? flex;
   final bool selected;
-  final String indexLabel;
+  final String? indexLabel;
   final double opacity;
   final bool ink;
-  final Color inkColor;
+  final Color? inkColor;
 
   @override
   Widget build(BuildContext context) {
     int size;
     Widget label;
-    size = (flex * 1000.0).round();
+    size = (flex! * 1000.0).round();
     label = _Label(
       animation: animation,
       item: item,
@@ -106,24 +100,22 @@ class _BottomNavigationTile extends StatelessWidget {
               containedInkWell: true,
               onTap: onTap,
               splashColor: ink
-                  ? inkColor != null ? inkColor : Theme.of(context).splashColor
+                  ? inkColor != null
+                      ? inkColor
+                      : Theme.of(context).splashColor
                   : Colors.transparent,
               highlightColor: Colors.transparent,
               child: Container(
                 height: 40,
                 decoration: BoxDecoration(
-                    color: selected
-                        ? item.backgroundColor.withOpacity(opacity)
-                        : Colors.transparent,
+                    color: selected ? item.backgroundColor!.withOpacity(opacity) : Colors.transparent,
                     borderRadius: BorderRadius.horizontal(
                       right: Radius.circular(50),
                       left: Radius.circular(50),
                     )),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: selected
-                      ? MainAxisAlignment.spaceEvenly
-                      : MainAxisAlignment.center,
+                  mainAxisAlignment: selected ? MainAxisAlignment.spaceEvenly : MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     _TileIcon(
@@ -141,9 +133,7 @@ class _BottomNavigationTile extends StatelessWidget {
                       sizeCurve: Curves.fastOutSlowIn,
                       firstCurve: Curves.fastOutSlowIn,
                       secondCurve: Curves.fastOutSlowIn.flipped,
-                      crossFadeState: selected
-                          ? CrossFadeState.showFirst
-                          : CrossFadeState.showSecond,
+                      crossFadeState: selected ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                     )
                   ],
                 ),
@@ -161,15 +151,15 @@ class _BottomNavigationTile extends StatelessWidget {
 
 class _TileIcon extends StatelessWidget {
   const _TileIcon({
-    Key key,
-    @required this.colorTween,
-    @required this.animation,
-    @required this.iconSize,
-    @required this.selected,
-    @required this.item,
+    Key? key,
+    required this.colorTween,
+    required this.animation,
+    required this.iconSize,
+    required this.selected,
+    required this.item,
   }) : super(key: key);
 
-  final ColorTween colorTween;
+  final ColorTween? colorTween;
   final Animation<double> animation;
   final double iconSize;
   final bool selected;
@@ -197,15 +187,15 @@ class _TileIcon extends StatelessWidget {
 
 class _Label extends StatelessWidget {
   _Label({
-    Key key,
-    @required this.animation,
-    @required this.item,
-    @required this.color,
+    Key? key,
+    required this.animation,
+    required this.item,
+    required this.color,
   }) : super(key: key);
 
   final Animation<double> animation;
   final BubbleBottomBarItem item;
-  final Color color;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -224,7 +214,7 @@ class _Label extends StatelessWidget {
               fontWeight: FontWeight.w600,
               color: color,
             ),
-            child: item.title,
+            child: item.title!,
           ),
         ),
       ),
@@ -232,23 +222,20 @@ class _Label extends StatelessWidget {
   }
 }
 
-class _BottomNavigationBarState extends State<BubbleBottomBar>
-    with TickerProviderStateMixin {
+class _BottomNavigationBarState extends State<BubbleBottomBar> with TickerProviderStateMixin {
   List<AnimationController> _controllers = <AnimationController>[];
-  List<CurvedAnimation> _animations;
-  Color _backgroundColor;
-  ValueListenable<ScaffoldGeometry> geometryListenable;
+  late List<CurvedAnimation> _animations;
+  Color? _backgroundColor;
+  late ValueListenable<ScaffoldGeometry> geometryListenable;
   bool fabExists = false;
-  BubbleBottomBar holder;
-  Animatable<double> _flexTween;
+  BubbleBottomBar? holder;
+  late Animatable<double> _flexTween;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     geometryListenable = Scaffold.geometryOf(context);
-    _flexTween = widget.hasNotch
-        ? Tween<double>(begin: 1.15, end: 2.0)
-        : Tween<double>(begin: 1.15, end: 1.75);
+    _flexTween = widget.hasNotch ? Tween<double>(begin: 1.15, end: 2.0) : Tween<double>(begin: 1.15, end: 1.75);
   }
 
 //  Animatable<double> _flexTween = widget.hasNotch ? Tween<double>(begin: 1.15, end: 2.0) : Tween<double>(begin: 1.15, end: 1.75);
@@ -256,15 +243,13 @@ class _BottomNavigationBarState extends State<BubbleBottomBar>
   void _resetState() {
     for (AnimationController controller in _controllers) controller.dispose();
 
-    _controllers =
-        List<AnimationController>.generate(widget.items.length, (int index) {
+    _controllers = List<AnimationController>.generate(widget.items.length, (int index) {
       return AnimationController(
         duration: Duration(milliseconds: 200),
         vsync: this,
       )..addListener(_rebuild);
     });
-    _animations =
-        List<CurvedAnimation>.generate(widget.items.length, (int index) {
+    _animations = List<CurvedAnimation>.generate(widget.items.length, (int index) {
       return CurvedAnimation(
         parent: _controllers[index],
         curve: Curves.fastOutSlowIn,
@@ -291,8 +276,7 @@ class _BottomNavigationBarState extends State<BubbleBottomBar>
     super.dispose();
   }
 
-  double _evaluateFlex(Animation<double> animation) =>
-      _flexTween.evaluate(animation);
+  double _evaluateFlex(Animation<double> animation) => _flexTween.evaluate(animation);
 
   @override
   void didUpdateWidget(BubbleBottomBar oldWidget) {
@@ -319,14 +303,12 @@ class _BottomNavigationBarState extends State<BubbleBottomBar>
         _resetState();
       }
     } else {
-      if (_backgroundColor != widget.items[widget.currentIndex].backgroundColor)
-        _backgroundColor = widget.items[widget.currentIndex].backgroundColor;
+      if (_backgroundColor != widget.items[widget.currentIndex].backgroundColor) _backgroundColor = widget.items[widget.currentIndex].backgroundColor;
     }
   }
 
   List<Widget> _createTiles() {
-    final MaterialLocalizations localizations =
-        MaterialLocalizations.of(context);
+    final MaterialLocalizations localizations = MaterialLocalizations.of(context);
     assert(localizations != null);
     final List<Widget> children = <Widget>[];
     for (int i = 0; i < widget.items.length; i += 1) {
@@ -337,12 +319,11 @@ class _BottomNavigationBarState extends State<BubbleBottomBar>
           _animations[i],
           widget.iconSize,
           onTap: () {
-            if (widget.onTap != null) widget.onTap(i);
+            if (widget.onTap != null) widget.onTap!(i);
           },
           flex: _evaluateFlex(_animations[i]),
           selected: i == widget.currentIndex,
-          indexLabel: localizations.tabLabel(
-              tabIndex: i + 1, tabCount: widget.items.length),
+          indexLabel: localizations.tabLabel(tabIndex: i + 1, tabCount: widget.items.length),
           ink: widget.hasInk,
           inkColor: widget.inkColor,
         ),
@@ -374,16 +355,11 @@ class _BottomNavigationBarState extends State<BubbleBottomBar>
         horizontal: 10,
       ),
       child: ConstrainedBox(
-        constraints: BoxConstraints(
-            minHeight: kBottomNavigationBarHeight + additionalBottomPadding),
+        constraints: BoxConstraints(minHeight: kBottomNavigationBarHeight + additionalBottomPadding),
         child: Material(
           type: MaterialType.transparency,
           child: Padding(
-            padding: EdgeInsets.only(
-                bottom: additionalBottomPadding,
-                right: widget.fabLocation == BubbleBottomBarFabLocation.end
-                    ? 72
-                    : 0),
+            padding: EdgeInsets.only(bottom: additionalBottomPadding, right: widget.fabLocation == BubbleBottomBarFabLocation.end ? 72 : 0),
             child: MediaQuery.removePadding(
               context: context,
               removeBottom: true,
@@ -399,16 +375,13 @@ class _BottomNavigationBarState extends State<BubbleBottomBar>
   Widget build(BuildContext context) {
     assert(debugCheckHasDirectionality(context));
     assert(debugCheckHasMaterialLocalizations(context));
-    final double additionalBottomPadding =
-        math.max(MediaQuery.of(context).padding.bottom - _kBottomMargin, 0.0);
+    final double additionalBottomPadding = math.max(MediaQuery.of(context).padding.bottom - _kBottomMargin, 0.0);
     return Semantics(
         explicitChildNodes: true,
         child: widget.hasNotch
             ? PhysicalShape(
-                elevation: widget.elevation != null ? widget.elevation : 8.0,
-                color: widget.backgroundColor != null
-                    ? widget.backgroundColor
-                    : Colors.white,
+                elevation: widget.elevation != null ? widget.elevation! : 8.0,
+                color: widget.backgroundColor != null ? widget.backgroundColor! : Colors.white,
                 clipper: _BubbleBottomBarClipper(
                   shape: CircularNotchedRectangle(),
                   geometry: geometryListenable,
@@ -417,37 +390,33 @@ class _BottomNavigationBarState extends State<BubbleBottomBar>
                 child: _inner(additionalBottomPadding),
               )
             : Material(
-                elevation: widget.elevation != null ? widget.elevation : 8.0,
-                color: widget.backgroundColor != null
-                    ? widget.backgroundColor
-                    : Colors.white,
+                elevation: widget.elevation != null ? widget.elevation! : 8.0,
+                color: widget.backgroundColor != null ? widget.backgroundColor : Colors.white,
                 child: _inner(additionalBottomPadding),
-                borderRadius: widget.borderRadius != null
-                    ? widget.borderRadius
-                    : BorderRadius.zero,
+                borderRadius: widget.borderRadius != null ? widget.borderRadius : BorderRadius.zero,
               ));
   }
 }
 
 class BubbleBottomBarItem {
   const BubbleBottomBarItem({
-    @required this.icon,
+    required this.icon,
     this.title,
-    Widget activeIcon,
+    Widget? activeIcon,
     this.backgroundColor,
   })  : activeIcon = activeIcon ?? icon,
         assert(icon != null);
   final Widget icon;
   final Widget activeIcon;
-  final Widget title;
-  final Color backgroundColor;
+  final Widget? title;
+  final Color? backgroundColor;
 }
 
 class _BubbleBottomBarClipper extends CustomClipper<Path> {
   const _BubbleBottomBarClipper({
-    @required this.geometry,
-    @required this.shape,
-    @required this.notchMargin,
+    required this.geometry,
+    required this.shape,
+    required this.notchMargin,
   })  : assert(geometry != null),
         assert(shape != null),
         assert(notchMargin != null),
@@ -459,9 +428,9 @@ class _BubbleBottomBarClipper extends CustomClipper<Path> {
 
   @override
   Path getClip(Size size) {
-    final Rect button = geometry.value.floatingActionButtonArea?.translate(
+    final Rect? button = geometry.value.floatingActionButtonArea?.translate(
       0.0,
-      geometry.value.bottomNavigationBarTop * -1.0,
+      geometry.value.bottomNavigationBarTop! * -1.0,
     );
 
     return shape.getOuterPath(Offset.zero & size, button?.inflate(notchMargin));
@@ -469,9 +438,7 @@ class _BubbleBottomBarClipper extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(_BubbleBottomBarClipper oldClipper) {
-    return oldClipper.geometry != geometry ||
-        oldClipper.shape != shape ||
-        oldClipper.notchMargin != notchMargin;
+    return oldClipper.geometry != geometry || oldClipper.shape != shape || oldClipper.notchMargin != notchMargin;
   }
 }
 
@@ -480,20 +447,8 @@ BubbleBottomBarItem tab(String iconData, String tabName) {
       backgroundColor: t2_colorPrimary,
       icon: SvgPicture.asset(
         iconData,
-        color: t5TextColorPrimary,
+        color: appStore.iconSecondaryColor,
       ),
-      activeIcon: SvgPicture.asset(
-        iconData,
-        height: 20,
-        width: 20,
-        color: t5ColorPrimary,
-      ),
-      title: AutoSizeText(
-        tabName,
-        style: TextStyle(
-            fontSize: textSizeMedium,
-            fontFamily: fontMedium,
-            color: t5ColorPrimary),
-        maxLines: 1,
-      ));
+      activeIcon: SvgPicture.asset(iconData, height: 20, width: 20, color: t5ColorPrimary),
+      title: AutoSizeText(tabName, style: TextStyle(fontSize: textSizeMedium, fontFamily: fontMedium, color: appStore.textPrimaryColor), maxLines: 1));
 }

@@ -9,8 +9,8 @@ class DotsIndicator extends StatelessWidget {
   final DotsDecorator decorator;
 
   DotsIndicator({
-    Key key,
-    @required this.dotsCount,
+    Key? key,
+    required this.dotsCount,
     this.position = 0,
     this.decorator = const DotsDecorator(),
   })  : assert(dotsCount != null && dotsCount > 0),

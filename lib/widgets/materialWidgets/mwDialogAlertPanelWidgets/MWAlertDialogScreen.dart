@@ -60,7 +60,7 @@ class MWAlertDialogScreenState extends State<MWAlertDialogScreen> {
         style: secondaryTextStyle(color: appStore.textSecondaryColor),
       ),
       actions: [
-        FlatButton(
+        TextButton(
           child: Text(
             "Yes",
             style: primaryTextStyle(color: appColorPrimary),
@@ -69,7 +69,7 @@ class MWAlertDialogScreenState extends State<MWAlertDialogScreen> {
             Navigator.of(context).pop();
           },
         ),
-        FlatButton(
+        TextButton(
           child: Text("No", style: primaryTextStyle(color: appColorPrimary)),
           onPressed: () {
             Navigator.of(context).pop();

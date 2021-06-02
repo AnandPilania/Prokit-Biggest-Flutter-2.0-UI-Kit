@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme5/model/T5Models.dart';
 import 'package:prokit_flutter/theme5/utils/T5Colors.dart';
 import 'package:prokit_flutter/theme5/utils/T5Constant.dart';
 import 'package:prokit_flutter/theme5/utils/T5DataGenerator.dart';
-import 'package:prokit_flutter/theme5/utils/T5Extension.dart';
 import 'package:prokit_flutter/theme5/utils/T5Strings.dart';
 import 'package:prokit_flutter/theme5/utils/T5Widget.dart';
+
+import '../../main.dart';
 
 class T5Cards extends StatefulWidget {
   static var tag = "/T5Cards";
@@ -18,7 +20,7 @@ class T5Cards extends StatefulWidget {
 
 class T5CardsState extends State<T5Cards> {
   int selectedPos = 1;
-  List<T5Bill> mCards;
+  late List<T5Bill> mCards;
 
   @override
   void initState() {
@@ -30,9 +32,9 @@ class T5CardsState extends State<T5Cards> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    changeStatusColor(t5LayoutBackgroundWhite);
+    changeStatusColor(appStore.appBarColor!);
     return Scaffold(
-      backgroundColor: t5LayoutBackgroundWhite,
+      backgroundColor: appStore.scaffoldBackground,
       body: Container(
         alignment: Alignment.topLeft,
         child: Column(
@@ -41,12 +43,12 @@ class T5CardsState extends State<T5Cards> {
           children: <Widget>[
             TopBar(),
             Padding(
-              padding: const EdgeInsets.only(left: 20.0, top: 20),
-              child: text(t5_bills, textColor: t5TextColorPrimary, fontFamily: fontBold, fontSize: textSizeXLarge),
+              padding: EdgeInsets.only(left: 20.0, top: 20),
+              child: text(t5_bills, textColor: appStore.textPrimaryColor, fontFamily: fontBold, fontSize: textSizeXLarge),
             ),
             Expanded(
               child: Container(
-                padding: const EdgeInsets.only(left: 20.0, right: 20),
+                padding: EdgeInsets.only(left: 20.0, right: 20),
                 child: GridView.builder(
                     scrollDirection: Axis.vertical,
                     physics: ScrollPhysics(),
@@ -55,18 +57,14 @@ class T5CardsState extends State<T5Cards> {
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
                         padding: EdgeInsets.only(left: 16, right: 16),
-                        decoration: boxDecoration(radius: 16, showShadow: true),
+                        decoration: boxDecoration(radius: 16, showShadow: true, bgColor: appStore.scaffoldBackground),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            SvgPicture.asset(
-                              mCards[index].icon,
-                              width: width / 13,
-                              height: width / 13,
-                            ),
+                            SvgPicture.asset(mCards[index].icon, width: width / 13, height: width / 13),
                             SizedBox(height: 10),
-                            text(mCards[index].name, textColor: t5TextColorPrimary, fontSize: textSizeLargeMedium, fontFamily: fontSemibold),
+                            text(mCards[index].name, textColor: appStore.textPrimaryColor, fontSize: textSizeLargeMedium, fontFamily: fontSemibold),
                             text(mCards[index].date, fontSize: textSizeMedium),
                             SizedBox(height: 10),
                             Container(

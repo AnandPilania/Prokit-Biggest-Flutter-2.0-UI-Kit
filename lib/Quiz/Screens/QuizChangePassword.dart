@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizColors.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizConstant.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizStrings.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/quiz/utils/QuizColors.dart';
+import 'package:prokit_flutter/quiz/utils/QuizConstant.dart';
+import 'package:prokit_flutter/quiz/utils/QuizStrings.dart';
+import 'package:prokit_flutter/quiz/utils/QuizWidget.dart';
 
 class QuizChangePassword extends StatefulWidget {
   static String tag = '/QuizChangePassword';
@@ -43,7 +44,7 @@ class _QuizChangePasswordState extends State<QuizChangePassword> {
                 SizedBox(
                   height: 20,
                 ),
-                text(quiz_info_Update_email, textColor: quiz_textColorSecondary, isLongText: true, isCentered: true).center(),
+                text('Enter your new password below\n the old password', textColor: quiz_textColorSecondary, isLongText: true, isCentered: true).center(),
                 Container(
                   margin: EdgeInsets.all(24.0),
                   decoration: boxDecoration(bgColor: quiz_white, color: quiz_white, showShadow: true, radius: 10),
@@ -102,31 +103,19 @@ class _QuizChangePasswordState extends State<QuizChangePassword> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: 50),
                 Container(
-                  child: Column(
-                    children: <Widget>[
-                      text(quiz_lbl_email_Verify, textColor: quiz_textColorPrimary, fontSize: textSizeMedium, fontFamily: fontRegular, isLongText: true, isCentered: true),
-                    ],
+                  margin: EdgeInsets.all(24.0),
+                  child: quizButton(
+                    textContent: quiz_lbl_Submit,
+                    onPressed: () {
+                      setState(() {
+                        Navigator.of(context).pop();
+                        toast(quiz_Password_Updated);
+                      });
+                    },
                   ),
-                ).onTap(() {
-                  Navigator.of(context).pop();
-                }),
-                SizedBox(
-                  height: 50,
-                ),
-                Container(
-                    margin: EdgeInsets.all(24.0),
-                    child: quizButton(
-                        textContent: quiz_lbl_Submit,
-                        onPressed: () {
-                          setState(() {
-                            Navigator.of(context).pop();
-                            showToast(quiz_Password_Updated);
-                          });
-                        }))
+                )
               ],
             ),
           ),

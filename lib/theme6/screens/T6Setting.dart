@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme6/utils/T6Colors.dart';
 import 'package:prokit_flutter/theme6/utils/T6Constant.dart';
-import 'package:prokit_flutter/theme6/utils/T6Extension.dart';
 import 'package:prokit_flutter/theme6/utils/T6Strings.dart';
 import 'package:prokit_flutter/theme6/utils/T6Widget.dart';
+
+import '../../main.dart';
 
 class T6Setting extends StatefulWidget {
   static String tag = '/T6Setting';
@@ -16,14 +18,14 @@ class T6Setting extends StatefulWidget {
 class T6SettingState extends State<T6Setting> {
   bool mSwitched_On = false;
   bool isSwitched_Sync = false;
-  String _selectedLocation = '10 Sec';
+  String? _selectedLocation = '10 Sec';
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(t6form_background);
+    changeStatusColor(appStore.appBarColor!);
 
     return Scaffold(
-      backgroundColor: t6form_background,
+      backgroundColor: appStore.scaffoldBackground,
       body: ListView(
         shrinkWrap: true,
         children: <Widget>[
@@ -35,13 +37,11 @@ class T6SettingState extends State<T6Setting> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   text(t6_lbl_workout_plan, textColor: t6colorPrimary, fontFamily: fontMedium),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox(height: 10),
                   Container(
-                    decoration: boxDecoration(radius: 16, showShadow: true, bgColor: t6white),
+                    decoration: boxDecoration(radius: 16, showShadow: true, bgColor: appStore.scaffoldBackground),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -49,21 +49,23 @@ class T6SettingState extends State<T6Setting> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               settingText(t6_lbl_workout_plan),
-                              DropdownButton<String>(
-                                icon: Icon(Icons.arrow_drop_down, color: t6textColorSecondary),
-                                underline: SizedBox(),
-                                value: _selectedLocation,
-                                items: <String>['10 Sec', '20 Sec', '1 min'].map((String value) {
-                                  return new DropdownMenuItem<String>(
-                                    value: value,
-                                    child: text(value, fontSize: textSizeMedium, textColor: t6textColorSecondary),
-                                  );
-                                }).toList(),
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    _selectedLocation = newValue;
-                                  });
-                                },
+                              CustomTheme(
+                                child: DropdownButton<String>(
+                                  icon: Icon(Icons.arrow_drop_down, color: t6textColorSecondary),
+                                  underline: SizedBox(),
+                                  value: _selectedLocation,
+                                  items: <String>['10 Sec', '20 Sec', '1 min'].map((String value) {
+                                    return new DropdownMenuItem<String>(
+                                      value: value,
+                                      child: text(value, fontSize: textSizeMedium, textColor: t6textColorSecondary),
+                                    );
+                                  }).toList(),
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      _selectedLocation = newValue;
+                                    });
+                                  },
+                                ),
                               ),
                             ],
                           ),
@@ -71,21 +73,23 @@ class T6SettingState extends State<T6Setting> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               settingText(t6_lbl_countdown_time),
-                              DropdownButton<String>(
-                                icon: Icon(Icons.arrow_drop_down, color: t6textColorSecondary),
-                                underline: SizedBox(),
-                                value: _selectedLocation,
-                                items: <String>['10 Sec', '20 Sec', '1 min'].map((String value) {
-                                  return new DropdownMenuItem<String>(
-                                    value: value,
-                                    child: text(value, fontSize: textSizeMedium, textColor: t6textColorSecondary),
-                                  );
-                                }).toList(),
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    _selectedLocation = newValue;
-                                  });
-                                },
+                              CustomTheme(
+                                child: DropdownButton<String>(
+                                  icon: Icon(Icons.arrow_drop_down, color: t6textColorSecondary),
+                                  underline: SizedBox(),
+                                  value: _selectedLocation,
+                                  items: <String>['10 Sec', '20 Sec', '1 min'].map((String value) {
+                                    return new DropdownMenuItem<String>(
+                                      value: value,
+                                      child: text(value, fontSize: textSizeMedium, textColor: t6textColorSecondary),
+                                    );
+                                  }).toList(),
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      _selectedLocation = newValue;
+                                    });
+                                  },
+                                ),
                               ),
                             ],
                           ),
@@ -94,18 +98,14 @@ class T6SettingState extends State<T6Setting> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: 20),
                   text(t6_lbl_share_option, textColor: t6colorPrimary, fontFamily: fontMedium),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox(height: 10),
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    decoration: boxDecoration(radius: 16, showShadow: true, bgColor: t6white),
+                    decoration: boxDecoration(radius: 16, showShadow: true, bgColor: appStore.scaffoldBackground),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -117,17 +117,13 @@ class T6SettingState extends State<T6Setting> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: 20),
                   text(t6_lbl_general_setting, textColor: t6colorPrimary, fontFamily: fontMedium),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox(height: 10),
                   Container(
-                    decoration: boxDecoration(radius: 16, showShadow: true, bgColor: t6white),
+                    decoration: boxDecoration(radius: 16, showShadow: true, bgColor: appStore.scaffoldBackground),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -168,18 +164,14 @@ class T6SettingState extends State<T6Setting> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: 20),
                   text(t6_lbl_community, textColor: t6colorPrimary, fontFamily: fontMedium),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox(height: 10),
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    decoration: boxDecoration(radius: 16, showShadow: true, bgColor: t6white),
+                    decoration: boxDecoration(radius: 16, showShadow: true, bgColor: appStore.scaffoldBackground),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: settingText(t6_lbl_share_with_friends),
                     ),
                   )

@@ -13,40 +13,43 @@ abstract class AppStoreBase with Store {
   bool isDarkModeOn = false;
 
   @observable
-  Color scaffoldBackground;
+  Color? scaffoldBackground;
 
   @observable
-  Color backgroundColor;
+  Color? backgroundColor;
 
   @observable
-  Color backgroundSecondaryColor;
+  Color? backgroundSecondaryColor;
 
   @observable
-  Color textPrimaryColor;
+  Color? textPrimaryColor;
 
   @observable
-  Color appColorPrimaryLightColor;
+  Color? appColorPrimaryLightColor;
 
   @observable
-  Color textSecondaryColor;
+  Color? textSecondaryColor;
 
   @observable
-  Color appBarColor;
+  Color? appBarColor;
 
   @observable
-  Color iconColor;
+  Color? iconColor;
 
   @observable
-  Color iconSecondaryColor;
+  Color? iconSecondaryColor;
 
   @observable
   String selectedLanguage = 'en';
 
-  @action
-  Future<void> setDarkMode(bool aIsDarkModeOn) async {
-    isDarkModeOn = aIsDarkModeOn;
+  @observable
+  var selectedDrawerItem = -1;
 
-    if (aIsDarkModeOn) {
+  @action
+  Future<void> toggleDarkMode({bool? value}) async {
+    isDarkModeOn = value ?? !isDarkModeOn;
+
+    if (isDarkModeOn) {
       scaffoldBackground = appBackgroundColorDark;
 
       appBarColor = cardBackgroundBlackDark;
@@ -63,10 +66,12 @@ abstract class AppStoreBase with Store {
       textPrimaryColorGlobal = whiteColor;
       textSecondaryColorGlobal = Colors.white54;
       shadowColorGlobal = appShadowColorDark;
-    } else {
-      scaffoldBackground = appWhite;
 
-      appBarColor = appWhite;
+      setStatusBarColor(Colors.black);
+    } else {
+      scaffoldBackground = Colors.white;
+
+      appBarColor = Colors.white;
       backgroundColor = Colors.black;
       backgroundSecondaryColor = appSecondaryBackgroundColor;
       appColorPrimaryLightColor = appColorPrimaryLight;
@@ -80,11 +85,18 @@ abstract class AppStoreBase with Store {
       textPrimaryColorGlobal = appTextColorPrimary;
       textSecondaryColorGlobal = appTextColorSecondary;
       shadowColorGlobal = appShadowColor;
+
+      setStatusBarColor(Colors.white);
     }
 
-    await setBool(isDarkModeOnPref, aIsDarkModeOn);
+    setValue(isDarkModeOnPref, isDarkModeOn);
   }
 
   @action
   void setLanguage(String aLanguage) => selectedLanguage = aLanguage;
+
+  @action
+  void setDrawerItemIndex(int aIndex) {
+    selectedDrawerItem = aIndex;
+  }
 }

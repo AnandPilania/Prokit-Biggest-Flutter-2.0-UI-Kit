@@ -1,15 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:prokit_flutter/main/utils/dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/shophop/screens/ShHomeScreen.dart';
-import 'package:prokit_flutter/shophop/screens/ShSignIn.dart';
-import 'package:prokit_flutter/shophop/utils/ShColors.dart';
-import 'package:prokit_flutter/shophop/utils/ShConstant.dart';
-import 'package:prokit_flutter/shophop/utils/ShExtension.dart';
-import 'package:prokit_flutter/shophop/utils/ShImages.dart';
-import 'package:prokit_flutter/shophop/utils/ShStrings.dart';
-import 'package:prokit_flutter/shophop/utils/ShWidget.dart';
-import 'package:prokit_flutter/shophop/utils/widgets/ShSliderWidget.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/main/utils/dots_indicator/dots_indicator.dart';
+import 'package:prokit_flutter/shopHop/screens/ShHomeScreen.dart';
+import 'package:prokit_flutter/shopHop/screens/ShSignIn.dart';
+import 'package:prokit_flutter/shopHop/utils/ShColors.dart';
+import 'package:prokit_flutter/shopHop/utils/ShConstant.dart';
+import 'package:prokit_flutter/shopHop/utils/ShImages.dart';
+import 'package:prokit_flutter/shopHop/utils/ShStrings.dart';
+import 'package:prokit_flutter/shopHop/utils/widgets/ShSliderWidget.dart';
 
 class ShWalkThroughScreen extends StatefulWidget {
   static var tag = "/ShWalkThroughScreen";
@@ -20,11 +20,7 @@ class ShWalkThroughScreen extends StatefulWidget {
 
 class _ShWalkThroughScreenState extends State<ShWalkThroughScreen> {
   var mSliderList = <String>[ic_walk_1, ic_walk_2, ic_walk_3];
-  var mHeadingList = <String>[
-    "Hi, Welcome",
-    "Most Unique Styles!",
-    "Shop Till You Drop!"
-  ];
+  var mHeadingList = <String>["Hi, Welcome", "Most Unique Styles!", "Shop Till You Drop!"];
   var mSubHeadingList = <String>[
     "We make around your city Affordable,easy and efficient.",
     "Shop the most trending fashion on the biggest shopping website",
@@ -52,19 +48,12 @@ class _ShWalkThroughScreenState extends State<ShWalkThroughScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
-                margin: EdgeInsets.fromLTRB(spacing_large, spacing_large,
-                    spacing_large, spacing_standard_new),
+                margin: EdgeInsets.fromLTRB(spacing_large, spacing_large, spacing_large, spacing_standard_new),
                 child: Column(
                   children: <Widget>[
-                    text(mHeadingList[position],
-                        textColor: sh_textColorPrimary,
-                        fontSize: textSizeLarge,
-                        fontFamily: fontBold),
+                    text(mHeadingList[position], textColor: sh_textColorPrimary, fontSize: textSizeLarge, fontFamily: fontBold),
                     SizedBox(height: 10.0),
-                    text(mSubHeadingList[position],
-                        fontSize: textSizeLargeMedium,
-                        maxLine: 3,
-                        isCentered: true),
+                    text(mSubHeadingList[position], fontSize: textSizeLargeMedium, maxLine: 3, isCentered: true),
                   ],
                 ),
               ),
@@ -82,22 +71,11 @@ class _ShWalkThroughScreenState extends State<ShWalkThroughScreen> {
                         //height: width + width * 0.1,
                         decoration: BoxDecoration(
                           color: sh_white,
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(spacing_standard)),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.grey.withOpacity(0.4),
-                                spreadRadius: spacing_control_half,
-                                blurRadius: 10,
-                                offset: Offset(1, 3))
-                          ],
+                          borderRadius: BorderRadius.all(Radius.circular(spacing_standard)),
+                          boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.4), spreadRadius: spacing_control_half, blurRadius: 10, offset: Offset(1, 3))],
                         ),
                         margin: EdgeInsets.all(spacing_standard_new),
-                        child: Center(
-                            child: CachedNetworkImage(
-                                imageUrl: slider,
-                                width: MediaQuery.of(context).size.width,
-                                fit: BoxFit.cover)),
+                        child: Center(child: CachedNetworkImage(placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?, imageUrl: slider, width: MediaQuery.of(context).size.width, fit: BoxFit.cover)),
                       );
                     },
                   );
@@ -114,11 +92,7 @@ class _ShWalkThroughScreenState extends State<ShWalkThroughScreen> {
                     DotsIndicator(
                       dotsCount: 3,
                       position: position,
-                      decorator: DotsDecorator(
-                          color: sh_view_color,
-                          activeColor: sh_colorPrimary,
-                          activeSize: const Size.square(14.0),
-                          spacing: EdgeInsets.all(spacing_control)),
+                      decorator: DotsDecorator(color: sh_view_color, activeColor: sh_colorPrimary, activeSize: const Size.square(14.0), spacing: EdgeInsets.all(spacing_control)),
                     ),
                     SizedBox(height: spacing_standard),
                     SizedBox(
@@ -126,30 +100,26 @@ class _ShWalkThroughScreenState extends State<ShWalkThroughScreen> {
                       height: 50,
                       child: MaterialButton(
                         padding: EdgeInsets.all(spacing_standard),
-                        child: Text(sh_text_start_to_shopping,
-                            style: TextStyle(fontSize: 18)),
+                        child: Text(sh_text_start_to_shopping, style: TextStyle(fontSize: 18)),
                         textColor: sh_white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(40.0)),
+                        shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(40.0)),
                         color: sh_colorPrimary,
                         onPressed: () {
                           finish(context);
-                          launchScreen(context, ShHomeScreen.tag);
+                          ShHomeScreen().launch(context);
                         },
                       ),
                     ),
                     SizedBox(height: spacing_standard),
                     InkWell(
                       onTap: () {
-                        launchScreen(context, ShSignIn.tag);
+                        ShSignIn().launch(context);
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           text(sh_lbl_already_have_a_account),
-                          text(sh_lbl_sign_in,
-                              textColor: sh_textColorPrimary,
-                              fontFamily: fontBold),
+                          text(sh_lbl_sign_in, textColor: sh_textColorPrimary, fontFamily: fontBold),
                         ],
                       ),
                     )
@@ -192,13 +162,8 @@ class ShSliderWidget extends StatelessWidget {
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 elevation: 0,
                 margin: EdgeInsets.all(0),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-                child: CachedNetworkImage(
-                    imageUrl: slider,
-                    fit: BoxFit.fill,
-                    width: MediaQuery.of(context).size.width,
-                    height: cardSize.height),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                child: CachedNetworkImage(placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?, imageUrl: slider, fit: BoxFit.fill, width: MediaQuery.of(context).size.width, height: cardSize.height),
               ),
             );
           },

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/muvi/models/flix_response.dart';
 import 'package:prokit_flutter/muvi/screens/flix_movie_detail_screen.dart';
 import 'package:prokit_flutter/muvi/screens/flix_view_all_movies_screen.dart';
@@ -9,7 +10,6 @@ import 'package:prokit_flutter/muvi/utils/flix_app_localizations.dart';
 import 'package:prokit_flutter/muvi/utils/flix_app_widgets.dart';
 import 'package:prokit_flutter/muvi/utils/flix_constants.dart';
 import 'package:prokit_flutter/muvi/utils/flix_data_generator.dart';
-import 'package:prokit_flutter/muvi/utils/flix_widget_extensions.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_colors.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_size.dart';
 
@@ -21,9 +21,9 @@ class MyFilesFragment extends StatefulWidget {
 }
 
 class MyFilesFragmentState extends State<MyFilesFragment> {
-  var popularMovieList = List<Movie>();
-  var downloadedMovieList = List<Movie>();
-  var mcontinueList = List<Movie>();
+  List<Movie> popularMovieList = [];
+  List<Movie> downloadedMovieList = [];
+  List<Movie> mcontinueList = [];
 
   @override
   void initState() {
@@ -62,16 +62,7 @@ class MyFilesFragmentState extends State<MyFilesFragment> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Card(
-                        semanticContainer: true,
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        elevation: spacing_control_half,
-                        margin: EdgeInsets.all(0),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(spacing_control_half),
-                        ),
-                        child: networkImage(popularMovieList[index].slideImage, aWidth: (width * 0.5) - 42, aHeight: ((width * 0.5) - 42) * (2.5 / 4)),
-                      ).paddingRight(10),
+                      networkImage(popularMovieList[index].slideImage, aWidth: (width * 0.5) - 42, aHeight: ((width * 0.5) - 42) * (2.5 / 4)).cornerRadiusWithClipRRect(8).paddingRight(10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,16 +106,7 @@ class MyFilesFragmentState extends State<MyFilesFragment> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Card(
-                        semanticContainer: true,
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        elevation: spacing_control_half,
-                        margin: EdgeInsets.all(0),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(spacing_control_half),
-                        ),
-                        child: networkImage(downloadedMovieList[index].slideImage, aWidth: (width * 0.5) - 42, aHeight: ((width * 0.5) - 42) * (2.5 / 4)),
-                      ).paddingRight(10),
+                      networkImage(downloadedMovieList[index].slideImage, aWidth: (width * 0.5) - 42, aHeight: ((width * 0.5) - 42) * (2.5 / 4)).cornerRadiusWithClipRRect(8).paddingRight(10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,8 +163,8 @@ class MyFilesFragmentState extends State<MyFilesFragment> {
                 labelColor: muvi_colorPrimary,
                 labelPadding: EdgeInsets.only(left: spacing_large, right: spacing_large),
                 tabs: [
-                  Tab(child: Text(keyString(context, "my_list"))),
-                  Tab(child: Text(keyString(context, "downloaded"))),
+                  Tab(child: Text(keyString(context, "my_list")!)),
+                  Tab(child: Text(keyString(context, "downloaded")!)),
                 ],
               ),
             ),

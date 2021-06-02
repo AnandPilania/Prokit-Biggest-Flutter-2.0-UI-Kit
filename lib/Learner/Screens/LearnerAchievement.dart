@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/Learner/model/LearnerModels.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerColors.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerConstant.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerDataGenerator.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerStrings.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerWidget.dart';
+import 'package:prokit_flutter/learner/model/LearnerModels.dart';
+import 'package:prokit_flutter/learner/utils/LearnerColors.dart';
+import 'package:prokit_flutter/learner/utils/LearnerConstant.dart';
+import 'package:prokit_flutter/learner/utils/LearnerDataGenerator.dart';
+import 'package:prokit_flutter/learner/utils/LearnerStrings.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class LearnerAchievements extends StatefulWidget {
   @override
@@ -14,14 +14,16 @@ class LearnerAchievements extends StatefulWidget {
 }
 
 class _LearnerAchievementsState extends State<LearnerAchievements> {
-  List<LearnerPeopleModel> mList1;
-  List<LearnerBadgeModel> mList2;
+  late List<LearnerPeopleModel> mList1;
+  late List<LearnerBadgeModel> mList2;
 
   @override
   void initState() {
     super.initState();
     mList1 = learnerGetPending();
     mList2 = learnerGetBadges();
+
+    setState(() {});
   }
 
   @override
@@ -35,40 +37,30 @@ class _LearnerAchievementsState extends State<LearnerAchievements> {
             backgroundColor: learner_layout_background,
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(170),
-              child: new Container(
+              child: Container(
                 color: Colors.white,
-                child: new SafeArea(
+                child: SafeArea(
                   child: Container(
                     color: learner_layout_background,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 10),
                         Container(
                           alignment: Alignment.centerLeft,
                           width: MediaQuery.of(context).size.width,
                           child: IconButton(
-                            icon: Icon(
-                              Icons.arrow_back,
-                              color: learner_colorPrimary,
-                            ),
+                            icon: Icon(Icons.arrow_back, color: learner_colorPrimary),
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
                           ),
                         ),
-                        text(learner_lbl_achievements,
-                            fontSize: textSizeLarge,
-                            fontFamily: fontBold,
-                            textColor: learner_textColorPrimary),
-                        SizedBox(
-                          height: 16,
-                        ),
+                        text(learner_lbl_achievements, fontSize: textSizeLarge, fontFamily: fontBold, textColor: learner_textColorPrimary),
+                        SizedBox(height: 16),
                         Container(
                           width: MediaQuery.of(context).size.width / 1.3,
-                          child: new TabBar(
+                          child: TabBar(
                             labelPadding: EdgeInsets.only(left: 0, right: 0),
                             indicatorWeight: 4.0,
                             indicatorSize: TabBarIndicatorSize.label,
@@ -78,20 +70,12 @@ class _LearnerAchievementsState extends State<LearnerAchievements> {
                             unselectedLabelColor: learner_textColorSecondary,
                             tabs: [
                               Container(
-                                padding: const EdgeInsets.all(8.0),
-                                child: new Text(
-                                  learner_lbl_badges,
-                                  style: TextStyle(
-                                      fontSize: 18.0, fontFamily: fontBold),
-                                ),
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(learner_lbl_badges, style: TextStyle(fontSize: 18.0, fontFamily: fontBold)),
                               ),
                               Container(
-                                padding: const EdgeInsets.all(8.0),
-                                child: new Text(
-                                  learner_lbl_leader_board,
-                                  style: TextStyle(
-                                      fontSize: 18.0, fontFamily: fontBold),
-                                ),
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(learner_lbl_leader_board, style: TextStyle(fontSize: 18.0, fontFamily: fontBold)),
                               )
                             ],
                           ),
@@ -105,19 +89,21 @@ class _LearnerAchievementsState extends State<LearnerAchievements> {
             body: TabBarView(
               children: <Widget>[
                 ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: mList2.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return LearnerBadges(mList2[index], index);
-                    }),
+                  scrollDirection: Axis.vertical,
+                  itemCount: mList2.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return LearnerBadges(mList2[index], index);
+                  },
+                ),
                 ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: mList1.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return LearnerLeaderBoard(mList1[index], index);
-                    }),
+                  scrollDirection: Axis.vertical,
+                  itemCount: mList1.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return LearnerLeaderBoard(mList1[index], index);
+                  },
+                ),
               ],
             ),
           ),
@@ -128,7 +114,7 @@ class _LearnerAchievementsState extends State<LearnerAchievements> {
 }
 
 class LearnerBadges extends StatelessWidget {
-  LearnerBadgeModel model;
+  late LearnerBadgeModel model;
 
   LearnerBadges(LearnerBadgeModel model, int pos) {
     this.model = model;
@@ -145,27 +131,16 @@ class LearnerBadges extends StatelessWidget {
               margin: EdgeInsets.only(right: 10),
               width: MediaQuery.of(context).size.width / 7,
               height: MediaQuery.of(context).size.width / 7,
-              decoration:
-                  BoxDecoration(shape: BoxShape.circle, color: model.color),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Image.asset(model.img),
-              ),
+              decoration: BoxDecoration(shape: BoxShape.circle, color: model.color),
+              child: Padding(padding: EdgeInsets.all(10.0), child: Image.asset(model.img)),
             ),
-            SizedBox(
-              width: 16,
-            ),
+            SizedBox(width: 16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  text(model.name,
-                      fontFamily: fontMedium,
-                      fontSize: textSizeLargeMedium,
-                      textColor: learner_textColorPrimary),
-                  SizedBox(
-                    width: 4,
-                  ),
+                  text(model.name, fontFamily: fontMedium, fontSize: textSizeLargeMedium, textColor: learner_textColorPrimary),
+                  SizedBox(width: 4),
                   text(model.comment, textColor: learner_textColorSecondary),
                 ],
               ),
@@ -182,31 +157,16 @@ class LearnerBadges extends StatelessWidget {
               margin: EdgeInsets.only(right: 10),
               width: MediaQuery.of(context).size.width / 7,
               height: MediaQuery.of(context).size.width / 7,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle, color: learner_met_grey),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Icon(
-                  Icons.lock,
-                  color: learner_white,
-                ),
-              ),
+              decoration: BoxDecoration(shape: BoxShape.circle, color: learner_met_grey),
+              child: Padding(padding: EdgeInsets.all(10.0), child: Icon(Icons.lock, color: learner_white)),
             ),
-            SizedBox(
-              width: 16,
-            ),
+            SizedBox(width: 16),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                text(learner_lbl_locked_badge,
-                    fontFamily: fontMedium,
-                    fontSize: textSizeLargeMedium,
-                    textColor: learner_textColorPrimary),
-                SizedBox(
-                  width: 4,
-                ),
-                text(learner_lbl_unlock_to_see_details,
-                    textColor: learner_textColorSecondary),
+                text(learner_lbl_locked_badge, fontFamily: fontMedium, fontSize: textSizeLargeMedium, textColor: learner_textColorPrimary),
+                SizedBox(width: 4),
+                text(learner_lbl_unlock_to_see_details, textColor: learner_textColorSecondary),
               ],
             )
           ],
@@ -217,7 +177,7 @@ class LearnerBadges extends StatelessWidget {
 }
 
 class LearnerLeaderBoard extends StatelessWidget {
-  LearnerPeopleModel model;
+  late LearnerPeopleModel model;
 
   LearnerLeaderBoard(LearnerPeopleModel model, int pos) {
     this.model = model;
@@ -234,22 +194,13 @@ class LearnerLeaderBoard extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              CircleAvatar(
-                backgroundImage: CachedNetworkImageProvider(model.img),
-                radius: MediaQuery.of(context).size.width * 0.08,
-              ),
-              SizedBox(
-                width: 16,
-              ),
+              CircleAvatar(backgroundImage: CachedNetworkImageProvider(model.img), radius: MediaQuery.of(context).size.width * 0.08),
+              SizedBox(width: 16),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  text(model.name,
-                      fontFamily: fontMedium,
-                      textColor: learner_textColorPrimary),
-                  SizedBox(
-                    width: 4,
-                  ),
+                  text(model.name, fontFamily: fontMedium, textColor: learner_textColorPrimary),
+                  SizedBox(width: 4),
                   text(model.points, textColor: learner_textColorSecondary),
                 ],
               )
@@ -259,10 +210,7 @@ class LearnerLeaderBoard extends StatelessWidget {
             margin: EdgeInsets.only(right: 10),
             width: 35,
             height: 35,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: whiteColor,
-                border: Border.all(color: learner_view_color, width: 0.5)),
+            decoration: BoxDecoration(shape: BoxShape.circle, color: whiteColor, border: Border.all(color: learner_view_color, width: 0.5)),
             child: Center(child: text((i + 1).toString())),
           )
         ],

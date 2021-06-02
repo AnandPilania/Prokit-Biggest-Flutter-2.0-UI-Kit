@@ -2,7 +2,7 @@ import 'package:prokit_flutter/theme11/models/T11Models.dart';
 import 'package:prokit_flutter/theme11/utils/T11Images.dart';
 
 List<Theme11ListProfile> theme11List() {
-  List<Theme11ListProfile> list = List();
+  List<Theme11ListProfile> list = [];
 
   var listProfile1 = Theme11ListProfile();
   listProfile1.img = t11_ic_Inst;
@@ -23,7 +23,7 @@ List<Theme11ListProfile> theme11List() {
 }
 
 List<Theme11SongType> theme11songTypeList() {
-  List<Theme11SongType> list = List();
+  List<Theme11SongType> list = [];
 
   var songType1 = Theme11SongType();
   songType1.name = "K-Pop";
@@ -57,7 +57,7 @@ List<Theme11SongType> theme11songTypeList() {
 }
 
 List<Theme11SongsList> theme11SongList() {
-  List<Theme11SongsList> list = List();
+  List<Theme11SongsList> list = [];
 
   var songList1 = Theme11SongsList();
   songList1.title = "Top Solo Artist";
@@ -111,7 +111,7 @@ List<Theme11SongsList> theme11SongList() {
 }
 
 List<Theme11SuggestTags> Theme11SuggestTagList() {
-  List<Theme11SuggestTags> list = List();
+  List<Theme11SuggestTags> list = [];
 
   var suggestTag1 = Theme11SuggestTags();
   suggestTag1.name = "#K-Pop";
@@ -145,7 +145,7 @@ List<Theme11SuggestTags> Theme11SuggestTagList() {
 }
 
 List<Theme11Albums> theme11AlbumsList() {
-  List<Theme11Albums> list = List();
+  List<Theme11Albums> list = [];
 
   var albums1 = Theme11Albums();
   albums1.name = "Sprak Fly";

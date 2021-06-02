@@ -12,18 +12,18 @@ class MWCheckboxScreen extends StatefulWidget {
 }
 
 class MWCheckboxScreenState extends State<MWCheckboxScreen> {
-  bool isChecked1 = false;
+  bool? isChecked1 = false;
   bool isChecked2 = false;
-  bool isChecked3 = false;
-  bool isChecked4 = true;
-  bool isChecked5 = true;
-  bool isChecked6 = false;
-  bool isChecked7 = false;
-  bool isChecked8 = false;
+  bool? isChecked3 = false;
+  bool? isChecked4 = true;
+  bool? isChecked5 = true;
+  bool? isChecked6 = false;
+  bool? isChecked7 = false;
+  bool? isChecked8 = false;
   bool isChecked9 = false;
-  bool isChecked10 = false;
-  bool isChecked11 = false;
-  bool isChecked12 = false;
+  bool? isChecked10 = false;
+  bool? isChecked11 = false;
+  bool? isChecked12 = false;
 
   @override
   void initState() {
@@ -66,7 +66,7 @@ class MWCheckboxScreenState extends State<MWCheckboxScreen> {
                     child: Checkbox(
                       activeColor: Colors.grey,
                       value: isChecked1,
-                      onChanged: (bool value) {
+                      onChanged: (bool? value) {
                         setState(() {
                           isChecked1 = value;
                         });
@@ -148,7 +148,7 @@ class MWCheckboxScreenState extends State<MWCheckboxScreen> {
                       color: isChecked6 == true ? appColorPrimary : Colors.transparent,
                       border: Border.all(
                         width: 1,
-                        color: appStore.textPrimaryColor,
+                        color: appStore.textPrimaryColor!,
                       ),
                       borderRadius: new BorderRadius.circular(5),
                     ),
@@ -160,7 +160,7 @@ class MWCheckboxScreenState extends State<MWCheckboxScreen> {
                         value: isChecked6,
                         onChanged: (state) {
                           setState(() {
-                            return isChecked6 = state;
+                             isChecked6 = state;
                           });
                         },
                         activeColor: Colors.transparent,
@@ -175,7 +175,7 @@ class MWCheckboxScreenState extends State<MWCheckboxScreen> {
                     decoration: new BoxDecoration(
                       border: Border.all(
                         width: 1,
-                        color: appStore.textPrimaryColor,
+                        color: appStore.textPrimaryColor!,
                       ),
                       borderRadius: new BorderRadius.circular(20),
                     ),
@@ -187,7 +187,7 @@ class MWCheckboxScreenState extends State<MWCheckboxScreen> {
                         value: isChecked7,
                         onChanged: (state) {
                           setState(() {
-                            return isChecked7 = state;
+                             isChecked7 = state;
                           });
                         },
                         activeColor: Colors.transparent,
@@ -202,7 +202,7 @@ class MWCheckboxScreenState extends State<MWCheckboxScreen> {
                     decoration: new BoxDecoration(
                       border: Border.all(
                         width: 1,
-                        color: appStore.textPrimaryColor,
+                        color: appStore.textPrimaryColor!,
                       ),
                       borderRadius: new BorderRadius.circular(10),
                     ),
@@ -214,7 +214,7 @@ class MWCheckboxScreenState extends State<MWCheckboxScreen> {
                         value: isChecked8,
                         onChanged: (state) {
                           setState(() {
-                            return isChecked8 = state;
+                             isChecked8 = state;
                           });
                         },
                         activeColor: Colors.transparent,

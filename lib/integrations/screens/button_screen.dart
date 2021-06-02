@@ -4,10 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reaction_button/flutter_reaction_button.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/integrations/utils/colors.dart';
-import 'package:prokit_flutter/integrations/utils/common.dart';
-import 'package:prokit_flutter/integrations/utils/styles.dart';
 import 'package:prokit_flutter/main.dart';
+import 'package:prokit_flutter/main/utils/AppColors.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/main/utils/fab_circular_menu.dart';
 
 class ButtonScreen extends StatefulWidget {
@@ -87,8 +86,7 @@ class ButtonScreenState extends State<ButtonScreen> {
   List<Reaction> reaction2 = [
     Reaction(
       id: 1,
-      previewIcon:
-          _buildPreviewIcon('images/Reaction/images/SocialMedia/whatsapp.png'),
+      previewIcon: _buildPreviewIcon('images/Reaction/images/SocialMedia/whatsapp.png'),
       icon: _buildIcon(
         'images/Reaction/images/SocialMedia/media.png',
         'Contact us',
@@ -97,8 +95,7 @@ class ButtonScreenState extends State<ButtonScreen> {
     ),
     Reaction(
       id: 2,
-      previewIcon:
-          _buildPreviewIcon('images/Reaction/images/SocialMedia/fb2.png'),
+      previewIcon: _buildPreviewIcon('images/Reaction/images/SocialMedia/fb2.png'),
       icon: _buildIcon(
         'images/Reaction/images/SocialMedia/media.png',
         'Contact us',
@@ -107,8 +104,7 @@ class ButtonScreenState extends State<ButtonScreen> {
     ),
     Reaction(
       id: 3,
-      previewIcon:
-          _buildPreviewIcon('images/Reaction/images/SocialMedia/wordpress.png'),
+      previewIcon: _buildPreviewIcon('images/Reaction/images/SocialMedia/wordpress.png'),
       icon: _buildIcon(
         'images/Reaction/images/SocialMedia/media.png',
         'Contact us',
@@ -117,8 +113,7 @@ class ButtonScreenState extends State<ButtonScreen> {
     ),
     Reaction(
       id: 4,
-      previewIcon:
-          _buildPreviewIcon('images/Reaction/images/SocialMedia/map.png'),
+      previewIcon: _buildPreviewIcon('images/Reaction/images/SocialMedia/map.png'),
       icon: _buildIcon(
         'images/Reaction/images/SocialMedia/media.png',
         'Contact us',
@@ -127,8 +122,7 @@ class ButtonScreenState extends State<ButtonScreen> {
     ),
     Reaction(
       id: 5,
-      previewIcon:
-          _buildPreviewIcon('images/Reaction/images/SocialMedia/linkedin.png'),
+      previewIcon: _buildPreviewIcon('images/Reaction/images/SocialMedia/linkedin.png'),
       icon: _buildIcon(
         'images/Reaction/images/SocialMedia/media.png',
         'Contact us',
@@ -137,8 +131,7 @@ class ButtonScreenState extends State<ButtonScreen> {
     ),
     Reaction(
       id: 6,
-      previewIcon:
-          _buildPreviewIcon('images/Reaction/images/SocialMedia/youtube.png'),
+      previewIcon: _buildPreviewIcon('images/Reaction/images/SocialMedia/youtube.png'),
       icon: _buildIcon(
         'images/Reaction/images/SocialMedia/media.png',
         'Contact us',
@@ -146,6 +139,7 @@ class ButtonScreenState extends State<ButtonScreen> {
       ),
     ),
   ];
+
   void animateButton() {
     setState(() {
       _state = 1;
@@ -165,10 +159,10 @@ class ButtonScreenState extends State<ButtonScreen> {
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(primaryColor);
+    changeStatusColor(appColorPrimary);
 
     return Scaffold(
-      appBar: getAppBar(context, 'Button'),
+      appBar: appBar(context, 'Button'),
       body: ListView(
         padding: EdgeInsets.all(16),
         children: <Widget>[
@@ -182,81 +176,75 @@ class ButtonScreenState extends State<ButtonScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              // FlutterReactionButton(
-              //   onReactionChanged: (reaction) {
-              //     //  Handle the respose of the reaction the user selects.
-              //     print('reaction selected id: ${reaction.id}');
-              //   },
-              //   //  Apply the list
-              //   reactions: reaction,
-              //   // Specify the Elevation.
-              //   boxElevation: 10,
-              //   // Initial reaction when the screen loads
-              //   initialReaction: Reaction(
-              //     id: 0,
-              //     previewIcon:
-              //         _buildPreviewIcon('images/Reaction/images/like.png'),
-              //     icon: _buildIcon('images/Reaction/images/like.png', 'Like',
-              //         Colors.grey[600]),
-              //   ),
-              //   // Position of the reaction box can be set to top and Bottom
-              //   boxPosition: Position.TOP,
-              // ),
-              // FlutterReactionButton(
-              //   onReactionChanged: (reaction) {
-              //     //  Handle the respose of the reaction the user select.
-              //     String message = '';
-              //     print('reaction selected id: ${reaction.id}');
-              //     if (reaction.id == 1) {
-              //       setState(
-              //         () {
-              //           message = "Whatsapp";
-              //         },
-              //       );
-              //     } else if (reaction.id == 2) {
-              //       setState(
-              //         () {
-              //           message = "Facebook";
-              //         },
-              //       );
-              //     } else if (reaction.id == 3) {
-              //       setState(
-              //         () {
-              //           message = "Wordpress";
-              //         },
-              //       );
-              //     } else if (reaction.id == 4) {
-              //       setState(
-              //         () {
-              //           message = "Map";
-              //         },
-              //       );
-              //     } else if (reaction.id == 5) {
-              //       setState(
-              //         () {
-              //           message = "Linkedin";
-              //         },
-              //       );
-              //     } else if (reaction.id == 6) {
-              //       setState(
-              //         () {
-              //           message = "Youtube";
-              //         },
-              //       );
-              //     }
-              //     toast('You clicked $message share');
-              //   },
-              //   reactions: reaction2,
-              //   boxRadius: 10,
-              //   initialReaction: Reaction(
-              //     id: 0,
-              //     icon: _buildIcon(
-              //         'images/Reaction/images/SocialMedia/media.png',
-              //         'Contact us',
-              //         Colors.grey[600]),
-              //   ),
-              //   boxPosition: Position.BOTTOM,
-              // ),
+              FlutterReactionButton(
+                onReactionChanged: (reaction, index) {
+                  print('reaction selected id: ${reaction.id}');
+                },
+                //  Apply the list
+                reactions: reaction,
+                // Specify the Elevation.
+                boxElevation: 10,
+                // Initial reaction when the screen loads
+                initialReaction: Reaction(
+                  id: 0,
+                  previewIcon: _buildPreviewIcon('images/Reaction/images/like.png'),
+                  icon: _buildIcon('images/Reaction/images/like.png', 'Like', Colors.grey[600]),
+                ),
+                // Position of the reaction box can be set to top and Bottom
+                boxPosition: Position.TOP,
+              ),
+              FlutterReactionButton(
+                onReactionChanged: (reaction, index) {
+                  //  Handle the respose of the reaction the user select.
+                  String message = '';
+                  print('reaction selected id: ${reaction.id}');
+                  if (reaction.id == 1) {
+                    setState(
+                      () {
+                        message = "Whatsapp";
+                      },
+                    );
+                  } else if (reaction.id == 2) {
+                    setState(
+                      () {
+                        message = "Facebook";
+                      },
+                    );
+                  } else if (reaction.id == 3) {
+                    setState(
+                      () {
+                        message = "Wordpress";
+                      },
+                    );
+                  } else if (reaction.id == 4) {
+                    setState(
+                      () {
+                        message = "Map";
+                      },
+                    );
+                  } else if (reaction.id == 5) {
+                    setState(
+                      () {
+                        message = "Linkedin";
+                      },
+                    );
+                  } else if (reaction.id == 6) {
+                    setState(
+                      () {
+                        message = "Youtube";
+                      },
+                    );
+                  }
+                  toast('You clicked $message share');
+                },
+                reactions: reaction2,
+                boxRadius: 10,
+                initialReaction: Reaction(
+                  id: 0,
+                  icon: _buildIcon('images/Reaction/images/SocialMedia/media.png', 'Contact us', appStore.isDarkModeOn ? Colors.transparent : Colors.grey[600]),
+                ),
+                boxPosition: Position.BOTTOM,
+              ),
             ],
           ),
           10.height,
@@ -272,8 +260,7 @@ class ButtonScreenState extends State<ButtonScreen> {
             height: 50.0,
             width: MediaQuery.of(context).size.width,
             child: RaisedButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
               padding: EdgeInsets.all(0.0),
               color: Color(0xFF8998FF),
               child: _state != 1
@@ -310,20 +297,18 @@ Widget _buildPreviewIcon(String path) => Padding(
       child: Image.asset(path, height: 40),
     );
 
-Widget _buildIcon([String path, String text, Color textColor]) => Container(
+Widget _buildIcon([String? path, String? text, Color? textColor]) => Container(
       color: Colors.transparent,
       child: Row(
         children: <Widget>[
           Image.asset(
-            path,
+            path!,
             height: 24,
-            color: appStore.iconColor,
           ),
           10.width,
           Text(
-            text,
+            text!,
             style: boldTextStyle(
-              color: textColor,
               size: 16,
             ),
           ),

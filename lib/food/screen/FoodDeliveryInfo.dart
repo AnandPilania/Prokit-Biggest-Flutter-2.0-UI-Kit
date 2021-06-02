@@ -2,14 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/main/utils/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/food/utils/FoodColors.dart';
-import 'package:prokit_flutter/food/utils/FoodConstant.dart';
 import 'package:prokit_flutter/food/utils/FoodImages.dart';
 import 'package:prokit_flutter/food/utils/FoodString.dart';
-import 'package:prokit_flutter/food/utils/FoodWidget.dart';
+import 'package:prokit_flutter/main/utils/flutter_rating_bar.dart';
 
 class FoodDeliveryInfo extends StatefulWidget {
   static String tag = '/FoodDeliveryInfo';
@@ -34,56 +33,45 @@ class FoodDeliveryInfoState extends State<FoodDeliveryInfo> {
               child: Container(
                 alignment: Alignment.bottomCenter,
                 height: 400,
-                decoration: boxDecoration(showShadow: true),
-                margin: EdgeInsets.all(spacing_standard_new),
+                decoration: BoxDecoration(boxShadow: defaultBoxShadow(), color: white),
+                margin: EdgeInsets.all(16),
                 child: Column(
                   children: <Widget>[
                     Container(
-                        transform: Matrix4.translationValues(0.0, -24.0, 0.0),
-                        child: Stack(
-                          children: <Widget>[
-                            Image.asset(
-                              food_ic_fab_back,
-                              width: width * 0.15,
-                              height: width * 0.15,
+                      transform: Matrix4.translationValues(0.0, -24.0, 0.0),
+                      child: Stack(
+                        children: <Widget>[
+                          Image.asset(food_ic_fab_back, width: width * 0.15, height: width * 0.15),
+                          Padding(
+                            padding: EdgeInsets.all(10),
+                            child: SvgPicture.asset(
+                              food_ic_delivery,
+                              width: width * 0.08,
+                              height: width * 0.08,
+                              alignment: Alignment.center,
                             ),
-                            Padding(
-                              padding: EdgeInsets.all(spacing_middle),
-                              child: SvgPicture.asset(
-                                food_ic_delivery,
-                                width: width * 0.08,
-                                height: width * 0.08,
-                                alignment: Alignment.center,
-                              ),
-                            )
-                          ],
-                        )),
-                    text(food_lbl_est_food_delivery_time, fontFamily: fontMedium, textAllCaps: true),
-                    SizedBox(
-                      height: spacing_middle,
+                          )
+                        ],
+                      ),
                     ),
-                    text(food_lbl__30_min, fontFamily: fontMedium, fontSize: textSizeLargeMedium),
-                    text(food_lbl_duration, textColor: food_textColorSecondary),
-                    SizedBox(
-                      height: spacing_middle,
-                    ),
-                    text(food_lbl_3_4_km_away, fontFamily: fontMedium, fontSize: textSizeLargeMedium),
-                    text(food_lbl_distance, textColor: food_textColorSecondary),
-                    SizedBox(
-                      height: spacing_middle,
-                    ),
-                    text(food_lbl__4_5_km_hr, fontFamily: fontMedium, fontSize: textSizeLargeMedium),
-                    text(food_lbl_avg_speed, textColor: food_textColorSecondary),
+                    Text(food_lbl_est_food_delivery_time.toUpperCase(), style: primaryTextStyle()),
+                    SizedBox(height: 10),
+                    Text(food_lbl__30_min, style: primaryTextStyle(size: 18)),
+                    Text(food_lbl_duration, style: primaryTextStyle(color: food_textColorSecondary)),
+                    SizedBox(height: 10),
+                    Text(food_lbl_3_4_km_away, style: primaryTextStyle(size: 18)),
+                    Text(food_lbl_distance, style: primaryTextStyle(color: food_textColorSecondary)),
+                    SizedBox(height: 10),
+                    Text(food_lbl__4_5_km_hr, style: primaryTextStyle(size: 18)),
+                    Text(food_lbl_avg_speed, style: primaryTextStyle(color: food_textColorSecondary)),
                     Container(
                       height: 0.5,
                       color: food_view_color,
                       width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.only(top: spacing_middle, bottom: spacing_control),
+                      margin: EdgeInsets.only(top: 10, bottom: 4),
                     ),
-                    text(food_lbl_rate_this_delivery, textColor: food_colorPrimary),
-                    SizedBox(
-                      height: spacing_standard,
-                    ),
+                    Text(food_lbl_rate_this_delivery, style: primaryTextStyle(color: food_colorPrimary)),
+                    SizedBox(height: 8),
                     RatingBar(
                       initialRating: 5,
                       minRating: 1,

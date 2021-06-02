@@ -3,17 +3,18 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/grocery/utils/GeoceryStrings.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryColors.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
-import 'package:prokit_flutter/grocery/utils/GroceryExtension.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 import 'GroceryAddNumber.dart';
 import 'GroceryDashboard.dart';
 import 'GroceryForgotPassword.dart';
 
+// ignore: must_be_immutable
 class GrocerySignUp extends StatefulWidget {
   static String tag = '/GrocerySignUp';
-  bool isSignIn;
-  bool isSignUp;
+  bool? isSignIn;
+  bool? isSignUp;
 
   GrocerySignUp({this.isSignIn, this.isSignUp});
 
@@ -37,18 +38,12 @@ class _GrocerySignUpState extends State<GrocerySignUp> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          text(grocery_lbl_sigIn_App,
-                  fontSize: textSizeLarge, fontFamily: fontBold)
-              .paddingOnly(
-                  top: spacing_standard_new,
-                  left: spacing_standard_new,
-                  right: spacing_standard_new),
+          text(grocery_lbl_sigIn_App, fontSize: textSizeLarge, fontFamily: fontBold).paddingOnly(top: spacing_standard_new, left: spacing_standard_new, right: spacing_standard_new),
           text(
             grocery_lbl_Enter_email_password_to_continue,
             textColor: grocery_textColorSecondary,
             fontSize: textSizeLargeMedium,
-          ).paddingOnly(
-              left: spacing_standard_new, right: spacing_standard_new),
+          ).paddingOnly(left: spacing_standard_new, right: spacing_standard_new),
           EditText(
             text: grocery_lbl_Email_Address,
             isPassword: false,
@@ -61,25 +56,19 @@ class _GrocerySignUpState extends State<GrocerySignUp> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              text("$grocery_lbl_Forgot_password?",
-                      fontSize: textSizeLargeMedium, fontFamily: fontMedium)
-                  .paddingOnly(
-                      left: spacing_standard_new,
-                      right: spacing_standard_new,
-                      bottom: spacing_standard_new)
-                  .onTap(() {
+              text(
+                "$grocery_lbl_Forgot_password?",
+                fontSize: textSizeLargeMedium,
+                fontFamily: fontMedium,
+              ).paddingOnly(left: spacing_standard_new, right: spacing_standard_new, bottom: spacing_standard_new).onTap(() {
                 GroceryForgotPassword().launch(context);
               }),
               groceryButton(
                 textContent: grocery_lbl_Sign_In,
                 onPressed: (() {
-                  callNext(GroceryDashBoardScreen(), context);
+                  GroceryDashBoardScreen().launch(context);
                 }),
-              )
-                  .paddingOnly(
-                      right: spacing_standard_new, bottom: spacing_standard_new)
-                  .paddingOnly(
-                      top: spacing_standard_new, bottom: spacing_standard_new)
+              ).paddingOnly(right: spacing_standard_new, bottom: spacing_standard_new).paddingOnly(top: spacing_standard_new, bottom: spacing_standard_new)
             ],
           )
         ],
@@ -90,18 +79,9 @@ class _GrocerySignUpState extends State<GrocerySignUp> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          text(grocery_lbl_Welcome_app,
-                  fontSize: textSizeLarge, fontFamily: fontBold)
-              .paddingOnly(
-                  top: spacing_standard_new,
-                  left: spacing_standard_new,
-                  right: spacing_standard_new),
-          text(grocery_lbl_let_Started,
-                  textColor: grocery_textColorSecondary,
-                  fontSize: textSizeLargeMedium,
-                  fontFamily: fontRegular)
-              .paddingOnly(
-                  left: spacing_standard_new, right: spacing_standard_new),
+          text(grocery_lbl_Welcome_app, fontSize: textSizeLarge, fontFamily: fontBold).paddingOnly(top: spacing_standard_new, left: spacing_standard_new, right: spacing_standard_new),
+          text(grocery_lbl_let_Started, textColor: grocery_textColorSecondary, fontSize: textSizeLargeMedium, fontFamily: fontRegular)
+              .paddingOnly(left: spacing_standard_new, right: spacing_standard_new),
           EditText(
             text: grocery_lbl_UserName,
             isPassword: false,
@@ -123,10 +103,8 @@ class _GrocerySignUpState extends State<GrocerySignUp> {
                 onPressed: (() {
                   GroceryAddNumber().launch(context);
                 }),
-              ).paddingOnly(
-                  right: spacing_standard_new, bottom: spacing_standard_new),
-            ).paddingOnly(
-                top: spacing_standard_new, bottom: spacing_standard_new),
+              ).paddingOnly(right: spacing_standard_new, bottom: spacing_standard_new),
+            ).paddingOnly(top: spacing_standard_new, bottom: spacing_standard_new),
           )
         ],
       ),
@@ -143,41 +121,29 @@ class _GrocerySignUpState extends State<GrocerySignUp> {
             Container(
               width: width,
               decoration: BoxDecoration(
-                  color: grocery_color_white,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20.0),
-                    bottomRight: const Radius.circular(20.0),
-                  ),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                        color: grocery_ShadowColor,
-                        blurRadius: 20.0,
-                        offset: Offset(0.0, 0.9))
-                  ]),
+                color: grocery_color_white,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(20.0),
+                  bottomRight: const Radius.circular(20.0),
+                ),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(color: grocery_ShadowColor, blurRadius: 20.0, offset: Offset(0.0, 0.9)),
+                ],
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      text("Sign In",
-                              textColor: widget.isSignIn == true
-                                  ? grocery_textGreenColor
-                                  : grocery_textColorPrimary,
-                              fontSize: textSizeLargeMedium,
-                              fontFamily: fontBold)
+                      text("Sign In", textColor: widget.isSignIn == true ? grocery_textGreenColor : grocery_textColorPrimary, fontSize: textSizeLargeMedium, fontFamily: fontBold)
                           .paddingAll(spacing_standard_new)
                           .onTap(() {
                         widget.isSignIn = true;
                         widget.isSignUp = false;
                         setState(() {});
                       }),
-                      text("Sign Up",
-                              textColor: widget.isSignUp == true
-                                  ? grocery_textGreenColor
-                                  : grocery_textColorPrimary,
-                              fontSize: textSizeLargeMedium,
-                              fontFamily: fontBold)
+                      text("Sign Up", textColor: widget.isSignUp == true ? grocery_textGreenColor : grocery_textColorPrimary, fontSize: textSizeLargeMedium, fontFamily: fontBold)
                           .paddingAll(spacing_standard_new)
                           .onTap(() {
                         widget.isSignIn = false;
@@ -186,7 +152,7 @@ class _GrocerySignUpState extends State<GrocerySignUp> {
                       })
                     ],
                   ),
-                  widget.isSignUp ? signUp : signIn
+                  widget.isSignUp! ? signUp : signIn
                 ],
               ),
             ),

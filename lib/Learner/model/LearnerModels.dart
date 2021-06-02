@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 class LearnerWalk {
-  String img;
+  String? img;
 }
 
 class LearnerCategoryModel {
@@ -29,7 +29,7 @@ class LearnerPeopleModel {
 
 class LearnerBadgeModel {
   var img = "";
-  Color color;
+  Color? color;
 
   var name = "";
   var comment = "";

@@ -6,14 +6,12 @@ const QIBus__500 = "<strike>\$ 500</strike>";
 const QIBus_txt_03_bus_available = "4 Bus Available";
 const QIBus_text_seat = "Seat";
 const QIBus_lbl_bus_tpe = "Bus Type";
-const QIBus_msg_share_app =
-    "Hey check out my app at: https://play.google.com/store/apps/developer?id=TWOWORDS";
+const QIBus_msg_share_app = "Hey check out my app at: https://play.google.com/store/apps/developer?id=TWOWORDS";
 const QIBus_send_to = "Share using";
 const QIBus_txtYourCode = "Your code:";
 const QIBus_txtTotalEarning = "Total Earning";
 const QIBus_txt_your_link = "Your Link :";
-const QIBus_text_get_100_when_your_friend_complete_trip_with_us =
-    "Get \$100 when your friend completes a trip with us";
+const QIBus_text_get_100_when_your_friend_complete_trip_with_us = "Get \$100 when your friend completes a trip with us";
 const QIBus_hint_enter_your_contact_number = "Enter Contact Number";
 const QIBus_lbl_email = "Email :";
 const QIBus_lbl_apply = "Apply";
@@ -31,8 +29,7 @@ const QIBus_txt_new_offers = "New Offers";
 const QIBus_txt_popular_package = "Popular Packages";
 const QIBus_title_email_notification_settings = "Email Notification Settings";
 const QIBus_txt_email_notification = "Email Notification";
-const QIBus_lbl_contact_number_settings =
-    "Contact Number Notification Settings";
+const QIBus_lbl_contact_number_settings = "Contact Number Notification Settings";
 const QIBus_lbl_mobile_no = "Mobile No :";
 const QIBus_lbl_number_notification = "Number Notification";
 const QIBus_title_language_setting = "Language Settings";
@@ -61,8 +58,7 @@ const QIBus_msg_mobile_number = "Mobile number required";
 const QIBus_msg_email_id = "Email Id required";
 
 const QIBus_hint_email = "Enter Email ID";
-const QIBus_ahmedabad_guj_high_hill_manali =
-    "Ahmedabad(Guj)- High Hill,Manali,Gujarat India";
+const QIBus_ahmedabad_guj_high_hill_manali = "Ahmedabad(Guj)- High Hill,Manali,Gujarat India";
 const QIBus_volvo_bus = "Volvo Bus";
 const QIBus_txtCancelled = "Cancelled";
 const QIBus_txtColon = ":";
@@ -70,8 +66,7 @@ const QIBus_search = "Search";
 const QIBus_lbl_special = "SPECIAL";
 const QIBus_lbl_use_code = "Use Code:";
 const QIBus_lbl_notification = "Notification";
-const QIBus_lbl_verification =
-    "Enter your verification code \n we have just sent you on your mobile number";
+const QIBus_lbl_verification = "Enter your verification code \n we have just sent you on your mobile number";
 const QIBus_txt_verify = "Verify";
 const QIBus_txt_Resend = "Re-send";
 const QIBus_lbl_StarRatings = "Star Ratings";

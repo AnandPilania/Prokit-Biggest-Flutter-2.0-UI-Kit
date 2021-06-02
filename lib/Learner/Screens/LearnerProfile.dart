@@ -1,15 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:prokit_flutter/Learner/Screens/LearnerAchievement.dart';
-import 'package:prokit_flutter/Learner/Screens/LearnerFavourites.dart';
-import 'package:prokit_flutter/Learner/Screens/LearnerMyFriends.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerColors.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerConstant.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerExtension.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerImages.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerStrings.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerWidget.dart';
+import 'package:prokit_flutter/learner/Screens/LearnerAchievement.dart';
+import 'package:prokit_flutter/learner/Screens/LearnerFavourites.dart';
+import 'package:prokit_flutter/learner/Screens/LearnerMyFriends.dart';
+import 'package:prokit_flutter/learner/utils/LearnerColors.dart';
+import 'package:prokit_flutter/learner/utils/LearnerConstant.dart';
+import 'package:prokit_flutter/learner/utils/LearnerImages.dart';
+import 'package:prokit_flutter/learner/utils/LearnerStrings.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class LearnerProfile extends StatefulWidget {
   @override
@@ -20,6 +19,7 @@ class _LearnerProfileState extends State<LearnerProfile> {
   @override
   Widget build(BuildContext context) {
     changeStatusColor(learner_layout_background);
+
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: learner_layout_background,
@@ -33,13 +33,8 @@ class _LearnerProfileState extends State<LearnerProfile> {
                 child: Row(
                   children: <Widget>[
                     Container(
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: learner_white, width: 4)),
-                      child: CircleAvatar(
-                          backgroundImage:
-                              CachedNetworkImageProvider(learner_ic_Profile),
-                          radius: width / 8.5),
+                      decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: learner_white, width: 4)),
+                      child: CircleAvatar(backgroundImage: CachedNetworkImageProvider(learner_ic_Profile), radius: width / 8.5),
                     ),
                     SizedBox(
                       width: 20,
@@ -47,19 +42,14 @@ class _LearnerProfileState extends State<LearnerProfile> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        text("Nimasha Perara",
-                            fontFamily: fontSemibold,
-                            fontSize: textSizeLargeMedium,
-                            textColor: learner_textColorPrimary),
-                        text(learner_lbl_390_290_points,
-                            textColor: learner_textColorPrimary),
+                        text("Nimasha Perara", fontFamily: fontSemibold, fontSize: textSizeLargeMedium, textColor: learner_textColorPrimary),
+                        text(learner_lbl_390_290_points, textColor: learner_textColorPrimary),
                         SizedBox(
                           height: 8,
                         ),
                         Row(
                           children: <Widget>[
-                            learnerAward(
-                                learner_ic_medal, learner_colorPrimary),
+                            learnerAward(learner_ic_medal, learner_colorPrimary),
                             learnerAward(learner_ic_crown, learner_green),
                             learnerAward(learner_ic_cup, learner_light_pink),
                             learnerAward(learner_ic_flag, learner_orange_dark),
@@ -70,18 +60,12 @@ class _LearnerProfileState extends State<LearnerProfile> {
                   ],
                 ),
               ),
-              Container(
-                  margin: EdgeInsets.only(top: 30, left: 16),
-                  child: text(learner_lbl_general,
-                      fontFamily: fontBold,
-                      textAllCaps: true,
-                      textColor: learner_textColorPrimary)),
+              Container(margin: EdgeInsets.only(top: 30, left: 16), child: text(learner_lbl_general, fontFamily: fontBold, textAllCaps: true, textColor: learner_textColorPrimary)),
               SizedBox(
                 height: 10,
               ),
               Container(
-                decoration: boxDecoration(
-                    bgColor: learner_white, showShadow: true, radius: 0),
+                decoration: boxDecoration(bgColor: learner_white, showShadow: true, radius: 0),
                 child: Column(
                   children: <Widget>[
                     InkWell(
@@ -92,54 +76,41 @@ class _LearnerProfileState extends State<LearnerProfile> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => LearnerFavourites()),
+                          MaterialPageRoute(builder: (context) => LearnerFavourites()),
                         );
                       },
                     ),
                     InkWell(
-                      child: learnerOption(
-                          learner_ic_user, learner_lbl_my_friends),
+                      child: learnerOption(learner_ic_user, learner_lbl_my_friends),
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => LearnerMyFriends()),
+                          MaterialPageRoute(builder: (context) => LearnerMyFriends()),
                         );
                       },
                     ),
                     InkWell(
-                      child: learnerOption(
-                          learner_ic_achievements, learner_lbl_achievements),
+                      child: learnerOption(learner_ic_achievements, learner_lbl_achievements),
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => LearnerAchievements()),
+                          MaterialPageRoute(builder: (context) => LearnerAchievements()),
                         );
                       },
                     ),
                   ],
                 ),
               ),
-              Container(
-                  margin: EdgeInsets.only(top: 25, left: 16),
-                  child: text(learner_lbl_settings,
-                      fontFamily: fontBold,
-                      textAllCaps: true,
-                      textColor: learner_textColorPrimary)),
+              Container(margin: EdgeInsets.only(top: 25, left: 16), child: text(learner_lbl_settings, fontFamily: fontBold, textAllCaps: true, textColor: learner_textColorPrimary)),
               SizedBox(
                 height: 10,
               ),
               Container(
-                decoration: boxDecoration(
-                    bgColor: learner_white, showShadow: true, radius: 0),
+                decoration: boxDecoration(bgColor: learner_white, showShadow: true, radius: 0),
                 child: Column(
                   children: <Widget>[
-                    learnerOption(
-                        learner_ic_key, learner_lbl_edit_login_details),
-                    learnerOption(
-                        learner_ic_correct, learner_lbl_update_interests),
+                    learnerOption(learner_ic_key, learner_lbl_edit_login_details),
+                    learnerOption(learner_ic_correct, learner_lbl_update_interests),
                     learnerOption(learner_ic_block, learner_lbl_blocked_users),
                   ],
                 ),
@@ -176,8 +147,7 @@ Widget learnerOption(var icon, var heading) {
         Row(
           children: <Widget>[
             Container(
-              decoration: boxDecoration(
-                  bgColor: learner_white, radius: 8, showShadow: true),
+              decoration: boxDecoration(bgColor: learner_white, radius: 8, showShadow: true),
               width: 40,
               height: 40,
               padding: EdgeInsets.all(10),
@@ -188,10 +158,7 @@ Widget learnerOption(var icon, var heading) {
             SizedBox(
               width: 16,
             ),
-            text(heading,
-                textColor: learner_textColorPrimary,
-                fontSize: textSizeLargeMedium,
-                fontFamily: fontSemibold),
+            text(heading, textColor: learner_textColorPrimary, fontSize: textSizeLargeMedium, fontFamily: fontSemibold),
           ],
         ),
         Icon(

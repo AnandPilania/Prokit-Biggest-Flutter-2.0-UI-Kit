@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:prokit_flutter/orapay/utils/Colors.dart';
 import 'package:prokit_flutter/orapay/utils/Style.dart';
 
-
 Widget OPMyCards() {
   return SingleChildScrollView(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        SizedBox(height: 16,),
+        SizedBox(
+          height: 16,
+        ),
         CardDetails(
           visaTitle: 'Visa',
           creditNumber: '1234',
@@ -68,7 +69,7 @@ Widget OPMyCards() {
         ),
         Container(
           padding: EdgeInsets.all(10),
-          margin: EdgeInsets.only(left:16.0,right: 16,bottom: 16),
+          margin: EdgeInsets.only(left: 16.0, right: 16, bottom: 16),
           width: double.infinity,
           height: 60,
           decoration: BoxDecoration(

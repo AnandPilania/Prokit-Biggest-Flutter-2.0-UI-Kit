@@ -1,7 +1,7 @@
 class LessonsModel {
-  String image;
-  String title;
-  String backgroundImages;
+  String? image;
+  String? title;
+  String? backgroundImages;
 
   LessonsModel({
     this.image,

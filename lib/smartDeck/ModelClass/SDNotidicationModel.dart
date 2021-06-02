@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+
 
 class SDNotidicationModel {
-  String images;
-  String notificationmessage;
-  String time;
-  bool dot = false;
+  String? images;
+  String? notificationmessage;
+  String? time;
+  bool? dot = false;
 
   SDNotidicationModel({
     this.images,

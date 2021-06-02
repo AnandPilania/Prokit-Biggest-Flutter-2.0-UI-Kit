@@ -1,9 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/main/utils/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
-import 'package:prokit_flutter/dashboard/utils/DbExtension.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/main/utils/flutter_rating_bar.dart';
 import 'package:prokit_flutter/qibus/model/QiBusModel.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusColors.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusConstant.dart';
@@ -26,9 +27,9 @@ class QIBusSearchListState extends State<QIBusSearchList> {
   var now = new DateTime.now();
   var todayDate = DateTime.now();
   var formatter = new DateFormat('dd - MMM - yyyy');
-  String formatted;
+  String? formatted;
 
-  List<QIBusModel> mList;
+  late List<QIBusModel> mList;
 
   @override
   void initState() {
@@ -70,12 +71,8 @@ class QIBusSearchListState extends State<QIBusSearchList> {
                                   },
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.fromLTRB(
-                                      spacing_standard, 0, 0, 0),
-                                  child: text(QIBus_text_bus_list,
-                                      textColor: qIBus_white,
-                                      fontSize: textSizeNormal,
-                                      fontFamily: fontBold),
+                                  padding: EdgeInsets.fromLTRB(spacing_standard, 0, 0, 0),
+                                  child: text(QIBus_text_bus_list, textColor: qIBus_white, fontSize: textSizeNormal, fontFamily: fontBold),
                                 ),
                               ],
                             ),
@@ -83,8 +80,7 @@ class QIBusSearchListState extends State<QIBusSearchList> {
                               onTap: () {
                                 showDialog(
                                   context: context,
-                                  builder: (BuildContext context) =>
-                                      CustomDialog(),
+                                  builder: (BuildContext context) => CustomDialog(),
                                 );
                               },
                               child: Container(
@@ -102,13 +98,8 @@ class QIBusSearchListState extends State<QIBusSearchList> {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.width * 0.05),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20)),
-                            color: qIBus_app_background),
+                        padding: EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.05),
+                        decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)), color: qIBus_app_background),
                       ),
                     ],
                   )
@@ -119,10 +110,7 @@ class QIBusSearchListState extends State<QIBusSearchList> {
                   child: Column(
                     children: <Widget>[
                       Container(
-                        margin: EdgeInsets.only(
-                            left: spacing_standard_new,
-                            right: spacing_standard_new,
-                            bottom: spacing_standard_new),
+                        margin: EdgeInsets.only(left: spacing_standard_new, right: spacing_standard_new, bottom: spacing_standard_new),
                         padding: EdgeInsets.all(spacing_standard_new),
                         decoration: boxDecoration(),
                         child: Row(
@@ -131,10 +119,8 @@ class QIBusSearchListState extends State<QIBusSearchList> {
                             GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  formatted = formatter.format(
-                                      todayDate.subtract(Duration(days: 1)));
-                                  todayDate =
-                                      todayDate.subtract(Duration(days: 1));
+                                  formatted = formatter.format(todayDate.subtract(Duration(days: 1)));
+                                  todayDate = todayDate.subtract(Duration(days: 1));
                                 });
                               },
                               child: Icon(
@@ -146,8 +132,7 @@ class QIBusSearchListState extends State<QIBusSearchList> {
                             GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  formatted = formatter
-                                      .format(todayDate.add(Duration(days: 1)));
+                                  formatted = formatter.format(todayDate.add(Duration(days: 1)));
                                   todayDate = todayDate.add(Duration(days: 1));
                                 });
                               },
@@ -178,7 +163,7 @@ class QIBusSearchListState extends State<QIBusSearchList> {
 }
 
 class BusList extends StatelessWidget {
-  QIBusModel model;
+  late QIBusModel model;
 
   BusList(QIBusModel model, int pos) {
     this.model = model;
@@ -189,15 +174,11 @@ class BusList extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
-        launchScreen(context, QIBusSelectSeat.tag);
+        QIBusSelectSeat().launch(context);
       },
       child: Container(
-        decoration: boxDecoration(
-            radius: spacing_middle, bgColor: qIBus_white, showShadow: true),
-        margin: EdgeInsets.only(
-            left: spacing_standard_new,
-            right: spacing_standard_new,
-            bottom: spacing_standard_new),
+        decoration: boxDecoration(radius: spacing_middle, bgColor: qIBus_white, showShadow: true),
+        margin: EdgeInsets.only(left: spacing_standard_new, right: spacing_standard_new, bottom: spacing_standard_new),
         padding: EdgeInsets.all(spacing_middle),
         child: Column(
           children: <Widget>[
@@ -205,14 +186,9 @@ class BusList extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
-                  decoration: boxDecoration(
-                      showShadow: false,
-                      bgColor: qIBus_colorPrimary,
-                      radius: spacing_standard),
-                  padding: EdgeInsets.fromLTRB(
-                      spacing_standard_new, 1, spacing_standard_new, 1),
-                  child: text(model.travelerName,
-                      textColor: qIBus_white, fontSize: textSizeSMedium),
+                  decoration: boxDecoration(showShadow: false, bgColor: qIBus_colorPrimary, radius: spacing_standard),
+                  padding: EdgeInsets.fromLTRB(spacing_standard_new, 1, spacing_standard_new, 1),
+                  child: text(model.travelerName, textColor: qIBus_white, fontSize: textSizeSMedium),
                 ),
                 text(model.typeCoach, textColor: qIBus_textChild),
               ],
@@ -221,8 +197,7 @@ class BusList extends StatelessWidget {
               height: spacing_standard,
             ),
             Padding(
-              padding: EdgeInsets.only(
-                  right: spacing_standard_new, left: spacing_standard_new),
+              padding: EdgeInsets.only(right: spacing_standard_new, left: spacing_standard_new),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -243,6 +218,7 @@ class BusList extends StatelessWidget {
                           child: Opacity(
                             opacity: 0.2,
                             child: CachedNetworkImage(
+                              placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                               imageUrl: qibus_ic_map,
                               fit: BoxFit.cover,
                               width: width * 0.4,
@@ -259,26 +235,13 @@ class BusList extends StatelessWidget {
                           ),
                           Column(
                             children: <Widget>[
-                              text(QIBus_text_duration,
-                                  textColor: qIBus_textChild,
-                                  fontSize: textSizeSMedium),
+                              text(QIBus_text_duration, textColor: qIBus_textChild, fontSize: textSizeSMedium),
                               Container(
-                                decoration: boxDecoration(
-                                    showShadow: false,
-                                    bgColor: qIBus_colorPrimary,
-                                    radius: spacing_standard),
-                                padding: EdgeInsets.fromLTRB(
-                                    spacing_standard_new,
-                                    1,
-                                    spacing_standard_new,
-                                    1),
-                                child: text(model.totalDuration,
-                                    textColor: qIBus_white,
-                                    fontSize: textSizeSMedium),
+                                decoration: boxDecoration(showShadow: false, bgColor: qIBus_colorPrimary, radius: spacing_standard),
+                                padding: EdgeInsets.fromLTRB(spacing_standard_new, 1, spacing_standard_new, 1),
+                                child: text(model.totalDuration, textColor: qIBus_white, fontSize: textSizeSMedium),
                               ),
-                              text(model.hold,
-                                  textColor: qIBus_textChild,
-                                  fontSize: textSizeSMedium),
+                              text(model.hold, textColor: qIBus_textChild, fontSize: textSizeSMedium),
                             ],
                           ),
                           Container(
@@ -319,15 +282,10 @@ class BusList extends StatelessWidget {
                         ),
                       ),
                     ),
-                    TextSpan(
-                        text: model.rate.toString(),
-                        style: TextStyle(
-                            fontSize: textSizeMedium, color: qIBus_textChild)),
+                    TextSpan(text: model.rate.toString(), style: TextStyle(fontSize: textSizeMedium, color: qIBus_textChild)),
                   ],
                 )),
-                text(model.price,
-                    textColor: qIBus_colorPrimary,
-                    fontSize: textSizeLargeMedium)
+                text(model.price, textColor: qIBus_colorPrimary, fontSize: textSizeLargeMedium)
               ],
             )
           ],
@@ -376,11 +334,9 @@ dialogContent(BuildContext context) {
         children: <Widget>[
           GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              finish(context);
             },
-            child: Container(
-                alignment: Alignment.centerRight,
-                child: Icon(Icons.close, color: qIBus_icon_color)),
+            child: Container(alignment: Alignment.centerRight, child: Icon(Icons.close, color: qIBus_icon_color)),
           ),
           SizedBox(height: 16),
           text(
@@ -444,14 +400,10 @@ dialogContent(BuildContext context) {
             fontFamily: fontMedium,
           ),
           DropdownButton<String>(
-            items: <String>[QIBus_lbl_ac, QIBus_lbl_non_ac, QIBus_lbl_normal]
-                .map((String value) {
+            items: <String>[QIBus_lbl_ac, QIBus_lbl_non_ac, QIBus_lbl_normal].map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
-                child: text(value,
-                    textColor: qIBus_textHeader,
-                    fontSize: textSizeMedium,
-                    fontFamily: fontRegular),
+                child: text(value, textColor: qIBus_textHeader, fontSize: textSizeMedium, fontFamily: fontRegular),
               );
             }).toList(),
             //hint:Text(selectedValue),

@@ -49,14 +49,12 @@ class AMAnimatedSizeScreenState extends State<AMAnimatedSizeScreen> with TickerP
           child: GestureDetector(
             onTap: () => _updateSize(),
             child: Container(
-              color: Colors.blueGrey,
               child: AnimatedSize(
                 curve: Curves.easeIn,
                 vsync: this,
                 duration: Duration(seconds: 1),
-                child: Container(
-                  height: _size,
-                  width: _size,
+                child: FlutterLogo(
+                  size: _size,
                 ),
               ),
             ),

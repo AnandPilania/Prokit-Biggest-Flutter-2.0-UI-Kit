@@ -64,19 +64,9 @@ const t2_lbl_dialog = "Dialog";
 const t2_usable_flower_for_health = "Usable Flower for Health";
 const t2_read = "Read";
 
-const t2_fontRegular = 'Regular';
-const t2_fontMedium = 'Medium';
-const t2_fontSemibold = 'Semibold';
-const t2_fontBold = 'Bold';
 const t2_bottom_navigation = "Bottom Navigation";
 const t2_Listing = "Listing";
 const t2_Cards = "Cards";
 const t2_Dialog = "Dialog";
 const t2_Bottom_Sheet = "Bottom Sheet";
 const t2_Image_Slider = "Image Slider";
-/*
-<string-array name="theme2_gender">
-<item>Male</item>
-<item>Female</item>
-<item>Other</item>
-</string-array>*/

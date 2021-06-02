@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/main.dart';
 import 'package:prokit_flutter/main/model/ListModels.dart';
 import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
@@ -14,22 +12,16 @@ class MWBottomNavigationScreen extends StatefulWidget {
   static String tag = '/MWBottomNavigationScreen';
 
   @override
-  MWBottomNavigationScreenState createState() =>
-      MWBottomNavigationScreenState();
+  MWBottomNavigationScreenState createState() => MWBottomNavigationScreenState();
 }
 
 class MWBottomNavigationScreenState extends State<MWBottomNavigationScreen> {
   List<ListModel> tabBarType = [
-    ListModel(
-        name: 'Bottom Navigation bar with fixed icon and label',
-        widget: MWBottomNavigationScreen1()),
-    ListModel(
-        name: 'Bottom Navigation bar with icon ',
-        widget: MWBottomNavigationScreen2()),
-    ListModel(
-        name: 'Bottom Navigation bar shifiting',
-        widget: MWBottomNavigationScreen3()),
+    ListModel(name: 'Bottom Navigation bar with fixed icon and label', widget: MWBottomNavigationScreen1()),
+    ListModel(name: 'Bottom Navigation bar with icon ', widget: MWBottomNavigationScreen2()),
+    ListModel(name: 'Bottom Navigation bar shifiting', widget: MWBottomNavigationScreen3()),
   ];
+
   @override
   void initState() {
     super.initState();

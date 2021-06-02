@@ -14,29 +14,38 @@ class SDExamDetailsScreen extends StatefulWidget {
 
 class _SDExamDetailsScreenState extends State<SDExamDetailsScreen> {
   int _counter = 30;
-  Timer _timer;
+  Timer? _timer;
   var selectedSize = -1;
-
-  void _startTimer() {
-    _counter = 30;
-
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      setState(() {
-        if (_counter > 0) {
-          _counter--;
-        } else {
-          _timer.cancel();
-        }
-      });
-    });
-  }
 
   int pageChanged = 0;
   PageController pageController = PageController();
 
+  void _startTimer() {
+    _counter = 30;
+
+    _timer = Timer.periodic(
+      Duration(seconds: 1),
+      (timer) {
+        setState(() {
+          if (_counter > 0) {
+            _counter--;
+          } else {
+            _timer!.cancel();
+          }
+        });
+      },
+    );
+  }
+
   @override
   void initState() {
     _startTimer();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _timer?.cancel();
   }
 
   @override
@@ -59,38 +68,27 @@ class _SDExamDetailsScreenState extends State<SDExamDetailsScreen> {
           centerTitle: true,
           leading: Container(
             margin: EdgeInsets.only(left: 15),
-            child: CloseButton(
-              color: Colors.black,
-            ),
+            child: CloseButton(color: Colors.black),
           ),
           title: Container(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Icon(
-                  Icons.alarm,
-                  color: Colors.grey,
-                ),
-                Text(
-                  '$_counter\s remaining',
-                  style: secondaryTextStyle(size: 12, color: Colors.red),
-                ),
+                Icon(Icons.alarm, color: Colors.grey),
+                Text('$_counter\s remaining', style: secondaryTextStyle(size: 12, color: Colors.red)),
               ],
             ),
           ),
           actions: <Widget>[
             GestureDetector(
               onTap: () {
-                Navigator.pop(context);
+                finish(context);
               },
               child: Container(
                 margin: EdgeInsets.only(right: 10),
                 child: Center(
-                  child: Text(
-                    'Quit Exam',
-                    style: boldTextStyle(size: 14, color: sdPrimaryColor),
-                  ),
+                  child: Text('Quit Exam', style: boldTextStyle(size: 14, color: sdPrimaryColor)),
                 ),
               ),
             )
@@ -101,40 +99,27 @@ class _SDExamDetailsScreenState extends State<SDExamDetailsScreen> {
             Expanded(
               flex: 2,
               child: IgnorePointer(
-                  child: new PageView(
-                      controller: pageController,
-                      onPageChanged: (value) {
-                        setState(() => pageChanged = value);
-                      },
-                      children: <Widget>[
-                    Question(
-                      textContent: titles[pageChanged],
-                      question: subTitles[pageChanged],
-                    ),
-                    Question(
-                      textContent: titles[pageChanged],
-                      question: subTitles[pageChanged],
-                    ),
-                    Question(
-                      textContent: titles[pageChanged],
-                      question: subTitles[pageChanged],
-                    ),
-                    Question(
-                      textContent: titles[pageChanged],
-                      question: subTitles[pageChanged],
-                    ),
-                    Question(
-                      textContent: titles[pageChanged],
-                      question: subTitles[pageChanged],
-                    ),
-                  ])),
+                child: new PageView(
+                  controller: pageController,
+                  onPageChanged: (value) {
+                    setState(() => pageChanged = value);
+                  },
+                  children: <Widget>[
+                    Question(textContent: titles[pageChanged], question: subTitles[pageChanged]),
+                    Question(textContent: titles[pageChanged], question: subTitles[pageChanged]),
+                    Question(textContent: titles[pageChanged], question: subTitles[pageChanged]),
+                    Question(textContent: titles[pageChanged], question: subTitles[pageChanged]),
+                    Question(textContent: titles[pageChanged], question: subTitles[pageChanged]),
+                  ],
+                ),
+              ),
             ),
             Expanded(
               flex: 4,
               child: ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
-                  itemCount: mQuestionList?.length,
+                  itemCount: mQuestionList.length,
                   padding: EdgeInsets.only(top: 16.0),
                   itemBuilder: (_, index) {
                     return Container(
@@ -150,25 +135,11 @@ class _SDExamDetailsScreenState extends State<SDExamDetailsScreen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
-                                padding: EdgeInsets.all(4),
-                                child: selectedSize == index
-                                    ? Icon(
-                                        Icons.check_circle,
-                                        color: Colors.white,
-                                        size: 22,
-                                      )
-                                    : Icon(
-                                        Icons.radio_button_unchecked,
-                                        color: sdPrimaryColor,
-                                        size: 22,
-                                      )),
-                            SizedBox(
-                              width: 16,
+                              padding: EdgeInsets.all(4),
+                              child: selectedSize == index ? Icon(Icons.check_circle, color: Colors.white, size: 22) : Icon(Icons.radio_button_unchecked, color: sdPrimaryColor, size: 22),
                             ),
-                            Text(
-                              mQuestionList[index].value,
-                              style: primaryTextStyle(color: selectedSize == index ? Colors.white : sdTextPrimaryColor),
-                            ),
+                            SizedBox(width: 16),
+                            Text(mQuestionList[index].value!, style: primaryTextStyle(color: selectedSize == index ? Colors.white : sdTextPrimaryColor)),
                           ],
                         ),
                       ),
@@ -190,16 +161,10 @@ class _SDExamDetailsScreenState extends State<SDExamDetailsScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      'Ch 4 - Igneous Rocks',
-                      style: boldTextStyle(),
-                    ),
+                    Text('Ch 4 - Igneous Rocks', style: boldTextStyle()),
                     Container(
                       margin: EdgeInsets.only(top: 10),
-                      child: Text(
-                        '25 of 32 pages',
-                        style: secondaryTextStyle(),
-                      ),
+                      child: Text('25 of 32 pages', style: secondaryTextStyle()),
                     ),
                   ],
                 ),
@@ -208,42 +173,27 @@ class _SDExamDetailsScreenState extends State<SDExamDetailsScreen> {
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {
-                        if (pageChanged >= 0) {
+                        if (pageChanged-1 >= 0) {
                           pageChanged = pageChanged - 1;
                           pageController.animateToPage(pageChanged, duration: Duration(milliseconds: 500), curve: Curves.ease);
                         }
                       },
-                      child: Icon(
-                        Icons.arrow_back,
-                        color: sdPrimaryColor,
-                        size: 30,
-                      ),
+                      child: Icon(Icons.arrow_back, color: sdPrimaryColor, size: 30),
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
+                    SizedBox(width: 10),
                     GestureDetector(
                       onTap: () {
                         pageChanged = pageChanged + 1;
                         if (pageChanged >= 5) {
                           pageChanged = 0;
                           finish(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SDCongratulationsScreen(),
-                            ),
-                          );
+                          SDCongratulationsScreen().launch(context);
                         } else {
                           selectedSize = -1;
                           pageController.animateToPage(pageChanged, duration: Duration(milliseconds: 500), curve: Curves.ease);
                         }
                       },
-                      child: Icon(
-                        Icons.arrow_forward,
-                        color: sdPrimaryColor,
-                        size: 30,
-                      ),
+                      child: Icon(Icons.arrow_forward, color: sdPrimaryColor, size: 30),
                     )
                   ],
                 )
@@ -258,9 +208,9 @@ class _SDExamDetailsScreenState extends State<SDExamDetailsScreen> {
 
 class Question extends StatefulWidget {
   final String textContent;
-  final String question;
+  final String? question;
 
-  Question({Key key, @required this.textContent, this.question}) : super(key: key);
+  Question({Key? key, required this.textContent, this.question}) : super(key: key);
 
   @override
   _QuestionState createState() => _QuestionState();
@@ -276,19 +226,11 @@ class _QuestionState extends State<Question> {
       children: <Widget>[
         Container(
           margin: EdgeInsets.only(top: 25, left: 15),
-          child: Text(
-            widget.textContent,
-            style: secondaryTextStyle(size: 14),
-          ),
+          child: Text(widget.textContent, style: secondaryTextStyle(size: 14)),
         ),
         Container(
           margin: EdgeInsets.only(top: 15, left: 15, right: 15),
-          child: Text(
-            widget.question,
-            style: primaryTextStyle(
-              size: 16,
-            ),
-          ),
+          child: Text(widget.question!, style: primaryTextStyle(size: 16)),
         ),
       ],
     );

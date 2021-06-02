@@ -10,7 +10,7 @@ const walk_sub_titles = [
   "Look back and reflect on your memories and growth over time"
 ];
 
-List<String> getGenders(context) {
+List<String?> getGenders(context) {
   return [
     keyString(context, "male"),
     keyString(context, "female"),

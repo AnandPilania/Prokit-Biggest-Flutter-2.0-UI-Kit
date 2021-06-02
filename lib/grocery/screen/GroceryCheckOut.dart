@@ -5,10 +5,10 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/grocery/utils/GeoceryStrings.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryColors.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
-import 'package:prokit_flutter/grocery/utils/GroceryExtension.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryImages.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryWidget.dart';
 import 'package:prokit_flutter/grocery/utils/panel.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 import 'GroceryPaymentMethod.dart';
 import 'GroceryRecipient.dart';
@@ -24,8 +24,8 @@ class GroceryCheckOut extends StatefulWidget {
 
 class GroceryCheckOutState extends State<GroceryCheckOut> {
   final double _initFabHeight = 90.0;
-  double _fabHeight;
-  double _panelHeightOpen;
+  double? _fabHeight;
+  double? _panelHeightOpen;
 
   @override
   void initState() {
@@ -43,26 +43,16 @@ class GroceryCheckOutState extends State<GroceryCheckOut> {
     Widget mIcon() {
       return Row(
         children: <Widget>[
-          Container(
-              width: 0.5,
-              height: width * 0.1,
-              color: grocery_view_color,
-              margin: EdgeInsets.only(left: width * 0.06)),
-          Container(
-              height: 0.5,
-              color: grocery_view_color,
-              margin: EdgeInsets.only(
-                  left: width * 0.1,
-                  top: spacing_control,
-                  bottom: spacing_control)),
+          Container(width: 0.5, height: width * 0.1, color: grocery_view_color, margin: EdgeInsets.only(left: width * 0.06)),
+          Container(height: 0.5, color: grocery_view_color, margin: EdgeInsets.only(left: width * 0.1, top: spacing_control, bottom: spacing_control)),
         ],
       );
     }
 
-    Widget mTitle(var icon, var value, var tag, var subValue, var bgColors) {
+    Widget mTitle(var icon, var value, Widget tag, var subValue, var bgColors) {
       return GestureDetector(
         onTap: () {
-          callNext(tag, context);
+          tag.launch(context);
         },
         child: Container(
           width: width,
@@ -73,8 +63,7 @@ class GroceryCheckOutState extends State<GroceryCheckOut> {
                 children: <Widget>[
                   Container(
                     margin: EdgeInsets.only(right: spacing_standard_new),
-                    decoration:
-                        BoxDecoration(shape: BoxShape.circle, color: bgColors),
+                    decoration: BoxDecoration(shape: BoxShape.circle, color: bgColors),
                     width: width * 0.12,
                     height: width * 0.12,
                     padding: EdgeInsets.all(width * 0.03),
@@ -89,8 +78,7 @@ class GroceryCheckOutState extends State<GroceryCheckOut> {
                   )
                 ],
               ),
-              Icon(Icons.keyboard_arrow_right,
-                  color: grocery_textColorSecondary)
+              Icon(Icons.keyboard_arrow_right, color: grocery_textColorSecondary)
             ],
           ),
         ),
@@ -107,18 +95,12 @@ class GroceryCheckOutState extends State<GroceryCheckOut> {
           child: Row(
             children: <Widget>[
               IconButton(
-                icon:
-                    Icon(Icons.arrow_back, size: 30, color: grocery_icon_color)
-                        .paddingOnly(top: spacing_standard_new),
+                icon: Icon(Icons.arrow_back, size: 30, color: grocery_icon_color).paddingOnly(top: spacing_standard_new),
                 onPressed: () {
                   finish(context);
                 },
               ),
-              text("Checkout",
-                      fontSize: textSizeNormal,
-                      fontFamily: fontBold,
-                      isCentered: true)
-                  .paddingOnly(left: spacing_standard, top: 26)
+              text("Checkout", fontSize: textSizeNormal, fontFamily: fontBold, isCentered: true).paddingOnly(left: spacing_standard, top: 26)
             ],
           ),
         ),
@@ -133,43 +115,25 @@ class GroceryCheckOutState extends State<GroceryCheckOut> {
                   width: width,
                   color: Colors.white,
                   child: CachedNetworkImage(
+                    placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                     imageUrl: grocery_ic_carts,
                     height: width * 0.38,
                     fit: BoxFit.contain,
                   ),
                 ),
-                text(grocery_title_checkout_details)
-                    .paddingAll(spacing_standard_new),
+                text(grocery_title_checkout_details).paddingAll(spacing_standard_new),
                 Container(
-                  decoration: boxDecoration(showShadow: true),
+                  decoration: boxDecoration(showShadow: true, radius: 10.0),
                   padding: EdgeInsets.all(spacing_middle),
-                  margin: EdgeInsets.only(
-                      right: spacing_standard_new,
-                      left: spacing_standard_new,
-                      bottom: spacing_standard_new),
+                  margin: EdgeInsets.only(right: spacing_standard_new, left: spacing_standard_new, bottom: spacing_standard_new),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      mTitle(
-                          Grocery_ic_User,
-                          grocery_lbl_recipient_details,
-                          GroceryRecipient(),
-                          grocery_username,
-                          grocery_purpleLightColor),
+                      mTitle(Grocery_ic_User, grocery_lbl_recipient_details, GroceryRecipient(), grocery_username, grocery_purpleLightColor),
                       mIcon(),
-                      mTitle(
-                          Grocery_ic_DeliveryTruck,
-                          grocery_lbl_delivery_pickup_info,
-                          GrocerySelectDeliveryType(),
-                          grocery_lbl_pickup_info,
-                          grocery_orangeLight_Color),
+                      mTitle(Grocery_ic_DeliveryTruck, grocery_lbl_delivery_pickup_info, GrocerySelectDeliveryType(), grocery_lbl_pickup_info, grocery_orangeLight_Color),
                       mIcon(),
-                      mTitle(
-                          Grocery_ic_Dollar,
-                          grocery_lbl_payment_method,
-                          GroceryPaymentMethods(),
-                          grocery_lbl_payment_info,
-                          grocery_orangeColor),
+                      mTitle(Grocery_ic_Dollar, grocery_lbl_payment_method, GroceryPaymentMethods(), grocery_lbl_payment_info, grocery_orangeColor),
                     ],
                   ),
                 ),
@@ -185,15 +149,8 @@ class GroceryCheckOutState extends State<GroceryCheckOut> {
                 panelBuilder: (sc) => Container(
                   width: width,
                   decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                          color: grocery_ShadowColor,
-                          blurRadius: 10,
-                          spreadRadius: 3)
-                    ],
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(spacing_standard_new),
-                        topRight: Radius.circular(spacing_standard_new)),
+                    boxShadow: [BoxShadow(color: grocery_ShadowColor, blurRadius: 10, spreadRadius: 3)],
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(spacing_standard_new), topRight: Radius.circular(spacing_standard_new)),
                     color: grocery_app_background,
                   ),
                   child: Container(
@@ -203,19 +160,12 @@ class GroceryCheckOutState extends State<GroceryCheckOut> {
                         Row(
                           children: <Widget>[
                             Container(
-                              margin:
-                                  EdgeInsets.only(right: spacing_standard_new),
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: grocery_colorPrimary),
+                              margin: EdgeInsets.only(right: spacing_standard_new),
+                              decoration: BoxDecoration(shape: BoxShape.circle, color: grocery_colorPrimary),
                               padding: EdgeInsets.all(width * 0.02),
-                              child: Icon(Icons.shopping_cart,
-                                  color: grocery_color_white),
+                              child: Icon(Icons.shopping_cart, color: grocery_color_white),
                             ),
-                            Expanded(
-                                child: text(grocery_lbl_cart_summary,
-                                    fontFamily: fontMedium,
-                                    fontSize: textSizeNormal)),
+                            Expanded(child: text(grocery_lbl_cart_summary, fontFamily: fontMedium, fontSize: textSizeNormal)),
                             Icon(Icons.keyboard_arrow_up),
                           ],
                         ),
@@ -231,25 +181,16 @@ class GroceryCheckOutState extends State<GroceryCheckOut> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            text(grocery_lbl_promotion_discount,
-                                textColor: grocery_textColorSecondary),
-                            text(grocery_lbl_promotion_discount_price,
-                                textColor: grocery_textColorSecondary),
+                            text(grocery_lbl_promotion_discount, textColor: grocery_textColorSecondary),
+                            text(grocery_lbl_promotion_discount_price, textColor: grocery_textColorSecondary),
                           ],
                         ),
-                        Container(
-                            width: width,
-                            height: 0.5,
-                            color: grocery_view_color,
-                            margin: EdgeInsets.only(
-                                top: spacing_middle, bottom: spacing_middle)),
+                        Container(width: width, height: 0.5, color: grocery_view_color, margin: EdgeInsets.only(top: spacing_middle, bottom: spacing_middle)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            text(grocery_lbl_delivery_charges,
-                                textColor: grocery_textColorSecondary),
-                            text(grocery_lbl_delivery_charges_value,
-                                textColor: grocery_textColorSecondary),
+                            text(grocery_lbl_delivery_charges, textColor: grocery_textColorSecondary),
+                            text(grocery_lbl_delivery_charges_value, textColor: grocery_textColorSecondary),
                           ],
                         ),
                         SizedBox(height: spacing_control),
@@ -257,22 +198,19 @@ class GroceryCheckOutState extends State<GroceryCheckOut> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             text(grocery_lbl_total),
-                            text(grocery_lbl_price,
-                                fontFamily: fontMedium,
-                                fontSize: textSizeLargeMedium),
+                            text(grocery_lbl_price, fontFamily: fontMedium, fontSize: textSizeLargeMedium),
                           ],
                         ),
                         SizedBox(height: spacing_standard_new),
                         Align(
                           alignment: Alignment.topRight,
                           child: Container(
-                            margin:
-                                EdgeInsets.only(bottom: spacing_standard_new),
+                            margin: EdgeInsets.only(bottom: spacing_standard_new),
                             width: width * 0.3,
                             child: groceryButton(
                               textContent: grocery_lbl_pay_now,
                               onPressed: (() {
-                                callNext(GrocerySaveCart(), context);
+                                GrocerySaveCart().launch(context);
                               }),
                             ),
                           ),
@@ -281,12 +219,9 @@ class GroceryCheckOutState extends State<GroceryCheckOut> {
                     ),
                   ),
                 ),
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(18.0),
-                    topRight: Radius.circular(18.0)),
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(18.0), topRight: Radius.circular(18.0)),
                 onPanelSlide: (double pos) => setState(() {
-                  _fabHeight = pos * (_panelHeightOpen - _panelHeightClosed) +
-                      _initFabHeight;
+                  _fabHeight = pos * (_panelHeightOpen! - _panelHeightClosed) + _initFabHeight;
                 }),
               ),
             )

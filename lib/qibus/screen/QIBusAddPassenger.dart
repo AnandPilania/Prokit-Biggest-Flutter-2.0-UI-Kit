@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusColors.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusConstant.dart';
-import 'package:prokit_flutter/qibus/utils/QiBusExtension.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusStrings.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusWidget.dart';
 
 import 'QIBusPayment.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class QIBusAddPassenger extends StatefulWidget {
   static String tag = '/QIBusAddPassenger';
@@ -59,7 +60,7 @@ class QIBusAddPassengerState extends State<QIBusAddPassenger> {
 
   @override
   Widget build(BuildContext context) {
-    String _selectedLocation = 'Female';
+    String? _selectedLocation = 'Female';
 
     return Scaffold(
         backgroundColor: qIBus_app_background,
@@ -166,7 +167,7 @@ class QIBusAddPassengerState extends State<QIBusAddPassenger> {
                         QIBusAppButton(
                           textContent: QIBus_text_done,
                           onPressed: () {
-                            launchScreen(context, QIBusPayment.tag);
+                            QIBusPayment().launch(context);
                           },
                         ),
                       ],

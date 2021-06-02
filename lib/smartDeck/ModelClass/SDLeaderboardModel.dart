@@ -1,8 +1,8 @@
 class SDLeaderBoardModel {
-  String image;
-  String name;
-  String message;
-  int score;
+  String? image;
+  String? name;
+  String? message;
+  int? score;
 
   SDLeaderBoardModel({
     this.image,

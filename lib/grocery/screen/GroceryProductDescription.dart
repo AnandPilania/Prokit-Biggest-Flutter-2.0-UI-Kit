@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/main/utils/flutter_rating_bar.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/grocery/utils/GeoceryStrings.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryColors.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
-import 'package:prokit_flutter/grocery/utils/GroceryExtension.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryImages.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/main/utils/flutter_rating_bar.dart';
 
 import 'GroceryReviews.dart';
 
@@ -16,8 +16,7 @@ class GroceryProductDescription extends StatefulWidget {
   static String tag = '/ProductDescription';
 
   @override
-  GroceryProductDescriptionState createState() =>
-      GroceryProductDescriptionState();
+  GroceryProductDescriptionState createState() => GroceryProductDescriptionState();
 }
 
 class GroceryProductDescriptionState extends State<GroceryProductDescription> {
@@ -47,24 +46,15 @@ class GroceryProductDescriptionState extends State<GroceryProductDescription> {
                   Row(
                     children: <Widget>[
                       IconButton(
-                        icon: Icon(
-                          Icons.arrow_back,
-                          color: grocery_icon_color,
-                        ),
+                        icon: Icon(Icons.arrow_back, color: grocery_icon_color),
                         onPressed: () {
                           finish(context);
                         },
                       ),
-                      text(grocery_title_grocery_deals,
-                          textColor: grocery_textColorPrimary,
-                          fontSize: textSizeLargeMedium,
-                          fontFamily: fontBold),
+                      text(grocery_title_grocery_deals, textColor: grocery_textColorPrimary, fontSize: textSizeLargeMedium, fontFamily: fontBold),
                     ],
                   ),
-                  Icon(
-                    Icons.favorite_border,
-                    color: grocery_icon_color,
-                  )
+                  Icon(Icons.favorite_border, color: grocery_icon_color)
                 ],
               ),
             ),
@@ -78,26 +68,19 @@ class GroceryProductDescriptionState extends State<GroceryProductDescription> {
                     left: spacing_standard_new,
                     right: spacing_standard_new,
                   ),
-                  decoration: boxDecoration(showShadow: true),
+                  decoration: boxDecoration(showShadow: true, radius: 10.0),
                   child: Column(
                     children: <Widget>[
                       SizedBox(height: width * 0.17),
-                      text(grocery_lbl_product_name,
-                          fontFamily: fontMedium,
-                          fontSize: textSizeLargeMedium),
+                      text(grocery_lbl_product_name, fontFamily: fontMedium, fontSize: textSizeLargeMedium),
                       SizedBox(height: spacing_standard),
                       Container(
-                        padding: EdgeInsets.only(
-                            left: spacing_control, right: spacing_control),
-                        decoration: boxDecoration(
-                            radius: spacing_control,
-                            bgColor: grocery_light_gray_color),
-                        child: text("1KG",
-                            fontSize: textSizeSmall, isCentered: true),
+                        padding: EdgeInsets.only(left: spacing_control, right: spacing_control),
+                        decoration: boxDecoration(radius: spacing_control, bgColor: grocery_light_gray_color),
+                        child: text("1KG", fontSize: textSizeSmall, isCentered: true),
                       ),
                       SizedBox(height: spacing_middle),
-                      text(grocery_lbl_price,
-                          fontFamily: fontMedium, fontSize: textSizeNormal),
+                      text(grocery_lbl_price, fontFamily: fontMedium, fontSize: textSizeNormal),
                       SizedBox(height: spacing_large),
                       RatingBar(
                         initialRating: 5,
@@ -105,53 +88,39 @@ class GroceryProductDescriptionState extends State<GroceryProductDescription> {
                         itemSize: 25,
                         direction: Axis.horizontal,
                         itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
-                        itemBuilder: (context, _) =>
-                            Icon(Icons.star, color: grocery_color_yellow),
+                        itemBuilder: (context, _) => Icon(Icons.star, color: grocery_color_yellow),
                         onRatingUpdate: (rating) {},
                       ),
                       SizedBox(height: spacing_standard),
                       GestureDetector(
                         onTap: () {
-                          callNext(GroceryReviews(), context);
+                          GroceryReviews().launch(context);
                         },
                         child: Container(
-                          padding: EdgeInsets.only(
-                              left: spacing_standard, right: spacing_standard),
-                          decoration: boxDecoration(
-                              radius: spacing_large,
-                              bgColor: grocery_orangeColor_light),
-                          child: text(grocery_lbl_product_rating,
-                              textColor: grocery_color_yellow),
+                          padding: EdgeInsets.only(left: spacing_standard, right: spacing_standard),
+                          decoration: boxDecoration(radius: spacing_large, bgColor: grocery_orangeColor_light),
+                          child: text(grocery_lbl_product_rating, textColor: grocery_color_yellow),
                         ),
                       ),
                       SizedBox(height: spacing_standard_new),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Icon(Icons.remove_circle_outline,
-                              size: 35, color: grocery_icon_color),
+                          Icon(Icons.remove_circle_outline, size: 35, color: grocery_icon_color),
                           SizedBox(width: spacing_standard_new),
-                          text(grocery_lbl_product_weight,
-                              fontFamily: fontMedium,
-                              fontSize: textSizeLarge,
-                              isCentered: true),
+                          text(grocery_lbl_product_weight, fontFamily: fontMedium, fontSize: textSizeLarge, isCentered: true),
                           SizedBox(width: spacing_standard_new),
-                          Icon(Icons.add_circle_outline,
-                              size: 35, color: grocery_icon_color),
+                          Icon(Icons.add_circle_outline, size: 35, color: grocery_icon_color),
                         ],
                       ),
                       SizedBox(height: spacing_standard_new),
                       FittedBox(
-                        child: groceryButton(
-                          onPressed: () {},
-                          textContent: grocery_lbl_add_to_cart,
-                        ),
+                        child: groceryButton(onPressed: () {}, textContent: grocery_lbl_add_to_cart),
                       ),
                       SizedBox(height: spacing_standard_new),
                       GestureDetector(
                         onTap: () {},
-                        child: text(grocery_lbl_buy_now,
-                            textColor: grocery_colorPrimary, textAllCaps: true),
+                        child: text(grocery_lbl_buy_now, textColor: grocery_colorPrimary, textAllCaps: true),
                       )
                     ],
                   ),
@@ -160,11 +129,14 @@ class GroceryProductDescriptionState extends State<GroceryProductDescription> {
                   alignment: Alignment.topCenter,
                   child: Container(
                     padding: EdgeInsets.all(spacing_standard_new),
-                    decoration: boxDecoration(showShadow: true),
+                    decoration: boxDecoration(showShadow: true, radius: 10.0),
                     height: width * 0.35,
                     width: width * 0.6,
                     child: CachedNetworkImage(
-                        imageUrl: grocery_ic_carrot, fit: BoxFit.fill),
+                      placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
+                      imageUrl: grocery_ic_carrot,
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
               ],

@@ -2,13 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/main/utils/AppConstant.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme5/utils/T5Colors.dart';
-import 'package:prokit_flutter/theme5/utils/T5Extension.dart';
 import 'package:prokit_flutter/theme5/utils/T5Images.dart';
 import 'package:prokit_flutter/theme5/utils/T5Strings.dart';
 import 'package:prokit_flutter/theme5/utils/T5Widget.dart';
 
+import '../../main.dart';
 import 'T5Dialog.dart';
 
 class T5SignIn extends StatefulWidget {
@@ -24,6 +26,7 @@ class T5SignInState extends State<T5SignIn> {
     changeStatusColor(t5White);
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
+    changeStatusColor(appStore.appBarColor!);
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -33,10 +36,10 @@ class T5SignInState extends State<T5SignIn> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Image.asset(t5_login, width: width / 2.5, height: width / 2.5),
-              text(t5_heading_login, textColor: t5TextColorPrimary, fontFamily: fontBold, fontSize: 22.0),
+              text(t5_heading_login, textColor: appStore.textPrimaryColor, fontFamily: fontBold, fontSize: 22.0),
               Container(
                 margin: EdgeInsets.all(24),
-                decoration: boxDecoration(bgColor: t5White, showShadow: true, radius: 4),
+                decoration: boxDecoration(bgColor: appStore.scaffoldBackground, showShadow: true, radius: 4),
                 padding: EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -46,19 +49,15 @@ class T5SignInState extends State<T5SignIn> {
                       hint: t5_hint_phone_no,
                       isPassword: false,
                     ),
-                    SizedBox(
-                      height: 16,
-                    ),
+                    SizedBox(height: 16),
                     EditText(hint: t5_hint_password, isSecure: true),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
                     GestureDetector(
                       onTap: () {
-                        showToast(context, t5_forgot_pswd);
+                        toast(t5_forgot_pswd);
                       },
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 10, bottom: 10, right: 10),
+                        padding: EdgeInsets.only(top: 10, bottom: 10, right: 10),
                         child: text(t5_forgot_pswd, textColor: t5ColorPrimary, fontSize: textSizeLargeMedium, fontFamily: fontSemibold),
                       ),
                     ),
@@ -70,7 +69,7 @@ class T5SignInState extends State<T5SignIn> {
                         Expanded(
                           child: GestureDetector(
                             onTap: () {
-                              showToast(context, "Sign in clicked");
+                              toast("Sign in clicked");
                             },
                             child: Container(
                               margin: EdgeInsets.only(right: 16),

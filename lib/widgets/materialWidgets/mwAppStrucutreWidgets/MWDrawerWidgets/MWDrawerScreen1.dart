@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/integrations/utils/colors.dart';
 import 'package:prokit_flutter/main.dart';
+import 'package:prokit_flutter/main/utils/AppColors.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class MWDrawerScreen1 extends StatefulWidget {
   static String tag = '/MWDrawerScreen1';
@@ -12,7 +13,7 @@ class MWDrawerScreen1 extends StatefulWidget {
 }
 
 class _MWDrawerScreen1State extends State<MWDrawerScreen1> {
-  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   @override
   void initState() {
@@ -22,7 +23,7 @@ class _MWDrawerScreen1State extends State<MWDrawerScreen1> {
 
   init() async {
     await Future.delayed(Duration(seconds: 1));
-    _key.currentState.openDrawer();
+    scaffoldKey.currentState!.openDrawer();
   }
 
   @override
@@ -34,7 +35,7 @@ class _MWDrawerScreen1State extends State<MWDrawerScreen1> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        key: _key,
+        key: scaffoldKey,
         appBar: AppBar(
           title: Text('With Multiple Account Selection', style: TextStyle(color: appStore.textPrimaryColor, fontSize: 22)),
         ),
@@ -45,16 +46,19 @@ class _MWDrawerScreen1State extends State<MWDrawerScreen1> {
             children: [
               UserAccountsDrawerHeader(
                 currentAccountPicture: CachedNetworkImage(
+                  placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                   imageUrl: 'https://miro.medium.com/max/2048/0*0fClPmIScV5pTLoE.jpg',
                   fit: BoxFit.cover,
                 ).cornerRadiusWithClipRRect(100),
                 accountName: Text('john Doe'),
                 otherAccountsPictures: [
                   CachedNetworkImage(
+                    placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                     imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTkynekYrn6_eDaVJG5l_DTiD_5LAm2_osI0Q&usqp=CAU',
                     fit: BoxFit.cover,
                   ).cornerRadiusWithClipRRect(100),
                   CachedNetworkImage(
+                    placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                     imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTD8u1Nmrk78DSX0v2i_wTgS6tW5yvHSD7o6g&usqp=CAU',
                     fit: BoxFit.cover,
                   ).cornerRadiusWithClipRRect(100),
@@ -67,6 +71,10 @@ class _MWDrawerScreen1State extends State<MWDrawerScreen1> {
                   style: boldTextStyle(color: black),
                 ),
                 leading: Icon(Icons.home, color: Colors.black.withOpacity(0.7)),
+                onTap: () {
+                  scaffoldKey.currentState!.openEndDrawer();
+                  toast('Home');
+                },
               ),
               ListTile(
                 title: Text(
@@ -74,6 +82,10 @@ class _MWDrawerScreen1State extends State<MWDrawerScreen1> {
                   style: boldTextStyle(color: black),
                 ),
                 leading: Icon(Icons.photo, color: Colors.black.withOpacity(0.7)),
+                onTap: () {
+                  scaffoldKey.currentState!.openEndDrawer();
+                  toast('Photos');
+                },
               ),
               ListTile(
                 title: Text(
@@ -81,6 +93,10 @@ class _MWDrawerScreen1State extends State<MWDrawerScreen1> {
                   style: boldTextStyle(color: black),
                 ),
                 leading: Icon(Icons.movie, color: Colors.black.withOpacity(0.7)),
+                onTap: () {
+                  scaffoldKey.currentState!.openEndDrawer();
+                  toast('Movies');
+                },
               ),
               ListTile(
                 title: Text(
@@ -88,6 +104,10 @@ class _MWDrawerScreen1State extends State<MWDrawerScreen1> {
                   style: boldTextStyle(color: black),
                 ),
                 leading: Icon(Icons.notifications, color: Colors.black.withOpacity(0.7)),
+                onTap: () {
+                  scaffoldKey.currentState!.openEndDrawer();
+                  toast('Notification');
+                },
               ),
               ListTile(
                 title: Text(
@@ -95,27 +115,37 @@ class _MWDrawerScreen1State extends State<MWDrawerScreen1> {
                   style: boldTextStyle(color: black),
                 ),
                 leading: Icon(Icons.settings, color: Colors.black.withOpacity(0.7)),
+                onTap: () {
+                  scaffoldKey.currentState!.openEndDrawer();
+                  toast('Settings');
+                },
               ),
               Divider(),
               Text('Other').paddingLeft(12.0),
               Text(
                 'About Us',
                 style: boldTextStyle(color: black),
-              ).paddingAll(12.0),
+              ).paddingAll(12.0).onTap(() {
+                scaffoldKey.currentState!.openEndDrawer();
+                toast('About us');
+              }),
               Text(
                 'Privacy Policy',
                 style: boldTextStyle(color: black),
-              ).paddingAll(12.0),
+              ).paddingAll(12.0).onTap(() {
+                scaffoldKey.currentState!.openEndDrawer();
+                toast('Privacy Policy');
+              }),
             ],
           ),
         ),
         body: MaterialButton(
           onPressed: () {
-            _key.currentState.openDrawer();
+            scaffoldKey.currentState!.openDrawer();
           },
           child: Text('Open Drawer', style: primaryTextStyle(color: whiteColor)),
           padding: EdgeInsets.all(16),
-          color: primaryColor,
+          color: appColorPrimary,
         ).center(),
       ),
     );

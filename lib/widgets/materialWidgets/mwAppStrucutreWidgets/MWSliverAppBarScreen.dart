@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/main/model/ListModels.dart';
@@ -45,7 +44,7 @@ class MWSliverAppBarScreenState extends State<MWSliverAppBarScreen> {
     return Scaffold(
         appBar: appBar(context, 'SliverApp Bar Example'),
         body: ListView.builder(
-            itemCount: example.length == null ? 0 : example.length,
+            itemCount: example.length,
             itemBuilder: (BuildContext context, index) {
               return ExampleItemWidget(
                 example[index],

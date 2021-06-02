@@ -2,7 +2,7 @@ import 'dart:ui';
 
 class Db4Category {
   var name = "";
-  Color color;
+  Color? color;
 
   var icon = "";
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusColors.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusConstant.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusStrings.dart';
@@ -21,36 +23,12 @@ class QIBusAddCardState extends State<QIBusAddCard> {
   bool passwordVisible = true;
   String _selectedLocation = '4';
   String _selectedLocation1 = '2020';
-  List<String> month = <String>[
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-    '11',
-    '12'
-  ];
-  List<String> year = <String>[
-    '2020',
-    '2021',
-    '2022',
-    '2023',
-    '2024',
-    '2025',
-    '2026',
-    '2027',
-    '2028'
-  ];
+  List<String> month = <String>['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+  List<String> year = <String>['2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028'];
 
-  Widget mSelection(var heading, List<String> list, String value) {
+  Widget mSelection(var heading, List<String> list, String? value) {
     return Container(
-        padding: EdgeInsets.only(
-            left: spacing_standard_new, right: spacing_standard_new),
+        padding: EdgeInsets.only(left: spacing_standard_new, right: spacing_standard_new),
         decoration: BoxDecoration(
             border: Border.all(
               color: qIBus_view_color,
@@ -70,8 +48,7 @@ class QIBusAddCardState extends State<QIBusAddCard> {
               items: list.map((String value) {
                 return new DropdownMenuItem<String>(
                   value: value,
-                  child: text(value,
-                      fontSize: textSizeMedium, textColor: qIBus_textChild),
+                  child: text(value, fontSize: textSizeMedium, textColor: qIBus_textChild),
                 );
               }).toList(),
               onChanged: (newValue) {
@@ -157,18 +134,14 @@ class QIBusAddCardState extends State<QIBusAddCard> {
                       padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                       child: TextFormField(
                         maxLines: 1,
-                        inputFormatters: [
-                          new LengthLimitingTextInputFormatter(3),
-                          WhitelistingTextInputFormatter.digitsOnly
-                        ],
+                        inputFormatters: [new LengthLimitingTextInputFormatter(3), WhitelistingTextInputFormatter.digitsOnly],
                         obscureText: true,
                         style: TextStyle(
                           fontSize: textSizeMedium,
                           fontFamily: fontRegular,
                         ),
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(
-                              spacing_standard_new, 16, 4, 16),
+                          contentPadding: EdgeInsets.fromLTRB(spacing_standard_new, 16, 4, 16),
                           hintText: QIBus_text_cvv,
                           filled: true,
                           fillColor: qIBus_white,
@@ -179,21 +152,17 @@ class QIBusAddCardState extends State<QIBusAddCard> {
                               });
                             },
                             child: new Icon(
-                              passwordVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
+                              passwordVisible ? Icons.visibility : Icons.visibility_off,
                               color: qIBus_icon_color,
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(spacing_middle),
-                            borderSide: const BorderSide(
-                                color: qIBus_view_color, width: 0.0),
+                            borderSide: const BorderSide(color: qIBus_view_color, width: 0.0),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(spacing_middle),
-                            borderSide: const BorderSide(
-                                color: qIBus_view_color, width: 0.0),
+                            borderSide: const BorderSide(color: qIBus_view_color, width: 0.0),
                           ),
                         ),
                       )),
@@ -216,13 +185,11 @@ class QIBusAddCardState extends State<QIBusAddCard> {
                         Row(
                           children: <Widget>[
                             Expanded(
-                              child: text(QIBus_text_pickup_point,
-                                  fontFamily: fontMedium),
+                              child: text(QIBus_text_pickup_point, fontFamily: fontMedium),
                               flex: 2,
                             ),
                             Expanded(
-                              child: text(QIBus_lbl_pickup1,
-                                  textColor: qIBus_textChild),
+                              child: text(QIBus_lbl_pickup1, textColor: qIBus_textChild),
                               flex: 2,
                             )
                           ],
@@ -233,13 +200,11 @@ class QIBusAddCardState extends State<QIBusAddCard> {
                         Row(
                           children: <Widget>[
                             Expanded(
-                              child: text(QIBus_text_dropping_points,
-                                  fontFamily: fontMedium),
+                              child: text(QIBus_text_dropping_points, fontFamily: fontMedium),
                               flex: 2,
                             ),
                             Expanded(
-                              child: text(QIBus_lbl_dropping1,
-                                  textColor: qIBus_textChild),
+                              child: text(QIBus_lbl_dropping1, textColor: qIBus_textChild),
                               flex: 2,
                             )
                           ],
@@ -250,14 +215,11 @@ class QIBusAddCardState extends State<QIBusAddCard> {
                         Row(
                           children: <Widget>[
                             Expanded(
-                              child: text(QIBus_text_total_amount,
-                                  fontFamily: fontMedium,
-                                  textColor: qIBus_colorPrimary),
+                              child: text(QIBus_text_total_amount, fontFamily: fontMedium, textColor: qIBus_colorPrimary),
                               flex: 2,
                             ),
                             Expanded(
-                              child: text(QIBus_lbl_price1,
-                                  textColor: qIBus_colorPrimary),
+                              child: text(QIBus_lbl_price1, textColor: qIBus_colorPrimary),
                               flex: 2,
                             )
                           ],
@@ -307,10 +269,7 @@ Container pinEditTextStyle(var hintText, {var line = 1}) {
       padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
       child: TextFormField(
         maxLines: line,
-        inputFormatters: [
-          new LengthLimitingTextInputFormatter(4),
-          WhitelistingTextInputFormatter.digitsOnly
-        ],
+        inputFormatters: [new LengthLimitingTextInputFormatter(4), WhitelistingTextInputFormatter.digitsOnly],
         style: TextStyle(
           fontSize: textSizeMedium,
           fontFamily: fontRegular,
@@ -354,39 +313,24 @@ dialogContent(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min, // To make the card compact
         children: <Widget>[
-          SizedBox(
-            height: spacing_large,
-          ),
+          SizedBox(height: spacing_large),
           Icon(
             Icons.check_circle,
             color: qIBus_color_check,
             size: 50,
           ),
-          SizedBox(
-            height: spacing_standard_new,
-          ),
+          SizedBox(height: spacing_standard_new),
           text(QIBus_text_payment_success, fontFamily: fontMedium),
           Padding(
-            padding: EdgeInsets.fromLTRB(spacing_large, 0, spacing_large, 0),
-            child: text(QIBus_msg_success,
-                textColor: qIBus_textChild, isLongText: true, isCentered: true),
+            padding: EdgeInsets.all(8.0),
+            child: Text(QIBus_msg_success, style: secondaryTextStyle(color: qIBus_textChild, size: 16), textAlign: TextAlign.center),
           ),
-          SizedBox(
-            height: spacing_standard_new,
-          ),
+          SizedBox(height: spacing_standard_new),
           Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(spacing_standard_new),
-                    bottomRight: Radius.circular(spacing_standard_new)),
-                color: qIBus_color_check),
+            decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(spacing_standard_new), bottomRight: Radius.circular(spacing_standard_new)), color: qIBus_color_check),
             width: MediaQuery.of(context).size.width,
-            padding:
-                EdgeInsets.only(top: spacing_middle, bottom: spacing_middle),
-            child: text(QIBus_text_close,
-                textColor: qIBus_white,
-                fontFamily: fontMedium,
-                isCentered: true),
+            padding: EdgeInsets.only(top: spacing_middle, bottom: spacing_middle),
+            child: text(QIBus_text_close, textColor: qIBus_white, fontFamily: fontMedium, isCentered: true),
           )
         ],
       ));

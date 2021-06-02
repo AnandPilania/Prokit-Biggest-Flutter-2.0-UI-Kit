@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class QuizCardDetails extends StatefulWidget {
   int index;
   String imageAddress;
-  String placeDetails;
+  String? placeDetails;
 
   QuizCardDetails(this.imageAddress, this.index);
 
@@ -17,7 +17,7 @@ class QuizCardDetails extends StatefulWidget {
 class QuizCardDetailsState extends State<QuizCardDetails> {
   int index;
   String imageAddress;
-  String placeDetails;
+  late String placeDetails;
 
   QuizCardDetailsState(this.imageAddress, this.index);
 

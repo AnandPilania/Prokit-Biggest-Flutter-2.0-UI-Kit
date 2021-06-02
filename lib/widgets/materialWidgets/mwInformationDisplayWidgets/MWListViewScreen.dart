@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prokit_flutter/main/model/ListModels.dart';
 import 'package:prokit_flutter/main/utils/AppWidget.dart';
+
 import '../../../main.dart';
 import 'MWListViewWidget/MWListViewScreen1.dart';
 import 'MWListViewWidget/MWListViewScreen2.dart';
@@ -31,10 +32,7 @@ class _MWListViewScreenState extends State<MWListViewScreen> {
             itemCount: example.length,
             itemBuilder: (BuildContext context, index) {
               return ExampleItemWidget(example[index], onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => example[index].widget));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => example[index].widget!));
               });
             }));
   }

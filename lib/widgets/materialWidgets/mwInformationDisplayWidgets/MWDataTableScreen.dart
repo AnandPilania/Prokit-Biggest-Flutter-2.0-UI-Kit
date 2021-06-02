@@ -10,7 +10,7 @@ class MWDataTableScreen extends StatefulWidget {
 }
 
 class MWDataTableScreenState extends State<MWDataTableScreen> {
-  bool sort;
+  late bool sort;
   List<user> selectedList = [];
   List<user> userdetails1 = [
     user(
@@ -97,9 +97,9 @@ class MWDataTableScreenState extends State<MWDataTableScreen> {
     ),
   ];
 
-  onSelectedRow(bool selected, user data) async {
+  onSelectedRow(bool? selected, user data) async {
     setState(() {
-      if (selected) {
+      if (selected!) {
         selectedList.add(data);
       } else {
         selectedList.remove(data);
@@ -110,9 +110,9 @@ class MWDataTableScreenState extends State<MWDataTableScreen> {
   onSortColumn(int columnIndex, bool ascending) {
     if (columnIndex == 1) {
       if (ascending) {
-        userdetails1.sort((a, b) => a.name.compareTo(b.name));
+        userdetails1.sort((a, b) => a.name!.compareTo(b.name!));
       } else {
-        userdetails1.sort((a, b) => b.name.compareTo(a.name));
+        userdetails1.sort((a, b) => b.name!.compareTo(a.name!));
       }
     }
   }
@@ -164,12 +164,12 @@ class MWDataTableScreenState extends State<MWDataTableScreen> {
                     .map(
                       (data) => DataRow(
                         cells: [
-                          DataCell(Text(data.rank, style: secondaryTextStyle())),
-                          DataCell(Text(data.name, style: secondaryTextStyle())),
-                          DataCell(Text(data.email, style: secondaryTextStyle())),
-                          DataCell(Text(data.designation, style: secondaryTextStyle())),
-                          DataCell(Text(data.birthday, style: secondaryTextStyle())),
-                          DataCell(Text(data.location, style: secondaryTextStyle())),
+                          DataCell(Text(data.rank!, style: secondaryTextStyle())),
+                          DataCell(Text(data.name!, style: secondaryTextStyle())),
+                          DataCell(Text(data.email!, style: secondaryTextStyle())),
+                          DataCell(Text(data.designation!, style: secondaryTextStyle())),
+                          DataCell(Text(data.birthday!, style: secondaryTextStyle())),
+                          DataCell(Text(data.location!, style: secondaryTextStyle())),
                         ],
                       ),
                     )
@@ -198,12 +198,12 @@ class MWDataTableScreenState extends State<MWDataTableScreen> {
                             toast(data.name);
                           },
                           cells: [
-                            DataCell(Text(data.rank, style: secondaryTextStyle())),
-                            DataCell(Text(data.name, style: secondaryTextStyle())),
-                            DataCell(Text(data.email, style: secondaryTextStyle())),
-                            DataCell(Text(data.designation, style: secondaryTextStyle())),
-                            DataCell(Text(data.birthday, style: secondaryTextStyle())),
-                            DataCell(Text(data.location, style: secondaryTextStyle())),
+                            DataCell(Text(data.rank!, style: secondaryTextStyle())),
+                            DataCell(Text(data.name!, style: secondaryTextStyle())),
+                            DataCell(Text(data.email!, style: secondaryTextStyle())),
+                            DataCell(Text(data.designation!, style: secondaryTextStyle())),
+                            DataCell(Text(data.birthday!, style: secondaryTextStyle())),
+                            DataCell(Text(data.location!, style: secondaryTextStyle())),
                           ],
                         ),
                       )
@@ -237,12 +237,12 @@ class MWDataTableScreenState extends State<MWDataTableScreen> {
                     .map(
                       (data) => DataRow(
                         cells: [
-                          DataCell(Text(data.rank, style: secondaryTextStyle())),
-                          DataCell(Text(data.name, style: secondaryTextStyle())),
-                          DataCell(Text(data.email, style: secondaryTextStyle())),
-                          DataCell(Text(data.designation, style: secondaryTextStyle())),
-                          DataCell(Text(data.birthday, style: secondaryTextStyle())),
-                          DataCell(Text(data.location, style: secondaryTextStyle())),
+                          DataCell(Text(data.rank!, style: secondaryTextStyle())),
+                          DataCell(Text(data.name!, style: secondaryTextStyle())),
+                          DataCell(Text(data.email!, style: secondaryTextStyle())),
+                          DataCell(Text(data.designation!, style: secondaryTextStyle())),
+                          DataCell(Text(data.birthday!, style: secondaryTextStyle())),
+                          DataCell(Text(data.location!, style: secondaryTextStyle())),
                         ],
                       ),
                     )
@@ -256,13 +256,14 @@ class MWDataTableScreenState extends State<MWDataTableScreen> {
   }
 }
 
+// ignore: camel_case_types
 class user {
-  String rank;
-  String name;
-  String email;
-  String designation;
-  String birthday;
-  String location;
+  String? rank;
+  String? name;
+  String? email;
+  String? designation;
+  String? birthday;
+  String? location;
 
   user({this.rank, this.name, this.email, this.designation, this.birthday, this.location});
 }

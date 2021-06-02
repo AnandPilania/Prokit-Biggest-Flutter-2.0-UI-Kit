@@ -1,12 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
-import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/integrations/utils/DefaultLayout.dart';
-import 'package:prokit_flutter/integrations/utils/colors.dart';
-import 'package:prokit_flutter/integrations/utils/common.dart';
-import 'package:prokit_flutter/main/utils/AppConstant.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/main/utils/AppColors.dart';
 
 class LiquidSwipeScreen extends StatefulWidget {
   static String tag = '/LiquidSwipeScreen';
@@ -16,11 +13,7 @@ class LiquidSwipeScreen extends StatefulWidget {
 }
 
 class LiquidSwipeScreenState extends State<LiquidSwipeScreen> {
-  List<String> titles = [
-    "Discover place near you",
-    "Most Delicious Dishes!",
-    "Just make an order!"
-  ];
+  List<String> titles = ["Discover place near you", "Most Delicious Dishes!", "Just make an order!"];
   var subTitles = [
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry.This is simply text ",
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry.This is simply text  ",
@@ -29,7 +22,7 @@ class LiquidSwipeScreenState extends State<LiquidSwipeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(primaryColor);
+    changeStatusColor(appColorPrimary);
     final pages = [
       DefaultLayout(
         title: titles[0],

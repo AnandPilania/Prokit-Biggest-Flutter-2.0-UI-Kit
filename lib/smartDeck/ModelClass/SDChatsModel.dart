@@ -1,9 +1,9 @@
 class SDChatsModel {
-  String profileImage;
-  String name;
-  String message;
-  String time;
-  String pendingMessages;
+  String? profileImage;
+  String? name;
+  String? message;
+  String? time;
+  String? pendingMessages;
 
   SDChatsModel({
     this.profileImage,

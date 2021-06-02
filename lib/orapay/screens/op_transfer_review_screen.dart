@@ -1,8 +1,7 @@
-
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/orapay/utils/Colors.dart';
 import 'package:prokit_flutter/orapay/utils/Style.dart';
-
 
 class OPTransferReviewScreen extends StatefulWidget {
   @override
@@ -16,7 +15,7 @@ class _OPTransferReviewScreenState extends State<OPTransferReviewScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: getAppBar('Transfer', pressed: () {
-          Navigator.pop(context);
+          finish(context);
         }),
         body: Container(
           child: Column(
@@ -25,7 +24,7 @@ class _OPTransferReviewScreenState extends State<OPTransferReviewScreen> {
               Column(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.only(left: 16,right: 16,top: 24,bottom: 24),
+                    padding: EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 24),
                     margin: EdgeInsets.all(16),
                     width: size.width,
                     decoration: boxDecoration(radius: 16),
@@ -36,8 +35,7 @@ class _OPTransferReviewScreenState extends State<OPTransferReviewScreen> {
                       children: <Widget>[
                         Text(
                           '₹250.00',
-                          style:
-                              boldTextStyle(textColor: Colors.white, size: 26),
+                          style: boldTextStyle(color: Colors.white, size: 26),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(16.0),
@@ -47,7 +45,7 @@ class _OPTransferReviewScreenState extends State<OPTransferReviewScreen> {
                         ),
                         Text(
                           'Jennieyourbae@gmail.com',
-                          style: primaryTextStyle(textColor: Colors.white70),
+                          style: primaryTextStyle(color: Colors.white70),
                         ),
                       ],
                     ),
@@ -57,8 +55,7 @@ class _OPTransferReviewScreenState extends State<OPTransferReviewScreen> {
                     width: double.infinity,
                     height: 60,
                     margin: EdgeInsets.all(16),
-                    decoration: boxDecoration(
-                        backGroundColor: opOrangeColor, radius: 15),
+                    decoration: boxDecoration(backGroundColor: opOrangeColor, radius: 15),
                     child: Row(
                       children: <Widget>[
                         Container(
@@ -79,8 +76,7 @@ class _OPTransferReviewScreenState extends State<OPTransferReviewScreen> {
                         ),
                         Text(
                           "Add note",
-                          style:
-                              primaryTextStyle(textColor: Colors.white),
+                          style: primaryTextStyle(color: Colors.white),
                         ),
                       ],
                     ),
@@ -107,7 +103,7 @@ class _OPTransferReviewScreenState extends State<OPTransferReviewScreen> {
                             title: Image.asset('images/orapay/opthanks.png'),
                             actions: <Widget>[
                               // usually buttons at the bottom of the dialog
-                              FlatButton(
+                              TextButton(
                                 child: new Text("CLOSE"),
                                 onPressed: () {
                                   Navigator.of(context).pop();
@@ -121,8 +117,7 @@ class _OPTransferReviewScreenState extends State<OPTransferReviewScreen> {
                     child: Text(
                       "Review",
                       textAlign: TextAlign.center,
-                      style:
-                          primaryTextStyle(size: 16, textColor: Colors.white),
+                      style: primaryTextStyle(size: 16, color: Colors.white),
                     ),
                   ),
                 ),

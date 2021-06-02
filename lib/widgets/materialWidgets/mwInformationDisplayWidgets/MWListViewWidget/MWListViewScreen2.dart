@@ -20,9 +20,8 @@ class _MWListViewScreen2State extends State<MWListViewScreen2> {
         body: ListWheelScrollView.useDelegate(
           physics: FixedExtentScrollPhysics(),
           itemExtent: 75,
-          childDelegate: ListWheelChildBuilderDelegate(
-              builder: (BuildContext context, int index) {
-            if (index < 0 || index > 20) {
+          childDelegate: ListWheelChildBuilderDelegate(builder: (BuildContext context, int index) {
+            if (index < 0 || index > 30) {
               return null;
             }
             return ListTile(
@@ -223,5 +222,53 @@ List<DataModel> dataList = [
   DataModel(
     images: Icons.local_library,
     name: 'Library',
+  ),
+  DataModel(
+    images: Icons.local_printshop,
+    name: 'PrintShop',
+  ),
+  DataModel(
+    images: Icons.person,
+    name: 'Account',
+  ),
+  DataModel(
+    images: Icons.share,
+    name: 'Share',
+  ),
+  DataModel(
+    images: Icons.favorite_border,
+    name: 'Favourite',
+  ),
+  DataModel(
+    images: Icons.local_gas_station,
+    name: 'Gas Station',
+  ),
+  DataModel(
+    images: Icons.local_post_office,
+    name: 'Post Office',
+  ),
+  DataModel(
+    images: Icons.local_mall,
+    name: 'Mall',
+  ),
+  DataModel(
+    images: Icons.local_bar,
+    name: 'Bar',
+  ),
+  DataModel(
+    images: Icons.local_cafe,
+    name: 'Cafe',
+  ),
+  DataModel(
+    images: Icons.local_car_wash,
+    name: 'Car Wash',
+  ),
+  DataModel(
+    images: Icons.schedule,
+    name: 'Schedule',
+  ),
+  DataModel(
+    images: Icons.shopping_cart,
+    name: 'Shopping Cart',
   ),
 ];

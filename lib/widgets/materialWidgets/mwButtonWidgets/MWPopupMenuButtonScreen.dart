@@ -50,24 +50,27 @@ class MWPopupMenuButtonScreenState extends State<MWPopupMenuButtonScreen> {
                         Icons.more_vert,
                         color: appStore.textPrimaryColor,
                       ),
+                      onSelected: (dynamic value) {
+                        toast(value);
+                      },
                       itemBuilder: (context) {
-                        var list = List<PopupMenuEntry<Object>>();
+                        List<PopupMenuEntry<Object>> list = [];
                         list.add(
                           PopupMenuItem(
                             child: Text("Mark as read"),
-                            value: 1,
+                            value: 'Mark as read',
                           ),
                         );
                         list.add(
                           PopupMenuItem(
                             child: Text("Mute Notification"),
-                            value: 1,
+                            value: ' Mute Notification',
                           ),
                         );
                         list.add(
                           PopupMenuItem(
                             child: Text("Settings"),
-                            value: 1,
+                            value: 'Settings',
                           ),
                         );
                         return list;
@@ -86,12 +89,12 @@ class MWPopupMenuButtonScreenState extends State<MWPopupMenuButtonScreen> {
                         Icons.more_vert,
                         color: appStore.textPrimaryColor,
                       ),
-                      onSelected: (value) {
+                      onSelected: (dynamic value) {
                         toast(value);
                       },
                       offset: Offset(0, 100),
                       itemBuilder: (context) {
-                        var list = List<PopupMenuEntry<Object>>();
+                        List<PopupMenuEntry<Object>>  list = [];
                         list.add(
                           PopupMenuItem(
                             child: Text("Select Language"),
@@ -148,12 +151,12 @@ class MWPopupMenuButtonScreenState extends State<MWPopupMenuButtonScreen> {
                         Icons.more_vert,
                         color: appStore.textPrimaryColor,
                       ),
-                      onSelected: (value) {
+                      onSelected: (dynamic value) {
                         toast(value);
                       },
                       offset: Offset(0, 100),
                       itemBuilder: (context) {
-                        var list = List<PopupMenuEntry<Object>>();
+                        List<PopupMenuEntry<Object>> list = [];
                         list.add(
                           PopupMenuItem(
                             child: ListTile(

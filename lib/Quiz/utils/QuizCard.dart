@@ -8,7 +8,7 @@ class Quiz {
   var option4;
 
   var cardImage;
-  double topMargin;
+  double? topMargin;
 
   Quiz(String imagePath, String o1, String o2, String o3, String o4, double marginTop) {
     option1 = o1;

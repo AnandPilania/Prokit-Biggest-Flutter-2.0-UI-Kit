@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/Quiz/Screens/QuizDashboard.dart';
-import 'package:prokit_flutter/Quiz/Screens/QuizVerifcation.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizColors.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizConstant.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizExtension.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizStrings.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizWidget.dart';
-import 'package:prokit_flutter/Quiz/utils/codePicker/country_code_picker.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/main/utils/codePicker/country_code_picker.dart';
+import 'package:prokit_flutter/quiz/Screens/QuizDashboard.dart';
+import 'package:prokit_flutter/quiz/Screens/QuizVerifcation.dart';
+import 'package:prokit_flutter/quiz/utils/QuizColors.dart';
+import 'package:prokit_flutter/quiz/utils/QuizConstant.dart';
+import 'package:prokit_flutter/quiz/utils/QuizStrings.dart';
+import 'package:prokit_flutter/quiz/utils/QuizWidget.dart';
 
 class QuizMobileVerify extends StatefulWidget {
   static String tag = '/QuizMobileVerify';
@@ -38,7 +38,7 @@ class _QuizMobileVerifyState extends State<QuizMobileVerify> {
               child: GestureDetector(
                   onTap: () {
                     setState(() {
-                      launchScreen(context, QuizDashboard.tag);
+                      QuizDashboard().launch(context);
                     });
                   },
                   child: text(quiz_lbl_skip, textColor: quiz_textColorSecondary, fontSize: textSizeMedium, fontFamily: fontMedium).center())),
@@ -95,7 +95,7 @@ class _QuizMobileVerifyState extends State<QuizMobileVerify> {
                       text(quiz_lbl_sign_in, textColor: quiz_colorPrimary, textAllCaps: true),
                     ],
                   ).onTap(() {
-                    Navigator.popUntil(context, ModalRoute.withName('/'));
+                    finish(context);
                   }),
                 ).onTap(() {
                   Navigator.of(context).pop();
@@ -107,7 +107,7 @@ class _QuizMobileVerifyState extends State<QuizMobileVerify> {
                     textContent: quiz_lbl_continue,
                     onPressed: () {
                       setState(() {
-                        launchScreen(context, QuizVerification.tag);
+                        QuizVerification().launch(context);
                       });
                     },
                   ),

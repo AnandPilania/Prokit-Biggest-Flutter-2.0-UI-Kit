@@ -5,10 +5,11 @@ import 'package:prokit_flutter/muvi/utils/flix_app_localizations.dart';
 import 'package:prokit_flutter/muvi/utils/flix_app_widgets.dart';
 import 'package:prokit_flutter/muvi/utils/flix_constants.dart';
 import 'package:prokit_flutter/muvi/utils/flix_data_generator.dart';
-import 'package:prokit_flutter/muvi/utils/flix_widget_extensions.dart';
+
 import 'package:prokit_flutter/muvi/utils/resources/flix_colors.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_images.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_size.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class SearchFragment extends StatefulWidget {
   static String tag = '/SearchFragment';
@@ -20,8 +21,8 @@ class SearchFragment extends StatefulWidget {
 class SearchFragmentState extends State<SearchFragment> {
   TextEditingController controller = TextEditingController();
   bool isLoading = false;
-  var popularMovieList = List<Movie>();
-  var searchResults = List<Movie>();
+  List<Movie> popularMovieList = [];
+  List<Movie> searchResults = [];
   var searchText = "";
 
   showLoading(bool show) {
@@ -118,7 +119,7 @@ class SearchFragmentState extends State<SearchFragment> {
                   searchItems();
                 },
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Image.asset(
                     ic_search,
                     color: muvi_colorPrimary,
@@ -147,16 +148,7 @@ class SearchFragmentState extends State<SearchFragment> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Card(
-                      semanticContainer: true,
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      elevation: spacing_control_half,
-                      margin: EdgeInsets.all(0),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(spacing_control_half),
-                      ),
-                      child: networkImage(popularMovieList[index].slideImage, aWidth: (width * 0.5) - 42, aHeight: ((width * 0.5) - 42) * (2.5 / 4)),
-                    ).paddingRight(10),
+                    networkImage(popularMovieList[index].slideImage, aWidth: (width * 0.5) - 42, aHeight: ((width * 0.5) - 42) * (2.5 / 4)).cornerRadiusWithClipRRect(8).paddingRight(10),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -179,7 +171,7 @@ class SearchFragmentState extends State<SearchFragment> {
     var searchResultLayout = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        headingText(context, keyString(context, "result_for") + " \'" + searchText + "\'").paddingOnly(left: spacing_standard_new, right: spacing_standard_new, top: spacing_standard_new, bottom: 12),
+        headingText(context, keyString(context, "result_for")! + " \'" + searchText + "\'").paddingOnly(left: spacing_standard_new, right: spacing_standard_new, top: spacing_standard_new, bottom: 12),
         Expanded(child: searchResultList)
       ],
     );

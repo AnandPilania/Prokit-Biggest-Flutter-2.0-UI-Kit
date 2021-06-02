@@ -1,12 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/Learner/model/LearnerModels.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerColors.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerConstant.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerDataGenerator.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerExtension.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerStrings.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerWidget.dart';
+import 'package:prokit_flutter/learner/model/LearnerModels.dart';
+import 'package:prokit_flutter/learner/utils/LearnerColors.dart';
+import 'package:prokit_flutter/learner/utils/LearnerConstant.dart';
+import 'package:prokit_flutter/learner/utils/LearnerDataGenerator.dart';
+import 'package:prokit_flutter/learner/utils/LearnerStrings.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class LearnerHome extends StatefulWidget {
   @override
@@ -14,8 +13,8 @@ class LearnerHome extends StatefulWidget {
 }
 
 class _LearnerHomeState extends State<LearnerHome> {
-  List<LearnerFeaturedModel> mList1;
-  List<LearnerCategoryModel> mList2;
+  late List<LearnerFeaturedModel> mList1;
+  late List<LearnerCategoryModel> mList2;
 
   @override
   void initState() {
@@ -37,8 +36,7 @@ class _LearnerHomeState extends State<LearnerHome> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                text(learner_lbl_featured,
-                    fontFamily: fontBold, fontSize: textSizeNormal),
+                text(learner_lbl_featured, fontFamily: fontBold, fontSize: textSizeNormal),
                 text(
                   learner_lbl_see_all,
                   textColor: learner_colorPrimary,
@@ -50,20 +48,19 @@ class _LearnerHomeState extends State<LearnerHome> {
           ),
           Container(
             alignment: Alignment.center,
-            height: 265,
+            height: 270,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: mList1.length,
               shrinkWrap: true,
+              padding: EdgeInsets.only(right: 16),
               itemBuilder: (context, index) {
                 return LearnerFeatured(mList1[index], index);
               },
             ),
           ),
-          Container(
-              margin: EdgeInsets.only(left: 16),
-              child: text(learner_lbl_categories,
-                  fontFamily: fontBold, fontSize: textSizeNormal)),
+          SizedBox(height: 20),
+          Container(margin: EdgeInsets.only(left: 16), child: text(learner_lbl_categories, fontFamily: fontBold, fontSize: textSizeNormal)),
           SizedBox(height: 20),
           GridView.builder(
             scrollDirection: Axis.vertical,
@@ -77,9 +74,7 @@ class _LearnerHomeState extends State<LearnerHome> {
               crossAxisCount: 3,
             ),
           ),
-          SizedBox(
-            height: 20,
-          ),
+          SizedBox(height: 20),
         ],
       ),
     );
@@ -87,7 +82,7 @@ class _LearnerHomeState extends State<LearnerHome> {
 }
 
 class LearnerFeatured extends StatelessWidget {
-  LearnerFeaturedModel model;
+  late LearnerFeaturedModel model;
 
   LearnerFeatured(LearnerFeaturedModel model, int pos) {
     this.model = model;
@@ -96,6 +91,7 @@ class LearnerFeatured extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var w = MediaQuery.of(context).size.width;
+
     return Container(
       width: MediaQuery.of(context).size.width * 0.35,
       margin: EdgeInsets.only(left: 16),
@@ -103,25 +99,23 @@ class LearnerFeatured extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           ClipRRect(
-            borderRadius: new BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(8.0),
             child: CachedNetworkImage(
+              placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
               imageUrl: model.img,
               fit: BoxFit.cover,
               height: w * 0.4,
               width: MediaQuery.of(context).size.width,
             ),
           ),
-          SizedBox(
-            height: 4,
-          ),
+          SizedBox(height: 4),
           Padding(
-            padding: const EdgeInsets.only(left: 4, right: 4),
+            padding: EdgeInsets.only(left: 4, right: 4),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                text(model.name,
-                    fontFamily: fontMedium, isLongText: true, maxLine: 2),
+                text(model.name, fontFamily: fontMedium, isLongText: false, maxLine: 2),
                 text(model.price, textColor: learner_textColorSecondary),
               ],
             ),
@@ -133,7 +127,7 @@ class LearnerFeatured extends StatelessWidget {
 }
 
 class LearnerCategory extends StatelessWidget {
-  LearnerCategoryModel model;
+  late LearnerCategoryModel model;
 
   LearnerCategory(LearnerCategoryModel model, int pos) {
     this.model = model;
@@ -160,14 +154,8 @@ class LearnerCategory extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 4,
-              ),
-              Container(
-                  margin: EdgeInsets.only(
-                    bottom: 16,
-                  ),
-                  child: text(model.name)),
+              SizedBox(height: 4),
+              Container(margin: EdgeInsets.only(bottom: 16), child: text(model.name)),
             ],
           ),
         ),

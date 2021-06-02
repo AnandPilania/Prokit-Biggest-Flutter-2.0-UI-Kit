@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lipsum/lipsum.dart' as lipsum;
+import 'package:prokit_flutter/main/utils/Lipsum.dart' as lipsum;
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/integrations/utils/colors.dart';
-import 'package:prokit_flutter/integrations/utils/common.dart';
 import 'package:prokit_flutter/integrations/utils/styles.dart';
+import 'package:prokit_flutter/main/utils/AppColors.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class CardScreen extends StatefulWidget {
   static String tag = '/CardScreen';
@@ -16,10 +15,10 @@ class CardScreen extends StatefulWidget {
 class CardScreenState extends State<CardScreen> {
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(primaryColor);
+    changeStatusColor(appColorPrimary);
 
     return Scaffold(
-      appBar: getAppBar(context, "Cards"),
+      appBar: appBar(context, "Cards"),
       body: Center(
         child: ListView(
           children: <Widget>[
@@ -60,7 +59,7 @@ class CardScreenState extends State<CardScreen> {
               SizedBox(height: 10),
               Padding(
                 padding: EdgeInsets.only(left: 16, right: 16),
-                child: textSecondary(lipsum.createParagraph(numSentences: 3), size: 16),
+                child: Text(lipsum.createParagraph(numSentences: 3), style: secondaryTextStyle()),
               ),
               SizedBox(height: 20),
             ],
@@ -92,7 +91,10 @@ class CardScreenState extends State<CardScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[textSecondary('Feb 27, 2020'), Icon(Icons.date_range, color: textSecondaryColor)],
+                  children: <Widget>[
+                    Text('Feb 27, 2020', style: secondaryTextStyle()),
+                    Icon(Icons.date_range, color: textSecondaryColor),
+                  ],
                 ),
               )
             ],

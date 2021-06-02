@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/shophop/screens/ShEmailScreen.dart';
-import 'package:prokit_flutter/shophop/utils/ShColors.dart';
-import 'package:prokit_flutter/shophop/utils/ShConstant.dart';
-import 'package:prokit_flutter/shophop/utils/ShExtension.dart';
-import 'package:prokit_flutter/shophop/utils/ShStrings.dart';
-import 'package:prokit_flutter/shophop/utils/ShWidget.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/shopHop/screens/ShEmailScreen.dart';
+import 'package:prokit_flutter/shopHop/utils/ShColors.dart';
+import 'package:prokit_flutter/shopHop/utils/ShConstant.dart';
+import 'package:prokit_flutter/shopHop/utils/ShStrings.dart';
+import 'package:prokit_flutter/shopHop/utils/ShWidget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ShContactUsScreen extends StatefulWidget {
@@ -56,7 +57,7 @@ class ShContactUsScreenState extends State<ShContactUsScreen> {
             SizedBox(height: spacing_standard_new),
             InkWell(
               onTap: () {
-                launchScreen(context, ShEmailScreen.tag);
+                ShEmailScreen().launch(context);
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

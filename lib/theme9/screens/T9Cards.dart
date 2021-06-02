@@ -1,12 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme9/models/T9Models.dart';
 import 'package:prokit_flutter/theme9/utils/T9Colors.dart';
 import 'package:prokit_flutter/theme9/utils/T9Constant.dart';
 import 'package:prokit_flutter/theme9/utils/T9DataGenerator.dart';
 import 'package:prokit_flutter/theme9/utils/T9Images.dart';
 import 'package:prokit_flutter/theme9/utils/T9Strings.dart';
-import 'package:prokit_flutter/theme9/utils/T9Widget.dart';
+
+import '../../main.dart';
 
 class T9Cards extends StatefulWidget {
   static String tag = '/T9Cards';
@@ -16,7 +18,7 @@ class T9Cards extends StatefulWidget {
 }
 
 class _T9CardsState extends State<T9Cards> {
-  List<T9FeaturedModel> mListings1;
+  late List<T9FeaturedModel> mListings1;
 
   @override
   void initState() {
@@ -32,26 +34,19 @@ class _T9CardsState extends State<T9Cards> {
         Expanded(
           child: Container(
             margin: EdgeInsets.only(left: 16),
-            child: text(t9_lbl_favourites,
-                fontFamily: fontBold, fontSize: textSizeNormal),
+            child: text(t9_lbl_favourites, textColor: appStore.textPrimaryColor, fontFamily: fontBold, fontSize: textSizeNormal),
           ),
         ),
         Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Stack(
-              alignment: Alignment.center,
-              children: <Widget>[
-                CachedNetworkImage(
-                  imageUrl: t9_ic_fab_back,
-                  width: 40,
-                  height: 40,
-                ),
-                Icon(
-                  Icons.search,
-                  color: t9_colorPrimary,
-                )
-              ],
-            )),
+          padding: EdgeInsets.all(16.0),
+          child: Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+              CachedNetworkImage(placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?, imageUrl: t9_ic_fab_back, width: 40, height: 40),
+              Icon(Icons.search, color: t9_colorPrimary),
+            ],
+          ),
+        ),
       ],
     );
 
@@ -61,12 +56,8 @@ class _T9CardsState extends State<T9Cards> {
         itemCount: mListings1.length,
         itemBuilder: (context, index) {
           return Container(
-            decoration: boxDecoration(
-                showShadow: true, bgColor: t9_white, radius: 10.0),
+            decoration: boxDecoration(showShadow: true, bgColor: appStore.scaffoldBackground, radius: 10.0),
             margin: EdgeInsets.only(left: 16, right: 16, bottom: 16),
-
-            // .cornerRadiusWithClipRRect(10.0) .withShadow() .paddingOnly(top: 8,left: 16,right: 16,bottom: 8)
-            //     color: t9_white,
             child: Padding(
               padding: EdgeInsets.all(16.0),
               child: Row(
@@ -75,11 +66,7 @@ class _T9CardsState extends State<T9Cards> {
                 children: <Widget>[
                   ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(25.0)),
-                    child: CachedNetworkImage(
-                        imageUrl: mListings1[index].img,
-                        height: 50,
-                        width: 50,
-                        fit: BoxFit.fill),
+                    child: CachedNetworkImage(placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?, imageUrl: mListings1[index].img, height: 50, width: 50, fit: BoxFit.fill),
                   ),
                   SizedBox(width: 10),
                   Expanded(
@@ -95,10 +82,10 @@ class _T9CardsState extends State<T9Cards> {
                                   text(
                                     mListings1[index].name,
                                     fontFamily: fontBold,
+                                    textColor: appStore.textPrimaryColor,
                                   ),
                                   SizedBox(height: 4),
-                                  text(mListings1[index].type,
-                                      textColor: t9_textColorSecondary),
+                                  text(mListings1[index].type, textColor: appStore.textSecondaryColor),
                                 ],
                               ),
                             ),
@@ -115,10 +102,10 @@ class _T9CardsState extends State<T9Cards> {
                                 text(
                                   "20",
                                   fontFamily: fontBold,
+                                  textColor: appStore.textSecondaryColor,
                                 ),
                                 SizedBox(height: 4),
-                                text("Students",
-                                    textColor: t9_textColorSecondary),
+                                text("Students", textColor: appStore.textSecondaryColor),
                               ],
                             ),
                             SizedBox(width: 10),
@@ -129,21 +116,17 @@ class _T9CardsState extends State<T9Cards> {
                                   text(
                                     "51",
                                     fontFamily: fontBold,
+                                    textColor: appStore.textSecondaryColor,
                                   ),
                                   SizedBox(height: 4),
-                                  text("Lectures",
-                                      textColor: t9_textColorSecondary),
+                                  text("Lectures", textColor: appStore.textSecondaryColor),
                                 ],
                               ),
                             ),
                             Container(
                               padding: EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(8))),
-                              child: text(mListings1[index].price,
-                                  textColor: t9_white),
+                              decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.all(Radius.circular(8))),
+                              child: text(mListings1[index].price, textColor: t9_white),
                             )
                           ],
                         )
@@ -158,7 +141,7 @@ class _T9CardsState extends State<T9Cards> {
 
     return SafeArea(
       child: Scaffold(
-          backgroundColor: t9_layout_background,
+          backgroundColor: appStore.scaffoldBackground,
           body: ListView(
             shrinkWrap: true,
             children: <Widget>[
@@ -168,10 +151,7 @@ class _T9CardsState extends State<T9Cards> {
                 width: MediaQuery.of(context).size.width,
                 height: 50,
                 child: IconButton(
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: t9_colorPrimary,
-                  ),
+                  icon: Icon(Icons.arrow_back, color: t9_colorPrimary),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },

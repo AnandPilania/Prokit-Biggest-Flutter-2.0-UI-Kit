@@ -1,26 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/main/utils/sticky_header/sticky_headers/widget.dart';
 
 class SimpleHeaders extends StatelessWidget {
+  static String tag = '/SimpleHeaders';
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color(0xFF8998FF),
-          title: Text('Headers and Content'),
-          leading: InkWell(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              child: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
+        appBar: appBar(context, 'Headers and Content'),
         body: ListView.builder(
           itemBuilder: (context, index) {
             return StickyHeader(
@@ -35,11 +24,7 @@ class SimpleHeaders extends StatelessWidget {
                 ),
               ),
               content: Container(
-                child: Image.network(
-                    'https://killerattitudestatus.in/wp-content/uploads/2019/12/gud-night-images.jpg',
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                    height: 200.0),
+                child: Image.network('https://killerattitudestatus.in/wp-content/uploads/2019/12/gud-night-images.jpg', fit: BoxFit.cover, width: double.infinity, height: 200.0),
               ),
             );
           },

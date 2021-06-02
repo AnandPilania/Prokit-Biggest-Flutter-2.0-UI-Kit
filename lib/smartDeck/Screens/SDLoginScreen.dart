@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/smartDeck/SDUtils/SDColors.dart';
 import 'package:prokit_flutter/smartDeck/SDUtils/SDStyle.dart';
 import 'package:prokit_flutter/smartDeck/Screens/SDForgotPwdScreen.dart';
@@ -26,25 +28,13 @@ class _SDLoginScreenState extends State<SDLoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    'Easy to learn \nanywhere and anytime',
-                    style: boldTextStyle(size: 25),
-                  ),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  Text(
-                    'Sign in to your account',
-                    style: secondaryTextStyle(size: 16),
-                  ),
-                  SizedBox(
-                    height: 25,
-                  ),
+                  Text('Easy to learn \nanywhere and anytime', style: boldTextStyle(size: 25)),
+                  SizedBox(height: 25),
+                  Text('Sign in to your account', style: secondaryTextStyle(size: 16)),
+                  SizedBox(height: 25),
                   Container(
                     width: size.width,
-                    decoration: boxDecorations(
-                      showShadow: true,
-                    ),
+                    decoration: boxDecorations(showShadow: true),
                     child: Column(
                       children: <Widget>[
                         TextField(
@@ -54,62 +44,42 @@ class _SDLoginScreenState extends State<SDLoginScreen> {
                           autofocus: false,
                           decoration: InputDecoration(
                             hintText: 'Username or Mobile number',
-                            hintStyle: secondaryTextStyle(
-                                textColor:
-                                    sdTextSecondaryColor.withOpacity(0.6)),
+                            hintStyle: secondaryTextStyle(color: sdTextSecondaryColor.withOpacity(0.6)),
                             border: InputBorder.none,
                             focusedBorder: InputBorder.none,
                             enabledBorder: InputBorder.none,
                             errorBorder: InputBorder.none,
                             disabledBorder: InputBorder.none,
-                            contentPadding: EdgeInsets.only(
-                                left: 16, bottom: 16, top: 16, right: 16),
+                            contentPadding: EdgeInsets.only(left: 16, bottom: 16, top: 16, right: 16),
                           ),
                         ),
-                        Divider(
-                          height: 1,
-                          thickness: 1,
-                        ),
+                        Divider(height: 1, thickness: 1),
                         Row(
                           children: <Widget>[
                             Flexible(
                               child: TextField(
                                 obscureText: true,
-                                cursorColor:
-                                    sdTextSecondaryColor.withOpacity(0.2),
+                                cursorColor: sdTextSecondaryColor.withOpacity(0.2),
                                 cursorWidth: 1,
                                 decoration: InputDecoration(
                                   hintText: 'Password',
-                                  hintStyle: secondaryTextStyle(
-                                    textColor:
-                                        sdTextSecondaryColor.withOpacity(0.6),
-                                  ),
+                                  hintStyle: secondaryTextStyle(color: sdTextSecondaryColor.withOpacity(0.6)),
                                   border: InputBorder.none,
                                   focusedBorder: InputBorder.none,
                                   enabledBorder: InputBorder.none,
                                   errorBorder: InputBorder.none,
                                   disabledBorder: InputBorder.none,
-                                  contentPadding: EdgeInsets.only(
-                                      left: 16, bottom: 16, top: 16, right: 16),
+                                  contentPadding: EdgeInsets.only(left: 16, bottom: 16, top: 16, right: 16),
                                 ),
                               ),
                             ),
                             GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => SDForgotPwdScreen(),
-                                  ),
-                                );
+                                SDForgotPwdScreen().launch(context);
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 16),
-                                child: Text(
-                                  'Forgot?',
-                                  style: boldTextStyle(
-                                      size: 14, textColor: sdPrimaryColor),
-                                ),
+                                child: Text('Forgot?', style: boldTextStyle(size: 14, color: sdPrimaryColor)),
                               ),
                             ),
                           ],
@@ -117,23 +87,14 @@ class _SDLoginScreenState extends State<SDLoginScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 45,
-                  ),
+                  SizedBox(height: 45),
                   SDButton(
                     textContent: "SIGN IN",
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SDHomePageScreen(),
-                        ),
-                      );
+                      SDHomePageScreen().launch(context);
                     },
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: 20),
                 ],
               ),
             ),
@@ -148,23 +109,12 @@ class _SDLoginScreenState extends State<SDLoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Don\'t have an account?',
-                  style: secondaryTextStyle(),
-                ),
-                FlatButton(
+                Text('Don\'t have an account?', style: secondaryTextStyle()),
+                TextButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => sdRegisterScreen(),
-                      ),
-                    );
+                    sdRegisterScreen().launch(context);
                   },
-                  child: Text(
-                    'REGISTER',
-                    style: boldTextStyle(size: 14, textColor: sdPrimaryColor),
-                  ),
+                  child: Text('REGISTER', style: boldTextStyle(size: 14, color: sdPrimaryColor)),
                 ),
               ],
             ),

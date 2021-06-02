@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme4/utils/T4Colors.dart';
-import 'package:prokit_flutter/theme4/utils/T4Extension.dart';
 import 'package:prokit_flutter/theme4/utils/T4Images.dart';
 import 'package:prokit_flutter/theme4/utils/T4Strings.dart';
 import 'package:prokit_flutter/theme4/utils/widgets/T4Button.dart';
@@ -35,8 +35,7 @@ class T4SignUpState extends State<T4SignUp> {
             width: width,
             height: height,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  colors: <Color>[Color(0XD5160336), Color(0XD5160336)]),
+              gradient: LinearGradient(colors: <Color>[Color(0XD5160336), Color(0XD5160336)]),
             ),
           ),
           SafeArea(

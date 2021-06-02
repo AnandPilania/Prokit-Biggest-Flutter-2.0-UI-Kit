@@ -30,16 +30,14 @@ class _T11SignUpState extends State<T11SignUp> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(
-              height: 20,
-            ),
+            SizedBox(height: 20),
             Text(
               t11_lbl_enter_account_details,
               style: boldTextStyle(size: 24, color: blackColor),
             ).paddingAll(16),
             TextFormField(
               style: primaryTextStyle(size: 20, color: textPrimaryColor),
-              decoration: new InputDecoration(
+              decoration: InputDecoration(
                   labelText: t11_lbl_username,
                   labelStyle: TextStyle(height: -16, fontSize: 20.0, color: t11_PrimaryColor),
                   enabledBorder: UnderlineInputBorder(
@@ -53,7 +51,7 @@ class _T11SignUpState extends State<T11SignUp> {
             ).paddingOnly(top: 16, left: 16, right: 16, bottom: 8),
             TextFormField(
               style: primaryTextStyle(size: 20, color: textPrimaryColor),
-              decoration: new InputDecoration(
+              decoration: InputDecoration(
                   labelText: t11_lbl_mobile_no,
                   labelStyle: TextStyle(height: -16, fontSize: 20.0, color: t11_PrimaryColor),
                   enabledBorder: UnderlineInputBorder(
@@ -68,7 +66,7 @@ class _T11SignUpState extends State<T11SignUp> {
             ).paddingOnly(top: 8, left: 16, right: 16, bottom: 8),
             TextFormField(
               style: primaryTextStyle(size: 20, color: textPrimaryColor),
-              decoration: new InputDecoration(
+              decoration: InputDecoration(
                   labelText: t11_lbl_password,
                   labelStyle: TextStyle(height: -16, fontSize: 20.0, color: t11_PrimaryColor),
                   suffixIcon: Icon(
@@ -90,7 +88,7 @@ class _T11SignUpState extends State<T11SignUp> {
             ).paddingOnly(top: 8, left: 16, right: 16, bottom: 8),
             TextFormField(
               style: primaryTextStyle(size: 20, color: textPrimaryColor),
-              decoration: new InputDecoration(
+              decoration: InputDecoration(
                   labelText: t11_lbl_retype_password,
                   labelStyle: TextStyle(height: -16, fontSize: 20.0, color: t11_PrimaryColor),
                   suffixIcon: Icon(
@@ -190,7 +188,7 @@ class _T11SignUpState extends State<T11SignUp> {
             ).paddingOnly(top: 16, left: 16, right: 16, bottom: 8),
             TextFormField(
               style: primaryTextStyle(size: 20, color: textPrimaryColor),
-              decoration: new InputDecoration(
+              decoration: InputDecoration(
                   hintText: t11_lbl_sourceCloud,
                   hintStyle: TextStyle(fontSize: 20.0, color: t11_PrimaryColor),
                   suffixIcon: Image.asset(
@@ -210,7 +208,7 @@ class _T11SignUpState extends State<T11SignUp> {
             ).paddingOnly(top: 16, left: 16, right: 16, bottom: 8),
             TextFormField(
               style: primaryTextStyle(size: 20, color: textPrimaryColor),
-              decoration: new InputDecoration(
+              decoration: InputDecoration(
                   hintText: t11_lbl_tumbler,
                   hintStyle: TextStyle(fontSize: 20.0, color: t11_PrimaryColor),
                   suffixIcon: Image.asset(
@@ -376,7 +374,7 @@ class _T11SignUpState extends State<T11SignUp> {
             begin: Alignment.topLeft,
             end: Alignment.bottomLeft,
             colors: [
-              t11_GradientColor1.withOpacity(0.4),
+              t11_GradientColor1,
               t11_GradientColor2,
             ],
           ),
@@ -384,11 +382,9 @@ class _T11SignUpState extends State<T11SignUp> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              SizedBox(
-                height: 40,
-              ),
+              SizedBox(height: 40),
               stepView,
-              selectedWidget()
+              selectedWidget(),
             ],
           ).paddingOnly(top: 16),
         ),

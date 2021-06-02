@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/integrations/utils/colors.dart';
-import 'package:prokit_flutter/integrations/utils/common.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/integrations/utils/panel.dart';
 import 'package:prokit_flutter/integrations/utils/styles.dart';
+import 'package:prokit_flutter/main/utils/AppColors.dart';
 
 class SlidingPanelScreen extends StatefulWidget {
   static String tag = '/SlidingPanelScreen';
@@ -18,10 +18,10 @@ class SlidingPanelScreen extends StatefulWidget {
 class SlidingPanelScreenState extends State<SlidingPanelScreen> {
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(primaryColor);
+    changeStatusColor(appColorPrimary);
 
     return Scaffold(
-      appBar: getAppBar(context, "Google Maps Sliping Panel"),
+      appBar: appBar(context, "Google Maps Sliping Panel"),
       body: SlidingUpPanel(
         minHeight: 180,
         panelBuilder: (sc) => Container(
@@ -31,7 +31,11 @@ class SlidingPanelScreenState extends State<SlidingPanelScreen> {
             controller: sc,
             children: <Widget>[
               SizedBox(height: 10),
-              Center(child: text('Explore Italy', fontSize: 22)),
+              Center(
+                  child: Text(
+                'Explore Italy',
+                style: primaryTextStyle(size: 22),
+              )),
               SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -45,7 +49,10 @@ class SlidingPanelScreenState extends State<SlidingPanelScreen> {
                         child: Icon(Icons.favorite, color: whiteColor),
                       ),
                       SizedBox(height: 10),
-                      text('Popular', fontSize: 16)
+                      Text(
+                        'Popular',
+                        style: primaryTextStyle(),
+                      )
                     ],
                   ),
                   Column(
@@ -57,7 +64,7 @@ class SlidingPanelScreenState extends State<SlidingPanelScreen> {
                         child: Icon(Icons.local_dining, color: whiteColor),
                       ),
                       SizedBox(height: 10),
-                      text('Food', fontSize: 16)
+                      Text('Food', style: primaryTextStyle())
                     ],
                   ),
                   Column(
@@ -69,7 +76,7 @@ class SlidingPanelScreenState extends State<SlidingPanelScreen> {
                         child: Icon(Icons.event_note, color: whiteColor),
                       ),
                       SizedBox(height: 10),
-                      text('Events', fontSize: 16)
+                      Text('Events', style: primaryTextStyle())
                     ],
                   ),
                   Column(
@@ -81,7 +88,10 @@ class SlidingPanelScreenState extends State<SlidingPanelScreen> {
                         child: Icon(Icons.more_horiz, color: whiteColor),
                       ),
                       SizedBox(height: 10),
-                      text('More', fontSize: 16)
+                      Text(
+                        'More',
+                        style: primaryTextStyle(),
+                      )
                     ],
                   ),
                 ],
@@ -89,25 +99,29 @@ class SlidingPanelScreenState extends State<SlidingPanelScreen> {
               SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: text('About', fontSize: 22),
+                child: Text('About', style: primaryTextStyle(size: 22)),
               ),
               SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-                child: text(
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                    fontSize: 16,
-                    isJustify: true,
-                    isLongText: true),
+                child: Text(
+                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy"
+                  " text ever since the 1500s, when an unknown printer took"
+                  " a galley of type and scrambled it to make a type specimen book. It has survived "
+                  "not only five centuries, but also the leap into electronic typesetting, remaining essentially "
+                  "unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum "
+                  "passages, and more recently with desktop publishing software like Aldus PageMaker including version"
+                  "s of Lorem Ipsum.",
+                  style: primaryTextStyle(),
+                ),
               ),
               SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-                child: text(
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                    fontSize: 16,
-                    isJustify: true,
-                    isLongText: true),
+                child: Text(
+                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                  style: primaryTextStyle(),
+                ),
               ),
             ],
           ),

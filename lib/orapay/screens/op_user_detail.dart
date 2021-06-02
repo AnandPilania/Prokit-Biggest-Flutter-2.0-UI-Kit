@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/orapay/utils/Colors.dart';
 import 'package:prokit_flutter/orapay/utils/Style.dart';
 
@@ -170,7 +171,7 @@ class _OPUserDetailsScreenState extends State<OPUserDetailsScreen> {
                   CircleAvatar(
                     backgroundColor: Colors.white,
                     radius: 15,
-                    child: Text('${pageNumber + 1}', style: primaryTextStyle(size: 16, textColor: opPrimaryColor)),
+                    child: Text('${pageNumber + 1}', style: primaryTextStyle(size: 16, color: opPrimaryColor)),
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.min,
@@ -179,18 +180,18 @@ class _OPUserDetailsScreenState extends State<OPUserDetailsScreen> {
                     children: buildDotIndicator(),
                   ),
                   pageNumber != 3
-                      ? FlatButton(
+                      ? TextButton(
                           onPressed: () {
                             pageController.nextPage(duration: Duration(milliseconds: 250), curve: Curves.fastOutSlowIn);
                           },
-                          child: Text('Next', style: primaryTextStyle(size: 16, textColor: opBackgroundColor)),
+                          child: Text('Next', style: primaryTextStyle(size: 16, color: opBackgroundColor)),
                         )
-                      : FlatButton(
+                      : TextButton(
                           onPressed: () {
-                            Navigator.pop(context);
+                            finish(context);
                             Navigator.push(context, MaterialPageRoute(builder: (context) => OPBottomNavigationScreen()));
                           },
-                          child: Text('Finish', style: primaryTextStyle(size: 16, textColor: opBackgroundColor)),
+                          child: Text('Finish', style: primaryTextStyle(size: 16, color: opBackgroundColor)),
                         )
                 ],
               ),

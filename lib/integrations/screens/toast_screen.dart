@@ -4,9 +4,9 @@ import 'package:flutter/rendering.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/integrations/utils/colors.dart';
-import 'package:prokit_flutter/integrations/utils/common.dart';
 import 'package:prokit_flutter/integrations/utils/constants.dart';
-import 'package:prokit_flutter/integrations/utils/styles.dart';
+import 'package:prokit_flutter/main/utils/AppColors.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class ToastScreen extends StatefulWidget {
   static String tag = '/ToastScreen';
@@ -18,14 +18,14 @@ class ToastScreen extends StatefulWidget {
 class ToastScreenState extends State<ToastScreen> {
   var mIsLoading = false;
 
-  double width;
+  double? width;
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(primaryColor);
+    changeStatusColor(appColorPrimary);
     width = (MediaQuery.of(context).size.width) / 4;
     return Scaffold(
-      appBar: getAppBar(context, "Toast"),
+      appBar: appBar(context, "Toast"),
       body: GridView(
         gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, crossAxisSpacing: 16, mainAxisSpacing: 16),
         shrinkWrap: true,
@@ -33,7 +33,7 @@ class ToastScreenState extends State<ToastScreen> {
         children: <Widget>[
           GestureDetector(
             onTap: () {
-              toastSimple('This is simple Toast');
+              toast('This is simple Toast');
             },
             child: simpleCard("Simple Toast"),
           ),

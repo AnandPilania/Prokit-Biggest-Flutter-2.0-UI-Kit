@@ -1,15 +1,17 @@
-import 'package:prokit_flutter/main/utils/dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/shophop/models/ShCategory.dart';
-import 'package:prokit_flutter/shophop/models/ShProduct.dart';
-import 'package:prokit_flutter/shophop/screens/ShSubCategory.dart';
-import 'package:prokit_flutter/shophop/screens/ShViewAllProducts.dart';
-import 'package:prokit_flutter/shophop/utils/ShColors.dart';
-import 'package:prokit_flutter/shophop/utils/ShConstant.dart';
-import 'package:prokit_flutter/shophop/utils/ShExtension.dart';
-import 'package:prokit_flutter/shophop/utils/ShStrings.dart';
-import 'package:prokit_flutter/shophop/utils/ShWidget.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/main/utils/dots_indicator/dots_indicator.dart';
+import 'package:prokit_flutter/shopHop/models/ShCategory.dart';
+import 'package:prokit_flutter/shopHop/models/ShProduct.dart';
+import 'package:prokit_flutter/shopHop/screens/ShSubCategory.dart';
+import 'package:prokit_flutter/shopHop/screens/ShViewAllProducts.dart';
+import 'package:prokit_flutter/shopHop/utils/ShColors.dart';
+import 'package:prokit_flutter/shopHop/utils/ShConstant.dart';
+import 'package:prokit_flutter/shopHop/utils/ShExtension.dart';
+import 'package:prokit_flutter/shopHop/utils/ShStrings.dart';
+import 'package:prokit_flutter/shopHop/utils/ShWidget.dart';
 
 class ShHomeFragment extends StatefulWidget {
   static String tag = '/ShHomeFragment';
@@ -19,10 +21,10 @@ class ShHomeFragment extends StatefulWidget {
 }
 
 class ShHomeFragmentState extends State<ShHomeFragment> {
-  var list = List<ShCategory>();
-  var banners = List<String>();
-  var newestProducts = List<ShProduct>();
-  var featuredProducts = List<ShProduct>();
+  List<ShCategory> list = [];
+  List<String> banners = [];
+  List<ShProduct> newestProducts = [];
+  List<ShProduct> featuredProducts = [];
   var position = 0;
   var colors = [sh_cat_1, sh_cat_2, sh_cat_3, sh_cat_4, sh_cat_5];
 
@@ -39,19 +41,18 @@ class ShHomeFragmentState extends State<ShHomeFragment> {
         list.addAll(categories);
       });
     }).catchError((error) {
-      showToast(context, error);
+      toast(error);
     });
     List<ShProduct> products = await loadProducts();
-    var featured = List<ShProduct>();
+    List<ShProduct> featured = [];
     products.forEach((product) {
-      if (product.featured) {
+      if (product.featured!) {
         featured.add(product);
       }
     });
-    var banner = List<String>();
+    List<String> banner = [];
     for (var i = 1; i < 7; i++) {
-      banner
-          .add("images/shophop/img/products/banners/b" + i.toString() + ".jpg");
+      banner.add("images/shophop/img/products/banners/b" + i.toString() + ".jpg");
     }
     setState(() {
       newestProducts.clear();
@@ -77,6 +78,7 @@ class ShHomeFragmentState extends State<ShHomeFragment> {
       body: newestProducts.isNotEmpty
           ? SingleChildScrollView(
               child: Container(
+                padding: EdgeInsets.only(bottom: 30),
                 child: Column(
                   children: <Widget>[
                     Container(
@@ -87,10 +89,7 @@ class ShHomeFragmentState extends State<ShHomeFragment> {
                           PageView.builder(
                             itemCount: banners.length,
                             itemBuilder: (context, index) {
-                              return Image.asset(banners[index],
-                                  width: width,
-                                  height: height * 0.55,
-                                  fit: BoxFit.cover);
+                              return Image.asset(banners[index], width: width, height: height * 0.55, fit: BoxFit.cover);
                             },
                             onPageChanged: (index) {
                               setState(() {
@@ -123,35 +122,23 @@ class ShHomeFragmentState extends State<ShHomeFragment> {
                         itemCount: list.length,
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
-                        padding: EdgeInsets.only(
-                            left: spacing_standard, right: spacing_standard),
+                        padding: EdgeInsets.only(left: spacing_standard, right: spacing_standard),
                         itemBuilder: (BuildContext context, int index) {
                           return InkWell(
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ShSubCategory(
-                                          category: list[index])));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => ShSubCategory(category: list[index])));
                             },
                             child: Container(
-                              margin: EdgeInsets.only(
-                                  left: spacing_standard,
-                                  right: spacing_standard),
+                              margin: EdgeInsets.only(left: spacing_standard, right: spacing_standard),
                               child: Column(
                                 children: <Widget>[
                                   Container(
                                     padding: EdgeInsets.all(spacing_middle),
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: colors[index % colors.length]),
-                                    child: Image.asset(list[index].image,
-                                        width: 15, color: sh_white),
+                                    decoration: BoxDecoration(shape: BoxShape.circle, color: colors[index % colors.length]),
+                                    child: Image.asset(list[index].image!, width: 15, color: sh_white),
                                   ),
                                   SizedBox(height: spacing_control),
-                                  text(list[index].name,
-                                      textColor: colors[index % colors.length],
-                                      fontFamily: fontMedium)
+                                  text(list[index].name, textColor: colors[index % colors.length], fontFamily: fontMedium)
                                 ],
                               ),
                             ),
@@ -160,22 +147,12 @@ class ShHomeFragmentState extends State<ShHomeFragment> {
                       ),
                     ),
                     horizontalHeading(sh_lbl_newest_product, callback: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ShViewAllProductScreen(
-                                  prodcuts: newestProducts,
-                                  title: sh_lbl_newest_product)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ShViewAllProductScreen(prodcuts: newestProducts, title: sh_lbl_newest_product)));
                     }),
                     ProductHorizontalList(newestProducts),
                     SizedBox(height: spacing_standard_new),
                     horizontalHeading(sh_lbl_Featured, callback: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ShViewAllProductScreen(
-                                  prodcuts: featuredProducts,
-                                  title: sh_lbl_Featured)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ShViewAllProductScreen(prodcuts: featuredProducts, title: sh_lbl_Featured)));
                     }),
                     ProductHorizontalList(featuredProducts),
                     SizedBox(height: 60),

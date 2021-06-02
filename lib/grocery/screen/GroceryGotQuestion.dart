@@ -6,13 +6,13 @@ import 'package:prokit_flutter/grocery/utils/GroceryColors.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryImages.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class GroceryGotQuestionScreen extends StatefulWidget {
   static String tag = '/GroceryGotQuestionScreen';
 
   @override
-  _GroceryGotQuestionScreenState createState() =>
-      _GroceryGotQuestionScreenState();
+  _GroceryGotQuestionScreenState createState() => _GroceryGotQuestionScreenState();
 }
 
 class _GroceryGotQuestionScreenState extends State<GroceryGotQuestionScreen> {
@@ -27,10 +27,9 @@ class _GroceryGotQuestionScreenState extends State<GroceryGotQuestionScreen> {
           size: 30,
           color: grocery_lightGrey,
         ).onTap(() {
-          Navigator.pop(context);
+          finish(context);
         }),
-        title: text(grocery_gotQuestion,
-            fontSize: textSizeNormal, fontFamily: fontBold),
+        title: text(grocery_gotQuestion, fontSize: textSizeNormal, fontFamily: fontBold),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -40,6 +39,7 @@ class _GroceryGotQuestionScreenState extends State<GroceryGotQuestionScreen> {
               Row(
                 children: <Widget>[
                   CachedNetworkImage(
+                    placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                     imageUrl: Grocery_ic_Profile,
                     height: 70,
                     width: 70,
@@ -48,12 +48,8 @@ class _GroceryGotQuestionScreenState extends State<GroceryGotQuestionScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        text(grocery_yourQuestion,
-                            fontSize: textSizeNormal,
-                            textColor: grocery_textColorPrimary),
-                        text(grocery_questionAnswer,
-                            fontSize: textSizeMedium,
-                            textColor: grocery_textColorSecondary),
+                        text(grocery_yourQuestion, fontSize: textSizeNormal, textColor: grocery_textColorPrimary),
+                        text(grocery_questionAnswer, fontSize: textSizeMedium, textColor: grocery_textColorSecondary),
                       ],
                     ).paddingOnly(left: 8),
                   ),
@@ -67,10 +63,7 @@ class _GroceryGotQuestionScreenState extends State<GroceryGotQuestionScreen> {
               Row(
                 children: <Widget>[
                   Expanded(
-                    child: text(
-                      '0 of 50 ' + grocery_words,
-                      textColor: grocery_textColorSecondary,
-                    ),
+                    child: text('0 of 50 ' + grocery_words, textColor: grocery_textColorSecondary),
                   ),
                   button(context, grocery_send)
                 ],

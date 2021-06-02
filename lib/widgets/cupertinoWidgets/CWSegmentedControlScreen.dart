@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lipsum/lipsum.dart' as lipsum;
+import 'package:prokit_flutter/main/utils/Lipsum.dart' as lipsum;
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/integrations/utils/colors.dart';
 import 'package:prokit_flutter/main.dart';
+import 'package:prokit_flutter/main/utils/AppColors.dart';
 import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class CWSegmentedControlScreen extends StatefulWidget {
@@ -15,6 +15,8 @@ class CWSegmentedControlScreen extends StatefulWidget {
 
 class CWSegmentedControlScreenState extends State<CWSegmentedControlScreen> {
   int selectedValue = 0;
+
+  final Map<int, Widget> sWidget = <int, Widget>{0: Text("Home", style: primaryTextStyle()), 1: Text("Search", style: primaryTextStyle()), 2: Text("Profile", style: primaryTextStyle())};
 
   static Widget giveCenter(String yourText) {
     return Column(
@@ -69,10 +71,10 @@ class CWSegmentedControlScreenState extends State<CWSegmentedControlScreen> {
             color: appStore.appBarColor,
             width: context.width(),
             child: CupertinoSegmentedControl(
-              borderColor: primaryColor,
-              selectedColor: primaryColor,
+              borderColor: appColorPrimary,
+              selectedColor: appColorPrimary,
               groupValue: selectedValue,
-              onValueChanged: (val) {
+              onValueChanged: (dynamic val) {
                 setState(() {
                   selectedValue = val;
                 });

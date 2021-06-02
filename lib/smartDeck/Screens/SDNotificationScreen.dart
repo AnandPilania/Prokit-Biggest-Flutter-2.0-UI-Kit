@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/smartDeck/ModelClass/SDNotidicationModel.dart';
 import 'package:prokit_flutter/smartDeck/SDUtils/SDColors.dart';
-import 'package:prokit_flutter/smartDeck/SDUtils/SDStyle.dart';
 
 class SDNotificationScreen extends StatefulWidget {
   @override
@@ -36,15 +37,13 @@ class _SDNotificationScreenState extends State<SDNotificationScreen> {
       dot: false,
     ),
     SDNotidicationModel(
-      images:
-          'https://cdn.fastly.picmonkey.com/contentful/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=800&q=70',
+      images: 'https://cdn.fastly.picmonkey.com/contentful/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=800&q=70',
       notificationmessage: 'Sita sends a new message',
       time: '1 hour ago',
       dot: false,
     ),
     SDNotidicationModel(
-      images:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTMio5UHQKuvdPkvHD4wLt8lJbf6f4JQCUUQA&usqp=CAU',
+      images: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTMio5UHQKuvdPkvHD4wLt8lJbf6f4JQCUUQA&usqp=CAU',
       notificationmessage: 'Andy sends a new message',
       time: '2 hour ago',
       dot: false,
@@ -73,40 +72,24 @@ class _SDNotificationScreenState extends State<SDNotificationScreen> {
   Widget build(BuildContext context) {
     Widget mPopup() => PopupMenuButton(
           itemBuilder: (context) {
-            var list = List<PopupMenuEntry<Object>>();
+            List<PopupMenuEntry<Object>> list = [];
             list.add(
-              PopupMenuItem(
-                child: Text("Mark as read"),
-                value: 1,
-              ),
+              PopupMenuItem(child: Text("Mark as read"), value: 1),
             );
             list.add(
-              PopupMenuItem(
-                child: Text("Mute Notification"),
-                value: 1,
-              ),
+              PopupMenuItem(child: Text("Mute Notification"), value: 1),
             );
             list.add(
-              PopupMenuItem(
-                child: GestureDetector(
-                  onTap: () {
-                    //  launchScreen(context, SocialVerify.tag);
-                  },
-                  child: Text("Settings"),
-                ),
-                value: 1,
-              ),
+              PopupMenuItem(child: GestureDetector(onTap: () {}, child: Text("Settings")), value: 1),
             );
             return list;
           },
           child: Container(
-              width: MediaQuery.of(context).size.width * 0.1,
-              height: MediaQuery.of(context).size.width * 0.1,
-              padding: EdgeInsets.all(6),
-              child: Icon(
-                Icons.more_vert,
-                color: sdTextPrimaryColor,
-              )),
+            width: MediaQuery.of(context).size.width * 0.1,
+            height: MediaQuery.of(context).size.width * 0.1,
+            padding: EdgeInsets.all(6),
+            child: Icon(Icons.more_vert, color: sdTextPrimaryColor),
+          ),
         );
 
     return SafeArea(
@@ -114,12 +97,9 @@ class _SDNotificationScreenState extends State<SDNotificationScreen> {
         appBar: AppBar(
           leading: InkWell(
             onTap: () {
-              Navigator.pop(context);
+              finish(context);
             },
-            child: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
+            child: Icon(Icons.arrow_back, color: Colors.black),
           ),
           title: Text('Notification', style: boldTextStyle(size: 20)),
           actions: <Widget>[mPopup()],
@@ -128,55 +108,37 @@ class _SDNotificationScreenState extends State<SDNotificationScreen> {
           automaticallyImplyLeading: false,
         ),
         body: ListView.builder(
-            itemCount: notification == null ? 0 : notification.length,
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-              return Container(
-                margin: EdgeInsets.only(left: 4),
-                child: ListTile(
-                    leading: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      height: 40,
-                      width: 40,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(40),
-                        child: FadeInImage(
-                          fit: BoxFit.cover,
-                          placeholder: Image.asset(notification[index].images,
-                                  height: 35, width: 10)
-                              .image,
-                          image: Image.network(
-                            notification[index].images,
-                            height: 35,
-                            width: 10,
-                          ).image,
-                        ),
-                      ),
-                    ),
-                    title: Text(
-                      notification[index].notificationmessage,
-                      style: boldTextStyle(),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    subtitle: Container(
-                      margin: EdgeInsets.only(top: 4),
-                      child: Text(
-                        notification[index].time,
-                        style: secondaryTextStyle(),
-                      ),
-                    ),
-                    trailing: Container(
-                      padding: EdgeInsets.only(right: 4),
-                      child: CircleAvatar(
-                        radius: notification[index].dot == true ? 4 : 0,
-                        backgroundColor: Colors.red,
-                      ),
-                    )),
-              );
-            }),
+          itemCount: notification.length,
+          shrinkWrap: true,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              margin: EdgeInsets.only(left: 4),
+              child: ListTile(
+                leading: Container(
+                  decoration: BoxDecoration(shape: BoxShape.circle),
+                  height: 40,
+                  width: 40,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(40),
+                    child: commonCacheImageWidget(notification[index].images!,  35, width: 10,fit: BoxFit.cover),
+                  ),
+                ),
+                title: Text(notification[index].notificationmessage!, style: boldTextStyle(), maxLines: 1, overflow: TextOverflow.ellipsis),
+                subtitle: Container(
+                  margin: EdgeInsets.only(top: 4),
+                  child: Text(notification[index].time!, style: secondaryTextStyle()),
+                ),
+                trailing: Container(
+                  padding: EdgeInsets.only(right: 4),
+                  child: CircleAvatar(
+                    radius: notification[index].dot == true ? 4 : 0,
+                    backgroundColor: Colors.red,
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

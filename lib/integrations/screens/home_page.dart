@@ -16,7 +16,7 @@ class IntegrationHomePage extends StatefulWidget {
 }
 
 class IntegrationHomePageState extends State<IntegrationHomePage> with AfterLayoutMixin<IntegrationHomePage> {
-  List<ContentModel> list = List();
+  List<ContentModel> list = [];
   var isEnglishSelected = true;
   var isDarkThemeSelected = false;
 
@@ -36,14 +36,14 @@ class IntegrationHomePageState extends State<IntegrationHomePage> with AfterLayo
       return InkWell(
         onTap: () {
           if (model.pageName != null) model.pageName.launch(context);
-          appStore.setDarkMode(false);
+          appStore.toggleDarkMode(value: false);
         },
         child: Column(
           children: [
             Container(
               alignment: Alignment.centerLeft,
               decoration: boxDecorationWithShadow(
-                backgroundColor: appStore.scaffoldBackground,
+                backgroundColor: appStore.scaffoldBackground!,
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(30),
                   bottomRight: Radius.circular(30),
@@ -138,7 +138,7 @@ class IntegrationHomePageState extends State<IntegrationHomePage> with AfterLayo
               ),
             ),
             trailing: SizedBox(),
-            children: item.items.map(buildExpandedTile).toList(),
+            children: item.items!.map(buildExpandedTile).toList(),
           ),
         ),
       );

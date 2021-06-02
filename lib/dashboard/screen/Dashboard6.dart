@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/dashboard/model/db6/Db6Model.dart';
 import 'package:prokit_flutter/dashboard/utils/Db6BottomNavigationBar.dart';
-import 'package:prokit_flutter/dashboard/utils/Db6Widget.dart';
 import 'package:prokit_flutter/dashboard/utils/DbColors.dart';
-import 'package:prokit_flutter/dashboard/utils/DbConstant.dart';
 import 'package:prokit_flutter/dashboard/utils/DbDataGenerator.dart';
-import 'package:prokit_flutter/dashboard/utils/DbExtension.dart';
 import 'package:prokit_flutter/dashboard/utils/DbImages.dart';
 import 'package:prokit_flutter/dashboard/utils/DbStrings.dart';
+import 'package:prokit_flutter/main/utils/AppConstant.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class Dashboard6 extends StatefulWidget {
   static String tag = '/Dashboard6';
@@ -18,9 +18,9 @@ class Dashboard6 extends StatefulWidget {
 }
 
 class Dashboard6State extends State<Dashboard6> {
-  List<DB6Service> mList1;
-  List<DB6Laundry> mList2;
-  List<DB6Offer> mList3;
+  late List<DB6Service> mList1;
+  late List<DB6Laundry> mList2;
+  late List<DB6Offer> mList3;
   var _selectedIndex = 0;
 
   @override
@@ -32,71 +32,46 @@ class Dashboard6State extends State<Dashboard6> {
     mList3 = getOffer();
   }
 
-  void changePage(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  Widget db6Label(var text) {
+    return Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(text, style: TextStyle(fontSize: 18, color: db6_black, fontFamily: fontMedium)),
+          Text(db6_lbl_view_all, style: TextStyle(fontSize: 14, color: db6_textColorSecondary)),
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     double expandHeight = 200;
-    double height = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
 
     changeStatusColor(db6_colorPrimary);
+
     return Scaffold(
       bottomNavigationBar: Container(
         decoration: BoxDecoration(boxShadow: [BoxShadow(color: dbShadowColor, offset: Offset.fromDirection(3, 1), spreadRadius: 1, blurRadius: 5)]),
         child: Db6BottomNavigationBar(
-          items: const <Db6BottomNavigationBarItem>[
-            Db6BottomNavigationBarItem(
-              icon: db6_ic_home,
-              title: Text(
-                db6_lbl_home,
-                style: TextStyle(color: db6_textColorSecondary),
-              ),
-            ),
-            Db6BottomNavigationBarItem(
-              icon: db6_ic_pin,
-              title: Text(
-                db6_lbl_nearby,
-                style: TextStyle(color: db6_textColorSecondary),
-              ),
-            ),
-            Db6BottomNavigationBarItem(
-              icon: db6_ic_basket,
-              title: Text(
-                db6_lbl_booking,
-                style: TextStyle(color: db6_textColorSecondary),
-              ),
-            ),
-            Db6BottomNavigationBarItem(
-              icon: db6_ic_sale,
-              title: Text(
-                db6_lbl_Offers,
-                style: TextStyle(color: db6_textColorSecondary),
-              ),
-            ),
-            Db6BottomNavigationBarItem(
-              icon: db6_ic_user,
-              title: Text(
-                db6_lbl_profile,
-                style: TextStyle(color: db6_textColorSecondary),
-              ),
-            ),
+          items: <Db6BottomNavigationBarItem>[
+            Db6BottomNavigationBarItem(icon: db6_ic_home, title: Text(db6_lbl_home, style: TextStyle(color: db6_textColorSecondary))),
+            Db6BottomNavigationBarItem(icon: db6_ic_pin, title: Text(db6_lbl_nearby, style: TextStyle(color: db6_textColorSecondary))),
+            Db6BottomNavigationBarItem(icon: db6_ic_basket, title: Text(db6_lbl_booking, style: TextStyle(color: db6_textColorSecondary))),
+            Db6BottomNavigationBarItem(icon: db6_ic_sale, title: Text(db6_lbl_Offers, style: TextStyle(color: db6_textColorSecondary))),
+            Db6BottomNavigationBarItem(icon: db6_ic_user, title: Text(db6_lbl_profile, style: TextStyle(color: db6_textColorSecondary))),
           ],
           currentIndex: _selectedIndex,
           unselectedIconTheme: IconThemeData(color: db6_textColorSecondary, size: 24),
           selectedIconTheme: IconThemeData(color: db6_colorPrimary, size: 24),
           selectedLabelStyle: TextStyle(color: db6_colorPrimary),
-          onTap: _onItemTapped,
+          onTap: (int index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
           type: Db6BottomNavigationBarType.fixed,
         ),
       ),
@@ -111,30 +86,32 @@ class Dashboard6State extends State<Dashboard6> {
               titleSpacing: 0,
               backgroundColor: innerBoxIsScrolled ? db6_colorPrimary : db6_colorPrimary,
               actionsIconTheme: IconThemeData(opacity: 0.0),
+              leading: IconButton(
+                  icon: Icon(Icons.arrow_back, color: white),
+                  onPressed: () {
+                    finish(context);
+                  }),
               title: Container(
                 height: 60,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-                  child: text(db6_username, textColor: db6_white, fontSize: textSizeLarge, fontFamily: fontBold),
+                  padding: EdgeInsets.fromLTRB(16, 16, 8, 0),
+                  child: Text(db6_username, style: boldTextStyle(color: db6_white, size: 24, fontFamily: fontBold)),
                 ),
               ),
               flexibleSpace: FlexibleSpaceBar(
                 background: Container(
                   height: 200,
-                  margin: EdgeInsets.only(top: 60),
+                  margin: EdgeInsets.only(top: 70),
                   color: db6_colorPrimary,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-                        child: text(
-                          db6_your_location,
-                          textColor: db6_white,
-                        ),
+                        padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+                        child: Text(db6_your_location, style: primaryTextStyle(color: db6_white)),
                       ),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 2, 16, 0),
+                        padding: EdgeInsets.fromLTRB(16, 2, 16, 0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
@@ -143,26 +120,22 @@ class Dashboard6State extends State<Dashboard6> {
                                 children: [
                                   WidgetSpan(
                                     child: Padding(
-                                      padding: const EdgeInsets.only(right: 4),
-                                      child: Icon(
-                                        Icons.location_on,
-                                        color: db6_white,
-                                        size: 16,
-                                      ),
+                                      padding: EdgeInsets.only(right: 4),
+                                      child: Icon(Icons.location_on, color: db6_white, size: 16),
                                     ),
                                   ),
-                                  TextSpan(text: db6_san_francisco, style: TextStyle(fontSize: textSizeLargeMedium, color: db6_white)),
+                                  TextSpan(text: db6_san_francisco, style: primaryTextStyle(size: 18, color: db6_white)),
                                 ],
                               ),
                             ),
-                            text(db6_change, textColor: db6_white, fontSize: textSizeLargeMedium),
+                            Text(db6_change, style: primaryTextStyle(color: db6_white, size: 18)),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(16),
+                        padding: EdgeInsets.all(16),
                         child: Container(
-                          decoration: boxDecoration(radius: 16, showShadow: false),
+                          decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(16)), color: white),
                           child: TextField(
                               textAlignVertical: TextAlignVertical.center,
                               decoration: InputDecoration(
@@ -187,9 +160,13 @@ class Dashboard6State extends State<Dashboard6> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                SizedBox(height: 8),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(16.0, 16, 0, 16),
-                  child: text(db6_lbl_top_services, fontFamily: fontBold, fontSize: textSizeNormal),
+                  padding: EdgeInsets.fromLTRB(16.0, 16, 0, 16),
+                  child: Text(
+                    db6_lbl_top_services,
+                    style: primaryTextStyle(size: 20, fontFamily: fontBold),
+                  ),
                 ),
                 SizedBox(
                   height: w * 0.3,
@@ -226,9 +203,7 @@ class Dashboard6State extends State<Dashboard6> {
                         return D6Special(mList3[index], index);
                       }),
                 ),
-                SizedBox(
-                  height: 16,
-                )
+                SizedBox(height: 16)
               ],
             ),
           ),
@@ -238,8 +213,9 @@ class Dashboard6State extends State<Dashboard6> {
   }
 }
 
+// ignore: must_be_immutable
 class D6TopService extends StatelessWidget {
-  DB6Service model;
+  late DB6Service model;
 
   D6TopService(DB6Service model, int pos) {
     this.model = model;
@@ -248,7 +224,6 @@ class D6TopService extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
     return Container(
       margin: EdgeInsets.only(left: 16),
       child: Column(
@@ -262,18 +237,17 @@ class D6TopService extends StatelessWidget {
               model.img,
             ),
           ),
-          SizedBox(
-            height: 6,
-          ),
-          text(model.name, textColor: db1_textColorSecondary)
+          SizedBox(height: 6),
+          Text(model.name, style: primaryTextStyle(color: db1_textColorSecondary))
         ],
       ),
     );
   }
 }
 
+// ignore: must_be_immutable
 class D6Popular extends StatelessWidget {
-  DB6Laundry model;
+  late DB6Laundry model;
 
   D6Popular(DB6Laundry model, int pos) {
     this.model = model;
@@ -282,64 +256,49 @@ class D6Popular extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-
     return Container(
         width: MediaQuery.of(context).size.width * 0.7,
-        margin: EdgeInsets.only(left: 16),
-        decoration: boxDecoration(radius: 10, showShadow: true, bgColor: db6_white, color: db6_white),
+        margin: EdgeInsets.only(left: 16, top: 8, bottom: 8),
+        decoration: BoxDecoration(
+          color: db6_white,
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          boxShadow: defaultBoxShadow(),
+        ),
         child: ListView(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+              padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Center(
-                      child: Image.asset(
-                    model.img,
-                    fit: BoxFit.fill,
-                    height: width * 0.2,
-                    width: width * 0.2,
-                  )),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Divider(
-                    height: 0.5,
-                    color: db6_viewColor,
-                    thickness: 0.5,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  Center(child: Image.asset(model.img, fit: BoxFit.fill, height: width * 0.2, width: width * 0.2)),
+                  SizedBox(height: 10),
+                  Divider(height: 0.5, color: db6_viewColor, thickness: 0.5),
+                  SizedBox(height: 10),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      text(model.name),
+                      Text(model.name, style: primaryTextStyle(size: 14)),
                       RichText(
                         text: TextSpan(
                           style: Theme.of(context).textTheme.body1,
                           children: [
                             WidgetSpan(
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                                child: Icon(
-                                  Icons.star_border,
-                                  color: db6_yellow,
-                                  size: 16,
-                                ),
+                                padding: EdgeInsets.symmetric(horizontal: 4.0),
+                                child: Icon(Icons.star_border, color: db6_yellow, size: 16),
                               ),
                             ),
-                            TextSpan(text: model.rating, style: TextStyle(fontSize: textSizeSMedium, color: db6_textColorSecondary)),
+                            TextSpan(text: model.rating, style: primaryTextStyle(size: 16, color: db6_textColorSecondary)),
                           ],
                         ),
                       )
                     ],
                   ),
-                  text(model.location, textColor: db6_textColorSecondary),
+                  Text(model.location, style: primaryTextStyle(color: db6_textColorSecondary)),
                 ],
               ),
             ),
@@ -348,8 +307,9 @@ class D6Popular extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class D6Special extends StatelessWidget {
-  DB6Offer model;
+  late DB6Offer model;
 
   D6Special(DB6Offer model, int pos) {
     this.model = model;
@@ -361,32 +321,28 @@ class D6Special extends StatelessWidget {
 
     return Container(
       width: MediaQuery.of(context).size.width * 0.7,
-      margin: EdgeInsets.only(left: 16),
-      decoration: boxDecoration(radius: 10, showShadow: true, bgColor: db6_white, color: db6_white),
+      margin: EdgeInsets.only(left: 16, top: 8, bottom: 8),
+      decoration: BoxDecoration(color: db6_white, borderRadius: BorderRadius.all(Radius.circular(10)), boxShadow: defaultBoxShadow()),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Image.asset(
-              model.img,
-              height: width * 0.17,
-              width: width * 0.2,
-            ),
+            Image.asset(model.img, height: width * 0.17, width: width * 0.2),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                text(model.title),
-                text(model.subTitle, textColor: db6_colorPrimary, fontSize: textSizeLargeMedium, fontFamily: fontMedium),
+                Text(model.title, style: primaryTextStyle()),
+                Text(model.subTitle, style: primaryTextStyle(color: db6_colorPrimary, size: 20, fontFamily: 'Medium')),
                 SizedBox(
                   height: 8,
                 ),
                 GestureDetector(
                   child: Container(
                       padding: EdgeInsets.fromLTRB(16, 6, 16, 6),
-                      child: text(db6_lbl_view_offers, textColor: db6_white, fontFamily: fontMedium, textAllCaps: true),
-                      decoration: boxDecoration(bgColor: db6_colorPrimary, radius: 6)),
+                      child: Text(db6_lbl_view_offers.toUpperCase(), style: primaryTextStyle(color: db6_white, fontFamily: 'Medium')),
+                      decoration: BoxDecoration(color: db6_colorPrimary, borderRadius: BorderRadius.all(Radius.circular(6)))),
                 )
               ],
             )

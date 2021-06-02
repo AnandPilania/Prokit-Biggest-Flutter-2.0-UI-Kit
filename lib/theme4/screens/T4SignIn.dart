@@ -3,11 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:prokit_flutter/main/utils/AppConstant.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme4/utils/T4Colors.dart';
-import 'package:prokit_flutter/theme4/utils/T4Extension.dart';
 import 'package:prokit_flutter/theme4/utils/T4Images.dart';
 import 'package:prokit_flutter/theme4/utils/T4Strings.dart';
-import 'package:prokit_flutter/theme4/utils/T4Widgets.dart';
 import 'package:prokit_flutter/theme4/utils/widgets/T4Button.dart';
 import 'package:prokit_flutter/theme4/utils/widgets/T4EditText.dart';
 
@@ -38,7 +37,8 @@ class T4SignInState extends State<T4SignIn> {
             height: height,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                  colors: <Color>[Color(0XD5160336), Color(0XD5160336)]),
+                colors: <Color>[Color(0XD5160336), Color(0XD5160336)],
+              ),
             ),
           ),
           SafeArea(
@@ -48,7 +48,7 @@ class T4SignInState extends State<T4SignIn> {
                 margin: EdgeInsets.only(left: 24, right: 24, top: height * 0.1),
                 child: Column(
                   children: <Widget>[
-                    CachedNetworkImage(imageUrl: t4_icon, width: width / 3.2),
+                    CachedNetworkImage(placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?, imageUrl: t4_icon, width: width / 3.2),
                     SizedBox(height: 40),
                     T4EditText(hint: t4_hint_Email, isPassword: false),
                     SizedBox(height: 24),
@@ -59,10 +59,7 @@ class T4SignInState extends State<T4SignIn> {
                       onPressed: () {},
                     ),
                     SizedBox(height: 48),
-                    text(t4_lbl_login_with,
-                        textColor: t4_white,
-                        fontFamily: fontMedium,
-                        fontSize: textSizeLargeMedium),
+                    text(t4_lbl_login_with, textColor: t4_white, fontFamily: fontMedium, fontSize: textSizeLargeMedium),
                     SizedBox(height: 24),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -75,12 +72,9 @@ class T4SignInState extends State<T4SignIn> {
                             shape: BoxShape.circle,
                             color: t4_white,
                           ),
-                          child: SvgPicture.asset(t4_google,
-                              color: t4_form_google),
+                          child: SvgPicture.asset(t4_google, color: t4_form_google),
                         ),
-                        SizedBox(
-                          width: 24,
-                        ),
+                        SizedBox(width: 24),
                         Container(
                           width: width / 7,
                           height: width / 7,
@@ -89,8 +83,7 @@ class T4SignInState extends State<T4SignIn> {
                             shape: BoxShape.circle,
                             color: t4_white,
                           ),
-                          child:
-                              SvgPicture.asset(t4_fb, color: t4_form_facebook),
+                          child: SvgPicture.asset(t4_fb, color: t4_form_facebook),
                         )
                       ],
                     )

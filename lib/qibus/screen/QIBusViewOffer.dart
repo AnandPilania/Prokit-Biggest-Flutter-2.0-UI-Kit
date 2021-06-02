@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/qibus/model/QiBusModel.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusColors.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusConstant.dart';
@@ -17,7 +18,7 @@ class QIBusViewOffer extends StatefulWidget {
 }
 
 class QIBusViewOfferState extends State<QIBusViewOffer> {
-  List<QIBusNewOfferModel> mOfferList;
+  late List<QIBusNewOfferModel> mOfferList;
 
   @override
   void initState() {
@@ -54,7 +55,7 @@ class QIBusViewOfferState extends State<QIBusViewOffer> {
 }
 
 class NewOffer extends StatelessWidget {
-  QIBusNewOfferModel model;
+  late QIBusNewOfferModel model;
 
   NewOffer(QIBusNewOfferModel model, int pos) {
     this.model = model;
@@ -65,12 +66,8 @@ class NewOffer extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     return Container(
       width: width * 0.7,
-      margin: EdgeInsets.only(
-          left: spacing_standard_new,
-          right: spacing_standard_new,
-          bottom: spacing_standard_new),
-      decoration: boxDecoration(
-          showShadow: true, bgColor: qIBus_white, radius: spacing_middle),
+      margin: EdgeInsets.only(left: spacing_standard_new, right: spacing_standard_new, bottom: spacing_standard_new),
+      decoration: boxDecoration(showShadow: true, bgColor: qIBus_white, radius: spacing_middle),
       child: Column(
         children: <Widget>[
           ClipRRect(
@@ -83,6 +80,7 @@ class NewOffer extends StatelessWidget {
                   Container(
                     color: model.color,
                     child: CachedNetworkImage(
+                      placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                       imageUrl: model.img,
                       height: width * 0.3,
                       fit: BoxFit.none,

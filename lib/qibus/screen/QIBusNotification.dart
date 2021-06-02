@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/qibus/model/QiBusModel.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusColors.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusConstant.dart';
@@ -15,7 +16,7 @@ class QIBusNotification extends StatefulWidget {
 }
 
 class QIBusNotificationState extends State<QIBusNotification> {
-  List<QIBusBookingModel> mList;
+  late List<QIBusBookingModel> mList;
 
   @override
   void initState() {
@@ -51,7 +52,7 @@ class QIBusNotificationState extends State<QIBusNotification> {
 }
 
 class Notification extends StatelessWidget {
-  QIBusBookingModel model;
+  late QIBusBookingModel model;
 
   Notification(QIBusBookingModel model, int pos) {
     this.model = model;

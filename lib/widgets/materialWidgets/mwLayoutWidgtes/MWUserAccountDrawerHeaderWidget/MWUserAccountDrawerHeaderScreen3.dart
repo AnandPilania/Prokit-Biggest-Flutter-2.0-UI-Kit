@@ -8,13 +8,11 @@ class MWUserAccountDrawerHeaderScreen3 extends StatefulWidget {
   static const tag = '/MWUserAccountDrawerHeaderScreen3';
 
   @override
-  _MWUserAccountDrawerHeaderScreen3State createState() =>
-      _MWUserAccountDrawerHeaderScreen3State();
+  _MWUserAccountDrawerHeaderScreen3State createState() => _MWUserAccountDrawerHeaderScreen3State();
 }
 
-class _MWUserAccountDrawerHeaderScreen3State
-    extends State<MWUserAccountDrawerHeaderScreen3> {
-  GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+class _MWUserAccountDrawerHeaderScreen3State extends State<MWUserAccountDrawerHeaderScreen3> {
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   @override
   void initState() {
@@ -24,18 +22,18 @@ class _MWUserAccountDrawerHeaderScreen3State
 
   init() async {
     await Future.delayed(Duration(milliseconds: 500));
-    _drawerKey.currentState.openDrawer();
+    scaffoldKey.currentState!.openDrawer();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _drawerKey,
+      key: scaffoldKey,
       appBar: appBar(context, 'With Multiple Account Selection'),
       body: Center(
         child: GestureDetector(
           onTap: () {
-            _drawerKey.currentState.openDrawer();
+            scaffoldKey.currentState!.openDrawer();
           },
           child: Container(
             decoration: boxDecoration(bgColor: appColorPrimary, radius: 8),
@@ -56,9 +54,7 @@ class _MWUserAccountDrawerHeaderScreen3State
                 decoration: BoxDecoration(
                     image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: Image.asset(
-                          'images/widgets/materialWidgets/mwLayoutWidgtes/MWUserAccountDrawerHeaderWidget/background.jpg')
-                      .image,
+                  image: Image.asset('images/widgets/materialWidgets/mwLayoutWidgtes/MWUserAccountDrawerHeaderWidget/background.jpg').image,
                 )),
                 accountName: Text(
                   "Smith",
@@ -70,14 +66,10 @@ class _MWUserAccountDrawerHeaderScreen3State
                 ),
                 otherAccountsPictures: [
                   CircleAvatar(
-                    backgroundImage: Image.asset(
-                            'images/widgets/materialWidgets/mwLayoutWidgtes/MWUserAccountDrawerHeaderWidget/ic_user1.png')
-                        .image,
+                    backgroundImage: Image.asset('images/widgets/materialWidgets/mwLayoutWidgtes/MWUserAccountDrawerHeaderWidget/ic_user1.png').image,
                   ),
                   CircleAvatar(
-                    backgroundImage: Image.asset(
-                            'images/widgets/materialWidgets/mwLayoutWidgtes/MWUserAccountDrawerHeaderWidget/ic_user2.png')
-                        .image,
+                    backgroundImage: Image.asset('images/widgets/materialWidgets/mwLayoutWidgtes/MWUserAccountDrawerHeaderWidget/ic_user2.png').image,
                   ),
                 ],
                 currentAccountPicture: CircleAvatar(
@@ -98,6 +90,7 @@ class _MWUserAccountDrawerHeaderScreen3State
                   ),
                 ),
                 onTap: () {
+                  scaffoldKey.currentState!.openEndDrawer();
                   toast("Account");
                 },
               ),
@@ -111,6 +104,7 @@ class _MWUserAccountDrawerHeaderScreen3State
                   ),
                 ),
                 onTap: () {
+                  scaffoldKey.currentState!.openEndDrawer();
                   toast("Balance");
                 },
               ),

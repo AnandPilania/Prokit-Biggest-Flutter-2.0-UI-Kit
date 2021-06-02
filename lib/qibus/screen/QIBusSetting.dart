@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusColors.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusConstant.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusImages.dart';
@@ -54,7 +55,7 @@ class QIBusSettingState extends State<QIBusSetting> {
     );
   }
 
-  Widget mSeeting1(var heading, var subLabel, List<String> a, String value) {
+  Widget mSeeting1(var heading, var subLabel, List<String> a, String? value) {
     return Container(
       decoration: boxDecoration(showShadow: true),
       padding: EdgeInsets.all(spacing_standard_new),

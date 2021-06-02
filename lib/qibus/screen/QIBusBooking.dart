@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/qibus/model/QiBusModel.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusColors.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusConstant.dart';
@@ -17,8 +18,8 @@ class QIBusBooking extends StatefulWidget {
 
 class QIBusBookingState extends State<QIBusBooking> {
   int selectedPos = 1;
-  List<QIBusBookingModel> mList;
-  List<QIBusBookingModel> mList1;
+  late List<QIBusBookingModel> mList;
+  late List<QIBusBookingModel> mList1;
 
   @override
   void initState() {
@@ -42,12 +43,8 @@ class QIBusBookingState extends State<QIBusBooking> {
             ),
             Container(
               width: width,
-              decoration: boxDecoration(
-                  radius: spacing_middle,
-                  bgColor: qIBus_view_color,
-                  showShadow: false),
-              margin: EdgeInsets.only(
-                  right: spacing_standard_new, left: spacing_standard_new),
+              decoration: boxDecoration(radius: spacing_middle, bgColor: qIBus_view_color, showShadow: false),
+              margin: EdgeInsets.only(right: spacing_standard_new, left: spacing_standard_new),
               child: Row(
                 children: <Widget>[
                   Flexible(
@@ -61,22 +58,14 @@ class QIBusBookingState extends State<QIBusBooking> {
                         padding: EdgeInsets.all(8.0),
                         width: width,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(spacing_middle),
-                              bottomLeft: Radius.circular(spacing_middle)),
-                          color: selectedPos == 1
-                              ? qIBus_colorPrimary
-                              : Colors.transparent,
-                          border: Border.all(
-                              color: selectedPos == 1
-                                  ? qIBus_colorPrimary
-                                  : Colors.transparent),
+                          borderRadius: BorderRadius.only(topLeft: Radius.circular(spacing_middle), bottomLeft: Radius.circular(spacing_middle)),
+                          color: selectedPos == 1 ? qIBus_colorPrimary : Colors.transparent,
+                          border: Border.all(color: selectedPos == 1 ? qIBus_colorPrimary : Colors.transparent),
                         ),
                         child: text(
                           QIBus_text_booked,
                           isCentered: true,
-                          textColor:
-                              selectedPos == 1 ? qIBus_white : qIBus_textHeader,
+                          textColor: selectedPos == 1 ? qIBus_white : qIBus_textHeader,
                         ),
                       ),
                     ),
@@ -93,23 +82,14 @@ class QIBusBookingState extends State<QIBusBooking> {
                           padding: EdgeInsets.all(8.0),
                           width: width,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(spacing_middle),
-                                bottomRight: Radius.circular(spacing_middle)),
-                            color: selectedPos == 2
-                                ? qIBus_colorPrimary
-                                : Colors.transparent,
-                            border: Border.all(
-                                color: selectedPos == 2
-                                    ? qIBus_colorPrimary
-                                    : Colors.transparent),
+                            borderRadius: BorderRadius.only(topRight: Radius.circular(spacing_middle), bottomRight: Radius.circular(spacing_middle)),
+                            color: selectedPos == 2 ? qIBus_colorPrimary : Colors.transparent,
+                            border: Border.all(color: selectedPos == 2 ? qIBus_colorPrimary : Colors.transparent),
                           ),
                           child: text(
                             QIBus_txt_cancelled,
                             isCentered: true,
-                            textColor: selectedPos == 2
-                                ? qIBus_white
-                                : qIBus_textHeader,
+                            textColor: selectedPos == 2 ? qIBus_white : qIBus_textHeader,
                           ),
                         )),
                     flex: 1,
@@ -153,7 +133,7 @@ class Booking extends StatefulWidget {
 
 class BookingState extends State<Booking> {
   bool visibility = false;
-  QIBusBookingModel model;
+  late QIBusBookingModel model;
 
   void _changed() {
     setState(() {
@@ -169,12 +149,8 @@ class BookingState extends State<Booking> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     return Container(
-      margin: EdgeInsets.only(
-          left: spacing_standard_new,
-          right: spacing_standard_new,
-          bottom: spacing_standard_new),
-      decoration: boxDecoration(
-          showShadow: true, bgColor: qIBus_white, radius: spacing_middle),
+      margin: EdgeInsets.only(left: spacing_standard_new, right: spacing_standard_new, bottom: spacing_standard_new),
+      decoration: boxDecoration(showShadow: true, bgColor: qIBus_white, radius: spacing_middle),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -191,11 +167,7 @@ class BookingState extends State<Booking> {
                     RichText(
                         text: TextSpan(
                       children: [
-                        TextSpan(
-                            text: model.totalFare,
-                            style: TextStyle(
-                                fontSize: textSizeMedium,
-                                color: qIBus_color_check)),
+                        TextSpan(text: model.totalFare, style: TextStyle(fontSize: textSizeMedium, color: qIBus_color_check)),
                         WidgetSpan(
                           child: Padding(
                             padding: const EdgeInsets.only(left: 4),
@@ -219,14 +191,10 @@ class BookingState extends State<Booking> {
               child: Column(
                 children: <Widget>[
                   Container(
-                      padding: EdgeInsets.only(
-                          top: spacing_standard_new,
-                          bottom: spacing_standard_new),
+                      padding: EdgeInsets.only(top: spacing_standard_new, bottom: spacing_standard_new),
                       color: qIBus_view_color,
                       child: Padding(
-                        padding: EdgeInsets.only(
-                            left: spacing_standard_new,
-                            right: spacing_standard_new),
+                        padding: EdgeInsets.only(left: spacing_standard_new, right: spacing_standard_new),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
@@ -269,17 +237,16 @@ class BookingState extends State<Booking> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   ticketInfo(QIBus_text_seat_no, model.seatNo),
-                                  ticketInfo(
-                                      QIBus_txt_ticket_no, model.ticketNo),
+                                  ticketInfo(QIBus_txt_ticket_no, model.ticketNo),
                                   ticketInfo(QIBus_lbl_pnr_no, model.pnrNo),
-                                  ticketInfo(
-                                      QIBus_lbl_total_fare, model.status),
+                                  ticketInfo(QIBus_lbl_total_fare, model.status),
                                 ],
                               ),
                             ),
                             Expanded(
                               flex: 1,
                               child: CachedNetworkImage(
+                                placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                                 imageUrl: model.img,
                                 height: width * 0.25,
                                 width: width * 0.25,
@@ -334,7 +301,7 @@ class CancelBooking extends StatefulWidget {
 
 class CancelBookingState extends State<CancelBooking> {
   bool visibility = false;
-  QIBusBookingModel model;
+  late QIBusBookingModel model;
 
   void _changed() {
     setState(() {
@@ -350,12 +317,8 @@ class CancelBookingState extends State<CancelBooking> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     return Container(
-      margin: EdgeInsets.only(
-          left: spacing_standard_new,
-          right: spacing_standard_new,
-          bottom: spacing_standard_new),
-      decoration: boxDecoration(
-          showShadow: true, bgColor: qIBus_white, radius: spacing_middle),
+      margin: EdgeInsets.only(left: spacing_standard_new, right: spacing_standard_new, bottom: spacing_standard_new),
+      decoration: boxDecoration(showShadow: true, bgColor: qIBus_white, radius: spacing_middle),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -372,10 +335,7 @@ class CancelBookingState extends State<CancelBooking> {
                     RichText(
                         text: TextSpan(
                       children: [
-                        TextSpan(
-                            text: model.totalFare,
-                            style: TextStyle(
-                                fontSize: textSizeMedium, color: qIBus_red)),
+                        TextSpan(text: model.totalFare, style: TextStyle(fontSize: textSizeMedium, color: qIBus_red)),
                         WidgetSpan(
                           child: Padding(
                             padding: const EdgeInsets.only(left: 4),
@@ -399,14 +359,10 @@ class CancelBookingState extends State<CancelBooking> {
               child: Column(
                 children: <Widget>[
                   Container(
-                      padding: EdgeInsets.only(
-                          top: spacing_standard_new,
-                          bottom: spacing_standard_new),
+                      padding: EdgeInsets.only(top: spacing_standard_new, bottom: spacing_standard_new),
                       color: qIBus_view_color,
                       child: Padding(
-                        padding: EdgeInsets.only(
-                            left: spacing_standard_new,
-                            right: spacing_standard_new),
+                        padding: EdgeInsets.only(left: spacing_standard_new, right: spacing_standard_new),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
@@ -439,17 +395,16 @@ class CancelBookingState extends State<CancelBooking> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   ticketInfo(QIBus_text_seat_no, model.seatNo),
-                                  ticketInfo(
-                                      QIBus_txt_ticket_no, model.ticketNo),
+                                  ticketInfo(QIBus_txt_ticket_no, model.ticketNo),
                                   ticketInfo(QIBus_lbl_pnr_no, model.pnrNo),
-                                  ticketInfo(
-                                      QIBus_lbl_total_fare, model.status),
+                                  ticketInfo(QIBus_lbl_total_fare, model.status),
                                 ],
                               ),
                             ),
                             Expanded(
                               flex: 1,
                               child: CachedNetworkImage(
+                                placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                                 imageUrl: model.img,
                                 height: width * 0.25,
                                 width: width * 0.25,

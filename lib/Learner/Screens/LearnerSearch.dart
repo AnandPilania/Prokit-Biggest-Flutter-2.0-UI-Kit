@@ -1,14 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/Learner/Screens/LearnerInstructorsDetails.dart';
-import 'package:prokit_flutter/Learner/model/LearnerModels.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerColors.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerConstant.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerDataGenerator.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerExtension.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerStrings.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerWidget.dart';
+import 'package:prokit_flutter/learner/Screens/LearnerInstructorsDetails.dart';
+import 'package:prokit_flutter/learner/model/LearnerModels.dart';
+import 'package:prokit_flutter/learner/utils/LearnerColors.dart';
+import 'package:prokit_flutter/learner/utils/LearnerConstant.dart';
+import 'package:prokit_flutter/learner/utils/LearnerDataGenerator.dart';
+import 'package:prokit_flutter/learner/utils/LearnerStrings.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class LearnerSearch extends StatefulWidget {
   @override
@@ -16,8 +15,8 @@ class LearnerSearch extends StatefulWidget {
 }
 
 class _LearnerSearchState extends State<LearnerSearch> {
-  List<LearnerPeopleModel> mList1;
-  List<LearnerPeopleModel> mList2;
+  late List<LearnerPeopleModel> mList1;
+  late List<LearnerPeopleModel> mList2;
 
   @override
   void initState() {
@@ -29,6 +28,7 @@ class _LearnerSearchState extends State<LearnerSearch> {
   @override
   Widget build(BuildContext context) {
     changeStatusColor(learner_layout_background);
+
     return Scaffold(
         backgroundColor: learner_layout_background,
         body: SafeArea(
@@ -36,8 +36,7 @@ class _LearnerSearchState extends State<LearnerSearch> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                decoration: boxDecoration(
-                    showShadow: true, bgColor: learner_white, radius: 0),
+                decoration: boxDecoration(showShadow: true, bgColor: learner_white, radius: 0),
                 padding: EdgeInsets.fromLTRB(12, 16, 16, 12),
                 margin: EdgeInsets.all(16),
                 child: Row(
@@ -48,25 +47,17 @@ class _LearnerSearchState extends State<LearnerSearch> {
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Icon(Icons.search,
-                              color: learner_colorPrimary, size: 20),
+                          child: Icon(Icons.search, color: learner_colorPrimary, size: 20),
                         ),
-                        Text(learner_hint_search,
-                            style: TextStyle(
-                                fontSize: textSizeMedium,
-                                color: learner_textColorSecondary)),
+                        Text(learner_hint_search, style: TextStyle(fontSize: textSizeMedium, color: learner_textColorSecondary)),
                       ],
                     ),
                     Row(
                       children: <Widget>[
-                        Text(learner_lbl_filter,
-                            style: TextStyle(
-                                fontSize: textSizeMedium,
-                                color: learner_colorPrimary)),
+                        Text(learner_lbl_filter, style: TextStyle(fontSize: textSizeMedium, color: learner_colorPrimary)),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Icon(Icons.close,
-                              color: learner_textColorSecondary, size: 20),
+                          child: Icon(Icons.close, color: learner_textColorSecondary, size: 20),
                         ),
                       ],
                     ),
@@ -78,10 +69,7 @@ class _LearnerSearchState extends State<LearnerSearch> {
               ),
               Container(
                 margin: EdgeInsets.only(left: 16),
-                child: text(learner_lbl_top_instructors,
-                    fontFamily: fontBold,
-                    fontSize: textSizeLargeMedium,
-                    textColor: learner_textColorPrimary),
+                child: text(learner_lbl_top_instructors, fontFamily: fontBold, fontSize: textSizeLargeMedium, textColor: learner_textColorPrimary),
               ),
               SizedBox(
                 height: 16,
@@ -98,10 +86,7 @@ class _LearnerSearchState extends State<LearnerSearch> {
               ),
               Container(
                 margin: EdgeInsets.only(left: 16),
-                child: text(learner_lbl_recommended,
-                    fontFamily: fontBold,
-                    fontSize: textSizeLargeMedium,
-                    textColor: learner_textColorPrimary),
+                child: text(learner_lbl_recommended, fontFamily: fontBold, fontSize: textSizeLargeMedium, textColor: learner_textColorPrimary),
               ),
               SizedBox(
                 height: 16,
@@ -123,7 +108,7 @@ class _LearnerSearchState extends State<LearnerSearch> {
 }
 
 class LearnerInstructor extends StatelessWidget {
-  LearnerPeopleModel model;
+  late LearnerPeopleModel model;
 
   LearnerInstructor(LearnerPeopleModel model, int pos) {
     this.model = model;
@@ -147,12 +132,7 @@ class LearnerInstructor extends StatelessWidget {
               Container(
                 height: 15,
                 width: 15,
-                decoration: BoxDecoration(
-                    color: model.isOnline
-                        ? learner_green
-                        : learner_greyColor.withOpacity(1.0),
-                    shape: BoxShape.circle,
-                    border: Border.all(color: learner_white, width: 1.5)),
+                decoration: BoxDecoration(color: model.isOnline ? learner_green : learner_greyColor.withOpacity(1.0), shape: BoxShape.circle, border: Border.all(color: learner_white, width: 1.5)),
               ).cornerRadiusWithClipRRect(7).paddingOnly(top: 4, right: 2)
             ],
           ),
@@ -173,7 +153,7 @@ class LearnerInstructor extends StatelessWidget {
 }
 
 class LearnerRecommended extends StatelessWidget {
-  LearnerPeopleModel model;
+  late LearnerPeopleModel model;
 
   LearnerRecommended(LearnerPeopleModel model, int pos) {
     this.model = model;

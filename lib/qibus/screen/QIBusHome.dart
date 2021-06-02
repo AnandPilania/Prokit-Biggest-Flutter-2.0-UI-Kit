@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/qibus/model/QiBusModel.dart';
 import 'package:prokit_flutter/qibus/screen/QIBusNotification.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusColors.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusConstant.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusDataGenerator.dart';
-import 'package:prokit_flutter/qibus/utils/QiBusExtension.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusImages.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusStrings.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusWidget.dart';
@@ -26,12 +26,12 @@ class QIBusHome extends StatefulWidget {
 
 class QIBusHomeState extends State<QIBusHome> {
   var isSelected = 0;
-  List<QIBusBookingModel> mRecentList;
-  List<QIBusNewOfferModel> mOfferList;
+  late List<QIBusBookingModel> mRecentList;
+  late List<QIBusNewOfferModel> mOfferList;
   var now = new DateTime.now();
   var count = 1;
   var formatter = new DateFormat('dd - MMM - yyyy');
-  String formatted;
+  String? formatted;
 
   @override
   void initState() {
@@ -45,13 +45,10 @@ class QIBusHomeState extends State<QIBusHome> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        text(QIBus_home,
-            textColor: qIBus_white,
-            fontFamily: fontBold,
-            fontSize: textSizeLargeMedium),
+        text(QIBus_home, textColor: qIBus_white, fontFamily: fontBold, fontSize: textSizeLargeMedium),
         GestureDetector(
           onTap: () {
-            launchScreen(context, QIBusNotification.tag);
+            QIBusNotification().launch(context);
           },
           child: Image(
             image: AssetImage(qibus_gif_bell),
@@ -69,10 +66,7 @@ class QIBusHomeState extends State<QIBusHome> {
       Column(
         children: <Widget>[
           Container(
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: qIBus_colorPrimary,
-                border: Border.all(width: 0, color: qIBus_colorPrimary)),
+            decoration: BoxDecoration(shape: BoxShape.circle, color: qIBus_colorPrimary, border: Border.all(width: 0, color: qIBus_colorPrimary)),
             width: 20,
             height: 20,
           ),
@@ -87,9 +81,7 @@ class QIBusHomeState extends State<QIBusHome> {
           ),
         ],
       ),
-      SizedBox(
-        width: spacing_standard_new,
-      ),
+      SizedBox(width: spacing_standard_new),
       Expanded(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,10 +93,7 @@ class QIBusHomeState extends State<QIBusHome> {
         ),
       ),
       Container(
-        decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: qIBus_colorPrimary,
-            border: Border.all(width: 0, color: qIBus_colorPrimary)),
+        decoration: BoxDecoration(shape: BoxShape.circle, color: qIBus_colorPrimary, border: Border.all(width: 0, color: qIBus_colorPrimary)),
         child: Padding(
           padding: EdgeInsets.all(4),
           child: Image.asset(
@@ -127,20 +116,10 @@ class QIBusHomeState extends State<QIBusHome> {
       },
       child: Column(
         children: <Widget>[
-          SizedBox(
-            height: spacing_standard,
-          ),
-          SvgPicture.asset(icon,
-              color: isSelected == pos ? qIBus_colorPrimary : qIBus_icon_color,
-              height: 18,
-              width: 18),
-          SizedBox(
-            height: 4,
-          ),
-          text(name,
-              fontSize: textSizeSmall,
-              textColor:
-                  isSelected == pos ? qIBus_colorPrimary : qIBus_textChild)
+          SizedBox(height: spacing_standard),
+          SvgPicture.asset(icon, color: isSelected == pos ? qIBus_colorPrimary : qIBus_icon_color, height: 18, width: 18),
+          SizedBox(height: 4),
+          text(name, fontSize: textSizeSmall, textColor: isSelected == pos ? qIBus_colorPrimary : qIBus_textChild)
         ],
       ),
     );
@@ -152,8 +131,7 @@ class QIBusHomeState extends State<QIBusHome> {
         Container(
             height: MediaQuery.of(context).size.width * 0.25,
             margin: EdgeInsets.only(left: 16, right: 16),
-            decoration: boxDecoration(
-                radius: 8, bgColor: qIBus_white, showShadow: true),
+            decoration: boxDecoration(radius: 8, bgColor: qIBus_white, showShadow: true),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -163,11 +141,8 @@ class QIBusHomeState extends State<QIBusHome> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      text(QIBus_text_when_you_want_to_go,
-                          textColor: qIBus_textChild),
-                      SizedBox(
-                        height: spacing_standard,
-                      ),
+                      text(QIBus_text_when_you_want_to_go, textColor: qIBus_textChild),
+                      SizedBox(height: spacing_standard),
                       GestureDetector(
                         onTap: () {},
                         child: RichText(
@@ -184,18 +159,13 @@ class QIBusHomeState extends State<QIBusHome> {
                                 ),
                               ),
                             ),
-                            TextSpan(
-                                text: date,
-                                style: TextStyle(
-                                    fontFamily: fontMedium,
-                                    fontSize: textSizeMedium,
-                                    color: qIBus_colorPrimary)),
+                            TextSpan(text: date, style: TextStyle(fontFamily: fontMedium, fontSize: textSizeMedium, color: qIBus_colorPrimary)),
                           ],
                         )),
                       )
                     ],
                   ),
-                ),
+                ).expand(),
                 Padding(
                   padding: EdgeInsets.fromLTRB(16, 6, 8, 6),
                   child: Column(
@@ -211,10 +181,7 @@ class QIBusHomeState extends State<QIBusHome> {
                       }),
                       text("$count", textColor: qIBus_colorPrimary),
                       count == 1
-                          ? Icon(
-                              Icons.arrow_drop_down,
-                              color: qIBus_white,
-                            )
+                          ? Icon(Icons.arrow_drop_down, color: qIBus_white)
                           : Icon(
                               Icons.arrow_drop_down,
                               color: qIBus_icon_color,
@@ -232,12 +199,12 @@ class QIBusHomeState extends State<QIBusHome> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    launchScreen(context, QIBusSearchList.tag);
+                    QIBusSearchList().launch(context);
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.2,
                     height: MediaQuery.of(context).size.width * 0.25,
-                    decoration: boxDecoration(bgColor: qIBus_colorPrimary),
+                    decoration: boxDecoration(bgColor: qIBus_colorPrimary, radius: 10.0),
                     child: Padding(
                       padding: EdgeInsets.all(16.0),
                       child: Icon(
@@ -267,7 +234,7 @@ class QIBusHomeState extends State<QIBusHome> {
           text(QIBus_txt_new_offers, fontFamily: fontMedium),
           GestureDetector(
             onTap: () {
-              launchScreen(context, QIBusViewOffer.tag);
+              QIBusViewOffer().launch(context);
             },
             child: text(QIBus_txt_view_all, textColor: qIBus_textChild),
           )
@@ -292,17 +259,16 @@ class QIBusHomeState extends State<QIBusHome> {
   }
 
   Widget mOffer(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
     return SizedBox(
-//      height: width * 0.4,
-      height: 160,
+      height: 190,
       child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: mOfferList.length,
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return NewOffer(mOfferList[index], index);
-          }),
+        scrollDirection: Axis.horizontal,
+        itemCount: mOfferList.length,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          return NewOffer(mOfferList[index], index);
+        },
+      ),
     );
   }
 
@@ -339,24 +305,19 @@ class QIBusHomeState extends State<QIBusHome> {
                         left: 16,
                         right: 16,
                       ),
-                      decoration: boxDecoration(
-                          radius: 8, bgColor: qIBus_white, showShadow: false),
+                      decoration: boxDecoration(radius: 8, bgColor: qIBus_white, showShadow: false),
                       padding: EdgeInsets.all(10.0),
                       child: Column(
                         children: <Widget>[
                           mTopSearch,
                           Padding(
-                            padding: EdgeInsets.only(
-                                left: 16,
-                                right: spacing_standard_new,
-                                top: spacing_standard_new),
+                            padding: EdgeInsets.only(left: 16, right: spacing_standard_new, top: spacing_standard_new),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 mOption(qibus_ic_ac, QIBus_lbl_ac, 1),
                                 mOption(qibus_ic_non_ac, QIBus_lbl_non_ac, 2),
-                                mOption(qibus_ic_sleeper_icon,
-                                    QIBus_lbl_sleeper, 3),
+                                mOption(qibus_ic_sleeper_icon, QIBus_lbl_sleeper, 3),
                                 mOption(qibus_ic_seater, QIBus_lbl_seater, 4),
                               ],
                             ),
@@ -371,9 +332,7 @@ class QIBusHomeState extends State<QIBusHome> {
                   mRecentSearch(context),
                   mNewOfferLbl(),
                   mOffer(context),
-                  SizedBox(
-                    height: 16,
-                  ),
+                  SizedBox(height: 16),
                 ],
               ),
             )
@@ -385,7 +344,7 @@ class QIBusHomeState extends State<QIBusHome> {
 }
 
 class RecentSearch extends StatelessWidget {
-  QIBusBookingModel model;
+  late QIBusBookingModel model;
 
   RecentSearch(QIBusBookingModel model, int pos) {
     this.model = model;
@@ -396,15 +355,13 @@ class RecentSearch extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     return Container(
       width: width * 0.7,
-      decoration: boxDecoration(
-          showShadow: true, bgColor: qIBus_white, radius: spacing_middle),
+      decoration: boxDecoration(showShadow: true, bgColor: qIBus_white, radius: spacing_middle),
       margin: EdgeInsets.only(left: spacing_standard_new),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.fromLTRB(spacing_middle, spacing_standard_new,
-                spacing_standard_new, spacing_standard),
+            padding: EdgeInsets.fromLTRB(spacing_middle, spacing_standard_new, spacing_standard_new, spacing_standard),
             child: RichText(
                 text: TextSpan(
               children: [
@@ -419,12 +376,7 @@ class RecentSearch extends StatelessWidget {
                     ),
                   ),
                 ),
-                TextSpan(
-                    text: model.destination,
-                    style: TextStyle(
-                        fontSize: textSizeMedium,
-                        color: qIBus_textHeader,
-                        fontFamily: fontMedium)),
+                TextSpan(text: model.destination, style: TextStyle(fontSize: textSizeMedium, color: qIBus_textHeader, fontFamily: fontMedium)),
               ],
             )),
           ),
@@ -432,23 +384,19 @@ class RecentSearch extends StatelessWidget {
             height: spacing_control,
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(
-                spacing_middle, 0, spacing_standard_new, 14),
+            padding: EdgeInsets.fromLTRB(spacing_middle, 0, spacing_standard_new, 14),
             child: text(model.duration, textColor: qIBus_textChild),
           ),
           RaisedButton(
               onPressed: () {
-                launchScreen(context, QIBusSearchList.tag);
+                QIBusSearchList().launch(context);
               },
               textColor: qIBus_white,
               elevation: 2,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16.0)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
               padding: const EdgeInsets.all(0.0),
               child: Container(
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                    color: qIBus_colorPrimary),
+                decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8.0)), color: qIBus_colorPrimary),
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
@@ -467,7 +415,7 @@ class RecentSearch extends StatelessWidget {
 }
 
 class NewOffer extends StatelessWidget {
-  QIBusNewOfferModel model;
+  late QIBusNewOfferModel model;
 
   NewOffer(QIBusNewOfferModel model, int pos) {
     this.model = model;
@@ -479,21 +427,19 @@ class NewOffer extends StatelessWidget {
     return Container(
       width: width * 0.7,
       margin: EdgeInsets.only(left: spacing_standard_new),
-      decoration: boxDecoration(
-          showShadow: true, bgColor: qIBus_white, radius: spacing_middle),
+      decoration: boxDecoration(showShadow: true, bgColor: qIBus_white, radius: spacing_middle),
       child: Column(
         children: <Widget>[
           ClipRRect(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(spacing_middle),
-                topLeft: Radius.circular(spacing_middle)),
+            borderRadius: BorderRadius.only(topRight: Radius.circular(spacing_middle), topLeft: Radius.circular(spacing_middle)),
             child: Stack(
               children: <Widget>[
                 Container(
                   color: model.color,
                   child: CachedNetworkImage(
+                    placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                     imageUrl: model.img,
-                    height: width * 0.26,
+                    height: 130,
                     fit: BoxFit.none,
                     width: width,
                   ),
@@ -501,9 +447,7 @@ class NewOffer extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
-            height: 8,
-          ),
+          SizedBox(height: 8),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,

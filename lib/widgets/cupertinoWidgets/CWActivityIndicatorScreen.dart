@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/integrations/utils/colors.dart';
 import 'package:prokit_flutter/main.dart';
 
 class CWActivityIndicatorScreen extends StatefulWidget {
@@ -12,16 +11,13 @@ class CWActivityIndicatorScreen extends StatefulWidget {
 }
 
 class CWActivityIndicatorScreenState extends State<CWActivityIndicatorScreen> {
-
   @override
   void initState() {
     super.initState();
     init();
   }
 
-  init() async {
-
-  }
+  init() async {}
 
   @override
   void setState(fn) {

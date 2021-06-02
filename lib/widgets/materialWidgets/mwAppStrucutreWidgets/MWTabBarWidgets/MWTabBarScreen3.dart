@@ -10,13 +10,13 @@ class MWTabBarScreen3 extends StatefulWidget {
 }
 
 class _MWTabBarScreen3State extends State<MWTabBarScreen3> with SingleTickerProviderStateMixin {
-  TabController _tabController;
+  TabController? _tabController;
 
   @override
   void initState() {
     super.initState();
     _tabController = new TabController(vsync: this, length: 6);
-    _tabController.addListener(_handleTabSelection);
+    _tabController!.addListener(_handleTabSelection);
   }
 
   void _handleTabSelection() {
@@ -52,42 +52,42 @@ class _MWTabBarScreen3State extends State<MWTabBarScreen3> with SingleTickerProv
               'images/widgets/materialWidgets/mwAppStructureWidgets/TabBar/home.png',
               height: 25,
               width: 25,
-              color: _tabController.index != 0 ? appStore.iconSecondaryColor : Colors.blue,
+              color: _tabController!.index != 0 ? appStore.iconSecondaryColor : Colors.blue,
             )),
             Tab(
                 icon: Image.asset(
               'images/widgets/materialWidgets/mwAppStructureWidgets/TabBar/marketplace.png',
               height: 25,
               width: 25,
-              color: _tabController.index != 1 ? appStore.iconSecondaryColor : Colors.blue,
+              color: _tabController!.index != 1 ? appStore.iconSecondaryColor : Colors.blue,
             )),
             Tab(
                 icon: Image.asset(
               'images/widgets/materialWidgets/mwAppStructureWidgets/TabBar/group.png',
               height: 25,
               width: 25,
-              color: _tabController.index != 2 ? appStore.iconSecondaryColor : Colors.blue,
+              color: _tabController!.index != 2 ? appStore.iconSecondaryColor : Colors.blue,
             )),
             Tab(
                 icon: Image.asset(
               'images/widgets/materialWidgets/mwAppStructureWidgets/TabBar/video.png',
               height: 25,
               width: 25,
-              color: _tabController.index != 3 ? appStore.iconSecondaryColor : Colors.blue,
+              color: _tabController!.index != 3 ? appStore.iconSecondaryColor : Colors.blue,
             )),
             Tab(
                 icon: Image.asset(
               'images/widgets/materialWidgets/mwAppStructureWidgets/TabBar/notification.png',
               height: 25,
               width: 25,
-              color: _tabController.index != 4 ? appStore.iconSecondaryColor : Colors.blue,
+              color: _tabController!.index != 4 ? appStore.iconSecondaryColor : Colors.blue,
             )),
             Tab(
                 icon: Image.asset(
               'images/widgets/materialWidgets/mwAppStructureWidgets/TabBar/list.png',
               height: 25,
               width: 25,
-              color: _tabController.index != 5 ? appStore.iconSecondaryColor : Colors.blue,
+              color: _tabController!.index != 5 ? appStore.iconSecondaryColor : Colors.blue,
             )),
           ],
         ),

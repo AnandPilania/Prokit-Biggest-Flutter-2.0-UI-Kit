@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lipsum/lipsum.dart' as lipsum;
+import 'package:prokit_flutter/main/utils/Lipsum.dart' as lipsum;
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/integrations/utils/colors.dart';
-import 'package:prokit_flutter/integrations/utils/common.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/integrations/utils/styles.dart';
+import 'package:prokit_flutter/main/utils/AppColors.dart';
 
 class BottomSheetScreen extends StatefulWidget {
   static String tag = '/BottomSheetScreen';
@@ -36,17 +36,17 @@ class BottomSheetScreenState extends State<BottomSheetScreen> {
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(primaryColor);
+    changeStatusColor(appColorPrimary);
 
     return Scaffold(
-      appBar: getAppBar(context, "Bottom Sheet"),
+      appBar: appBar(context, "Bottom Sheet"),
       body: Center(
         child: ListView(
           padding: EdgeInsets.all(16),
           shrinkWrap: true,
           children: <Widget>[
             MaterialButton(
-              color: primaryColor,
+              color: appColorPrimary,
               onPressed: () => showBottomSheetDialog(context),
               child: Text('Show BottomSheet', style: primaryTextStyle()),
             )

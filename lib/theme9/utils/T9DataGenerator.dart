@@ -3,7 +3,7 @@ import 'package:prokit_flutter/theme9/utils/T9Colors.dart';
 import 'package:prokit_flutter/theme9/utils/T9Images.dart';
 
 List<T9PeopleModel> t9GetRecommended() {
-  List<T9PeopleModel> list = List<T9PeopleModel>();
+  List<T9PeopleModel> list = [];
 
   var people = T9PeopleModel();
   people.img = t9_walk_1;
@@ -33,7 +33,7 @@ List<T9PeopleModel> t9GetRecommended() {
 }
 
 List<T9PeopleModel> t9GetInstructor() {
-  List<T9PeopleModel> list = List<T9PeopleModel>();
+  List<T9PeopleModel> list = [];
 
   T9PeopleModel people = T9PeopleModel();
   people.img = t9_ic_profile2;
@@ -83,7 +83,7 @@ List<T9PeopleModel> t9GetInstructor() {
 }
 
 List<T9FeaturedModel> t9GetFavourites() {
-  List<T9FeaturedModel> list = List<T9FeaturedModel>();
+  List<T9FeaturedModel> list = [];
   T9FeaturedModel featured = T9FeaturedModel();
   featured.img = t9_walk_1;
   featured.name = "Business Management";
@@ -133,7 +133,7 @@ List<T9FeaturedModel> t9GetFavourites() {
 }
 
 List<T9ContentModel> t9GetContents() {
-  List<T9ContentModel> list = List<T9ContentModel>();
+  List<T9ContentModel> list = [];
   var content = T9ContentModel();
   content.name = "Introduction";
   content.subtitle = "About this course and overview";
@@ -155,7 +155,7 @@ List<T9ContentModel> t9GetContents() {
 }
 
 List<T9CategoryModel> t9GetCategories() {
-  List<T9CategoryModel> list = List<T9CategoryModel>();
+  List<T9CategoryModel> list = [];
   var category = T9CategoryModel();
   category.img = t9_ic_bag;
   category.name = "Business";
@@ -200,7 +200,7 @@ List<T9CategoryModel> t9GetCategories() {
 }
 
 List<T9PeopleModel> t9GetPending() {
-  List<T9PeopleModel> list = List<T9PeopleModel>();
+  List<T9PeopleModel> list = [];
 
   T9PeopleModel people = T9PeopleModel();
   people.img = t9_ic_profile;
@@ -243,7 +243,7 @@ List<T9PeopleModel> t9GetPending() {
 }
 
 List<T9BadgeModel> t9GetBadges() {
-  List<T9BadgeModel> list = List<T9BadgeModel>();
+  List<T9BadgeModel> list = [];
 
   T9BadgeModel badge = T9BadgeModel();
   badge.img = t9_ic_medal;

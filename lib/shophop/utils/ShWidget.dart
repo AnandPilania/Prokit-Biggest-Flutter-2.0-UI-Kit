@@ -1,48 +1,23 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/main/utils/dots_indicator/dots_indicator.dart';
-import 'package:prokit_flutter/shophop/models/ShProduct.dart';
-import 'package:prokit_flutter/shophop/screens/ShCartScreen.dart';
-import 'package:prokit_flutter/shophop/screens/ShProductDetail.dart';
-import 'package:prokit_flutter/shophop/utils/ShColors.dart';
-import 'package:prokit_flutter/shophop/utils/ShExtension.dart';
-import 'package:prokit_flutter/shophop/utils/ShImages.dart';
-import 'package:snaplist/snaplist_view.dart';
+import 'package:prokit_flutter/shopHop/models/ShProduct.dart';
+import 'package:prokit_flutter/shopHop/screens/ShCartScreen.dart';
+import 'package:prokit_flutter/shopHop/screens/ShProductDetail.dart';
+import 'package:prokit_flutter/shopHop/utils/ShColors.dart';
+import 'package:prokit_flutter/shopHop/utils/ShExtension.dart';
+import 'package:prokit_flutter/shopHop/utils/ShImages.dart';
 
 import 'ShConstant.dart';
 import 'ShStrings.dart';
 
-Widget text(var text,
-    {var fontSize = textSizeMedium,
-    textColor = sh_textColorSecondary,
-    var fontFamily = fontRegular,
-    var isCentered = false,
-    var maxLine = 1,
-    var latterSpacing = 0.2,
-    var isLongText = false,
-    var isJustify = false,
-    var aDecoration}) {
-  return Text(
-    text,
-    textAlign: isCentered ? TextAlign.center : isJustify ? TextAlign.justify : TextAlign.start,
-    maxLines: isLongText ? 20 : maxLine,
-    overflow: TextOverflow.ellipsis,
-    style: TextStyle(
-        fontFamily: fontFamily,
-        decoration: aDecoration != null ? aDecoration : null,
-        fontSize: double.parse(fontSize.toString()).toDouble(),
-        height: 1.5,
-        color: textColor.toString().isNotEmpty ? textColor : null,
-        letterSpacing: latterSpacing),
-  );
-}
-
 var textFiledBorderStyle = OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(width: 0, color: sh_editText_background));
 
-InputDecoration formFieldDecoration(String hint_text) {
+InputDecoration formFieldDecoration(String hintText) {
   return InputDecoration(
-    labelText: hint_text,
+    labelText: hintText,
     focusColor: sh_colorPrimary,
     counterText: "",
     labelStyle: TextStyle(fontFamily: fontRegular, fontSize: textSizeMedium),
@@ -50,8 +25,9 @@ InputDecoration formFieldDecoration(String hint_text) {
   );
 }
 
+// ignore: must_be_immutable
 class ProductHorizontalList extends StatelessWidget {
-  var list = List<ShProduct>();
+  List<ShProduct> list = [];
   var isHorizontal = false;
 
   ProductHorizontalList(this.list, {this.isHorizontal = false});
@@ -61,7 +37,7 @@ class ProductHorizontalList extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
 
     return Container(
-      height: 240,
+      height: 250,
       margin: EdgeInsets.only(top: spacing_standard_new),
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
@@ -79,7 +55,7 @@ class ProductHorizontalList extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Image.asset("images/shophop/img/products" + list[index].images[0].src, width: double.infinity, height: 200, fit: BoxFit.cover),
+                    Image.asset("images/shophop/img/products" + list[index].images![0].src!, width: double.infinity, height: 200, fit: BoxFit.cover),
                     SizedBox(height: spacing_standard),
                     Expanded(
                       child: Row(
@@ -91,12 +67,12 @@ class ProductHorizontalList extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                list[index].regular_price.toString().toCurrencyFormat(),
+                                list[index].regular_price.toString().toCurrencyFormat()!,
                                 style: TextStyle(color: sh_textColorSecondary, fontFamily: fontRegular, fontSize: textSizeMedium, decoration: TextDecoration.lineThrough),
                               ),
                               SizedBox(width: spacing_control_half),
                               text(
-                                list[index].on_sale ? list[index].sale_price.toString().toCurrencyFormat() : list[index].price.toString().toCurrencyFormat(),
+                                list[index].on_sale! ? list[index].sale_price.toString().toCurrencyFormat() : list[index].price.toString().toCurrencyFormat(),
                                 textColor: sh_colorPrimary,
                                 fontFamily: fontMedium,
                                 fontSize: textSizeMedium,
@@ -115,18 +91,18 @@ class ProductHorizontalList extends StatelessWidget {
   }
 }
 
-Widget networkImage(String image, {double aWidth, double aHeight, var fit = BoxFit.fill}) {
+Widget networkImage(String image, {double? aWidth, double? aHeight, var fit = BoxFit.fill}) {
   return Image.asset(image, width: aWidth, height: aHeight, fit: BoxFit.fill);
 }
 
-Widget checkbox(String title, bool boolValue) {
+Widget checkbox(String title, bool? boolValue) {
   return Row(
     children: <Widget>[
       Text(title),
       Checkbox(
         activeColor: sh_colorPrimary,
         value: boolValue,
-        onChanged: (bool value) {
+        onChanged: (bool? value) {
           boolValue = value;
         },
       )
@@ -193,7 +169,8 @@ class HorizontalTabState extends State<HorizontalTab> {
         Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.width / 2,
-          child: SnapList(
+           // TODO Without NullSafety  snap list
+          /*child: SnapList(
             padding: EdgeInsets.only(left: 16),
             sizeProvider: (index, data) => cardSize,
             separatorProvider: (index, data) => Size(12, 12),
@@ -210,7 +187,7 @@ class HorizontalTabState extends State<HorizontalTab> {
               );
             },
             count: widget.images.length,
-          ),
+          ),*/
         ),
         DotsIndicator(
           dotsCount: 3,
@@ -250,26 +227,10 @@ Widget shareIcon(String iconPath) {
   );
 }
 
-BoxDecoration boxDecoration({double radius = 2, Color color = Colors.transparent, Color bgColor = sh_white, var showShadow = false}) {
-  return BoxDecoration(
-    color: bgColor,
-    boxShadow: showShadow ? [BoxShadow(color: sh_shadow_color, blurRadius: 10, spreadRadius: 2)] : [BoxShadow(color: Colors.transparent)],
-    border: Border.all(color: color),
-    borderRadius: BorderRadius.all(Radius.circular(radius)),
-  );
-}
-
-class ScrollingBehavior extends ScrollBehavior {
-  @override
-  Widget buildViewportChrome(BuildContext context, Widget child, AxisDirection axisDirection) {
-    return child;
-  }
-}
-
 class Slider extends StatelessWidget {
   final String file;
 
-  Slider({Key key, @required this.file}) : super(key: key);
+  Slider({Key? key, required this.file}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -294,7 +255,7 @@ showToast(BuildContext aContext, String caption) {
 }
 
 class PinEntryTextField extends StatefulWidget {
-  final String lastPin;
+  final String? lastPin;
   final int fields;
   final onSubmit;
   final fieldWidth;
@@ -311,23 +272,23 @@ class PinEntryTextField extends StatefulWidget {
 }
 
 class PinEntryTextFieldState extends State<PinEntryTextField> {
-  List<String> _pin;
-  List<FocusNode> _focusNodes;
-  List<TextEditingController> _textControllers;
+  late List<String?> _pin;
+  late List<FocusNode?> _focusNodes;
+  late List<TextEditingController?> _textControllers;
 
   Widget textfields = Container();
 
   @override
   void initState() {
     super.initState();
-    _pin = List<String>(widget.fields);
-    _focusNodes = List<FocusNode>(widget.fields);
-    _textControllers = List<TextEditingController>(widget.fields);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    _pin = List<String?>.filled(widget.fields, null, growable: false);
+    _focusNodes = List<FocusNode?>.filled(widget.fields, null, growable: false);
+    _textControllers = List<TextEditingController?>.filled(widget.fields, null, growable: false);
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       setState(() {
         if (widget.lastPin != null) {
-          for (var i = 0; i < widget.lastPin.length; i++) {
-            _pin[i] = widget.lastPin[i];
+          for (var i = 0; i < widget.lastPin!.length; i++) {
+            _pin[i] = widget.lastPin![i];
           }
         }
         textfields = generateTextFields(context);
@@ -337,7 +298,7 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
 
   @override
   void dispose() {
-    _textControllers.forEach((TextEditingController t) => t.dispose());
+    _textControllers.forEach((TextEditingController? t) => t!.dispose());
     super.dispose();
   }
 
@@ -354,7 +315,7 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
   }
 
   void clearTextFields() {
-    _textControllers.forEach((TextEditingController tEditController) => tEditController.clear());
+    _textControllers.forEach((TextEditingController? tEditController) => tEditController!.clear());
     _pin.clear();
   }
 
@@ -365,15 +326,15 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
     if (_textControllers[i] == null) {
       _textControllers[i] = TextEditingController();
       if (widget.lastPin != null) {
-        _textControllers[i].text = widget.lastPin[i];
+        _textControllers[i]!.text = widget.lastPin![i];
       }
     }
 
-    _focusNodes[i].addListener(() {
-      if (_focusNodes[i].hasFocus) {}
+    _focusNodes[i]!.addListener(() {
+      if (_focusNodes[i]!.hasFocus) {}
     });
 
-    final String lastDigit = _textControllers[i].text;
+    final String lastDigit = _textControllers[i]!.text;
 
     return Container(
       width: widget.fieldWidth,
@@ -392,24 +353,24 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
             _pin[i] = str;
           });
           if (i + 1 != widget.fields) {
-            _focusNodes[i].unfocus();
+            _focusNodes[i]!.unfocus();
             if (lastDigit != null && _pin[i] == '') {
               FocusScope.of(context).requestFocus(_focusNodes[i - 1]);
             } else {
               FocusScope.of(context).requestFocus(_focusNodes[i + 1]);
             }
           } else {
-            _focusNodes[i].unfocus();
+            _focusNodes[i]!.unfocus();
             if (lastDigit != null && _pin[i] == '') {
               FocusScope.of(context).requestFocus(_focusNodes[i - 1]);
             }
           }
-          if (_pin.every((String digit) => digit != null && digit != '')) {
+          if (_pin.every((String? digit) => digit != null && digit != '')) {
             widget.onSubmit(_pin.join());
           }
         },
         onSubmitted: (String str) {
-          if (_pin.every((String digit) => digit != null && digit != '')) {
+          if (_pin.every((String? digit) => digit != null && digit != '')) {
             widget.onSubmit(_pin.join());
           }
         },
@@ -480,7 +441,7 @@ List<Widget> colorWidget(List<Attribute> attributes) {
   var maxWidget = 6;
   var currentIndex = 0;
   var color;
-  List<Widget> list = List();
+  List<Widget> list = [];
 
   attributes.forEach((attribute) {
     if (attribute.name == "Color") {
@@ -495,7 +456,7 @@ List<Widget> colorWidget(List<Attribute> attributes) {
         list.add(Container(
           padding: EdgeInsets.all(6),
           margin: EdgeInsets.only(right: spacing_middle),
-          decoration: BoxDecoration(shape: BoxShape.rectangle, border: Border.all(color: sh_textColorPrimary, width: 0.5), color: colorFromHex(color)),
+          decoration: BoxDecoration(shape: BoxShape.rectangle, border: Border.all(color: sh_textColorPrimary, width: 0.5), color: getColorFromHex(color)),
         ));
         currentIndex++;
       } else {
@@ -537,7 +498,7 @@ Widget cartIcon(context, cartCount) {
       ],
     ),
     onTap: () {
-      launchScreen(context, ShCartScreen.tag);
+      ShCartScreen().launch(context);
     },
     radius: spacing_standard_new,
   );
@@ -546,4 +507,3 @@ Widget cartIcon(context, cartCount) {
 Widget headingText(String content) {
   return text(content, textColor: sh_textColorPrimary, fontFamily: fontMedium, fontSize: textSizeLargeMedium);
 }
-

@@ -7,7 +7,7 @@ import 'package:prokit_flutter/muvi/utils/resources/flix_colors.dart';
 
 class ViewAllMovieScreen extends StatefulWidget {
   static String tag = '/ViewAllMovieScreen';
-  var title = "";
+  String? title = "";
 
   ViewAllMovieScreen({this.title});
 
@@ -16,7 +16,7 @@ class ViewAllMovieScreen extends StatefulWidget {
 }
 
 class ViewAllMovieScreenState extends State<ViewAllMovieScreen> {
-  var movieList = List<Movie>();
+  List<Movie> movieList = [];
 
   @override
   void initState() {

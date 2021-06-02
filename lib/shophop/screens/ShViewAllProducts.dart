@@ -5,20 +5,21 @@ import 'package:flutter/widgets.dart';
 
 import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/main/utils/flutter_rating_bar.dart';
-import 'package:prokit_flutter/shophop/models/ShAttribute.dart';
-import 'package:prokit_flutter/shophop/models/ShProduct.dart';
-import 'package:prokit_flutter/shophop/utils/ShColors.dart';
-import 'package:prokit_flutter/shophop/utils/ShConstant.dart';
-import 'package:prokit_flutter/shophop/utils/ShExtension.dart';
-import 'package:prokit_flutter/shophop/utils/ShStrings.dart';
-import 'package:prokit_flutter/shophop/utils/ShWidget.dart';
+import 'package:prokit_flutter/shopHop/models/ShAttribute.dart';
+import 'package:prokit_flutter/shopHop/models/ShProduct.dart';
+import 'package:prokit_flutter/shopHop/utils/ShColors.dart';
+import 'package:prokit_flutter/shopHop/utils/ShConstant.dart';
+import 'package:prokit_flutter/shopHop/utils/ShExtension.dart';
+import 'package:prokit_flutter/shopHop/utils/ShStrings.dart';
+import 'package:prokit_flutter/shopHop/utils/ShWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 import 'ShProductDetail.dart';
 
 class ShViewAllProductScreen extends StatefulWidget {
   static String tag = '/ViewAllProductScreen';
 
-  List<ShProduct> prodcuts;
+  List<ShProduct>? prodcuts;
   var title;
 
   ShViewAllProductScreen({this.prodcuts, this.title});
@@ -31,8 +32,8 @@ class ShViewAllProductScreen extends StatefulWidget {
 
 class ShViewAllProductScreenState extends State<ShViewAllProductScreen> {
   var sortType = -1;
-  var mProductModel = List<ShProduct>();
-  ShAttributes mProductAttributeModel;
+  List<ShProduct> mProductModel = [];
+  ShAttributes? mProductAttributeModel;
 
   var isListViewSelected = false;
   var errorMsg = '';
@@ -59,7 +60,7 @@ class ShViewAllProductScreenState extends State<ShViewAllProductScreen> {
     var model = await loadAttributes();
     setState(() {
       mProductAttributeModel = model;
-      mProductModel.addAll(widget.prodcuts);
+      mProductModel.addAll(widget.prodcuts!);
     });
   }
 
@@ -95,7 +96,7 @@ class ShViewAllProductScreenState extends State<ShViewAllProductScreen> {
                     Container(
                       padding: EdgeInsets.all(1),
                       decoration: BoxDecoration(border: Border.all(color: sh_view_color, width: 1)),
-                      child: Image.asset("images/shophop/img/products" + mProductModel[index].images[0].src, fit: BoxFit.cover, height: width * 0.35, width: width * 0.29),
+                      child: Image.asset("images/shophop/img/products" + mProductModel[index].images![0].src!, fit: BoxFit.cover, height: width * 0.35, width: width * 0.29),
                     ),
                     SizedBox(width: 10),
                     Expanded(
@@ -106,13 +107,13 @@ class ShViewAllProductScreenState extends State<ShViewAllProductScreen> {
                           SizedBox(height: 4),
                           Row(
                             children: <Widget>[
-                              text(mProductModel[index].on_sale ? mProductModel[index].sale_price.toString().toCurrencyFormat() : mProductModel[index].price.toString().toCurrencyFormat(),
+                              text(mProductModel[index].on_sale! ? mProductModel[index].sale_price.toString().toCurrencyFormat() : mProductModel[index].price.toString().toCurrencyFormat(),
                                   textColor: sh_colorPrimary, fontFamily: fontMedium, fontSize: textSizeNormal),
                               SizedBox(
                                 width: spacing_control,
                               ),
                               Text(
-                                mProductModel[index].regular_price.toString().toCurrencyFormat(),
+                                mProductModel[index].regular_price.toString().toCurrencyFormat()!,
                                 style: TextStyle(color: sh_textColorSecondary, fontFamily: fontRegular, fontSize: textSizeSmall, decoration: TextDecoration.lineThrough),
                               ),
                             ],
@@ -120,7 +121,7 @@ class ShViewAllProductScreenState extends State<ShViewAllProductScreen> {
                           SizedBox(
                             height: spacing_standard,
                           ),
-                          Row(children: colorWidget(mProductModel[index].attributes)),
+                          Row(children: colorWidget(mProductModel[index].attributes!)),
                           SizedBox(height: 4),
                           Expanded(
                             child: Align(
@@ -129,7 +130,7 @@ class ShViewAllProductScreenState extends State<ShViewAllProductScreen> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   RatingBar(
-                                    initialRating: double.parse(mProductModel[index].average_rating),
+                                    initialRating: double.parse(mProductModel[index].average_rating!),
                                     direction: Axis.horizontal,
                                     allowHalfRating: true,
                                     tapOnlyMode: true,
@@ -193,7 +194,7 @@ class ShViewAllProductScreenState extends State<ShViewAllProductScreen> {
                             padding: EdgeInsets.all(1),
                             decoration: BoxDecoration(border: Border.all(color: sh_view_color, width: 0.5)),
                             child: Image.asset(
-                              "images/shophop/img/products" + mProductModel[index].images[0].src,
+                              "images/shophop/img/products" + mProductModel[index].images![0].src!,
                               fit: BoxFit.cover,
                               width: double.infinity,
                               height: double.infinity,
@@ -215,13 +216,13 @@ class ShViewAllProductScreenState extends State<ShViewAllProductScreen> {
                     SizedBox(height: 2),
                     Row(
                       children: <Widget>[
-                        text(mProductModel[index].on_sale ? mProductModel[index].sale_price.toString().toCurrencyFormat() : mProductModel[index].price.toString().toCurrencyFormat(),
+                        text(mProductModel[index].on_sale! ? mProductModel[index].sale_price.toString().toCurrencyFormat() : mProductModel[index].price.toString().toCurrencyFormat(),
                             textColor: sh_colorPrimary, fontFamily: fontMedium, fontSize: textSizeNormal),
                         SizedBox(
                           width: spacing_control,
                         ),
                         Text(
-                          mProductModel[index].regular_price.toString().toCurrencyFormat(),
+                          mProductModel[index].regular_price.toString().toCurrencyFormat()!,
                           style: TextStyle(color: sh_textColorSecondary, fontFamily: fontRegular, fontSize: textSizeSMedium, decoration: TextDecoration.lineThrough),
                         ),
                       ],
@@ -229,7 +230,7 @@ class ShViewAllProductScreenState extends State<ShViewAllProductScreen> {
                     SizedBox(height: spacing_middle),
                     Padding(
                       padding: const EdgeInsets.only(left: 2.0, top: spacing_middle),
-                      child: Row(children: colorWidget(mProductModel[index].attributes)),
+                      child: Row(children: colorWidget(mProductModel[index].attributes!)),
                     )
                   ],
                 ),
@@ -300,7 +301,7 @@ class ShViewAllProductScreenState extends State<ShViewAllProductScreen> {
   List<Widget> sizeWidget(List<String> size) {
     var maxWidget = 5;
     var currentIndex = 0;
-    List<Widget> list = List();
+    List<Widget> list = [];
     var totalSize = size.length;
     var flag = false;
 
@@ -322,10 +323,10 @@ class ShViewAllProductScreenState extends State<ShViewAllProductScreen> {
 }
 
 class FilterBottomSheetLayout extends StatefulWidget {
-  ShAttributes mProductAttributeModel;
+  ShAttributes? mProductAttributeModel;
   var onSave;
 
-  FilterBottomSheetLayout({Key key, this.mProductAttributeModel, this.onSave}) : super(key: key);
+  FilterBottomSheetLayout({Key? key, this.mProductAttributeModel, this.onSave}) : super(key: key);
 
   @override
   FilterBottomSheetLayoutState createState() {
@@ -334,17 +335,17 @@ class FilterBottomSheetLayout extends StatefulWidget {
 }
 
 class FilterBottomSheetLayoutState extends State<FilterBottomSheetLayout> {
-  List<int> selectedCategories = List();
-  List<String> selectedColors = List();
-  List<String> selectedSizes = List();
-  List<String> selectedBrands = List();
+  List<int> selectedCategories = [];
+  List<String> selectedColors = [];
+  List<String> selectedSizes = [];
+  List<String> selectedBrands = [];
 
   @override
   Widget build(BuildContext context) {
-    var categoryList = widget.mProductAttributeModel.categories;
-    var colorsList = widget.mProductAttributeModel.color;
-    var sizesList = widget.mProductAttributeModel.size;
-    var brandsList = widget.mProductAttributeModel.brand;
+    var categoryList = widget.mProductAttributeModel!.categories;
+    var colorsList = widget.mProductAttributeModel!.color;
+    var sizesList = widget.mProductAttributeModel!.size;
+    var brandsList = widget.mProductAttributeModel!.brand;
     final productCategoryListView = ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
@@ -353,11 +354,11 @@ class FilterBottomSheetLayoutState extends State<FilterBottomSheetLayout> {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: ChoiceChip(
-              label: text(categoryList[index].name, textColor: categoryList[index].isSelected ? Colors.red : blackColor),
-              selected: categoryList[index].isSelected,
+              label: text(categoryList![index].name, textColor: categoryList[index].isSelected! ? Colors.red : blackColor),
+              selected: categoryList[index].isSelected!,
               onSelected: (selected) {
                 setState(() {
-                  categoryList[index].isSelected ? categoryList[index].isSelected = false : categoryList[index].isSelected = true;
+                  categoryList[index].isSelected! ? categoryList[index].isSelected = false : categoryList[index].isSelected = true;
                 });
               },
               elevation: 2,
@@ -378,13 +379,13 @@ class FilterBottomSheetLayoutState extends State<FilterBottomSheetLayout> {
             child: InkWell(
               onTap: () {
                 setState(() {
-                  colorsList[index].isSelected ? colorsList[index].isSelected = false : colorsList[index].isSelected = true;
+                  colorsList![index].isSelected ? colorsList[index].isSelected = false : colorsList[index].isSelected = true;
                 });
               },
               child: Container(
                 padding: EdgeInsets.all(7),
                 margin: EdgeInsets.only(right: spacing_standard_new),
-                decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: sh_textColorPrimary, width: 0.5), color: colorFromHex(colorsList[index].name)),
+                decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: sh_textColorPrimary, width: 0.5), color: getColorFromHex(colorsList![index].name!)),
                 child: colorsList[index].isSelected
                     ? Icon(
                         Icons.done,
@@ -405,7 +406,7 @@ class FilterBottomSheetLayoutState extends State<FilterBottomSheetLayout> {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: ChoiceChip(
-              label: text(sizesList[index].name, textColor: categoryList[index].isSelected ? Colors.red : blackColor),
+              label: text(sizesList![index].name, textColor: categoryList![index].isSelected! ? Colors.red : blackColor),
               selected: sizesList[index].isSelected,
               onSelected: (selected) {
                 setState(() {
@@ -427,7 +428,7 @@ class FilterBottomSheetLayoutState extends State<FilterBottomSheetLayout> {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: ChoiceChip(
-              label: text(brandsList[index].name, textColor: brandsList[index].isSelected ? Colors.red : blackColor),
+              label: text(brandsList![index].name, textColor: brandsList[index].isSelected ? Colors.red : blackColor),
               selected: brandsList[index].isSelected,
               onSelected: (selected) {
                 setState(() {
@@ -453,7 +454,7 @@ class FilterBottomSheetLayoutState extends State<FilterBottomSheetLayout> {
                   padding: EdgeInsets.only(right: spacing_middle),
                   child: text(sh_lbl_apply, textColor: sh_white, fontFamily: fontMedium, fontSize: textSizeLargeMedium)),
               onTap: () {
-                Navigator.pop(context);
+                finish(context);
               })
         ],
       ),

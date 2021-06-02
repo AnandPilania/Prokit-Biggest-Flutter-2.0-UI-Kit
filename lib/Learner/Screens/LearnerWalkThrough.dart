@@ -1,16 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:prokit_flutter/main/utils/dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/Learner/Screens/LearnerDashboard.dart';
-import 'package:prokit_flutter/Learner/Screens/LearnerLogin.dart';
-import 'package:prokit_flutter/Learner/model/LearnerModels.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerColors.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerDataGenerator.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerExtension.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerImages.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerStrings.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerWidget.dart';
-import 'package:prokit_flutter/dashboard/utils/DbConstant.dart';
+import 'package:prokit_flutter/learner/Screens/LearnerDashboard.dart';
+import 'package:prokit_flutter/learner/Screens/LearnerLogin.dart';
+import 'package:prokit_flutter/learner/model/LearnerModels.dart';
+import 'package:prokit_flutter/learner/utils/LearnerColors.dart';
+import 'package:prokit_flutter/learner/utils/LearnerConstant.dart';
+import 'package:prokit_flutter/learner/utils/LearnerDataGenerator.dart';
+import 'package:prokit_flutter/learner/utils/LearnerImages.dart';
+import 'package:prokit_flutter/learner/utils/LearnerStrings.dart';
+import 'package:prokit_flutter/learner/utils/LearnerWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/main/utils/dots_indicator/dots_indicator.dart';
 
 class LearnerWalkThrough extends StatefulWidget {
   static String tag = '/LearnerWalkThrough';
@@ -21,7 +21,7 @@ class LearnerWalkThrough extends StatefulWidget {
 
 class _LearnerWalkThroughState extends State<LearnerWalkThrough> {
   int currentIndexPage = 0;
-  int pageLength;
+  int? pageLength;
   var titles = ['Welcome', 'Select Course', 'Learn Topics'];
   var subTitles = [
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry.This is simply text ",
@@ -29,7 +29,7 @@ class _LearnerWalkThroughState extends State<LearnerWalkThrough> {
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry.This is simply text"
   ];
 
-  List<LearnerWalk> mList1;
+  List<LearnerWalk>? mList1;
 
   @override
   void initState() {
@@ -70,12 +70,7 @@ class _LearnerWalkThroughState extends State<LearnerWalkThrough> {
             // left: MediaQuery.of(context).size.width * 0.35,
             child: Align(
               alignment: Alignment.center,
-              child: DotsIndicator(
-                  dotsCount: 3,
-                  position: currentIndexPage,
-                  decorator: DotsDecorator(
-                      color: learner_greyColor,
-                      activeColor: learner_colorPrimary)),
+              child: DotsIndicator(dotsCount: 3, position: currentIndexPage, decorator: DotsDecorator(color: learner_greyColor, activeColor: learner_colorPrimary)),
             ),
           ),
           Positioned(
@@ -87,19 +82,9 @@ class _LearnerWalkThroughState extends State<LearnerWalkThrough> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(titles[currentIndexPage],
-                      style: TextStyle(
-                          fontFamily: fontBold,
-                          fontSize: 20,
-                          color: learner_textColorPrimary)),
+                  Text(titles[currentIndexPage], style: TextStyle(fontFamily: fontBold, fontSize: 20, color: learner_textColorPrimary)),
                   SizedBox(height: 10),
-                  Center(
-                      child: Text(subTitles[currentIndexPage],
-                          style: TextStyle(
-                              fontFamily: fontRegular,
-                              fontSize: 18,
-                              color: learner_textColorSecondary),
-                          textAlign: TextAlign.center)),
+                  Center(child: Text(subTitles[currentIndexPage], style: TextStyle(fontFamily: fontRegular, fontSize: 18, color: learner_textColorSecondary), textAlign: TextAlign.center)),
                   SizedBox(height: 50),
                   Padding(
                     padding: const EdgeInsets.only(left: 16, right: 16),
@@ -108,10 +93,7 @@ class _LearnerWalkThroughState extends State<LearnerWalkThrough> {
                       alignment: Alignment.center,
                       child: LearnerButton(
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LearnerDashboard()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => LearnerDashboard()));
                         },
                         textContent: learner_Get_Started,
                       ),
@@ -119,17 +101,10 @@ class _LearnerWalkThroughState extends State<LearnerWalkThrough> {
                   ),
                   SizedBox(height: 20),
                   GestureDetector(
-                    child: Text("Login",
-                        style: TextStyle(
-                            fontSize: textSizeMedium,
-                            decoration: TextDecoration.underline,
-                            color: learner_greyColor)),
+                    child: Text("Login", style: TextStyle(fontSize: textSizeMedium, decoration: TextDecoration.underline, color: learner_greyColor)),
                     onTap: () {
                       print("login");
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LearnerLogin()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => LearnerLogin()));
                     },
                   )
                 ],
@@ -161,7 +136,7 @@ class _LearnerWalkThroughState extends State<LearnerWalkThrough> {
 class WalkThrough extends StatelessWidget {
   final String textContent;
 
-  WalkThrough({Key key, @required this.textContent}) : super(key: key);
+  WalkThrough({Key? key, required this.textContent}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -171,16 +146,14 @@ class WalkThrough extends StatelessWidget {
       child: SizedBox(
         child: Stack(
           children: <Widget>[
-            Image.asset(learner_walk_BackImg,
-                fit: BoxFit.fill,
-                width: MediaQuery.of(context).size.width,
-                height: (MediaQuery.of(context).size.height) * 0.4),
+            Image.asset(learner_walk_BackImg, fit: BoxFit.fill, width: MediaQuery.of(context).size.width, height: (MediaQuery.of(context).size.height) * 0.4),
             SafeArea(
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: (MediaQuery.of(context).size.height) * 0.4,
                 alignment: Alignment.center,
                 child: CachedNetworkImage(
+                  placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                   imageUrl: textContent,
                   width: 300,
                   height: (MediaQuery.of(context).size.height) * 0.3,

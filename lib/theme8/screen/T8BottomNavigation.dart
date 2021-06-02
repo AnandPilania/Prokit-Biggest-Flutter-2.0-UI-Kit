@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme8/utils/T8Colors.dart';
-import 'package:prokit_flutter/theme8/utils/T8Extension.dart';
 import 'package:prokit_flutter/theme8/utils/T8Images.dart';
 import 'package:prokit_flutter/theme8/utils/T8Strings.dart';
 import 'package:prokit_flutter/theme8/utils/T8Widget.dart';
+
+import '../../main.dart';
 
 class T8BottomNavigation extends StatefulWidget {
   static String tag = '/T8BottomNavigation';
@@ -26,14 +28,14 @@ class T8BottomNavigationState extends State<T8BottomNavigation> {
       },
       child: Container(
         width: MediaQuery.of(context).size.width * 0.25,
-        height: MediaQuery.of(context).size.width * 0.13,
+        height: 50,
         alignment: Alignment.center,
         child: Column(
           children: <Widget>[
             SvgPicture.asset(
               icon,
               width: MediaQuery.of(context).size.width * 0.07,
-              height: MediaQuery.of(context).size.width * 0.05,
+              height: 20,
               color: isSelected == pos ? t8_colorPrimary : t8_icon_color,
             ),
             text(
@@ -48,9 +50,9 @@ class T8BottomNavigationState extends State<T8BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(t8_app_background);
+    changeStatusColor(appStore.scaffoldBackground!);
     return Scaffold(
-      backgroundColor: t8_app_background,
+      backgroundColor: appStore.scaffoldBackground,
       body: SafeArea(
         child: Stack(
           children: <Widget>[
@@ -59,20 +61,17 @@ class T8BottomNavigationState extends State<T8BottomNavigation> {
         ),
       ),
       bottomNavigationBar: Container(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(8),
         margin: EdgeInsets.only(top: 30),
         decoration: BoxDecoration(
-          color: t8_white,
-          border: Border.all(
-            color: t8_view_color,
-          ),
+          color: appStore.scaffoldBackground,
           borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
           boxShadow: [
             BoxShadow(color: t8_ShadowColor, blurRadius: 10, spreadRadius: 2, offset: Offset(0, 3.0)),
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.only(left: 0.0, right: 0),
+          padding: EdgeInsets.only(left: 0.0, right: 0, top: 4),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[

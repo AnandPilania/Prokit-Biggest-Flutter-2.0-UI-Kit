@@ -2,7 +2,7 @@ import 'package:prokit_flutter/social/model/SocialModel.dart';
 import 'package:prokit_flutter/social/utils/SocialImages.dart';
 
 List<SocialUser> addChatData() {
-  List<SocialUser> mList = List<SocialUser>();
+  List<SocialUser> mList = [];
   SocialUser model1 = SocialUser();
   model1.name = "Logan Nesser";
   model1.duration = "7.30 PM";
@@ -28,7 +28,7 @@ List<SocialUser> addChatData() {
 }
 
 List<SocialUser> addGroupData() {
-  List<SocialUser> mList = List<SocialUser>();
+  List<SocialUser> mList = [];
   SocialUser model1 = SocialUser();
   model1.name = "AI & Mechanism";
   model1.duration = "7.30 PM";
@@ -53,7 +53,7 @@ List<SocialUser> addGroupData() {
 }
 
 List<SocialUser> addSeeMoreData() {
-  List<SocialUser> mList = List<SocialUser>();
+  List<SocialUser> mList = [];
   SocialUser model1 = SocialUser();
   model1.name = "Logan Nesser";
   model1.duration = "7.30 PM";
@@ -99,7 +99,7 @@ List<SocialUser> addSeeMoreData() {
 }
 
 List<SocialUser> addStatusData() {
-  List<SocialUser> mList = List<SocialUser>();
+  List<SocialUser> mList = [];
   SocialUser model1 = SocialUser();
   model1.name = "Logan Nesser";
   model1.duration = "7.30 PM";
@@ -125,7 +125,7 @@ List<SocialUser> addStatusData() {
 }
 
 List<SocialUser> addCallData() {
-  List<SocialUser> mList = List<SocialUser>();
+  List<SocialUser> mList = [];
   SocialUser model1 = SocialUser();
   model1.name = "Logan Nesser";
   model1.duration = "7.30 PM";
@@ -154,7 +154,7 @@ List<SocialUser> addCallData() {
 }
 
 List<SocialUser> addGroupCallData() {
-  List<SocialUser> mList = List<SocialUser>();
+  List<SocialUser> mList = [];
   SocialUser model1 = SocialUser();
   model1.name = "Logan Nesser";
   model1.duration = "7.30 PM";
@@ -175,7 +175,7 @@ List<SocialUser> addGroupCallData() {
 }
 
 List<Media> addMediaData() {
-  List<Media> mList = List<Media>();
+  List<Media> mList = [];
   mList.add(Media(social_ic_item1));
   mList.add(Media(social_ic_item2));
   mList.add(Media(social_ic_item3));
@@ -193,7 +193,7 @@ List<Media> addMediaData() {
 
 //}
 List<Qr> addQrData() {
-  List<Qr> mList = List<Qr>();
+  List<Qr> mList = [];
   mList.add(Qr(3005));
   mList.add(Qr(3025));
   mList.add(Qr(2408));
@@ -217,7 +217,7 @@ List<Qr> addQrData() {
 }
 
 List<Chat> getUserChats() {
-  List<Chat> mList = List<Chat>();
+  List<Chat> mList = [];
   Chat model1 = Chat();
   model1.msg = "Hi John, how are you";
   model1.duration = "7.30 PM";

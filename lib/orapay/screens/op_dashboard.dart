@@ -16,7 +16,7 @@ class OPBottomNavigationScreen extends StatefulWidget {
 
 class _OPBottomNavigationScreenState extends State<OPBottomNavigationScreen> {
   int _currentIndex = 0;
-  static Size size;
+  static Size? size;
 
   @override
   Widget build(BuildContext context) {

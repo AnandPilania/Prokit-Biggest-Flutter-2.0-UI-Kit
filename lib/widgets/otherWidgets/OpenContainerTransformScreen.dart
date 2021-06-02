@@ -138,8 +138,14 @@ class _OpenContainerTransformScreenState extends State<OpenContainerTransformScr
                   child: ListTile(
                     leading: Image.network(SampleImageUrl, width: 40, fit: BoxFit.cover),
                     onTap: openContainer,
-                    title: Text('List Menu Item' + ' ${index + 1}',style: primaryTextStyle(size: 16),),
-                    subtitle: Text('Placeholder text',style: secondaryTextStyle(size: 12),),
+                    title: Text(
+                      'List Menu Item' + ' ${index + 1}',
+                      style: primaryTextStyle(size: 16),
+                    ),
+                    subtitle: Text(
+                      'Placeholder text',
+                      style: secondaryTextStyle(size: 12),
+                    ),
                   ),
                 );
               },
@@ -171,16 +177,16 @@ class _OpenContainerWrapper extends StatelessWidget {
     this.transitionType,
   });
 
-  final CloseContainerBuilder closedBuilder;
-  final ContainerTransitionType transitionType;
+  final CloseContainerBuilder? closedBuilder;
+  final ContainerTransitionType? transitionType;
 
   @override
   Widget build(BuildContext context) {
     return OpenContainer<bool>(
-      transitionType: transitionType,
+      transitionType: transitionType!,
       openBuilder: (context, openContainer) => const _DetailsPage(),
       tappable: false,
-      closedBuilder: closedBuilder,
+      closedBuilder: closedBuilder!,
     );
   }
 }
@@ -188,7 +194,7 @@ class _OpenContainerWrapper extends StatelessWidget {
 class _DetailsCard extends StatelessWidget {
   const _DetailsCard({this.openContainer});
 
-  final VoidCallback openContainer;
+  final VoidCallback? openContainer;
 
   @override
   Widget build(BuildContext context) {
@@ -204,8 +210,14 @@ class _DetailsCard extends StatelessWidget {
               child: Image.network(SampleImageUrl, fit: BoxFit.cover),
             ),
             ListTile(
-              title: Text('Title',style: primaryTextStyle(size: 18),),
-              subtitle: Text('Placeholder text',style: secondaryTextStyle(size: 14),),
+              title: Text(
+                'Title',
+                style: primaryTextStyle(size: 18),
+              ),
+              subtitle: Text(
+                'Placeholder text',
+                style: secondaryTextStyle(size: 14),
+              ),
             ),
             Padding(
               padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
@@ -228,12 +240,11 @@ class _SmallDetailsCard extends StatelessWidget {
     this.subtitle,
   });
 
-  final VoidCallback openContainer;
-  final String subtitle;
+  final VoidCallback? openContainer;
+  final String? subtitle;
 
   @override
   Widget build(BuildContext context) {
-
     return _InkWellOverlay(
       openContainer: openContainer,
       height: 250,
@@ -252,7 +263,7 @@ class _SmallDetailsCard extends StatelessWidget {
                   children: [
                     Text('Title', style: primaryTextStyle(size: 18)),
                     const SizedBox(height: 4),
-                    Expanded(child: Text(subtitle, style: secondaryTextStyle(size: 12))),
+                    Expanded(child: Text(subtitle!, style: secondaryTextStyle(size: 12))),
                   ],
                 ),
               ),
@@ -267,7 +278,7 @@ class _SmallDetailsCard extends StatelessWidget {
 class _DetailsListTile extends StatelessWidget {
   const _DetailsListTile({this.openContainer});
 
-  final VoidCallback openContainer;
+  final VoidCallback? openContainer;
 
   @override
   Widget build(BuildContext context) {
@@ -280,7 +291,7 @@ class _DetailsListTile extends StatelessWidget {
         color: appStore.appBarColor,
         child: Row(
           children: [
-            Image.network(SampleImageUrl, height: height, fit: BoxFit.cover),
+            Image.network(SampleImageUrl, height: height, fit: BoxFit.cover).expand(),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(20),
@@ -316,10 +327,10 @@ class _InkWellOverlay extends StatelessWidget {
     this.child,
   });
 
-  final VoidCallback openContainer;
-  final double width;
-  final double height;
-  final Widget child;
+  final VoidCallback? openContainer;
+  final double? width;
+  final double? height;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
@@ -337,7 +348,11 @@ class _DetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Details Page Title',style: primaryTextStyle(),)),
+      appBar: AppBar(
+          title: Text(
+        'Details Page Title',
+        style: primaryTextStyle(),
+      )),
       body: ListView(
         children: [
           Image.network(SampleImageUrl, fit: BoxFit.cover),

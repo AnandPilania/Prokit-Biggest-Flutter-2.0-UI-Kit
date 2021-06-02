@@ -3,8 +3,8 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/grocery/utils/GeoceryStrings.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryColors.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
-import 'package:prokit_flutter/grocery/utils/GroceryExtension.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class GroceryAddCardScreen extends StatefulWidget {
   static String tag = '/GroceryAddCardScreen';
@@ -23,12 +23,9 @@ class _GroceryAddCardScreenState extends State<GroceryAddCardScreen> {
           Icons.clear,
           color: grocery_textColorSecondary,
         ).onTap(() {
-          back(context);
+          finish(context);
         }),
-        title: text(grocery_paymentMethod,
-            fontSize: textSizeNormal,
-            textColor: grocery_textColorPrimary,
-            fontFamily: fontBold),
+        title: text(grocery_paymentMethod, fontSize: textSizeNormal, textColor: grocery_textColorPrimary, fontFamily: fontBold),
         elevation: 0.0,
       ),
       body: SingleChildScrollView(
@@ -45,8 +42,7 @@ class _GroceryAddCardScreenState extends State<GroceryAddCardScreen> {
                 text: grocery_cardNumber,
                 isPassword: false,
                 keyboardType: TextInputType.number,
-              ).paddingOnly(
-                  left: 0, right: spacing_standard_new, top: spacing_standard),
+              ).paddingOnly(left: 0, right: spacing_standard_new, top: spacing_standard),
               Row(
                 children: <Widget>[
                   Expanded(

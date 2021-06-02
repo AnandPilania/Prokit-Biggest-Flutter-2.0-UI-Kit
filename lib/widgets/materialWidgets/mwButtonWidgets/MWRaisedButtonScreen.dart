@@ -37,39 +37,44 @@ class MWRaisedButtonScreenState extends State<MWRaisedButtonScreen> {
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             children: [
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                   toast('Default Raised button');
                 },
+                style: ElevatedButton.styleFrom(primary: Color(0xFFDFDFDF)),
                 child: Text(
                   'Default Raised button',
                   style: primaryTextStyle(color: black),
                 ),
               ),
               Divider(),
-              RaisedButton.icon(
-                  onPressed: () {
-                    toast('Raised button with icon');
-                  },
-                  icon: Icon(
-                    Icons.add,
-                    color: black,
-                  ),
-                  label: Text(
-                    'Raised button with icon',
-                    style: primaryTextStyle(color: black),
-                  )),
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(primary:  Color(0xFFDFDFDF)),
+                onPressed: () {
+                  toast('Raised button with icon');
+                },
+                icon: Icon(
+                  Icons.add,
+                  color: black,
+                ),
+                label: Text(
+                  'Raised button with icon',
+                  style: primaryTextStyle(color: black),
+                ),
+              ),
               Divider(),
-              RaisedButton(
-                onPressed: null,
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(primary:  Color(0xFF9C9C9C)),
+                onPressed: () {},
                 child: Text(
                   'Disable Raised button',
                   style: secondaryTextStyle(size: 16),
                 ),
               ),
               Divider(),
-              RaisedButton.icon(
-                  onPressed: null,
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(primary: Color(0xFF9C9C9C)),
+                  onPressed: () {},
                   icon: Icon(
                     Icons.add,
                     color: appStore.iconSecondaryColor,
@@ -79,48 +84,61 @@ class MWRaisedButtonScreenState extends State<MWRaisedButtonScreen> {
                     style: secondaryTextStyle(size: 16),
                   )),
               Divider(),
-              RaisedButton(
-                onPressed: () {
-                  toast('Border Raised button');
-                },
-                shape: Border.all(color: black),
+              ElevatedButton(
                 child: Text(
                   'Border Raised button',
                   style: primaryTextStyle(color: black),
                 ),
+                onPressed: () {
+                  toast('Border Raised button');
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFFDFDFDF),
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(color: Colors.black),
+                  ),
+                ),
               ),
               Divider(),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                   toast('Rounded Raised button');
                 },
-                shape: RoundedRectangleBorder(
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFFDFDFDF),
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                     side: BorderSide(
                       color: Colors.green,
-                    )),
+                    ),
+                  ),
+                ),
                 child: Text(
                   'Rounded Raised button',
                   style: primaryTextStyle(color: black),
                 ),
               ),
               Divider(),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                   toast('Customize Rounded Raised button');
                 },
-                shape: RoundedRectangleBorder(
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFFDFDFDF),
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                     side: BorderSide(
                       color: Colors.red,
-                    )),
+                    ),
+                  ),
+                ),
                 child: Text(
                   'Customize Rounded Raised button',
                   style: primaryTextStyle(color: black),
                 ),
               ),
               Divider(),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                   toast('Customize Text Style of label');
                 },
@@ -132,30 +150,44 @@ class MWRaisedButtonScreenState extends State<MWRaisedButtonScreen> {
                     fontStyle: FontStyle.italic,
                   ),
                 ),
-                shape: RoundedRectangleBorder(
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFFDFDFDF),
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                     side: BorderSide(
                       color: Colors.blue,
-                    )),
+                    ),
+                  ),
+                ),
               ),
               Divider(),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                   toast('Color Fill Raised button');
                 },
-                color: getColorFromHex('#8998FF'),
+                style: ElevatedButton.styleFrom(
+                  primary: getColorFromHex('#8998FF'),
+                ),
                 child: Text(
                   "Color Fill Raised button",
                   style: primaryTextStyle(color: Colors.white),
                 ),
               ),
               Divider(),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                   toast('Rounded color fill Raised button');
                 },
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-                color: getColorFromHex('#f2866c'),
+                style: ElevatedButton.styleFrom(
+                  primary: getColorFromHex('#f2866c'),
+                  textStyle: TextStyle(color: getColorFromHex('#f2866c'),),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    side: BorderSide(
+                      color: getColorFromHex('#f2866c'),
+                    ),
+                  ),
+                ),
                 child: Text(
                   'Rounded color fill Raised button',
                   style: primaryTextStyle(color: black),

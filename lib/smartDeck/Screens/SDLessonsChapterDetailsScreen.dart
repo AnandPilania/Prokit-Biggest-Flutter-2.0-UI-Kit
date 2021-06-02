@@ -2,15 +2,15 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/smartDeck/ModelClass/SDLessonsDetailsModel.dart';
 import 'package:prokit_flutter/smartDeck/SDUtils/SDColors.dart';
-import 'package:prokit_flutter/smartDeck/SDUtils/SDStyle.dart';
 import 'package:prokit_flutter/smartDeck/Screens/SDLessonChapterScreen.dart';
 
 class SDLessonsDetScreen extends StatefulWidget {
-  String name;
-  String totalChapter;
-  String backgroundImages;
+  String? name;
+  String? totalChapter;
+  String? backgroundImages;
 
   SDLessonsDetScreen({this.name, this.totalChapter, this.backgroundImages});
 
@@ -20,34 +20,13 @@ class SDLessonsDetScreen extends StatefulWidget {
 
 class _SDLessonsDetScreenState extends State<SDLessonsDetScreen> {
   List<SDLessonsDetailsModel> chapters = [
-    SDLessonsDetailsModel(
-        chapterName: 'Introduction',
-        chapterDetails: 'Introduction to geography',
-        score: '81'),
-    SDLessonsDetailsModel(
-        chapterName: 'Maps type & Usages',
-        chapterDetails: 'Learn about maps type & how to use each...',
-        score: '79'),
-    SDLessonsDetailsModel(
-        chapterName: 'Population & Country',
-        chapterDetails: 'Learn the worldwide population & country...',
-        score: '80'),
-    SDLessonsDetailsModel(
-        chapterName: 'Climate ',
-        chapterDetails: 'Learn about climate...',
-        score: '60'),
-    SDLessonsDetailsModel(
-        chapterName: 'Earth-forming Process ',
-        chapterDetails: 'Learn how the earth-forming process be...',
-        score: '56'),
-    SDLessonsDetailsModel(
-        chapterName: 'Rocks',
-        chapterDetails: 'Learn the type of the rocks,and their spec...',
-        score: '90'),
-    SDLessonsDetailsModel(
-        chapterName: 'Earthquake',
-        chapterDetails: 'Learn about seismology...',
-        score: '90'),
+    SDLessonsDetailsModel(chapterName: 'Introduction', chapterDetails: 'Introduction to geography', score: '81'),
+    SDLessonsDetailsModel(chapterName: 'Maps type & Usages', chapterDetails: 'Learn about maps type & how to use each...', score: '79'),
+    SDLessonsDetailsModel(chapterName: 'Population & Country', chapterDetails: 'Learn the worldwide population & country...', score: '80'),
+    SDLessonsDetailsModel(chapterName: 'Climate ', chapterDetails: 'Learn about climate...', score: '60'),
+    SDLessonsDetailsModel(chapterName: 'Earth-forming Process ', chapterDetails: 'Learn how the earth-forming process be...', score: '56'),
+    SDLessonsDetailsModel(chapterName: 'Rocks', chapterDetails: 'Learn the type of the rocks,and their spec...', score: '90'),
+    SDLessonsDetailsModel(chapterName: 'Earthquake', chapterDetails: 'Learn about seismology...', score: '90'),
   ];
 
   @override
@@ -64,16 +43,14 @@ class _SDLessonsDetScreenState extends State<SDLessonsDetScreen> {
           child: Column(
             children: <Widget>[
               Stack(
-                overflow: Overflow.visible,
                 children: <Widget>[
                   Container(
                     height: 270,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                           image: widget.backgroundImages == null
-                              ? NetworkImage(
-                                  "https://d2rdhxfof4qmbb.cloudfront.net/wp-content/uploads/20190816134243/Desert-sand-sunset.jpg")
-                              : NetworkImage(widget.backgroundImages),
+                              ? NetworkImage("https://d2rdhxfof4qmbb.cloudfront.net/wp-content/uploads/20190816134243/Desert-sand-sunset.jpg")
+                              : NetworkImage(widget.backgroundImages!),
                           fit: BoxFit.cover),
                     ),
                     child: ClipRRect(
@@ -87,81 +64,47 @@ class _SDLessonsDetScreenState extends State<SDLessonsDetScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
-                              CircleAvatar(
-                                radius: 20,
-                                backgroundColor: Colors.black12,
-                                child: CloseButton(),
-                              ),
+                              CircleAvatar(radius: 20, backgroundColor: Colors.black12, child: CloseButton()),
                               Container(
                                 margin: EdgeInsets.only(top: 100),
-                                child: Text(
-                                  widget.name == null ? 'Biology' : widget.name,
-                                  style: boldTextStyle(textColor: Colors.white),
-                                ),
+                                child: Text(widget.name == null ? 'Biology' : widget.name!, style: boldTextStyle(color: Colors.white)),
                               ),
                               Container(
                                 margin: EdgeInsets.only(top: 5),
-                                child: Text(
-                                  widget.totalChapter == null
-                                      ? '7 chapter'
-                                      : widget.totalChapter,
-                                  style: secondaryTextStyle(
-                                      textColor: Colors.white.withOpacity(0.8)),
-                                ),
+                                child: Text(widget.totalChapter == null ? '7 chapter' : widget.totalChapter!, style: secondaryTextStyle(color: Colors.white.withOpacity(0.8))),
                               ),
                               Container(
                                   margin: EdgeInsets.only(top: 10),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Stack(
-                                        overflow: Overflow.visible,
                                         children: <Widget>[
                                           CircleAvatar(
                                             radius: 20,
-                                            backgroundImage: NetworkImage(
-                                                'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80'),
+                                            backgroundImage: NetworkImage('https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80'),
                                           ),
                                           Positioned(
                                             bottom: 0,
                                             right: 0,
                                             top: 25,
-                                            child: CircleAvatar(
-                                              radius: 5,
-                                              foregroundColor: Colors.white,
-                                              backgroundColor: Colors.green,
-                                            ),
+                                            child: CircleAvatar(radius: 5, foregroundColor: Colors.white, backgroundColor: Colors.green),
                                           )
                                         ],
                                       ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
+                                      SizedBox(width: 10),
                                       Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Container(
                                             margin: EdgeInsets.only(top: 0),
-                                            child: Text(
-                                              'Erwin Jose',
-                                              style: boldTextStyle(
-                                                  size: 16,
-                                                  textColor: Colors.white),
-                                            ),
+                                            child: Text('Erwin Jose', style: boldTextStyle(size: 16, color: Colors.white)),
                                           ),
                                           Container(
                                             margin: EdgeInsets.only(top: 5),
-                                            child: Text(
-                                              'Teacher',
-                                              style: secondaryTextStyle(
-                                                  size: 10,
-                                                  textColor: Colors.white),
-                                            ),
+                                            child: Text('Teacher', style: secondaryTextStyle(size: 10, color: Colors.white)),
                                           ),
                                         ],
                                       )
@@ -178,16 +121,16 @@ class _SDLessonsDetScreenState extends State<SDLessonsDetScreen> {
                     top: 150,
                     bottom: -40,
                     child: Container(
-//
                       height: 170,
                       width: 125,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         image: DecorationImage(
-                            image: NetworkImage(widget.backgroundImages == null
-                                ? "https://d2rdhxfof4qmbb.cloudfront.net/wp-content/uploads/20190816134243/Desert-sand-sunset.jpg"
-                                : widget.backgroundImages),
-                            fit: BoxFit.cover),
+                          image: NetworkImage(
+                            widget.backgroundImages == null ? "https://d2rdhxfof4qmbb.cloudfront.net/wp-content/uploads/20190816134243/Desert-sand-sunset.jpg" : widget.backgroundImages!,
+                          ),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
@@ -202,10 +145,7 @@ class _SDLessonsDetScreenState extends State<SDLessonsDetScreen> {
                   children: <Widget>[
                     Container(
                       margin: EdgeInsets.only(bottom: 10),
-                      child: Text(
-                        'Select Chapter',
-                        style: secondaryTextStyle(),
-                      ),
+                      child: Text('Select Chapter', style: secondaryTextStyle()),
                     ),
                     ListView.builder(
                       itemCount: chapters == null ? 0 : chapters.length,
@@ -214,50 +154,29 @@ class _SDLessonsDetScreenState extends State<SDLessonsDetScreen> {
                       itemBuilder: (BuildContext context, int index) {
                         return InkWell(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    SDLessonsDetailsScreen(),
-                              ),
-                            );
+                            SDLessonsDetailsScreen().launch(context);
                           },
                           child: Container(
                             margin: EdgeInsets.only(top: 10, bottom: 10),
                             child: Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text(
-                                      chapters[index].chapterName,
-                                      style: boldTextStyle(size: 16),
-                                    ),
+                                    Text(chapters[index].chapterName!, style: boldTextStyle(size: 16)),
                                     Container(
-                                      margin:
-                                          EdgeInsets.only(top: 8, bottom: 5),
-                                      child: Text(
-                                        chapters[index].chapterDetails,
-                                        style: secondaryTextStyle(size: 12),
-                                      ),
+                                      margin: EdgeInsets.only(top: 8, bottom: 5),
+                                      child: Text(chapters[index].chapterDetails!, style: secondaryTextStyle(size: 12)),
                                     ),
                                   ],
                                 ),
                                 CircleAvatar(
                                   radius: 15,
-                                  backgroundColor:
-                                      sdSecondaryColorGreen.withOpacity(0.7),
-                                  child: Text(
-                                    chapters[index].score,
-                                    style: boldTextStyle(
-                                        textColor: CupertinoColors.white,
-                                        size: 16),
-                                  ),
+                                  backgroundColor: sdSecondaryColorGreen.withOpacity(0.7),
+                                  child: Text(chapters[index].score!, style: boldTextStyle(color: CupertinoColors.white, size: 16)),
                                 ),
                               ],
                             ),

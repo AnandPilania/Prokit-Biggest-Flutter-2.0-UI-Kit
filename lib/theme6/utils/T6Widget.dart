@@ -1,38 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/main/utils/percent_indicator/circular_percent_indicator.dart';
 import 'package:prokit_flutter/theme6/utils/T6Colors.dart';
 
+import '../../main.dart';
 import 'T6Constant.dart';
-import 'T6Extension.dart';
 
-Widget text(String text,
-    {var fontSize = textSizeMedium,
-    textColor = t6textColorSecondary,
-    var fontFamily = fontRegular,
-    var isCentered = false,
-    var maxLine = 1,
-    var latterSpacing = 0.25,
-    var textAllCaps = false,
-    var isLongText = false}) {
-  return Text(textAllCaps ? text.toUpperCase() : text,
-      textAlign: isCentered ? TextAlign.center : TextAlign.start,
-      maxLines: isLongText ? null : maxLine,
-      style: TextStyle(
-          fontFamily: fontFamily,
-          fontSize: fontSize,
-          color: textColor,
-          height: 1.5,
-          letterSpacing: latterSpacing));
-}
-
+// ignore: must_be_immutable
 class T6Button extends StatefulWidget {
   var textContent;
   VoidCallback onPressed;
   var isStroked = false;
 
   T6Button({
-    @required this.textContent,
-    @required this.onPressed,
+    required this.textContent,
+    required this.onPressed,
     this.isStroked = false,
   });
 
@@ -48,19 +31,14 @@ class T6ButtonState extends State<T6Button> {
       child: Container(
         padding: EdgeInsets.fromLTRB(16, 12, 16, 12),
         alignment: Alignment.center,
-        child: text(widget.textContent,
-            textColor: widget.isStroked ? t6colorPrimary : t6white,
-            isCentered: true,
-            fontFamily: fontMedium,
-            textAllCaps: true),
-        decoration: widget.isStroked
-            ? boxDecoration(bgColor: Colors.transparent, color: t6colorPrimary)
-            : boxDecoration(bgColor: t6colorPrimary, radius: 12),
+        child: text(widget.textContent, textColor: widget.isStroked ? t6colorPrimary : t6white, isCentered: true, fontFamily: fontMedium, textAllCaps: true),
+        decoration: widget.isStroked ? boxDecoration(bgColor: Colors.transparent, color: t6colorPrimary) : boxDecoration(bgColor: t6colorPrimary, radius: 12),
       ),
     );
   }
 }
 
+// ignore: non_constant_identifier_names
 Container T6EditTextStyle(var hintText, {isPassword = false}) {
   return Container(
     decoration: boxDecoration(radius: 12, showShadow: true, bgColor: t6white),
@@ -94,8 +72,7 @@ Column circleProgressDashboard(var text, var text1, var text2, var per) {
         children: <Widget>[
           Text(
             text1,
-            style:
-                new TextStyle(color: t6colorPrimary, fontSize: textSizeSMedium),
+            style: new TextStyle(color: t6colorPrimary, fontSize: textSizeSMedium),
           ),
           SizedBox(
             width: 26,
@@ -146,6 +123,7 @@ TextFormField editTextStyle(var hintText, {isPassword = true}) {
   );
 }
 
+// ignore: must_be_immutable
 class TopBar extends StatefulWidget {
   var titleName;
 
@@ -162,7 +140,7 @@ class TopBarState extends State<TopBar> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        color: t6app_background,
+        color: appStore.appBarColor,
         width: MediaQuery.of(context).size.width,
         height: 50,
         child: Stack(
@@ -173,21 +151,13 @@ class TopBarState extends State<TopBar> {
                 finish(context);
               },
             ),
-            Center(
-                child: text(widget.titleName,
-                    textColor: t6colorPrimary,
-                    fontSize: textSizeLargeMedium,
-                    fontFamily: fontBold))
+            Center(child: text(widget.titleName, textColor: appStore.textPrimaryColor, fontSize: textSizeLargeMedium, fontFamily: fontBold))
           ],
         ),
       ),
     );
   }
 
-  @override
-  State<StatefulWidget> createState() {
-    return null;
-  }
 }
 
 Widget shareIcon(String iconPath) {
@@ -195,21 +165,6 @@ Widget shareIcon(String iconPath) {
     padding: const EdgeInsets.only(left: 20, right: 20),
     child: Image.asset(iconPath, width: 28, height: 28, fit: BoxFit.fill),
   );
-}
-
-BoxDecoration boxDecoration(
-    {double radius = 2,
-    Color color = Colors.transparent,
-    Color bgColor = t6white,
-    var showShadow = false}) {
-  return BoxDecoration(
-      color: bgColor,
-      //gradient: LinearGradient(colors: [bgColor, whiteColor]),
-      boxShadow: showShadow
-          ? [BoxShadow(color: t6ShadowColor, blurRadius: 10, spreadRadius: 2)]
-          : [BoxShadow(color: Colors.transparent)],
-      border: Border.all(color: color),
-      borderRadius: BorderRadius.all(Radius.circular(radius)));
 }
 
 Widget ring(String description) {
@@ -228,28 +183,15 @@ Widget ring(String description) {
         ),
       ),
       SizedBox(height: 16),
-      text(description,
-          textColor: t6textColorPrimary,
-          fontSize: textSizeNormal,
-          fontFamily: fontSemibold,
-          isCentered: true,
-          maxLine: 2)
+      text(description, textColor: appStore.textPrimaryColor, fontSize: textSizeNormal, fontFamily: fontSemibold, isCentered: true, maxLine: 2)
     ],
   );
-}
-
-class ScrollingBehavior extends ScrollBehavior {
-  @override
-  Widget buildViewportChrome(
-      BuildContext context, Widget child, AxisDirection axisDirection) {
-    return child;
-  }
 }
 
 class Slider extends StatelessWidget {
   final String file;
 
-  Slider({Key key, @required this.file}) : super(key: key);
+  Slider({Key? key, required this.file}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -278,7 +220,7 @@ Padding settingText(
       text,
       style: TextStyle(
         fontFamily: fontRegular,
-        color: t6textColorPrimary,
+        color: appStore.textPrimaryColor,
         fontSize: textSizeMedium,
       ),
     ),

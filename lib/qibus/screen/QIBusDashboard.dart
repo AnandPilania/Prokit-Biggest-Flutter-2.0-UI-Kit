@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusColors.dart';
-import 'package:prokit_flutter/qibus/utils/QiBusExtension.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusImages.dart';
 import 'package:prokit_flutter/theme1/utils/T1Colors.dart';
 
@@ -29,6 +29,7 @@ class QIBusDashboardState extends State<QIBusDashboard> {
   @override
   Widget build(BuildContext context) {
     changeStatusColor(qIBus_colorPrimary);
+
     return Scaffold(
         bottomNavigationBar: Container(
           height: 60,
@@ -62,18 +63,19 @@ class QIBusDashboardState extends State<QIBusDashboard> {
         });
       },
       child: Container(
-          width: 45,
-          height: 45,
-          alignment: Alignment.center,
-          decoration: isSelected == pos ? BoxDecoration(shape: BoxShape.circle, color: t1_colorPrimary_light) : BoxDecoration(),
-          child: Padding(
-            padding: EdgeInsets.all(4),
-            child: Image.asset(
-              isSelected == pos ? icon : icon1,
-              width: 20,
-              height: 20,
-            ),
-          )),
+        width: 45,
+        height: 45,
+        alignment: Alignment.center,
+        decoration: isSelected == pos ? BoxDecoration(shape: BoxShape.circle, color: t1_colorPrimary_light) : BoxDecoration(),
+        child: Padding(
+          padding: EdgeInsets.all(4),
+          child: Image.asset(
+            isSelected == pos ? icon : icon1,
+            width: 20,
+            height: 20,
+          ),
+        ),
+      ),
     );
   }
 }

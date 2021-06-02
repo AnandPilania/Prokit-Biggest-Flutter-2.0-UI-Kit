@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme5/model/T5Models.dart';
 import 'package:prokit_flutter/theme5/utils/T5Colors.dart';
 import 'package:prokit_flutter/theme5/utils/T5DataGenerator.dart';
-import 'package:prokit_flutter/theme5/utils/T5Extension.dart';
 import 'package:prokit_flutter/theme5/utils/T5Strings.dart';
 import 'package:prokit_flutter/theme5/utils/T5Widget.dart';
 import 'package:prokit_flutter/theme5/utils/widgets/T5GridListing.dart';
+
+import '../../main.dart';
 
 class T5BottomSheet extends StatefulWidget {
   static var tag = "/T5BottomSheet";
@@ -16,8 +18,8 @@ class T5BottomSheet extends StatefulWidget {
 }
 
 class T5BottomSheetState extends State<T5BottomSheet> {
-  GlobalKey<ScaffoldState> _scaffoldKey = null;
-  List<T5Category> mFavouriteList;
+  GlobalKey<ScaffoldState>? _scaffoldKey = null;
+  List<T5Category>? mFavouriteList;
 
   @override
   void initState() {
@@ -39,18 +41,14 @@ class T5BottomSheetState extends State<T5BottomSheet> {
                 return Container(
                   padding: EdgeInsets.only(top: 24),
                   alignment: Alignment.topLeft,
-                  decoration: BoxDecoration(color: t5LayoutBackgroundWhite, borderRadius: BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24))),
+                  decoration: BoxDecoration(color: appStore.scaffoldBackground, borderRadius: BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24))),
                   child: Column(
                     children: <Widget>[
-                      Container(
-                        color: t5ViewColor,
-                        width: 50,
-                        height: 3,
-                      ),
+                      Container(color: t5ViewColor, width: 50, height: 3),
                       SizedBox(height: 20),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 20),
+                          padding: EdgeInsets.only(left: 20, right: 20, top: 16),
                           child: T5GridListing(mFavouriteList, true),
                         ),
                       )
@@ -63,9 +61,9 @@ class T5BottomSheetState extends State<T5BottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(t5White);
+    changeStatusColor(appStore.appBarColor!);
     _scaffoldKey = new GlobalKey<ScaffoldState>();
-    Future.delayed(const Duration(milliseconds: 1000), () {
+    Future.delayed(Duration(milliseconds: 1000), () {
       showSheet(context);
     });
     return Scaffold(

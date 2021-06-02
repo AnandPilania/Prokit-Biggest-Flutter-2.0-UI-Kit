@@ -3,23 +3,24 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:prokit_flutter/shophop/models/ShCategory.dart';
-import 'package:prokit_flutter/shophop/screens/ShAccountScreen.dart';
-import 'package:prokit_flutter/shophop/screens/ShCartFragment.dart';
-import 'package:prokit_flutter/shophop/screens/ShContactUsScreen.dart';
-import 'package:prokit_flutter/shophop/screens/ShFAQScreen.dart';
-import 'package:prokit_flutter/shophop/screens/ShHomeFragment.dart';
-import 'package:prokit_flutter/shophop/screens/ShOrderListScreen.dart';
-import 'package:prokit_flutter/shophop/screens/ShProfileFragment.dart';
-import 'package:prokit_flutter/shophop/screens/ShSearchScreen.dart';
-import 'package:prokit_flutter/shophop/screens/ShSettingsScreen.dart';
-import 'package:prokit_flutter/shophop/screens/ShWishlistFragment.dart';
-import 'package:prokit_flutter/shophop/utils/ShColors.dart';
-import 'package:prokit_flutter/shophop/utils/ShConstant.dart';
-import 'package:prokit_flutter/shophop/utils/ShExtension.dart';
-import 'package:prokit_flutter/shophop/utils/ShImages.dart';
-import 'package:prokit_flutter/shophop/utils/ShStrings.dart';
-import 'package:prokit_flutter/shophop/utils/ShWidget.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/shopHop/models/ShCategory.dart';
+import 'package:prokit_flutter/shopHop/screens/ShAccountScreen.dart';
+import 'package:prokit_flutter/shopHop/screens/ShCartFragment.dart';
+import 'package:prokit_flutter/shopHop/screens/ShContactUsScreen.dart';
+import 'package:prokit_flutter/shopHop/screens/ShFAQScreen.dart';
+import 'package:prokit_flutter/shopHop/screens/ShHomeFragment.dart';
+import 'package:prokit_flutter/shopHop/screens/ShOrderListScreen.dart';
+import 'package:prokit_flutter/shopHop/screens/ShProfileFragment.dart';
+import 'package:prokit_flutter/shopHop/screens/ShSearchScreen.dart';
+import 'package:prokit_flutter/shopHop/screens/ShSettingsScreen.dart';
+import 'package:prokit_flutter/shopHop/screens/ShWishlistFragment.dart';
+import 'package:prokit_flutter/shopHop/utils/ShColors.dart';
+import 'package:prokit_flutter/shopHop/utils/ShConstant.dart';
+import 'package:prokit_flutter/shopHop/utils/ShExtension.dart';
+import 'package:prokit_flutter/shopHop/utils/ShImages.dart';
+import 'package:prokit_flutter/shopHop/utils/ShStrings.dart';
 
 import 'ShSubCategory.dart';
 
@@ -31,12 +32,12 @@ class ShHomeScreen extends StatefulWidget {
 }
 
 class ShHomeScreenState extends State<ShHomeScreen> {
-  var list = List<ShCategory>();
+  List<ShCategory> list = [];
   var homeFragment = ShHomeFragment();
   var cartFragment = ShCartFragment();
   var wishlistFragment = ShWishlistFragment();
   var profileFragment = ShProfileFragment();
-  var fragments;
+  late var fragments;
   var selectedTab = 0;
 
   @override
@@ -53,7 +54,7 @@ class ShHomeScreenState extends State<ShHomeScreen> {
         list.addAll(categories);
       });
     }).catchError((error) {
-      showToast(context, error);
+      toast(error);
     });
   }
 
@@ -66,7 +67,6 @@ class ShHomeScreenState extends State<ShHomeScreen> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.width;
     var title = "Home";
 
     return Scaffold(
@@ -77,7 +77,7 @@ class ShHomeScreenState extends State<ShHomeScreen> {
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
-              launchScreen(context, ShSearchScreen.tag);
+              ShSearchScreen().launch(context);
             },
           )
         ],
@@ -85,7 +85,7 @@ class ShHomeScreenState extends State<ShHomeScreen> {
       ),
       body: Stack(
         alignment: Alignment.bottomLeft,
-        children: <Widget>[
+        children: [
           fragments[selectedTab],
           Container(
             height: 58,
@@ -109,8 +109,7 @@ class ShHomeScreenState extends State<ShHomeScreen> {
               ],
             ),
           )
-        ],
-      ),
+        ]),
       drawer: SizedBox(
         width: MediaQuery.of(context).size.width * 0.85,
         height: MediaQuery.of(context).size.height,
@@ -159,7 +158,7 @@ class ShHomeScreenState extends State<ShHomeScreen> {
                         Expanded(
                           child: InkWell(
                             onTap: () {
-                              launchScreen(context, ShOrderListScreen.tag);
+                              ShOrderListScreen().launch(context);
                             },
                             child: Column(
                               children: <Widget>[
@@ -200,7 +199,7 @@ class ShHomeScreenState extends State<ShHomeScreen> {
                         list[index].image,
                         list[index].name,
                         callback: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ShSubCategory(category: list[index])));
+                          ShSubCategory(category: list[index]).launch(context);
                         },
                       );
                     },
@@ -209,21 +208,23 @@ class ShHomeScreenState extends State<ShHomeScreen> {
                   Divider(color: sh_view_color, height: 1),
                   SizedBox(height: 20),
                   getDrawerItem(sh_user_placeholder, sh_lbl_account, callback: () {
-                    bool isWishlist = launchScreen(context, ShAccountScreen.tag) ?? false;
+                    ShAccountScreen().launch(context);
+
+                    /*bool isWishlist = launchScreen(context, ShAccountScreen.tag) ?? false;
                     if (isWishlist) {
                       selectedTab = 1;
                       setState(() {});
-                    }
+                    }*/
                   }),
                   getDrawerItem(sh_settings, sh_lbl_settings, callback: () {
-                    launchScreen(context, ShSettingsScreen.tag);
+                    ShSettingsScreen().launch(context);
                   }),
                   SizedBox(height: 20),
                   getDrawerItem(null, sh_lbl_faq, callback: () {
-                    launchScreen(context, ShFAQScreen.tag);
+                    ShFAQScreen().launch(context);
                   }),
                   getDrawerItem(null, sh_lbl_contact_us, callback: () {
-                    launchScreen(context, ShContactUsScreen.tag);
+                    ShContactUsScreen().launch(context);
                   }),
                   SizedBox(height: 30),
                   Container(
@@ -253,7 +254,7 @@ class ShHomeScreenState extends State<ShHomeScreen> {
     );
   }
 
-  Widget getDrawerItem(String icon, String name, {VoidCallback callback}) {
+  Widget getDrawerItem(String? icon, String? name, {VoidCallback? callback}) {
     return InkWell(
       onTap: callback,
       child: Container(

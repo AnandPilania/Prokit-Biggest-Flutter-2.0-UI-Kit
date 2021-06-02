@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/main/utils/codePicker/country_code_picker.dart';
 import 'package:prokit_flutter/social/utils/SocialColors.dart';
 import 'package:prokit_flutter/social/utils/SocialConstant.dart';
-import 'package:prokit_flutter/social/utils/SocialExtension.dart';
 import 'package:prokit_flutter/social/utils/SocialStrings.dart';
 import 'package:prokit_flutter/social/utils/SocialWidget.dart';
-import 'package:prokit_flutter/theme5/utils/codePicker/country_code_picker.dart';
 
 import 'SocialChangeNumber.dart';
 
@@ -28,9 +29,7 @@ class SocialDeleteAccountState extends State<SocialDeleteAccount> {
             width: 8,
             decoration: BoxDecoration(shape: BoxShape.circle, color: social_view_color),
           ),
-          SizedBox(
-            width: spacing_standard,
-          ),
+          SizedBox(width: spacing_standard),
           Expanded(
             child: text(value, textColor: social_textColorSecondary, isLongText: false),
           )
@@ -62,20 +61,14 @@ class SocialDeleteAccountState extends State<SocialDeleteAccount> {
                                   WidgetSpan(
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                      child: Icon(
-                                        Icons.warning,
-                                        color: social_form_google,
-                                        size: 18,
-                                      ),
+                                      child: Icon(Icons.warning, color: social_form_google, size: 18),
                                     ),
                                   ),
                                   TextSpan(text: social_lbl_deleting_your_account_will, style: TextStyle(fontSize: textSizeMedium, color: social_form_google)),
                                 ],
                               ),
                             ),
-                            SizedBox(
-                              height: spacing_standard,
-                            ),
+                            SizedBox(height: spacing_standard),
                             mOption(social_lbl_delete1),
                             mOption(social_lbl_delete2),
                             mOption(social_lbl_delete3),
@@ -97,25 +90,19 @@ class SocialDeleteAccountState extends State<SocialDeleteAccount> {
                                   WidgetSpan(
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                      child: Icon(
-                                        Icons.phone_android,
-                                        color: social_textColorPrimary,
-                                        size: 18,
-                                      ),
+                                      child: Icon(Icons.phone_android, color: social_textColorPrimary, size: 18),
                                     ),
                                   ),
                                   TextSpan(text: social_lbl_change_phone_number_instead, style: TextStyle(fontSize: textSizeMedium, color: social_colorPrimary)),
                                 ],
                               ),
                             ),
-                            SizedBox(
-                              height: spacing_standard_new,
-                            ),
+                            SizedBox(height: spacing_standard_new),
                             Container(
                               width: MediaQuery.of(context).size.width * 0.5,
                               child: SocialAppButton(
                                 onPressed: () {
-                                  launchScreen(context, SocialChangeNumber.tag);
+                                  SocialChangeNumber().launch(context);
                                 },
                                 textContent: social_lbl_change_number,
                               ),
@@ -131,13 +118,9 @@ class SocialDeleteAccountState extends State<SocialDeleteAccount> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             text(social_lbl_to_delete_your_account_confirm_your_country_code_and_enter_your_phone_number, isLongText: true, textColor: social_textColorSecondary),
-                            SizedBox(
-                              height: spacing_standard_new,
-                            ),
+                            SizedBox(height: spacing_standard_new),
                             text(social_lbl_country, fontFamily: fontMedium),
-                            SizedBox(
-                              height: spacing_control,
-                            ),
+                            SizedBox(height: spacing_control),
                             Container(
                               width: MediaQuery.of(context).size.width,
                               padding: EdgeInsets.fromLTRB(spacing_standard, 0, spacing_standard, 0),
@@ -149,9 +132,7 @@ class SocialDeleteAccountState extends State<SocialDeleteAccount> {
                                 padding: EdgeInsets.all(0),
                               ),
                             ),
-                            SizedBox(
-                              height: spacing_standard_new,
-                            ),
+                            SizedBox(height: spacing_standard_new),
                             Container(
                               width: MediaQuery.of(context).size.width,
                               padding: EdgeInsets.fromLTRB(spacing_standard, 16, spacing_standard, 16),
@@ -162,19 +143,10 @@ class SocialDeleteAccountState extends State<SocialDeleteAccount> {
                                     WidgetSpan(
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                        child: Icon(
-                                          Icons.call,
-                                          color: social_textColorPrimary,
-                                          size: 18,
-                                        ),
+                                        child: Icon(Icons.call, color: social_textColorPrimary, size: 18),
                                       ),
                                     ),
-                                    TextSpan(
-                                        text: social_phone,
-                                        style: TextStyle(
-                                          color: social_textColorPrimary,
-                                          fontSize: textSizeMedium,
-                                        )),
+                                    TextSpan(text: social_phone, style: TextStyle(color: social_textColorPrimary, fontSize: textSizeMedium)),
                                   ],
                                 ),
                               ),
@@ -186,7 +158,7 @@ class SocialDeleteAccountState extends State<SocialDeleteAccount> {
                         width: MediaQuery.of(context).size.width,
                         margin: EdgeInsets.only(bottom: spacing_standard_new),
                         padding: EdgeInsets.only(top: spacing_middle, bottom: spacing_middle),
-                        decoration: boxDecoration(showShadow: true, bgColor: social_form_google),
+                        decoration: boxDecoration(showShadow: true, bgColor: social_form_google, radius: 8),
                         child: text(social_lbl_delete_account, textColor: social_white, isCentered: true),
                       )
                     ],

@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/social/screen/SocialHomeCalls.dart';
 import 'package:prokit_flutter/social/screen/SocialStatus.dart';
 import 'package:prokit_flutter/social/utils/SocialColors.dart';
 import 'package:prokit_flutter/social/utils/SocialConstant.dart';
-import 'package:prokit_flutter/social/utils/SocialExtension.dart';
 import 'package:prokit_flutter/social/utils/SocialImages.dart';
 import 'package:prokit_flutter/social/utils/SocialStrings.dart';
 import 'package:prokit_flutter/social/utils/SocialWidget.dart';
@@ -58,7 +59,9 @@ class SocialDashboardState extends State<SocialDashboard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              mToolbar(context, social_lbl_dashboard, social_ic_setting, tags: SocialSetting.tag),
+              mToolbar(context, social_lbl_dashboard, social_ic_setting, onTap: () {
+                SocialSetting().launch(context);
+              }),
               SizedBox(height: spacing_standard_new),
               Container(
                 width: width,

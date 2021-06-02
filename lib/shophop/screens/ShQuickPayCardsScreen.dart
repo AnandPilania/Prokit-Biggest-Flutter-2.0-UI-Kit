@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:prokit_flutter/shophop/models/ShPaymentCard.dart';
-import 'package:prokit_flutter/shophop/utils/ShColors.dart';
-import 'package:prokit_flutter/shophop/utils/ShExtension.dart';
-import 'package:prokit_flutter/shophop/utils/ShImages.dart';
-import 'package:prokit_flutter/shophop/utils/ShStrings.dart';
-import 'package:prokit_flutter/shophop/utils/ShConstant.dart';
-import 'package:prokit_flutter/shophop/utils/ShWidget.dart';
+import 'package:prokit_flutter/shopHop/models/ShPaymentCard.dart';
+import 'package:prokit_flutter/shopHop/utils/ShColors.dart';
+import 'package:prokit_flutter/shopHop/utils/ShConstant.dart';
+import 'package:prokit_flutter/shopHop/utils/ShImages.dart';
+import 'package:prokit_flutter/shopHop/utils/ShStrings.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 import 'ShAddCardScreen.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class ShQuickPayCardsScreen extends StatefulWidget {
   static String tag = '/ShQuickPayCardsScreen';
@@ -19,8 +19,8 @@ class ShQuickPayCardsScreen extends StatefulWidget {
 }
 
 class ShQuickPayCardsScreenState extends State<ShQuickPayCardsScreen> {
-  var list = List<ShPaymentCard>();
-  var selectedCard = 0;
+  List<ShPaymentCard> list = [];
+  int? selectedCard = 0;
 
   editCard(ShPaymentCard card) {
     Navigator.push(
@@ -149,7 +149,7 @@ class ShQuickPayCardsScreenState extends State<ShQuickPayCardsScreen> {
                     Radio(
                         value: index,
                         groupValue: selectedCard,
-                        onChanged: (value) {
+                        onChanged: (dynamic value) {
                           setState(() {
                             selectedCard = value;
                           });
@@ -190,7 +190,7 @@ class ShQuickPayCardsScreenState extends State<ShQuickPayCardsScreen> {
                       side: BorderSide(color: sh_colorPrimary),
                     ),
                     onPressed: () {
-                      launchScreen(context, ShAddCardScreen.tag);
+                      ShAddCardScreen().launch(context);
                     },
                   )
                 ],

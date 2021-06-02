@@ -104,18 +104,17 @@ class _StepperBodyState extends State<StepperBody> {
           steps: steps,
           type: StepperType.vertical,
           currentStep: this.currStep,
-          controlsBuilder: (BuildContext context,
-              {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
+          controlsBuilder: (BuildContext context, {VoidCallback? onStepContinue, VoidCallback? onStepCancel}) {
             return Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                FlatButton(
+                TextButton(
                   onPressed: onStepContinue,
                   child: Text('CONTINUE', style: secondaryTextStyle()),
                 ),
                 10.width,
-                FlatButton(
+                TextButton(
                   onPressed: onStepCancel,
                   child: Text('CANCEL', style: secondaryTextStyle()),
                 ),

@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/muvi/screens/flix_signin.dart';
 import 'package:prokit_flutter/muvi/utils/dots_indicator/dots_indicator.dart';
 import 'package:prokit_flutter/muvi/utils/flix_app_widgets.dart';
 import 'package:prokit_flutter/muvi/utils/flix_constants.dart';
-import 'package:prokit_flutter/muvi/utils/flix_widget_extensions.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_colors.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_images.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_size.dart';
@@ -40,11 +41,11 @@ class MuviOnBoardingScreenState extends State<MuviOnBoardingScreen> {
       height: 30,
       color: muvi_colorPrimary,
       splashColor: muvi_colorPrimary.withOpacity(0.5),
-      child: text(context, "Get Started", fontSize: ts_medium, fontFamily: font_medium, textColor: Colors.black),
+      child: text("Get Started", fontSize: ts_medium, fontFamily: font_medium, textColor: Colors.black),
       shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(spacing_large)),
       onPressed: () {
         finish(context);
-        launchScreen(context, SignInScreen.tag);
+        SignInScreen().launch(context);
       },
     ).visible(currentIndexPage == 2);
 
@@ -54,9 +55,9 @@ class MuviOnBoardingScreenState extends State<MuviOnBoardingScreen> {
         child: Column(
           children: <Widget>[
             flixTitle(context).paddingOnly(top: spacing_standard_new, bottom: spacing_standard_new),
-            text(context, walk_titles[currentIndexPage], fontSize: ts_large, fontFamily: font_bold, textColor: muvi_textColorPrimary)
+            text(walk_titles[currentIndexPage], fontSize: ts_large, fontFamily: font_bold, textColor: muvi_textColorPrimary)
                 .paddingOnly(left: spacing_large, right: spacing_large, top: spacing_standard_new),
-            text(context, walk_sub_titles[currentIndexPage], fontSize: ts_normal, textColor: muvi_textColorPrimary, maxLine: 2, isCentered: true)
+            text(walk_sub_titles[currentIndexPage], fontSize: ts_normal, textColor: muvi_textColorPrimary, maxLine: 2, isCentered: true)
                 .paddingOnly(top: spacing_control, left: spacing_large, right: spacing_large),
             Stack(
               children: <Widget>[
@@ -73,9 +74,9 @@ class MuviOnBoardingScreenState extends State<MuviOnBoardingScreen> {
 }
 
 class WalkThrough extends StatelessWidget {
-  final String walkImg;
+  final String? walkImg;
 
-  WalkThrough({Key key, this.walkImg}) : super(key: key);
+  WalkThrough({Key? key, this.walkImg}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +88,11 @@ class WalkThrough extends StatelessWidget {
           left: -spacing_large,
           right: -spacing_large,
           bottom: -width * 0.55,
-          child: CachedNetworkImage(imageUrl: walkImg, width: double.infinity).paddingAll(spacing_standard_new).cornerRadiusWithClipRRect(spacing_standard_new),
+          child: CachedNetworkImage(
+            placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
+            imageUrl: walkImg!,
+            width: double.infinity,
+          ).paddingAll(spacing_standard_new).cornerRadiusWithClipRRect(spacing_standard_new),
         ),
         Positioned(top: spacing_standard, left: -spacing_large, right: -spacing_large, bottom: -width * 0.55, child: Image.asset(ic_phone, width: double.infinity)),
       ],

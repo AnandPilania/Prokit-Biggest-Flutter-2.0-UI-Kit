@@ -4,17 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme5/model/T5Models.dart';
 import 'package:prokit_flutter/theme5/utils/T5Colors.dart';
 import 'package:prokit_flutter/theme5/utils/T5Constant.dart';
 import 'package:prokit_flutter/theme5/utils/T5DataGenerator.dart';
-import 'package:prokit_flutter/theme5/utils/T5Extension.dart';
 import 'package:prokit_flutter/theme5/utils/T5Images.dart';
 import 'package:prokit_flutter/theme5/utils/T5Strings.dart';
-import 'package:prokit_flutter/theme5/utils/T5Widget.dart';
 import 'package:prokit_flutter/theme5/utils/widgets/T5BottomBar.dart';
 import 'package:prokit_flutter/theme5/utils/widgets/T5GridListing.dart';
 import 'package:prokit_flutter/theme5/utils/widgets/T5Slider.dart';
+
+import '../../main.dart';
 
 class T5Dashboard extends StatefulWidget {
   static var tag = "/T5Dashboard";
@@ -27,8 +28,8 @@ class T5DashboardState extends State<T5Dashboard> {
   bool passwordVisible = false;
   bool isRemember = false;
   var currentIndexPage = 0;
-  List<T5Category> mFavouriteList;
-  List<T5Slider> mSliderList;
+  List<T5Category>? mFavouriteList;
+  List<T5Slider>? mSliderList;
 
   @override
   void initState() {
@@ -49,8 +50,7 @@ class T5DashboardState extends State<T5Dashboard> {
     changeStatusColor(t5DarkNavy);
     var width = MediaQuery.of(context).size.width;
     width = width - 50;
-    final GlobalKey<ScaffoldState> _scaffoldKey =
-        new GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
     return Scaffold(
       backgroundColor: t5DarkNavy,
       key: _scaffoldKey,
@@ -66,23 +66,14 @@ class T5DashboardState extends State<T5Dashboard> {
                   Row(
                     children: <Widget>[
                       CircleAvatar(
-                        backgroundImage:
-                            CachedNetworkImageProvider(t5_profile_8),
+                        backgroundImage: CachedNetworkImageProvider(t5_profile_8),
                         radius: 25,
                       ),
                       SizedBox(width: 16),
-                      text(t5_username,
-                          textColor: t5White,
-                          fontSize: textSizeNormal,
-                          fontFamily: fontMedium)
+                      text(t5_username, textColor: t5White, fontSize: textSizeNormal, fontFamily: fontMedium)
                     ],
                   ),
-                  SvgPicture.asset(
-                    t5_options,
-                    width: 25,
-                    height: 25,
-                    color: t5White,
-                  )
+                  SvgPicture.asset(t5_options, width: 25, height: 25, color: t5White)
                 ],
               ),
             ),
@@ -92,18 +83,14 @@ class T5DashboardState extends State<T5Dashboard> {
                 padding: EdgeInsets.only(top: 28),
                 alignment: Alignment.topLeft,
                 height: MediaQuery.of(context).size.height - 100,
-                decoration: BoxDecoration(
-                    color: t5LayoutBackgroundWhite,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(24),
-                        topRight: Radius.circular(24))),
+                decoration: BoxDecoration(color: appStore.scaffoldBackground, borderRadius: BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24))),
                 child: Column(
                   children: <Widget>[
                     T5SliderWidget(mSliderList),
                     SizedBox(height: 20),
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.all(24.0),
+                        padding: EdgeInsets.all(24.0),
                         child: T5GridListing(mFavouriteList, false),
                       ),
                     )

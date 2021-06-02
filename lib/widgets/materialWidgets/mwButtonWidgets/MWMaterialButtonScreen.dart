@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/main.dart';
 import 'package:prokit_flutter/main/utils/AppWidget.dart';
-import 'package:nb_utils/nb_utils.dart';
 
 class MWMaterialButtonScreen extends StatefulWidget {
   static String tag = '/MWMaterialButtonScreen';
+
   @override
   _MWMaterialButtonScreenState createState() => _MWMaterialButtonScreenState();
 }
@@ -43,7 +44,7 @@ class _MWMaterialButtonScreenState extends State<MWMaterialButtonScreen> {
                 ),
               ),
               Divider(),
-              FlatButton.icon(
+              TextButton.icon(
                   onPressed: () {
                     toast('Material button with icon');
                   },
@@ -64,7 +65,7 @@ class _MWMaterialButtonScreenState extends State<MWMaterialButtonScreen> {
                 ),
               ),
               Divider(),
-              FlatButton.icon(
+              TextButton.icon(
                   onPressed: null,
                   icon: Icon(
                     Icons.add,
@@ -79,7 +80,7 @@ class _MWMaterialButtonScreenState extends State<MWMaterialButtonScreen> {
                 onPressed: () {
                   toast('Border Material button');
                 },
-                shape: Border.all(color: appStore.iconColor),
+                shape: Border.all(color: appStore.iconColor!),
                 child: Text(
                   'Border Material button',
                   style: primaryTextStyle(),
@@ -150,8 +151,7 @@ class _MWMaterialButtonScreenState extends State<MWMaterialButtonScreen> {
                 onPressed: () {
                   toast('Rounded color fill Material button');
                 },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
                 color: getColorFromHex('#f2866c'),
                 child: Text(
                   'Rounded color fill Material button',

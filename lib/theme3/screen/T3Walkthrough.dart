@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:prokit_flutter/main/utils/dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/theme3/utils/T3Constant.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/main/utils/dots_indicator/dots_indicator.dart';
 import 'package:prokit_flutter/theme3/utils/T3Images.dart';
 import 'package:prokit_flutter/theme3/utils/colors.dart';
 
@@ -15,12 +16,8 @@ class T3WalkThrough extends StatefulWidget {
 
 class T3WalkThroughState extends State<T3WalkThrough> {
   int currentIndexPage = 0;
-  int pageLength;
-  var titles = [
-    "Sign in / Sign Up",
-    "Choose Your Favourite Chef",
-    "Make Delicious Dishes"
-  ];
+  int? pageLength;
+  var titles = ["Sign in / Sign Up", "Choose Your Favourite Chef", "Make Delicious Dishes"];
   var subTitles = [
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry.This is simply text ",
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry.This is simply text  ",
@@ -44,15 +41,9 @@ class T3WalkThroughState extends State<T3WalkThrough> {
             height: MediaQuery.of(context).size.height,
             child: PageView(
               children: <Widget>[
-                WalkThrough(
-                  textContent: t3_ic_walk1,
-                ),
-                WalkThrough(
-                  textContent: t3_ic_walk2,
-                ),
-                WalkThrough(
-                  textContent: t3_ic_walk3,
-                ),
+                WalkThrough(textContent: t3_ic_walk1),
+                WalkThrough(textContent: t3_ic_walk2),
+                WalkThrough(textContent: t3_ic_walk3),
               ],
               onPageChanged: (value) {
                 setState(() => currentIndexPage = value);
@@ -67,7 +58,7 @@ class T3WalkThroughState extends State<T3WalkThrough> {
                 children: <Widget>[
                   Align(
                     alignment: Alignment.center,
-                    child: new DotsIndicator(
+                    child: DotsIndicator(
                         dotsCount: 3,
                         position: currentIndexPage,
                         decorator: DotsDecorator(
@@ -75,28 +66,19 @@ class T3WalkThroughState extends State<T3WalkThrough> {
                           activeColor: t3_colorPrimary,
                         )),
                   ),
-                  SizedBox(
-                    height: 4,
-                  ),
+                  SizedBox(height: 4),
                   Padding(
-                    padding: const EdgeInsets.all(24.0),
+                    padding: EdgeInsets.all(24.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(titles[currentIndexPage],
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontFamily: fontMedium,
-                                color: t3_colorPrimary)),
+                        Text(titles[currentIndexPage], style: boldTextStyle(size: 20, color: t3_colorPrimary)),
                         SizedBox(height: 16),
                         Center(
                             child: Text(
                           subTitles[currentIndexPage],
-                          style: TextStyle(
-                              fontFamily: fontRegular,
-                              fontSize: 18,
-                              color: t3_textColorSecondary),
+                          style: secondaryTextStyle(size: 18),
                           textAlign: TextAlign.center,
                         )),
                         SizedBox(height: 50),
@@ -110,29 +92,17 @@ class T3WalkThroughState extends State<T3WalkThrough> {
                       child: RaisedButton(
                         textColor: t3_white,
                         elevation: 4,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(80.0),
-                                topLeft: Radius.circular(80.0))),
-                        padding: const EdgeInsets.all(0.0),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(80.0), topLeft: Radius.circular(80.0))),
+                        padding: EdgeInsets.all(0.0),
                         child: Container(
-                          decoration: const BoxDecoration(
-                            gradient: LinearGradient(colors: <Color>[
-                              t3_colorPrimary,
-                              t3_colorPrimaryDark
-                            ]),
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(80.0),
-                                topLeft: Radius.circular(80.0)),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(colors: <Color>[t3_colorPrimary, t3_colorPrimaryDark]),
+                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(80.0), topLeft: Radius.circular(80.0)),
                           ),
                           child: Center(
                             child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Text(
-                                "Skip",
-                                style: TextStyle(fontSize: 18),
-                                textAlign: TextAlign.center,
-                              ),
+                              padding: EdgeInsets.all(16.0),
+                              child: Text("Skip", style: TextStyle(fontSize: 18), textAlign: TextAlign.center),
                             ),
                           ),
                         ),
@@ -153,7 +123,7 @@ class T3WalkThroughState extends State<T3WalkThrough> {
 class WalkThrough extends StatelessWidget {
   final String textContent;
 
-  WalkThrough({Key key, @required this.textContent}) : super(key: key);
+  WalkThrough({Key? key, required this.textContent}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -161,6 +131,7 @@ class WalkThrough extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       alignment: Alignment.topCenter,
       child: CachedNetworkImage(
+        placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
         imageUrl: textContent,
         width: 280,
         height: (MediaQuery.of(context).size.height) / 2.3,

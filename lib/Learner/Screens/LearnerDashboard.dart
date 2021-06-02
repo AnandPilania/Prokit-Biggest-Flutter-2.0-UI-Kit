@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/Learner/Screens/LearnerChart.dart';
-import 'package:prokit_flutter/Learner/Screens/LearnerChat.dart';
-import 'package:prokit_flutter/Learner/Screens/LearnerHome.dart';
-import 'package:prokit_flutter/Learner/Screens/LearnerProfile.dart';
-import 'package:prokit_flutter/Learner/Screens/LearnerSearch.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerBottomNavigationBar.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerColors.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerExtension.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerImages.dart';
+import 'package:prokit_flutter/learner/Screens/LearnerChart.dart';
+import 'package:prokit_flutter/learner/Screens/LearnerChat.dart';
+import 'package:prokit_flutter/learner/Screens/LearnerHome.dart';
+import 'package:prokit_flutter/learner/Screens/LearnerProfile.dart';
+import 'package:prokit_flutter/learner/Screens/LearnerSearch.dart';
+import 'package:prokit_flutter/learner/utils/LearnerBottomNavigationBar.dart';
+import 'package:prokit_flutter/learner/utils/LearnerColors.dart';
+import 'package:prokit_flutter/learner/utils/LearnerImages.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class LearnerDashboard extends StatefulWidget {
   static String tag = '/LearnerDashboard';
@@ -53,27 +53,18 @@ class _LearnerDashboardState extends State<LearnerDashboard> {
   @override
   Widget build(BuildContext context) {
     changeStatusColor(learner_layout_background);
+
     return Scaffold(
       backgroundColor: learner_layout_background,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(boxShadow: [BoxShadow(color: learner_ShadowColor, offset: Offset.fromDirection(3, 1), spreadRadius: 1, blurRadius: 5)]),
         child: LearnerBottomNavigationBar(
           items: const <LearnerBottomNavigationBarItem>[
-            LearnerBottomNavigationBarItem(
-              icon: Learner_ic_home_navigation,
-            ),
-            LearnerBottomNavigationBarItem(
-              icon: Learner_ic_search_navigation,
-            ),
-            LearnerBottomNavigationBarItem(
-              icon: Learner_ic_chart_navigation,
-            ),
-            LearnerBottomNavigationBarItem(
-              icon: Learner_ic_message_navigation,
-            ),
-            LearnerBottomNavigationBarItem(
-              icon: Learner_ic_more_navigation,
-            ),
+            LearnerBottomNavigationBarItem(icon: Learner_ic_home_navigation),
+            LearnerBottomNavigationBarItem(icon: Learner_ic_search_navigation),
+            LearnerBottomNavigationBarItem(icon: Learner_ic_chart_navigation),
+            LearnerBottomNavigationBarItem(icon: Learner_ic_message_navigation),
+            LearnerBottomNavigationBarItem(icon: Learner_ic_more_navigation),
           ],
           currentIndex: selectedIndex,
           unselectedIconTheme: IconThemeData(color: learner_textColorSecondary, size: 24),

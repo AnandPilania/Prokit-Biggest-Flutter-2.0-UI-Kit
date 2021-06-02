@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 import 'CleanCalendar.dart';
 
 class CalenderHomePage extends StatefulWidget {
+  static String tag = '/CalenderHomePage';
+
   @override
   _CalenderHomePageState createState() => _CalenderHomePageState();
 }
 
 class _CalenderHomePageState extends State<CalenderHomePage> {
-  List _selectedEvents;
+  late List _selectedEvents;
   DateTime _selectedDay = DateTime.now();
 
   // List of the event on particular date.
@@ -26,11 +30,7 @@ class _CalenderHomePageState extends State<CalenderHomePage> {
       ],
       DateTime(_selectedDay.year, _selectedDay.month, 9): [
         {'name': 'Event A', 'isDone': true, 'time': '10 - 11 AM'},
-        {
-          'name': 'Event B',
-          'isDone': true,
-          'time': '_selectedDay.month - 7 PM'
-        },
+        {'name': 'Event B', 'isDone': true, 'time': '_selectedDay.month - 7 PM'},
       ],
       DateTime(_selectedDay.year, _selectedDay.month, 10): [
         {'name': 'Event A', 'isDone': true, 'time': '9 - 10 AM'},
@@ -67,19 +67,7 @@ class _CalenderHomePageState extends State<CalenderHomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color(0xFF8998FF),
-          title: Text('Calender'),
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ),
+        appBar: appBar(context, 'Calender'),
         body: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,38 +75,37 @@ class _CalenderHomePageState extends State<CalenderHomePage> {
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(top: 25),
-              child: Calendar(
-                // if the value is true it will from monday or else sunday
-                startOnMonday: true,
-                // name of the week as per user choice
-                weekDays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-                // Events list
-                events: _events,
-                // it will hide the Today icon in the header of calender
-                hideTodayIcon: false,
-                // it will highlight the today date and return thr events if there
-                onDateSelected: (date) => _handleNewDate(date),
-                // you want to expand your calender or not(if not then it will show the current week)
-                isExpandable: true,
-                // color of the bottom bar
-                bottomBarColor: Color(0xFF8998FF),
-                // color of the arrow in bottom bar
-                bottomBarArrowColor: Colors.white,
-                // style of the text on the bottom bar
-                bottomBarTextStyle: TextStyle(color: Colors.white),
-                // Completed event color
-                eventDoneColor: Colors.green,
-                // current selected date color
-                selectedColor: Color(0xFF8998FF),
-                // today's date color
-                todayColor: Color(0xFF8998FF),
-                // Color of event which are pending
-                eventColor: Colors.grey,
-                // style fot the day of the week list
-                dayOfWeekStyle: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 11),
+              child: CustomTheme(
+                child: Calendar(
+                  // if the value is true it will from monday or else sunday
+                  startOnMonday: true,
+                  // name of the week as per user choice
+                  weekDays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+                  // Events list
+                  events: _events,
+                  // it will hide the Today icon in the header of calender
+                  hideTodayIcon: false,
+                  // it will highlight the today date and return thr events if there
+                  onDateSelected: (date) => _handleNewDate(date),
+                  // you want to expand your calender or not(if not then it will show the current week)
+                  isExpandable: true,
+                  // color of the bottom bar
+                  bottomBarColor: Color(0xFF8998FF),
+                  // color of the arrow in bottom bar
+                  bottomBarArrowColor: Colors.white,
+                  // style of the text on the bottom bar
+                  bottomBarTextStyle: TextStyle(color: Colors.white),
+                  // Completed event color
+                  eventDoneColor: Colors.green,
+                  // current selected date color
+                  selectedColor: Color(0xFF8998FF),
+                  // today's date color
+                  todayColor: Color(0xFF8998FF),
+                  // Color of event which are pending
+                  eventColor: Colors.grey,
+                  // style fot the day of the week list
+                  dayOfWeekStyle: boldTextStyle(size: 12),
+                ),
               ),
             ),
             // if the date has event it will get call
@@ -150,24 +137,20 @@ class _CalenderHomePageState extends State<CalenderHomePage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        _selectedEvents[index]['name'].toString(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
+                      Text(_selectedEvents[index]['name'].toString(), style: boldTextStyle(size: 14)),
                       Container(
                         margin: EdgeInsets.only(top: 5, bottom: 10),
-                        child: Text(_selectedEvents[index]['time'].toString()),
+                        child: Text(
+                          _selectedEvents[index]['time'].toString(),
+                          style: secondaryTextStyle(),
+                        ),
                       )
                     ],
                   ),
                   _selectedEvents[index]['isDone'] == true
                       ? Row(
                           children: <Widget>[
-                            Text('Completed',
-                                style: TextStyle(color: Colors.black54)),
+                            Text('Completed', style: primaryTextStyle()),
                             Container(
                               margin: EdgeInsets.only(left: 10),
                               width: 18,
@@ -190,7 +173,7 @@ class _CalenderHomePageState extends State<CalenderHomePage> {
                           children: <Widget>[
                             Text(
                               'Pending',
-                              style: TextStyle(color: Colors.black54),
+                              style: primaryTextStyle(),
                             ),
                             Container(
                               margin: EdgeInsets.only(left: 10),

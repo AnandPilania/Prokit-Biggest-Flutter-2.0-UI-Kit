@@ -5,8 +5,8 @@ import 'package:prokit_flutter/grocery/utils/GeoceryStrings.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryColors.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryDataGenerator.dart';
-import 'package:prokit_flutter/grocery/utils/GroceryExtension.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class GroceryPaymentMethods extends StatefulWidget {
   static String tag = '/GroceryPaymentMethods';
@@ -16,7 +16,7 @@ class GroceryPaymentMethods extends StatefulWidget {
 }
 
 class _GroceryPaymentMethodsState extends State<GroceryPaymentMethods> {
-  List<GroceryPaymentModel> mList1;
+  late List<GroceryPaymentModel> mList1;
 
   @override
   void initState() {
@@ -31,8 +31,7 @@ class _GroceryPaymentMethodsState extends State<GroceryPaymentMethods> {
       backgroundColor: grocery_app_background,
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, 65),
-        child: title1(grocery_lbl_payment_method, grocery_color_white,
-            grocery_textColorPrimary, context),
+        child: title1(grocery_lbl_payment_method, grocery_color_white, grocery_textColorPrimary, context),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -43,12 +42,7 @@ class _GroceryPaymentMethodsState extends State<GroceryPaymentMethods> {
                 bottomLeft: Radius.circular(20.0),
                 bottomRight: const Radius.circular(20.0),
               ),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                    color: grocery_ShadowColor,
-                    blurRadius: 20.0,
-                    offset: Offset(0.0, 0.9))
-              ]),
+              boxShadow: <BoxShadow>[BoxShadow(color: grocery_ShadowColor, blurRadius: 20.0, offset: Offset(0.0, 0.9))]),
           child: Column(
             children: <Widget>[
               ListView.builder(
@@ -64,54 +58,30 @@ class _GroceryPaymentMethodsState extends State<GroceryPaymentMethods> {
                             Container(
                               height: 60,
                               width: 60,
-                              decoration: boxDecoration(
-                                  radius: 35.0, bgColor: mList1[index].color),
+                              decoration: boxDecoration(radius: 35.0, bgColor: mList1[index].color),
                               child: Image.asset(
                                 mList1[index].cardImg,
                                 height: 30,
                                 width: 30,
                               ).paddingAll(spacing_standard),
-                            ).paddingOnly(
-                                top: spacing_control,
-                                left: spacing_large,
-                                bottom: spacing_control,
-                                right: spacing_standard),
+                            ).paddingOnly(top: spacing_control, left: spacing_large, bottom: spacing_control, right: spacing_standard),
                             Expanded(
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Column(
                                     children: <Widget>[
-                                      text(mList1[index].name,
-                                              textColor:
-                                                  grocery_textColorPrimary,
-                                              fontSize: textSizeLargeMedium,
-                                              fontFamily: fontMedium)
-                                          .paddingOnly(
-                                              left: spacing_standard,
-                                              right: spacing_standard),
-                                      text(mList1[index].cardNumber,
-                                              textColor:
-                                                  grocery_textColorPrimary,
-                                              fontSize: textSizeMedium,
-                                              fontFamily: fontMedium)
-                                          .paddingOnly(
-                                              left: spacing_standard,
-                                              right: spacing_standard)
+                                      text(mList1[index].name, textColor: grocery_textColorPrimary, fontSize: textSizeLargeMedium, fontFamily: fontMedium)
+                                          .paddingOnly(left: spacing_standard, right: spacing_standard),
+                                      text(mList1[index].cardNumber, textColor: grocery_textColorPrimary, fontSize: textSizeMedium, fontFamily: fontMedium)
+                                          .paddingOnly(left: spacing_standard, right: spacing_standard)
                                     ],
                                   ).paddingOnly(top: spacing_standard),
                                   Icon(
-                                    mList1[index].isSelected == true
-                                        ? Icons.check_circle
-                                        : Icons.radio_button_unchecked,
-                                    color: mList1[index].isSelected == true
-                                        ? grocery_colorPrimary
-                                        : Colors.grey,
+                                    mList1[index].isSelected == true ? Icons.check_circle : Icons.radio_button_unchecked,
+                                    color: mList1[index].isSelected == true ? grocery_colorPrimary : Colors.grey,
                                     size: 30,
-                                  ).paddingOnly(
-                                      top: spacing_standard_new,
-                                      right: spacing_standard_new),
+                                  ).paddingOnly(top: spacing_standard_new, right: spacing_standard_new),
                                 ],
                               ),
                             )
@@ -119,8 +89,7 @@ class _GroceryPaymentMethodsState extends State<GroceryPaymentMethods> {
                         ),
                         Divider()
                       ],
-                    ).paddingOnly(
-                        top: spacing_standard, bottom: spacing_standard);
+                    ).paddingOnly(top: spacing_standard, bottom: spacing_standard);
                   }),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,19 +97,13 @@ class _GroceryPaymentMethodsState extends State<GroceryPaymentMethods> {
                   Container(
                     height: 60,
                     width: 60,
-                    decoration: boxDecoration(
-                        radius: 35.0,
-                        bgColor: grocery_colorPrimary.withOpacity(0.2)),
+                    decoration: boxDecoration(radius: 35.0, bgColor: grocery_colorPrimary.withOpacity(0.2)),
                     child: Icon(
                       Icons.credit_card,
                       size: 30,
                       color: grocery_colorPrimary,
                     ).paddingAll(spacing_standard),
-                  ).paddingOnly(
-                      top: spacing_control,
-                      left: spacing_large,
-                      bottom: spacing_control,
-                      right: spacing_standard),
+                  ).paddingOnly(top: spacing_control, left: spacing_large, bottom: spacing_control, right: spacing_standard),
                   Expanded(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -149,20 +112,10 @@ class _GroceryPaymentMethodsState extends State<GroceryPaymentMethods> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              text('Add a Payment Method',
-                                      textColor: grocery_textColorPrimary,
-                                      fontSize: textSizeLargeMedium,
-                                      fontFamily: fontMedium)
-                                  .paddingOnly(
-                                      left: spacing_standard,
-                                      right: spacing_standard),
-                              text('Add Credit Card or debit Card',
-                                      textColor: grocery_textColorPrimary,
-                                      fontSize: textSizeMedium,
-                                      fontFamily: fontMedium)
-                                  .paddingOnly(
-                                      left: spacing_standard,
-                                      right: spacing_standard)
+                              text('Add a Payment Method', textColor: grocery_textColorPrimary, fontSize: textSizeLargeMedium, fontFamily: fontMedium)
+                                  .paddingOnly(left: spacing_standard, right: spacing_standard),
+                              text('Add Credit Card or debit Card', textColor: grocery_textColorPrimary, fontSize: textSizeMedium, fontFamily: fontMedium)
+                                  .paddingOnly(left: spacing_standard, right: spacing_standard)
                             ],
                           ).paddingOnly(top: spacing_standard),
                         ),
@@ -170,9 +123,7 @@ class _GroceryPaymentMethodsState extends State<GroceryPaymentMethods> {
                           Icons.keyboard_arrow_right,
                           color: Colors.grey,
                           size: 30,
-                        ).paddingOnly(
-                            top: spacing_standard_new,
-                            right: spacing_standard_new),
+                        ).paddingOnly(top: spacing_standard_new, right: spacing_standard_new),
                       ],
                     ),
                   )

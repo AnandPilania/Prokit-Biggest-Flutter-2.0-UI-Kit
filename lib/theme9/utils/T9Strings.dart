@@ -1,7 +1,7 @@
 const t9_hint_email = "Email";
 const t9_hint_password = "Password";
 const t9_lbl_enter = "Enter";
-const t9_sign_up_info = "By Pressing 'Join' you agree to out";
+const t9_sign_up_info = "By Pressing 'Join' you agree to our";
 const t9_lbl_login_underlined = "<u>Login</u>";
 const t9_sample_long_text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.dummy text of the printing and typesetting ";
 const t9_short_text = "Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit";

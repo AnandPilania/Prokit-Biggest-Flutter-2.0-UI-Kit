@@ -1,254 +1,168 @@
-import 'dart:developer' as developer;
+import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
+import 'package:html/parser.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/main/model/AppMoel.dart';
+import 'package:prokit_flutter/integrations/utils/common.dart';
+import 'package:prokit_flutter/main.dart';
 import 'package:prokit_flutter/main/model/ListModels.dart';
-import 'package:prokit_flutter/main/screens/ProkitScreenListing.dart';
-import 'package:prokit_flutter/muvi/utils/flix_constants.dart';
 
-import '../../main.dart';
 import 'AppColors.dart';
 import 'AppConstant.dart';
-import 'AppImages.dart';
-import 'AppStrings.dart';
+import 'clusteringGoogleMaps/lat_lang_geohash.dart';
 
-Text headerText(var text) {
+Widget text(
+  String? text, {
+  var fontSize = textSizeLargeMedium,
+  Color? textColor,
+  var fontFamily,
+  var isCentered = false,
+  var maxLine = 1,
+  var latterSpacing = 0.5,
+  bool textAllCaps = false,
+  var isLongText = false,
+  bool lineThrough = false,
+}) {
   return Text(
-    text,
-    maxLines: 2,
-    style: TextStyle(fontFamily: fontBold, fontSize: 22, color: appStore.textPrimaryColor),
+    textAllCaps ? text!.toUpperCase() : text!,
+    textAlign: isCentered ? TextAlign.center : TextAlign.start,
+    maxLines: isLongText ? null : maxLine,
+    overflow: TextOverflow.ellipsis,
+    style: TextStyle(
+      fontFamily: fontFamily ?? null,
+      fontSize: fontSize,
+      color: textColor ?? appStore.textSecondaryColor,
+      height: 1.5,
+      letterSpacing: latterSpacing,
+      decoration: lineThrough ? TextDecoration.lineThrough : TextDecoration.none,
+    ),
   );
 }
 
-Text subHeadingText(var text) {
-  return Text(
-    text,
-    style: TextStyle(fontFamily: fontBold, fontSize: 17.5, color: appTextColorSecondary),
-  );
-}
-
-Widget text(var text, {var fontSize = textSizeLargeMedium, textColor = appTextColorSecondary, var fontFamily = fontRegular, var isCentered = false, var maxLine = 1, var latterSpacing = 0.5}) {
-  return Text(text,
-      textAlign: isCentered ? TextAlign.center : TextAlign.start,
-      maxLines: maxLine,
-      overflow: TextOverflow.ellipsis,
-      style: TextStyle(fontFamily: fontFamily, fontSize: fontSize, color: textColor, height: 1.5, letterSpacing: latterSpacing));
-}
-
-changeStatusColor(Color color) async {
-  try {
-    await FlutterStatusbarcolor.setStatusBarColor(color, animate: true);
-    FlutterStatusbarcolor.setStatusBarWhiteForeground(useWhiteForeground(color));
-  } on Exception catch (e) {
-    print(e);
-  }
-}
-
-showToast(BuildContext aContext, String caption) {
-  Scaffold.of(aContext).showSnackBar(SnackBar(content: text(caption, textColor: appWhite, isCentered: true)));
-}
-
-launchScreen(context, String tag, {Object arguments}) {
-  if (arguments == null) {
-    Navigator.pushNamed(context, tag);
-  } else {
-    Navigator.pushNamed(context, tag, arguments: arguments);
-  }
-}
-
-BoxDecoration boxDecoration({double radius = 2, Color color = Colors.transparent, Color bgColor = appWhite, var showShadow = false}) {
+BoxDecoration boxDecoration({double radius = 2, Color color = Colors.transparent, Color? bgColor, var showShadow = false}) {
   return BoxDecoration(
-    color: bgColor,
-    boxShadow: showShadow ? [BoxShadow(color: shadowColorGlobal, blurRadius: 5, spreadRadius: 1)] : [BoxShadow(color: Colors.transparent)],
+    color: bgColor ?? appStore.scaffoldBackground,
+    boxShadow: showShadow ? defaultBoxShadow(shadowColor: shadowColorGlobal) : [BoxShadow(color: Colors.transparent)],
     border: Border.all(color: color),
     borderRadius: BorderRadius.all(Radius.circular(radius)),
   );
 }
 
-class ThemeList extends StatefulWidget {
-  List<ProTheme> list;
-  BuildContext mContext;
-
-  ThemeList(this.list, this.mContext);
-
-  @override
-  ThemeListState createState() => ThemeListState();
-}
-
-class ThemeListState extends State<ThemeList> {
-  List<Color> colors = [appCat1, appCat2, appCat3];
-
-  @override
-  Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
-
-    return AnimationLimiter(
-      child: ListView.builder(
-        scrollDirection: Axis.vertical,
-        itemCount: widget.list.length,
-        physics: ScrollPhysics(),
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return AnimationConfiguration.staggeredList(
-            position: index,
-            duration: const Duration(milliseconds: 500),
-            child: SlideAnimation(
-              verticalOffset: height * 0.5,
-              child: GestureDetector(
-                onTap: () {
-                  if (widget.list[index].sub_kits == null || widget.list[index].sub_kits.isEmpty) {
-                    if (widget.list[index].tag.isNotEmpty) {
-                      developer.log('Tag', name: widget.list[index].tag);
-                      launchScreen(context, widget.list[index].tag);
-                    } else {
-                      showToast(widget.mContext, appComingSoon);
-                    }
-                  } else {
-                    launchScreen(context, ProkitScreenListing.tag, arguments: widget.list[index]);
-                  }
-                },
-                child: Container(
-                  margin: EdgeInsets.only(left: 16, right: 16, bottom: 16),
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        width: width / 6,
-                        height: 80,
-                        margin: EdgeInsets.only(right: 12),
-                        padding: EdgeInsets.all(width / 25),
-                        child: Image.asset(icons[index], color: appWhite),
-                        decoration: boxDecoration(bgColor: colors[index % colors.length], radius: 4),
-                      ),
-                      Expanded(
-                        child: Stack(
-                          alignment: Alignment.centerRight,
-                          children: <Widget>[
-                            Container(
-                              width: width,
-                              height: 80,
-                              padding: EdgeInsets.only(left: 16, right: 16),
-                              margin: EdgeInsets.only(right: width / 28),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      text('${widget.list[index].name}', textColor: appStore.textPrimaryColor, fontFamily: fontMedium, fontSize: textSizeMedium, maxLine: 2),
-                                      text(widget.list[index].title_name.validate(), textColor: appStore.textSecondaryColor, fontFamily: fontRegular, fontSize: textSizeSmall)
-                                          .visible(widget.list[index].title_name.validate().isNotEmpty),
-                                    ],
-                                  ).expand(),
-                                  Container(
-                                    alignment: Alignment.center,
-                                    height: 25,
-                                    margin: EdgeInsets.only(right: 8),
-                                    padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
-                                    decoration: widget.list[index].type.isNotEmpty ? boxDecoration(bgColor: appDarkRed, radius: 4) : BoxDecoration(),
-                                    child: text(widget.list[index].type, fontSize: textSizeSmall, textColor: whiteColor),
-                                  )
-                                ],
-                              ),
-                              decoration: boxDecoration(bgColor: appStore.scaffoldBackground, radius: 4, showShadow: true),
-                            ),
-                            Container(
-                              width: 30,
-                              height: 30,
-                              child: Icon(Icons.keyboard_arrow_right, color: appWhite),
-                              decoration: BoxDecoration(color: colors[index % colors.length], shape: BoxShape.circle),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+Future<List<LatLngAndGeohash>> getListOfLatLngAndGeoHash(BuildContext context) async {
+  try {
+    final fakeList = await (loadDataFromJson(context));
+    List<LatLngAndGeohash> myPoints = [];
+    for (int i = 0; i < fakeList!.length; i++) {
+      final fakePoint = fakeList[i];
+      final p = LatLngAndGeohash(
+          //TODO Without NullSafety Geo coder
+          // LatLng(fakePoint["LATITUDE"], fakePoint["LONGITUDE"]),
           );
-        },
-      ),
-    );
+      myPoints.add(p);
+    }
+    return myPoints;
+  } catch (e) {
+    throw Exception(e.toString());
   }
 }
 
-Widget commonCacheImageWidget(String url, double height, double width, {BoxFit fit}) {
-  return CachedNetworkImage(
-    imageUrl: '$mBaseUrl$url',
-    height: height,
-    width: width,
-    fit: fit,
-  );
+void changeStatusColor(Color color) async {
+  setStatusBarColor(color);
+  /*try {
+    await FlutterStatusbarcolor.setStatusBarColor(color, animate: true);
+    FlutterStatusbarcolor.setStatusBarWhiteForeground(useWhiteForeground(color));
+  } on Exception catch (e) {
+    print(e);
+  }*/
 }
 
-Widget settingItem(context, String text, Function onTap, {Widget detail, Widget leading}) {
+Widget commonCacheImageWidget(String? url, double height, {double? width, BoxFit? fit}) {
+  if (url.validate().startsWith('http')) {
+    if (isMobile) {
+      return CachedNetworkImage(
+        placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
+        imageUrl: '$url',
+        height: height,
+        width: width,
+        fit: fit,
+        errorWidget: (_, __, ___) {
+          return SizedBox(height: height, width: width);
+        },
+      );
+    } else {
+      return Image.network(url!, height: height, width: width, fit: fit);
+    }
+  } else {
+    return Image.asset(url!, height: height, width: width, fit: fit);
+  }
+}
+
+Widget settingItem(context, String text, {Function? onTap, Widget? detail, Widget? leading, Color? textColor, int? textSize, double? padding}) {
   return InkWell(
-    onTap: onTap,
+    onTap: onTap as void Function()?,
     child: Container(
       width: double.infinity,
-      margin: EdgeInsets.only(top: 12, bottom: 12),
+      margin: EdgeInsets.only(top: padding ?? 8, bottom: padding ?? 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Row(
             children: <Widget>[
-              leading ?? SizedBox(),
+              Container(child: leading ?? SizedBox(), width: 30, alignment: Alignment.center),
               leading != null ? 10.width : SizedBox(),
-              Text(text, style: primaryTextStyle(size: 18)),
+              Text(text, style: primaryTextStyle(size: textSize ?? 18, color: textColor ?? appStore.textPrimaryColor)).expand(),
             ],
-          ),
-          detail ?? Icon(Icons.arrow_forward_ios, size: 16, color: textSecondaryColor),
+          ).expand(),
+          detail ?? Icon(Icons.arrow_forward_ios, size: 16, color: appStore.textSecondaryColor),
         ],
       ).paddingOnly(left: 16, right: 16, top: 8, bottom: 8),
     ),
   );
 }
 
-Widget appBar(BuildContext context, String title, {List<Widget> actions, bool showBack = true}) {
+Widget appBarTitleWidget(context, String title, {Color? color, Color? textColor}) {
+  return Container(
+    width: MediaQuery.of(context).size.width,
+    height: 60,
+    color: color ?? appStore.appBarColor,
+    child: Row(
+      children: <Widget>[
+        Text(
+          title,
+          style: boldTextStyle(color: color ?? appStore.textPrimaryColor, size: 20),
+          maxLines: 1,
+        ).expand(),
+      ],
+    ),
+  );
+}
+
+AppBar appBar(BuildContext context, String title, {List<Widget>? actions, bool showBack = true, Color? color, Color? iconColor, Color? textColor}) {
   return AppBar(
     automaticallyImplyLeading: false,
-    backgroundColor: appStore.appBarColor,
+    backgroundColor: color ?? appStore.appBarColor,
     leading: showBack
         ? IconButton(
             onPressed: () {
               finish(context);
             },
-            icon: Icon(Icons.arrow_back),
+            icon: Icon(Icons.arrow_back, color: iconColor ?? null),
           )
         : null,
-    title: Container(
-      width: MediaQuery.of(context).size.width,
-      height: 60,
-      color: appStore.appBarColor,
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Text(
-              title,
-              style: boldTextStyle(color: appStore.textPrimaryColor, size: 20),
-              maxLines: 1,
-            ),
-          ),
-        ],
-      ),
-    ),
+    title: appBarTitleWidget(context, title, textColor: textColor, color: color),
     actions: actions,
   );
 }
 
 class ExampleItemWidget extends StatelessWidget {
   final ListModel tabBarType;
-  Function onTap;
-  bool showTrailing;
+  final Function onTap;
+  final bool showTrailing;
 
-  ExampleItemWidget(this.tabBarType, {@required this.onTap, this.showTrailing = false});
+  ExampleItemWidget(this.tabBarType, {required this.onTap, this.showTrailing = false});
 
   @override
   Widget build(BuildContext context) {
@@ -259,7 +173,7 @@ class ExampleItemWidget extends StatelessWidget {
       shadowColor: Colors.black,
       child: ListTile(
         onTap: () => onTap(),
-        title: Text(tabBarType.name, style: boldTextStyle()),
+        title: Text(tabBarType.name!, style: boldTextStyle()),
         trailing: showTrailing ? Icon(Icons.arrow_forward_ios, size: 15, color: appStore.textPrimaryColor) : null,
       ),
     );
@@ -276,9 +190,9 @@ String convertDate(date) {
 }
 
 class CustomTheme extends StatelessWidget {
-  Widget child;
+  final Widget? child;
 
-  CustomTheme({this.child});
+  CustomTheme({required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -289,9 +203,106 @@ class CustomTheme extends StatelessWidget {
               backgroundColor: appStore.scaffoldBackground,
             )
           : ThemeData.light(),
-      child: child,
+      child: child!,
     );
   }
 }
 
-Widget placeholderWidget() => Image.asset('images/LikeButton/image/grey.jpg');
+Widget? Function(BuildContext, String) placeholderWidgetFn() => (_, s) => placeholderWidget();
+
+Widget placeholderWidget() => Image.asset('images/LikeButton/image/grey.jpg', fit: BoxFit.cover);
+
+BoxConstraints dynamicBoxConstraints({double? maxWidth}) {
+  return BoxConstraints(maxWidth: maxWidth ?? applicationMaxWidth);
+}
+
+double dynamicWidth(BuildContext context) {
+  return isMobile ? context.width() : applicationMaxWidth;
+}
+
+/*class ContainerX extends StatelessWidget {
+  static String tag = '/ContainerX';
+  final BuildContext context;
+  final double maxWidth;
+  final Widget child;
+
+  ContainerX({@required this.context, this.maxWidth, @required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: context.width(),
+      height: context.height(),
+      child: ConstrainedBox(
+        constraints: dynamicBoxConstraints(maxWidth: maxWidth),
+        child: child,
+      ),
+      alignment: Alignment.topCenter,
+    );
+  }
+}*/
+
+String? getBannerAdUnitId() {
+  if (kReleaseMode) {
+    if (Platform.isIOS) {
+      return bannerAdIdForIos;
+    } else if (Platform.isAndroid) {
+      return bannerAdIdForAndroidRelease;
+    }
+  } else {
+    if (Platform.isIOS) {
+      return bannerAdIdForIos;
+    } else if (Platform.isAndroid) {
+      return bannerAdIdForAndroid;
+    }
+  }
+  return null;
+}
+
+String? getInterstitialAdUnitId() {
+  if (kReleaseMode) {
+    if (Platform.isIOS) {
+      return interstitialAdIdForIos;
+    } else if (Platform.isAndroid) {
+      return InterstitialAdIdForAndroidRelease;
+    }
+  } else {
+    if (Platform.isIOS) {
+      return interstitialAdIdForIos;
+    } else if (Platform.isAndroid) {
+      return InterstitialAdIdForAndroid;
+    }
+  }
+  return null;
+}
+
+String parseHtmlString(String? htmlString) {
+  return parse(parse(htmlString).body!.text).documentElement!.text;
+}
+
+class ContainerX extends StatelessWidget {
+  final Widget? mobile;
+  final Widget? web;
+  final bool? useFullWidth;
+
+  ContainerX({this.mobile, this.web, this.useFullWidth});
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (_, constraints) {
+        if (constraints.device == DeviceSize.mobile) {
+          return mobile ?? SizedBox();
+        } else {
+          return Container(
+            alignment: Alignment.topCenter,
+            child: Container(
+              constraints: useFullWidth.validate() ? null : dynamicBoxConstraints(maxWidth: context.width() * 0.9),
+              child: web ?? SizedBox(),
+            ),
+          );
+        }
+      },
+    );
+  }
+}

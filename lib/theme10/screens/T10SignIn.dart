@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme10/utils/T10Colors.dart';
 import 'package:prokit_flutter/theme10/utils/T10Constant.dart';
-import 'package:prokit_flutter/theme10/utils/T10Extension.dart';
 import 'package:prokit_flutter/theme10/utils/T10Strings.dart';
 import 'package:prokit_flutter/theme10/utils/T10Widget.dart';
+
+import '../../main.dart';
 
 class T10SignIn extends StatefulWidget {
   static String tag = '/T10SignIn';
@@ -16,43 +18,35 @@ class T10SignIn extends StatefulWidget {
 class T10SignInState extends State<T10SignIn> {
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(t10_white);
+    changeStatusColor(appStore.appBarColor!);
     return Scaffold(
-      backgroundColor: t10_white,
+      backgroundColor: appStore.scaffoldBackground,
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
-          color: t10_white,
+          color: appStore.scaffoldBackground,
           margin: EdgeInsets.only(left: spacing_large, right: spacing_large),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              text(theme10_lbl_welcome, fontFamily: fontBold, fontSize: textSizeXLarge),
-              SizedBox(
-                height: spacing_large,
-              ),
+              text(theme10_lbl_welcome, textColor: appStore.textPrimaryColor, fontFamily: fontBold, fontSize: textSizeXLarge),
+              SizedBox(height: spacing_large),
               EditText(
                 text: theme10_username,
                 isPassword: false,
               ),
-              SizedBox(
-                height: spacing_standard_new,
-              ),
+              SizedBox(height: spacing_standard_new),
               EditText(
                 text: theme10_password,
                 isSecure: true,
               ),
-              SizedBox(
-                height: spacing_xlarge,
-              ),
-              AppButton(
+              SizedBox(height: spacing_xlarge),
+              AppButtons(
                 onPressed: () {},
                 textContent: theme10_lbl_sign_in,
               ),
-              SizedBox(
-                height: spacing_large,
-              ),
+              SizedBox(height: spacing_large),
               text(theme10_lbl_forget_pswd, textColor: t10_textColorSecondary, fontFamily: fontMedium),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -10,45 +10,44 @@ class OPAtmLocationScreen extends StatefulWidget {
 }
 
 class _OPAtmLocationScreenState extends State<OPAtmLocationScreen> {
-  GoogleMapController _controller;
+  late GoogleMapController _controller;
 
   List<Marker> allMarkers = [];
 
-  PageController _pageController;
+  PageController? _pageController;
 
-  int prevPage;
+  int? prevPage;
 
   @override
   void initState() {
     super.initState();
     atmList.forEach((element) {
       allMarkers.add(Marker(
-          markerId: MarkerId(element.shopName),
+          markerId: MarkerId(element.shopName!),
           draggable: false,
           infoWindow: InfoWindow(
             title: element.shopName,
             snippet: element.address,
           ),
-          position: element.locationCoords));
+          position: element.locationCoords!));
     });
-    _pageController = PageController(initialPage: 1, viewportFraction: 0.8)
-      ..addListener(_onScroll);
+    _pageController = PageController(initialPage: 1, viewportFraction: 0.8)..addListener(_onScroll);
   }
 
   void _onScroll() {
-    if (_pageController.page.toInt() != prevPage) {
-      prevPage = _pageController.page.toInt();
+    if (_pageController!.page!.toInt() != prevPage) {
+      prevPage = _pageController!.page!.toInt();
       moveCamera();
     }
   }
 
   _coffeeShopList(index) {
     return AnimatedBuilder(
-      animation: _pageController,
-      builder: (BuildContext context, Widget widget) {
+      animation: _pageController!,
+      builder: (BuildContext context, Widget? widget) {
         double value = 1;
-        if (_pageController.position.haveDimensions) {
-          value = _pageController.page - index;
+        if (_pageController!.position.haveDimensions) {
+          value = _pageController!.page! - index;
           value = (1 - (value.abs() * 0.3) + 0.06).clamp(0.0, 1.0);
         }
         return Center(
@@ -76,20 +75,16 @@ class _OPAtmLocationScreenState extends State<OPAtmLocationScreen> {
                 decoration: boxDecoration(),
                 child: Container(
                   padding: EdgeInsets.only(left: 20, right: 20),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      color: opOrangeColor),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: opOrangeColor),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
                         height: 40,
                         width: 40,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Colors.white),
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: Colors.white),
                         child: Image.network(
-                          atmList[index].thumbNail,
+                          atmList[index].thumbNail!,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -101,43 +96,31 @@ class _OPAtmLocationScreenState extends State<OPAtmLocationScreen> {
                           Row(
                             children: <Widget>[
                               Text(
-                                atmList[index].shopName,
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
+                                atmList[index].shopName!,
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
                               ),
                               SizedBox(width: 5.0),
                               Text(
-                                atmList[index].time,
-                                style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors.white),
+                                atmList[index].time!,
+                                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w300, color: Colors.white),
                               ),
                             ],
                           ),
                           FittedBox(
                             child: Text(
-                              atmList[index].address,
-                              style: TextStyle(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white),
+                              atmList[index].address!,
+                              style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600, color: Colors.white),
                             ),
                           ),
                         ],
                       ),
                       SizedBox(width: 5.0),
                       Expanded(
-                        child: Container(
-                            height: 40,
-                            width: 40,
-                            child: Icon(
-                              Icons.location_on,
-                              color: Colors.white,
-                              size: 25,
-                            )),
+                        child: Icon(
+                          Icons.location_on,
+                          color: Colors.white,
+                          size: 25,
+                        ),
                       ),
                     ],
                   ),
@@ -160,8 +143,7 @@ class _OPAtmLocationScreenState extends State<OPAtmLocationScreen> {
               height: MediaQuery.of(context).size.height - 50.0,
               width: MediaQuery.of(context).size.width,
               child: GoogleMap(
-                initialCameraPosition: CameraPosition(
-                    target: LatLng(20.817595, 72.954918), zoom: 12.0),
+                initialCameraPosition: CameraPosition(target: LatLng(20.817595, 72.954918), zoom: 12.0),
                 markers: Set.from(allMarkers),
                 onMapCreated: mapCreated,
               ),
@@ -193,10 +175,6 @@ class _OPAtmLocationScreenState extends State<OPAtmLocationScreen> {
   }
 
   moveCamera() {
-    _controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-        target: atmList[_pageController.page.toInt()].locationCoords,
-        zoom: 14.0,
-        bearing: 45.0,
-        tilt: 45.0)));
+    _controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: atmList[_pageController!.page!.toInt()].locationCoords!, zoom: 14.0, bearing: 45.0, tilt: 45.0)));
   }
 }

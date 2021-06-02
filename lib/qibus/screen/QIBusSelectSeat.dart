@@ -6,10 +6,12 @@ import 'package:prokit_flutter/qibus/screen/QIBusPickDrop.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusColors.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusConstant.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusDataGenerator.dart';
-import 'package:prokit_flutter/qibus/utils/QiBusExtension.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+
 import 'package:prokit_flutter/qibus/utils/QiBusImages.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusStrings.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusWidget.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class QIBusSelectSeat extends StatefulWidget {
   static String tag = '/QIBusSelectSeat';
@@ -19,7 +21,7 @@ class QIBusSelectSeat extends StatefulWidget {
 }
 
 class QIBusSelectSeatState extends State<QIBusSelectSeat> {
-  List<QIBusSeatModel> mlist;
+  late List<QIBusSeatModel> mlist;
 
   @override
   void initState() {
@@ -149,7 +151,7 @@ class QIBusSelectSeatState extends State<QIBusSelectSeat> {
                                   BoxDecoration(borderRadius: BorderRadius.only(topRight: Radius.circular(spacing_middle), topLeft: Radius.circular(spacing_middle)), color: qIBus_app_background),
                               padding: EdgeInsets.all(0.0),
                               height: 35,
-                              width:35,
+                              width: 35,
                             );
                           }
                         },
@@ -182,14 +184,14 @@ class QIBusSeatSelection extends StatefulWidget {
 
 class QIBusSeatSelectionState extends State<QIBusSeatSelection> {
   bool visibility = false;
-  QIBusSeatModel model;
+  late QIBusSeatModel model;
 
   Widget mSeat(var color) {
     return Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.only(topRight: Radius.circular(spacing_middle), topLeft: Radius.circular(spacing_middle)), color: color),
       padding: EdgeInsets.all(0.0),
       height: 30,
-      width:30,
+      width: 30,
     );
   }
 
@@ -199,7 +201,7 @@ class QIBusSeatSelectionState extends State<QIBusSeatSelection> {
     });
   }
 
-  int index;
+  int? index;
 
   QIBusSeatSelectionState(QIBusSeatModel model, int index) {
     this.model = model;
@@ -257,7 +259,7 @@ class QIBusSeatSelectionState extends State<QIBusSeatSelection> {
 
 Widget mBookNow(BuildContext context) {
   return Container(
-    height: MediaQuery.of(context).size.width * 0.4,
+    height: MediaQuery.of(context).size.height * 0.2,
     decoration: boxDecoration(showShadow: true, radius: 0.0),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -294,7 +296,7 @@ Widget mBookNow(BuildContext context) {
         ),
         GestureDetector(
           onTap: () {
-            launchScreen(context, QIBusPickDrop.tag);
+            QIBusPickDrop().launch(context);
           },
           child: Container(
             decoration: BoxDecoration(color: qIBus_colorPrimary),

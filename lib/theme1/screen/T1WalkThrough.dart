@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme1/screen/T1Signup.dart';
 import 'package:prokit_flutter/theme1/screen/t1_walk/IntroScreen.dart';
 import 'package:prokit_flutter/theme1/screen/t1_walk/Walkthrough.dart';
 import 'package:prokit_flutter/theme1/utils/T1Images.dart';
+
+import '../../main.dart';
 
 class T1WalkThrough extends StatelessWidget {
   static var tag = "/T1WalkThrough";
@@ -16,6 +19,7 @@ class T1WalkThrough extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    changeStatusColor(appStore.appBarColor!);
     return Scaffold(
       body: Container(
         child: IntroScreen(

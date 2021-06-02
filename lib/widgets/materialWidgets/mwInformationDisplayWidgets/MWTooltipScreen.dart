@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:prokit_flutter/main/utils/Lipsum.dart' as lipsum;
 import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/main/utils/AppColors.dart';
 import 'package:prokit_flutter/main/utils/AppWidget.dart';
-import 'package:lipsum/lipsum.dart' as lipsum;
+
 import '../../../main.dart';
 
 class MWTooltipScreen extends StatefulWidget {
@@ -62,8 +63,7 @@ class MWTooltipScreenState extends State<MWTooltipScreen> {
                   margin: EdgeInsets.all(10),
                   child: Tooltip(
                     child: IconButton(
-                      icon: Icon(Icons.info,
-                          size: 35.0, color: appStore.iconColor),
+                      icon: Icon(Icons.info, size: 35.0, color: appStore.iconColor),
                       onPressed: () {},
                     ),
                     message: lipsum.createParagraph(numSentences: 1),

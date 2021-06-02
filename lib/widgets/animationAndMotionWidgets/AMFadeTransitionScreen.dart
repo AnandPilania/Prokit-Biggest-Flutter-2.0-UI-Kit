@@ -13,9 +13,9 @@ class AMFadeTransitionScreen extends StatefulWidget {
 }
 
 class AMFadeTransitionScreenState extends State<AMFadeTransitionScreen> with TickerProviderStateMixin {
-  AnimationController _controller;
+  AnimationController? _controller;
   int index = 0;
-  List<String> listOfCategory = [
+  List<String?> listOfCategory = [
     'bounceInOut',
     'bounceIn',
     'easeInOutQuad',
@@ -23,7 +23,7 @@ class AMFadeTransitionScreenState extends State<AMFadeTransitionScreen> with Tic
     'bounceOut',
     'easeOutBack',
   ];
-  String selectedIndexCategory = 'bounceInOut';
+  String? selectedIndexCategory = 'bounceInOut';
 
   @override
   void initState() {
@@ -54,7 +54,7 @@ class AMFadeTransitionScreenState extends State<AMFadeTransitionScreen> with Tic
   Widget build(BuildContext context) {
     Widget mName(var mValue) {
       return FadeTransition(
-          opacity: CurvedAnimation(parent: _controller, curve: mValue),
+          opacity: CurvedAnimation(parent: _controller!, curve: mValue),
           child: FlutterLogo(
             size: 300,
           ).center());
@@ -85,7 +85,7 @@ class AMFadeTransitionScreenState extends State<AMFadeTransitionScreen> with Tic
                   color: appStore.iconColor,
                 ),
                 underline: 0.height,
-                onChanged: (newValue) {
+                onChanged: (dynamic newValue) {
                   setState(() {
                     selectedIndexCategory = newValue;
                     index = listOfCategory.indexOf(newValue);
@@ -93,7 +93,7 @@ class AMFadeTransitionScreenState extends State<AMFadeTransitionScreen> with Tic
                 },
                 items: listOfCategory.map((category) {
                   return DropdownMenuItem(
-                    child: Text(category, style: primaryTextStyle()).paddingLeft(8),
+                    child: Text(category!, style: primaryTextStyle()).paddingLeft(8),
                     value: category,
                   );
                 }).toList(),

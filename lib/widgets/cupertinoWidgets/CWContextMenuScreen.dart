@@ -2,9 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppConstant.dart';
 import 'package:prokit_flutter/main/utils/AppWidget.dart';
-
-import '../../main.dart';
 
 class CWContextMenuScreen extends StatefulWidget {
   static String tag = '/CWContextMenuScreen';
@@ -45,7 +44,7 @@ class CWContextMenuScreenState extends State<CWContextMenuScreen> {
                   fit: BoxFit.cover,
                 ).image,
                 image: CachedNetworkImageProvider(
-                  'https://picsum.photos/seed/picsum/200/300',
+                  SampleImageUrl,
                 ),
                 height: 150,
                 width: MediaQuery.of(context).size.width,
@@ -61,25 +60,23 @@ class CWContextMenuScreenState extends State<CWContextMenuScreen> {
                 trailingIcon: Icons.content_copy,
                 onPressed: () {
                   toast("Copy");
-                  Navigator.pop(context);
+                  finish(context);
                 },
               ),
               CupertinoContextMenuAction(
-                child:
-                    Text('Share', style: primaryTextStyle(color: Colors.black)),
+                child: Text('Share', style: primaryTextStyle(color: Colors.black)),
                 trailingIcon: Icons.share,
                 onPressed: () {
                   toast("Share");
-                  Navigator.pop(context);
+                  finish(context);
                 },
               ),
               CupertinoContextMenuAction(
-                child: Text('Delete',
-                    style: primaryTextStyle(color: Colors.black)),
+                child: Text('Delete', style: primaryTextStyle(color: Colors.black)),
                 trailingIcon: Icons.delete,
                 onPressed: () {
                   toast("Delete");
-                  Navigator.pop(context);
+                  finish(context);
                 },
               ),
             ],

@@ -4,8 +4,8 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/grocery/utils/GeoceryStrings.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryColors.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
-import 'package:prokit_flutter/grocery/utils/GroceryExtension.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 import 'GrocerySaveCart.dart';
 
@@ -32,12 +32,7 @@ class GroceryAddSaveCartNameState extends State<GroceryAddSaveCartName> {
                 bottomLeft: Radius.circular(20.0),
                 bottomRight: const Radius.circular(20.0),
               ),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                    color: grocery_ShadowColor,
-                    blurRadius: 20.0,
-                    offset: Offset(0.0, 0.9))
-              ]),
+              boxShadow: <BoxShadow>[BoxShadow(color: grocery_ShadowColor, blurRadius: 20.0, offset: Offset(0.0, 0.9))]),
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
@@ -45,7 +40,7 @@ class GroceryAddSaveCartNameState extends State<GroceryAddSaveCartName> {
                   children: <Widget>[
                     IconButton(
                       onPressed: () {
-                        back(context);
+                        finish(context);
                       },
                       icon: Icon(
                         Icons.close,
@@ -55,8 +50,7 @@ class GroceryAddSaveCartNameState extends State<GroceryAddSaveCartName> {
                     SizedBox(
                       width: spacing_standard_new,
                     ),
-                    text(grocery_lbl_save_cart,
-                        fontFamily: fontBold, fontSize: textSizeLargeMedium)
+                    text(grocery_lbl_save_cart, fontFamily: fontBold, fontSize: textSizeLargeMedium)
                   ],
                 ),
                 SizedBox(
@@ -72,8 +66,7 @@ class GroceryAddSaveCartNameState extends State<GroceryAddSaveCartName> {
                         top: spacing_middle,
                         left: spacing_standard_new,
                       ),
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle, color: grocery_colorPrimary),
+                      decoration: BoxDecoration(shape: BoxShape.circle, color: grocery_colorPrimary),
                       padding: EdgeInsets.all(width * 0.02),
                       child: Icon(
                         Icons.shopping_cart,
@@ -84,8 +77,7 @@ class GroceryAddSaveCartNameState extends State<GroceryAddSaveCartName> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          text(grocery_lbl_save_shopping_cart,
-                              fontFamily: fontMedium, fontSize: textSizeNormal),
+                          text(grocery_lbl_save_shopping_cart, fontFamily: fontMedium, fontSize: textSizeNormal),
                           text(
                             grocery_msg_save_shopping_cart,
                             textColor: grocery_textColorSecondary,
@@ -98,23 +90,16 @@ class GroceryAddSaveCartNameState extends State<GroceryAddSaveCartName> {
                 SizedBox(
                   height: spacing_standard_new,
                 ),
-                EditText(
-                        text: grocery_hint_enter_cart_name,
-                        fontSize: textSizeLargeMedium,
-                        isPassword: false,
-                        keyboardType: TextInputType.text)
-                    .paddingAll(spacing_standard_new),
+                EditText(text: grocery_hint_enter_cart_name, fontSize: textSizeLargeMedium, isPassword: false, keyboardType: TextInputType.text).paddingAll(spacing_standard_new),
                 Align(
                   alignment: Alignment.topRight,
                   child: FittedBox(
                     child: Container(
-                      margin: EdgeInsets.only(
-                          bottom: spacing_standard_new,
-                          right: spacing_standard_new),
+                      margin: EdgeInsets.only(bottom: spacing_standard_new, right: spacing_standard_new),
                       child: groceryButton(
                         textContent: grocery_lbl_Next,
                         onPressed: (() {
-                          callNext(GrocerySaveCart(), context);
+                          GrocerySaveCart().launch(context);
                         }),
                       ),
                     ),

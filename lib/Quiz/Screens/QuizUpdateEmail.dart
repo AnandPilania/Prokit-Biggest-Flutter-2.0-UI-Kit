@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizColors.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizConstant.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizStrings.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/quiz/utils/QuizColors.dart';
+import 'package:prokit_flutter/quiz/utils/QuizConstant.dart';
+import 'package:prokit_flutter/quiz/utils/QuizStrings.dart';
+import 'package:prokit_flutter/quiz/utils/QuizWidget.dart';
 
 class QuizUpdateEmail extends StatefulWidget {
   static String tag = '/QuizUpdateEmail';
@@ -71,7 +72,7 @@ class _QuizUpdateEmailState extends State<QuizUpdateEmail> {
                         onPressed: () {
                           setState(() {
                             Navigator.of(context).pop();
-                            showToast(quiz_Successfully_Email_Updated);
+                            toast(quiz_Successfully_Email_Updated);
                           });
                         }))
               ],

@@ -3,20 +3,19 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/grocery/utils/GeoceryStrings.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryColors.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
-import 'package:prokit_flutter/grocery/utils/GroceryExtension.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryImages.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class GroceryPickupFromOutlet extends StatefulWidget {
   static String tag = '/GroceryPickupFromOutlet';
 
   @override
-  _GroceryPickupFromOutletState createState() =>
-      _GroceryPickupFromOutletState();
+  _GroceryPickupFromOutletState createState() => _GroceryPickupFromOutletState();
 }
 
 class _GroceryPickupFromOutletState extends State<GroceryPickupFromOutlet> {
-  String selectedLocation1 = "Pannipitiya";
+  String? selectedLocation1 = "Pannipitiya";
 
   List<String> location1 = ["Pannipitiya"];
 
@@ -29,8 +28,7 @@ class _GroceryPickupFromOutletState extends State<GroceryPickupFromOutlet> {
       backgroundColor: grocery_app_background,
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, 75),
-        child: title(grocery_lbl_PickUp, grocery_color_white,
-            grocery_textColorPrimary, context),
+        child: title(grocery_lbl_PickUp, grocery_color_white, grocery_textColorPrimary, context),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -41,12 +39,7 @@ class _GroceryPickupFromOutletState extends State<GroceryPickupFromOutlet> {
                 bottomLeft: Radius.circular(20.0),
                 bottomRight: const Radius.circular(20.0),
               ),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                    color: grocery_ShadowColor,
-                    blurRadius: 20.0,
-                    offset: Offset(0.0, 0.9))
-              ]),
+              boxShadow: <BoxShadow>[BoxShadow(color: grocery_ShadowColor, blurRadius: 20.0, offset: Offset(0.0, 0.9))]),
           child: Column(
             children: <Widget>[
               SizedBox(
@@ -57,27 +50,18 @@ class _GroceryPickupFromOutletState extends State<GroceryPickupFromOutlet> {
                   Container(
                     height: 60,
                     width: 60,
-                    decoration: boxDecoration(
-                        radius: 30.0, bgColor: grocery_orangeLight_Color),
+                    decoration: boxDecoration(radius: 30.0, bgColor: grocery_orangeLight_Color),
                     child: Image.asset(
                       Grocery_ic_bag,
                       height: 10,
                       width: 10,
                       color: grocery_color_white,
                     ).paddingAll(spacing_standard_new),
-                  ).paddingOnly(
-                      top: spacing_control,
-                      left: spacing_standard_new,
-                      bottom: spacing_control),
+                  ).paddingOnly(top: spacing_control, left: spacing_standard_new, bottom: spacing_control),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      text(grocery_lbl_Pickup_from_outlet,
-                              fontSize: textSizeLarge, fontFamily: fontMedium)
-                          .paddingOnly(
-                              left: spacing_standard,
-                              right: spacing_standard,
-                              bottom: spacing_control),
+                      text(grocery_lbl_Pickup_from_outlet, fontSize: textSizeLarge, fontFamily: fontMedium).paddingOnly(left: spacing_standard, right: spacing_standard, bottom: spacing_control),
                       text(
                         grocery_Only_from_Outlet,
                         textColor: grocery_textColorSecondary,
@@ -101,17 +85,13 @@ class _GroceryPickupFromOutletState extends State<GroceryPickupFromOutlet> {
                       icon: Icon(
                         Icons.arrow_drop_down,
                       ),
-                      style: TextStyle(
-                          color: grocery_textColorPrimary,
-                          fontSize: textSizeLargeMedium,
-                          fontFamily: fontRegular),
-                      onChanged: (String newValue) {
+                      style: TextStyle(color: grocery_textColorPrimary, fontSize: textSizeLargeMedium, fontFamily: fontRegular),
+                      onChanged: (String? newValue) {
                         setState(() {
                           selectedLocation1 = newValue;
                         });
                       },
-                      items: location1
-                          .map<DropdownMenuItem<String>>((String value) {
+                      items: location1.map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value),
@@ -124,10 +104,7 @@ class _GroceryPickupFromOutletState extends State<GroceryPickupFromOutlet> {
                     ),
                   ],
                 ),
-              ).paddingOnly(
-                  top: spacing_standard_new,
-                  left: spacing_standard_new,
-                  right: spacing_standard_new),
+              ).paddingOnly(top: spacing_standard_new, left: spacing_standard_new, right: spacing_standard_new),
               TextField(
                 cursorColor: grocery_colorPrimary,
                 decoration: InputDecoration(
@@ -138,18 +115,13 @@ class _GroceryPickupFromOutletState extends State<GroceryPickupFromOutlet> {
                     color: grocery_icon_color,
                   ),
                   enabledBorder: UnderlineInputBorder(
-                    borderSide:
-                        const BorderSide(color: grocery_view_color, width: 0.0),
+                    borderSide: const BorderSide(color: grocery_view_color, width: 0.0),
                   ),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        const BorderSide(color: grocery_view_color, width: 0.0),
+                    borderSide: const BorderSide(color: grocery_view_color, width: 0.0),
                   ),
                 ),
-                style: TextStyle(
-                    fontSize: textSizeMedium,
-                    color: grocery_textColorPrimary,
-                    fontFamily: fontRegular),
+                style: TextStyle(fontSize: textSizeMedium, color: grocery_textColorPrimary, fontFamily: fontRegular),
               ).paddingAll(spacing_standard_new),
               TextField(
                 cursorColor: grocery_colorPrimary,
@@ -161,22 +133,14 @@ class _GroceryPickupFromOutletState extends State<GroceryPickupFromOutlet> {
                     color: grocery_icon_color,
                   ),
                   enabledBorder: UnderlineInputBorder(
-                    borderSide:
-                        const BorderSide(color: grocery_view_color, width: 0.0),
+                    borderSide: const BorderSide(color: grocery_view_color, width: 0.0),
                   ),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        const BorderSide(color: grocery_view_color, width: 0.0),
+                    borderSide: const BorderSide(color: grocery_view_color, width: 0.0),
                   ),
                 ),
-                style: TextStyle(
-                    fontSize: textSizeMedium,
-                    color: grocery_textColorPrimary,
-                    fontFamily: fontRegular),
-              ).paddingOnly(
-                  top: spacing_standard_new,
-                  left: spacing_standard_new,
-                  right: spacing_standard_new),
+                style: TextStyle(fontSize: textSizeMedium, color: grocery_textColorPrimary, fontFamily: fontRegular),
+              ).paddingOnly(top: spacing_standard_new, left: spacing_standard_new, right: spacing_standard_new),
               SizedBox(
                 height: spacing_large,
               ),

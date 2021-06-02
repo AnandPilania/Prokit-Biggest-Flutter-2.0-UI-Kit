@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/dashboard/model/db4/Db4Model.dart';
 import 'package:prokit_flutter/dashboard/utils/Db4BubbleBotoomBar.dart';
 import 'package:prokit_flutter/dashboard/utils/Db4SliderWidget.dart';
-import 'package:prokit_flutter/dashboard/utils/Db4Widget.dart';
 import 'package:prokit_flutter/dashboard/utils/DbColors.dart';
-import 'package:prokit_flutter/dashboard/utils/DbConstant.dart';
 import 'package:prokit_flutter/dashboard/utils/DbDataGenerator.dart';
-import 'package:prokit_flutter/dashboard/utils/DbExtension.dart';
 import 'package:prokit_flutter/dashboard/utils/DbImages.dart';
 import 'package:prokit_flutter/dashboard/utils/DbStrings.dart';
+import 'package:prokit_flutter/main/utils/AppConstant.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class Dashboard4 extends StatefulWidget {
   static String tag = '/Dashboard4';
@@ -23,8 +23,8 @@ class Dashboard4State extends State<Dashboard4> {
   bool passwordVisible = false;
   bool isRemember = false;
   var currentIndexPage = 0;
-  List<Db4Category> mFavouriteList;
-  List<Db4Slider> mSliderList;
+  List<Db4Category>? mFavouriteList;
+  List<Db4Slider>? mSliderList;
 
   @override
   void initState() {
@@ -34,18 +34,14 @@ class Dashboard4State extends State<Dashboard4> {
     mSliderList = db4GetSliders();
   }
 
-  void changeSldier(int index) {
-    setState(() {
-      currentIndexPage = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     changeStatusColor(db4_colorPrimary);
+
     var width = MediaQuery.of(context).size.width;
     width = width - 50;
-    final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
       backgroundColor: db4_colorPrimary,
       key: _scaffoldKey,
@@ -60,20 +56,12 @@ class Dashboard4State extends State<Dashboard4> {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      CircleAvatar(
-                        backgroundImage: AssetImage(db_profile),
-                        radius: 25,
-                      ),
+                      CircleAvatar(backgroundImage: AssetImage(db_profile), radius: 25),
                       SizedBox(width: 16),
-                      text(db4_username, textColor: db4_white, fontSize: textSizeNormal, fontFamily: fontMedium)
+                      Text(db4_username, style: primaryTextStyle(color: white, size: 20, fontFamily: fontMedium))
                     ],
                   ),
-                  SvgPicture.asset(
-                    db4_options,
-                    width: 25,
-                    height: 25,
-                    color: db4_white,
-                  )
+                  SvgPicture.asset(db4_options, width: 25, height: 25, color: white)
                 ],
               ),
             ),
@@ -90,7 +78,7 @@ class Dashboard4State extends State<Dashboard4> {
                     SizedBox(height: 20),
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.all(24.0),
+                        padding: EdgeInsets.all(24.0),
                         child: Db4GridListing(mFavouriteList, false),
                       ),
                     )
@@ -140,8 +128,9 @@ class Db4BottomBarState extends State<Db4BottomBar> {
   }
 }
 
+// ignore: must_be_immutable
 class Db4SliderWidget extends StatelessWidget {
-  List<Db4Slider> mSliderList;
+  List<Db4Slider>? mSliderList;
 
   Db4SliderWidget(this.mSliderList);
 
@@ -150,12 +139,13 @@ class Db4SliderWidget extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     width = width - 50;
     final Size cardSize = Size(width, width / 1.8);
+
     return Db4CarouselSlider(
       viewportFraction: 0.9,
       height: cardSize.height,
       enlargeCenterPage: true,
       scrollDirection: Axis.horizontal,
-      items: mSliderList.map((slider) {
+      items: mSliderList!.map((slider) {
         return Builder(
           builder: (BuildContext context) {
             return Container(
@@ -164,23 +154,14 @@ class Db4SliderWidget extends StatelessWidget {
               margin: EdgeInsets.symmetric(horizontal: 8.0),
               child: Stack(
                 children: <Widget>[
-                  Image.asset(
-                    slider.image,
-                    fit: BoxFit.fill,
-                    width: MediaQuery.of(context).size.width,
-                    height: cardSize.height,
-                  ),
+                  Image.asset(slider.image, fit: BoxFit.fill, width: MediaQuery.of(context).size.width, height: cardSize.height),
                   Padding(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          text(
-                            db4_avl_balance,
-                            textColor: db4_white,
-                            fontSize: textSizeMedium,
-                          ),
-                          text(slider.balance, textColor: db4_white, fontSize: textSizeLarge, fontFamily: fontBold)
+                          Text(db4_avl_balance, style: primaryTextStyle(color: white, size: 16)),
+                          Text(slider.balance, style: boldTextStyle(color: white, size: 24, fontFamily: 'Bold'))
                         ],
                       ),
                       padding: EdgeInsets.all(14)),
@@ -194,17 +175,10 @@ class Db4SliderWidget extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              text(
-                                db4_account_number,
-                                textColor: db4_white,
-                                fontSize: textSizeMedium,
-                              ),
-                              text(slider.accountNo, textColor: db4_white, fontSize: textSizeNormal)
-                            ],
+                            children: <Widget>[Text(db4_account_number, style: primaryTextStyle(color: white, size: 16)), Text(slider.accountNo, style: secondaryTextStyle(color: white, size: 20))],
                           ),
                         ),
-                        text("VISA", textColor: db4_white, fontSize: textSizeLarge, fontFamily: fontBold)
+                        Text("VISA", style: boldTextStyle(color: white, size: 24, fontFamily: 'Bold'))
                       ],
                     ),
                   )
@@ -218,8 +192,9 @@ class Db4SliderWidget extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class Db4GridListing extends StatelessWidget {
-  List<Db4Category> mFavouriteList;
+  List<Db4Category>? mFavouriteList;
   var isScrollable = false;
 
   Db4GridListing(this.mFavouriteList, this.isScrollable);
@@ -230,14 +205,14 @@ class Db4GridListing extends StatelessWidget {
     return GridView.builder(
         scrollDirection: Axis.vertical,
         physics: isScrollable ? ScrollPhysics() : NeverScrollableScrollPhysics(),
-        itemCount: mFavouriteList.length,
-        gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, crossAxisSpacing: 16, mainAxisSpacing: 16),
+        itemCount: mFavouriteList!.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, crossAxisSpacing: 16, mainAxisSpacing: 16),
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {},
             child: Container(
               alignment: Alignment.center,
-              decoration: boxDecoration(radius: 10, showShadow: true, bgColor: db4_white),
+              decoration: BoxDecoration(color: white, boxShadow: defaultBoxShadow(), borderRadius: BorderRadius.all(Radius.circular(10))),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -246,13 +221,16 @@ class Db4GridListing extends StatelessWidget {
                     width: width / 7.5,
                     margin: EdgeInsets.only(bottom: 4, top: 8),
                     padding: EdgeInsets.all(width / 30),
-                    decoration: boxDecoration(bgColor: mFavouriteList[index].color, radius: 10),
+                    decoration: BoxDecoration(color: mFavouriteList![index].color, borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: SvgPicture.asset(
-                      mFavouriteList[index].icon,
-                      color: db4_white,
+                      mFavouriteList![index].icon,
+                      color: white,
                     ),
                   ),
-                  text(mFavouriteList[index].name, fontSize: textSizeMedium)
+                  Text(
+                    mFavouriteList![index].name,
+                    style: secondaryTextStyle(size: 14),
+                  )
                 ],
               ),
             ),

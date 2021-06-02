@@ -1,13 +1,13 @@
 class ShCategory {
-  int count;
-  String description;
-  int id;
-  bool isSelected;
-  int menu_order;
-  String name;
-  int parent;
-  String slug;
-  String image;
+  int? count;
+  String? description;
+  int? id;
+  bool? isSelected;
+  int? menu_order;
+  String? name;
+  int? parent;
+  String? slug;
+  String? image;
 
   ShCategory({this.count, this.description, this.id, this.isSelected, this.menu_order, this.name, this.parent, this.slug, this.image});
 

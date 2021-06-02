@@ -15,13 +15,13 @@ class SnappingSheetHeight {
   final bool expandOnSnapPositionOverflow;
 
   /// The minimum height of the sheet
-  final double minHeight;
+  final double? minHeight;
 
   /// the maximum height of the seet
-  final double maxHeight;
+  final double? maxHeight;
 
   /// Make the sheet height manuel by specifing the minHeight or the maxHeight
-  const SnappingSheetHeight.manuel({@required this.minHeight, @required this.maxHeight})
+  const SnappingSheetHeight.manuel({required this.minHeight, required this.maxHeight})
       : _type = SnappingSheetType.manuel,
         expandOnSnapPositionOverflow = false;
 
@@ -42,7 +42,7 @@ class SnappingSheetHeight {
 
 class SnappingSheetContent {
   /// The content of the sheet;
-  final Widget child;
+  final Widget? child;
 
   /// The margin of the sheet. Values in the [EdgeInsets] can be negative.
   final EdgeInsets margin;
@@ -61,11 +61,11 @@ class SnappingSheetContent {
 class SnapPosition {
   /// The snapping position in pixels
   /// [positionFactor] should be null if this is used.
-  final double positionPixel;
+  final double? positionPixel;
 
   /// The snapping position in relation of the
   /// available height. [positionPixel] should be null if this is used.
-  final double positionFactor;
+  final double? positionFactor;
 
   /// The animation curve to this snapping position
   final Curve snappingCurve;
@@ -76,11 +76,11 @@ class SnapPosition {
   const SnapPosition({this.positionFactor, this.positionPixel, this.snappingCurve = Curves.easeOutExpo, this.snappingDuration = const Duration(milliseconds: 500)});
 
   /// Getting the position in pixels
-  double _getPositionInPixels(double height) {
+  double? _getPositionInPixels(double height) {
     if (positionPixel != null) {
       return positionPixel;
     }
-    return height * positionFactor;
+    return height * positionFactor!;
   }
 }
 
@@ -88,17 +88,17 @@ class SnapPosition {
 class SnappingSheet extends StatefulWidget {
   /// The widget behind the [sheetBelow] widget. It has a constant height
   /// and do not change when the sheet is draged up or down.
-  final Widget child;
+  final Widget? child;
 
   /// The sheet that is placed below the [grabbing] widget
-  final SnappingSheetContent sheetBelow;
+  final SnappingSheetContent? sheetBelow;
 
   /// The sheet that is placed above the [grabbing] widget
-  final SnappingSheetContent sheetAbove;
+  final SnappingSheetContent? sheetAbove;
 
   /// The widget for grabing the [sheetBelow] or [sheetAbove]. It placed between the [sheetBelow] and the
   /// [sheetAbove] widget.
-  final Widget grabbing;
+  final Widget? grabbing;
 
   /// The height of the grabing widget
   final double grabbingHeight;
@@ -109,25 +109,25 @@ class SnappingSheet extends StatefulWidget {
   /// The init snap position. If this position is not included in [snapPositions]
   /// it can not be snapped back after the sheet is leaving this position. If [initSnapPosition]
   /// is null the init snap position is taken from the first snapPosition from [snapPositions]
-  final SnapPosition initSnapPosition;
+  final SnapPosition? initSnapPosition;
 
   /// If true, the grabbing widget can not be draget below the lowest [snapPositions]
   /// or over the heightest [snapPositions].
   final bool lockOverflowDrag;
 
   /// The controller for the [SnappingSheet]
-  final SnappingSheetController snappingSheetController;
+  final SnappingSheetController? snappingSheetController;
 
   /// Is called when the [sheetBelow] is being moved
-  final Function(double pixelPosition) onMove;
+  final Function(double? pixelPosition)? onMove;
 
-  final VoidCallback onSnapBegin;
+  final VoidCallback? onSnapBegin;
 
   /// Is called when the [sheetBelow] is snappet to one of the [snapPositions]
-  final VoidCallback onSnapEnd;
+  final VoidCallback? onSnapEnd;
 
   const SnappingSheet({
-    Key key,
+    Key? key,
     this.child,
     this.sheetBelow,
     this.sheetAbove,
@@ -154,22 +154,22 @@ enum SnappingSheetListenerType { draggable, sheetAbove, sheetBelow }
 
 class _SnappingSheetState extends State<SnappingSheet> with SingleTickerProviderStateMixin {
   /// How heigh up the sheet is dragged in pixels
-  double _currentDragAmount;
+  double? _currentDragAmount;
 
   /// The controller for the snapping animation
-  AnimationController _snappingAnimationController;
+  late AnimationController _snappingAnimationController;
 
   /// The snapping animation
-  Animation<double> _snappingAnimation;
+  late Animation<double> _snappingAnimation;
 
   /// Last constrains of SnapSheet
-  BoxConstraints _currentConstraints;
+  late BoxConstraints _currentConstraints;
 
   /// Last snapping location
-  SnapPosition _lastSnappingLocation;
+  SnapPosition? _lastSnappingLocation;
 
   /// The init snap position for the sheet
-  SnapPosition _initSnapPosition;
+  SnapPosition? _initSnapPosition;
 
   @override
   void initState() {
@@ -191,10 +191,10 @@ class _SnappingSheetState extends State<SnappingSheet> with SingleTickerProvider
         _currentDragAmount = _snappingAnimation.value;
       });
       if (widget.onMove != null) {
-        widget.onMove(_currentDragAmount);
+        widget.onMove!(_currentDragAmount);
       }
       if (widget.onSnapEnd != null && _snappingAnimationController.isCompleted) {
-        widget.onSnapEnd();
+        widget.onSnapEnd!();
       }
     });
 
@@ -216,35 +216,35 @@ class _SnappingSheetState extends State<SnappingSheet> with SingleTickerProvider
   }
 
   /// Get the closest snapping location
-  SnapPosition _getClosestSnapPosition() {
+  SnapPosition? _getClosestSnapPosition() {
     // Set the init for comparing values.
-    double minDistance;
-    SnapPosition closestSnapPosition;
+    double? minDistance;
+    SnapPosition? closestSnapPosition;
 
     // Check if the user is dragging downwards or upwards
-    final isDraggingUpwards = _currentDragAmount > _getSnapPositionInPixels(_lastSnappingLocation);
+    final isDraggingUpwards = _currentDragAmount! > _getSnapPositionInPixels(_lastSnappingLocation!)!;
 
     // Find the closest snapping position
     for (var snapPosition in widget.snapPositions) {
       final snapPositionPixels = _getSnapPositionInPixels(snapPosition);
 
       if (snapPosition != _lastSnappingLocation) {
-        bool dragOverflowLastSnapPosition = (snapPosition == widget.snapPositions.last && _currentDragAmount > _getSnapPositionInPixels(widget.snapPositions.last));
-        bool dragOverflowFirstSnapPosition = (snapPosition == widget.snapPositions.first && _currentDragAmount < _getSnapPositionInPixels(widget.snapPositions.first));
+        bool dragOverflowLastSnapPosition = (snapPosition == widget.snapPositions.last && _currentDragAmount! > _getSnapPositionInPixels(widget.snapPositions.last)!);
+        bool dragOverflowFirstSnapPosition = (snapPosition == widget.snapPositions.first && _currentDragAmount! < _getSnapPositionInPixels(widget.snapPositions.first)!);
 
         // Ignore snap positions below if dragging upwards
-        if (isDraggingUpwards && snapPositionPixels < _currentDragAmount && !dragOverflowLastSnapPosition) {
+        if (isDraggingUpwards && snapPositionPixels! < _currentDragAmount! && !dragOverflowLastSnapPosition) {
           continue;
         }
 
         // Ignore snap positions above if dragging downwards
-        if (!isDraggingUpwards && snapPositionPixels > _currentDragAmount && !dragOverflowFirstSnapPosition) {
+        if (!isDraggingUpwards && snapPositionPixels! > _currentDragAmount! && !dragOverflowFirstSnapPosition) {
           continue;
         }
       }
 
       // Getting the distance to the current snapPosition
-      var snappingDistance = (snapPositionPixels - _currentDragAmount).abs();
+      var snappingDistance = (snapPositionPixels! - _currentDragAmount!).abs();
 
       // It should be hard to snap to the last snapping location.
       var snappingFactor = snapPosition == _lastSnappingLocation ? 0.1 : 1;
@@ -262,7 +262,7 @@ class _SnappingSheetState extends State<SnappingSheet> with SingleTickerProvider
   /// Animates the the closest stop
   void _animateToClosestStop() {
     // Get the closest snapping location
-    var closestSnapPosition = _getClosestSnapPosition();
+    var closestSnapPosition = _getClosestSnapPosition()!;
     _snapToPosition(closestSnapPosition);
   }
 
@@ -285,12 +285,12 @@ class _SnappingSheetState extends State<SnappingSheet> with SingleTickerProvider
     _snappingAnimationController.forward();
 
     if (widget.onSnapBegin != null) {
-      widget.onSnapBegin();
+      widget.onSnapBegin!();
     }
   }
 
   /// Getting the snap position in pixels
-  double _getSnapPositionInPixels(SnapPosition snapPosition) {
+  double? _getSnapPositionInPixels(SnapPosition snapPosition) {
     return snapPosition._getPositionInPixels(_currentConstraints.maxHeight - widget.grabbingHeight);
   }
 
@@ -301,19 +301,19 @@ class _SnappingSheetState extends State<SnappingSheet> with SingleTickerProvider
     }
 
     return Positioned.fill(
-      child: widget.child,
+      child: widget.child!,
     );
   }
 
   bool _isDraggable(listenerType) {
     switch (listenerType) {
       case SnappingSheetListenerType.sheetAbove:
-        if (widget.sheetAbove.draggable) {
+        if (widget.sheetAbove!.draggable) {
           return true;
         }
         return false;
       case SnappingSheetListenerType.sheetBelow:
-        if (widget.sheetBelow.draggable) {
+        if (widget.sheetBelow!.draggable) {
           return true;
         }
         return false;
@@ -322,7 +322,7 @@ class _SnappingSheetState extends State<SnappingSheet> with SingleTickerProvider
     }
   }
 
-  Widget _wrapDraggable(bool ignoreGestureDetection, Widget child, SnappingSheetListenerType listenerType) {
+  Widget? _wrapDraggable(bool ignoreGestureDetection, Widget? child, SnappingSheetListenerType listenerType) {
     if (ignoreGestureDetection) {
       return child;
     }
@@ -349,43 +349,43 @@ class _SnappingSheetState extends State<SnappingSheet> with SingleTickerProvider
           return;
         }
         if (widget.lockOverflowDrag) {
-          var newDragAmount = _currentDragAmount - dragEvent.delta.dy;
-          if (newDragAmount < widget.snapPositions.first._getPositionInPixels(_currentConstraints.maxHeight)) {
+          var newDragAmount = _currentDragAmount! - dragEvent.delta.dy;
+          if (newDragAmount < widget.snapPositions.first._getPositionInPixels(_currentConstraints.maxHeight)!) {
             return;
           }
 
-          var lastSnapPositionInPixels = widget.snapPositions.last._getPositionInPixels(_currentConstraints.maxHeight);
+          var lastSnapPositionInPixels = widget.snapPositions.last._getPositionInPixels(_currentConstraints.maxHeight)!;
           if (newDragAmount + widget.grabbingHeight * lastSnapPositionInPixels / _currentConstraints.maxHeight > lastSnapPositionInPixels) {
             return;
           }
         }
         setState(() {
-          _currentDragAmount -= dragEvent.delta.dy;
+          _currentDragAmount = _currentDragAmount! - dragEvent.delta.dy;
         });
         if (widget.onMove != null) {
-          widget.onMove(_currentDragAmount);
+          widget.onMove!(_currentDragAmount);
         }
       },
     );
   }
 
-  double _getSheetHeight(bool isAbove) {
-    double fitHeight;
+  double? _getSheetHeight(bool isAbove) {
+    double? fitHeight;
     SnappingSheetHeight heightBehavior;
 
     if (isAbove) {
-      fitHeight = _currentConstraints.maxHeight - _currentDragAmount - widget.grabbingHeight;
-      heightBehavior = widget.sheetAbove.heightBehavior;
+      fitHeight = _currentConstraints.maxHeight - _currentDragAmount! - widget.grabbingHeight;
+      heightBehavior = widget.sheetAbove!.heightBehavior;
     } else {
       fitHeight = _currentDragAmount;
-      heightBehavior = widget.sheetBelow.heightBehavior;
+      heightBehavior = widget.sheetBelow!.heightBehavior;
     }
 
     switch (heightBehavior._type) {
       case SnappingSheetType.fit:
         return fitHeight;
       case SnappingSheetType.manuel:
-        return max(min(fitHeight, heightBehavior.maxHeight), heightBehavior.minHeight);
+        return max(min(fitHeight!, heightBehavior.maxHeight!), heightBehavior.minHeight!);
       case SnappingSheetType.fixed:
         return _getMaximumSheetHeight(isAbove, heightBehavior.expandOnSnapPositionOverflow);
       default:
@@ -396,21 +396,21 @@ class _SnappingSheetState extends State<SnappingSheet> with SingleTickerProvider
   double _getMaximumSheetHeight(bool isAbove, bool expandOnSnapPositionOverflow) {
     double maxHeight = 0;
     widget.snapPositions.forEach((snapPosition) {
-      double snapHeight = 0;
+      double? snapHeight = 0;
       if (isAbove) {
-        snapHeight = _currentConstraints.maxHeight - _getSnapPositionInPixels(snapPosition) - widget.grabbingHeight;
+        snapHeight = _currentConstraints.maxHeight - _getSnapPositionInPixels(snapPosition)! - widget.grabbingHeight;
       } else {
         snapHeight = _getSnapPositionInPixels(snapPosition);
       }
-      if (maxHeight < snapHeight) {
+      if (maxHeight < snapHeight!) {
         maxHeight = snapHeight;
       }
     });
 
     if (isAbove) {
-      return maxHeight - (expandOnSnapPositionOverflow ? min(_currentDragAmount, 0) : 0);
+      return maxHeight - (expandOnSnapPositionOverflow ? min(_currentDragAmount!, 0) : 0);
     } else {
-      return (expandOnSnapPositionOverflow ? max(_currentDragAmount, maxHeight) : maxHeight);
+      return (expandOnSnapPositionOverflow ? max(_currentDragAmount!, maxHeight) : maxHeight);
     }
   }
 
@@ -419,7 +419,7 @@ class _SnappingSheetState extends State<SnappingSheet> with SingleTickerProvider
     return LayoutBuilder(builder: (context, constraints) {
       _currentConstraints = constraints;
       if (_currentDragAmount == null) {
-        _currentDragAmount = _getSnapPositionInPixels(_initSnapPosition);
+        _currentDragAmount = _getSnapPositionInPixels(_initSnapPosition!);
       }
 
       return Stack(fit: StackFit.expand, children: <Widget>[
@@ -427,27 +427,27 @@ class _SnappingSheetState extends State<SnappingSheet> with SingleTickerProvider
         _buildBackground(),
 
         // The grabing area
-        Positioned(left: 0, right: 0, height: widget.grabbingHeight, bottom: _currentDragAmount, child: _wrapDraggable(false, widget.grabbing, SnappingSheetListenerType.draggable)),
+        Positioned(left: 0, right: 0, height: widget.grabbingHeight, bottom: _currentDragAmount, child: _wrapDraggable(false, widget.grabbing, SnappingSheetListenerType.draggable)!),
 
         // The sheet below
         widget.sheetAbove != null
             ? Positioned(
-                bottom: _currentDragAmount + widget.sheetAbove.margin.bottom + widget.grabbingHeight,
-                left: widget.sheetAbove.margin.left,
-                right: widget.sheetAbove.margin.right,
+                bottom: _currentDragAmount! + widget.sheetAbove!.margin.bottom + widget.grabbingHeight,
+                left: widget.sheetAbove!.margin.left,
+                right: widget.sheetAbove!.margin.right,
                 height: _getSheetHeight(true),
-                child: _wrapDraggable(false, widget.sheetAbove.child, SnappingSheetListenerType.sheetAbove),
+                child: _wrapDraggable(false, widget.sheetAbove!.child, SnappingSheetListenerType.sheetAbove)!,
               )
             : SizedBox(),
 
         // The sheet below
         widget.sheetBelow != null
             ? Positioned(
-                top: constraints.maxHeight - _currentDragAmount + widget.sheetBelow.margin.top,
-                left: widget.sheetBelow.margin.left,
-                right: widget.sheetBelow.margin.right,
+                top: constraints.maxHeight - _currentDragAmount! + widget.sheetBelow!.margin.top,
+                left: widget.sheetBelow!.margin.left,
+                right: widget.sheetBelow!.margin.right,
                 height: _getSheetHeight(false),
-                child: _wrapDraggable(false, widget.sheetBelow.child, SnappingSheetListenerType.sheetBelow),
+                child: _wrapDraggable(false, widget.sheetBelow!.child, SnappingSheetListenerType.sheetBelow)!,
               )
             : SizedBox(),
       ]);
@@ -457,13 +457,13 @@ class _SnappingSheetState extends State<SnappingSheet> with SingleTickerProvider
 
 /// Controlls the [SnappingSheet] widget
 class SnappingSheetController {
-  Function(SnapPosition value) _setSnapSheetPositionListener;
+  late Function(SnapPosition value) _setSnapSheetPositionListener;
 
   /// The different snap positions the [SnappingSheet] currently has.
-  List<SnapPosition> snapPositions;
+  late List<SnapPosition> snapPositions;
 
   /// The current snap positions of the [SnappingSheet].
-  SnapPosition currentSnapPosition;
+  SnapPosition? currentSnapPosition;
 
   void _addListeners(Function(SnapPosition value) setSnapSheetPositionListener) {
     this._setSnapSheetPositionListener = setSnapSheetPositionListener;

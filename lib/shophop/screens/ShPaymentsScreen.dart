@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/dashboard/utils/DbExtension.dart';
-import 'package:prokit_flutter/shophop/models/ShPaymentCard.dart';
-import 'package:prokit_flutter/shophop/screens/ShAddCardScreen.dart';
-import 'package:prokit_flutter/shophop/utils/ShColors.dart';
-import 'package:prokit_flutter/shophop/utils/ShConstant.dart';
-import 'package:prokit_flutter/shophop/utils/ShImages.dart';
-import 'package:prokit_flutter/shophop/utils/ShStrings.dart';
-import 'package:prokit_flutter/shophop/utils/ShWidget.dart';
-import 'package:prokit_flutter/shophop/utils/widgets/ShSliderWidget.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/shopHop/models/ShPaymentCard.dart';
+import 'package:prokit_flutter/shopHop/screens/ShAddCardScreen.dart';
+import 'package:prokit_flutter/shopHop/utils/ShColors.dart';
+import 'package:prokit_flutter/shopHop/utils/ShConstant.dart';
+import 'package:prokit_flutter/shopHop/utils/ShImages.dart';
+import 'package:prokit_flutter/shopHop/utils/ShStrings.dart';
+import 'package:prokit_flutter/shopHop/utils/ShWidget.dart';
+import 'package:prokit_flutter/shopHop/utils/widgets/ShSliderWidget.dart';
 
 class ShPaymentsScreen extends StatefulWidget {
   static String tag = '/ShPaymentsScreen';
@@ -18,7 +19,7 @@ class ShPaymentsScreen extends StatefulWidget {
 }
 
 class ShPaymentsScreenState extends State<ShPaymentsScreen> {
-  List<ShPaymentCard> mPaymentCards = List();
+  List<ShPaymentCard> mPaymentCards = [];
 
   @override
   void initState() {
@@ -106,7 +107,7 @@ class ShPaymentsScreenState extends State<ShPaymentsScreen> {
                       side: BorderSide(color: sh_colorPrimary),
                     ),
                     onPressed: () {
-                      launchScreen(context, ShAddCardScreen.tag);
+                      ShAddCardScreen().launch(context);
                     },
                   )
                 ],
@@ -234,7 +235,7 @@ class ShPaymentCards extends StatelessWidget {
                                 SizedBox(
                                   height: spacing_standard,
                                 ),
-                                text("JOHN", textColor: sh_white, fontFamily: fontMedium, fontSize: textSizeMedium),
+                                Expanded(child: text("JOHN", textColor: sh_white, fontFamily: fontMedium, fontSize: textSizeMedium)),
                               ],
                             ),
                           )

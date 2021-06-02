@@ -2,12 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/main/utils/AppConstant.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme5/utils/T5Colors.dart';
-import 'package:prokit_flutter/theme5/utils/T5Extension.dart';
 import 'package:prokit_flutter/theme5/utils/T5Images.dart';
 import 'package:prokit_flutter/theme5/utils/T5Strings.dart';
 import 'package:prokit_flutter/theme5/utils/T5Widget.dart';
+
+import '../../main.dart';
 
 class T5SetFingerPrint extends StatefulWidget {
   static String tag = '/T5SetFingerPrint';
@@ -32,7 +35,7 @@ class T5SetFingerPrintState extends State<T5SetFingerPrint> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Image.asset(t5_login, width: width / 2.5, height: width / 2.5),
-                  text(t5_lbl_fingerprint, textColor: t5TextColorPrimary, fontFamily: fontBold, fontSize: 22.0),
+                  text(t5_lbl_fingerprint, textColor: appStore.textPrimaryColor, fontFamily: fontBold, fontSize: 22.0),
                   Padding(
                     padding: const EdgeInsets.only(left: 30, right: 30, bottom: 16),
                     child: text(t5_note_finger_set, textColor: t5TextColorSecondary, fontFamily: fontMedium, fontSize: textSizeMedium, maxLine: 2, isCentered: true),

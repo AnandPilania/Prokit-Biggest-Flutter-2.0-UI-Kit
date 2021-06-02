@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:like_button/like_button.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/main/utils/like_button/like_button.dart';
+import 'package:prokit_flutter/main/utils/like_button/utils/like_button_model.dart';
+import 'package:prokit_flutter/main/utils/like_button/utils/like_button_typedef.dart';
+
+import '../../../main.dart';
 
 class LBHomePage extends StatefulWidget {
+  static String tag = '/LBHomePage';
+
   @override
   _LBHomePageState createState() => _LBHomePageState();
 }
@@ -34,9 +42,9 @@ class _LBHomePageState extends State<LBHomePage> {
                 ),
               ),
               Expanded(
-                child: Container(padding: EdgeInsets.only(left: 10), child: Text('John Doe', style: TextStyle(fontSize: 18))),
+                child: Container(padding: EdgeInsets.only(left: 10), child: Text('John Doe', style: primaryTextStyle(size: 18))),
               ),
-              Container(margin: EdgeInsets.only(right: 10), child: Icon(Icons.more_vert, color: Colors.black))
+              Container(margin: EdgeInsets.only(right: 10), child: Icon(Icons.more_vert, color: appStore.iconColor))
             ],
           ),
           Container(
@@ -53,18 +61,7 @@ class _LBHomePageState extends State<LBHomePage> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color(0xFF8998FF),
-          title: Text('Like Buttons'),
-          leading: Container(
-            child: InkWell(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Icon(Icons.arrow_back, color: Colors.white),
-            ),
-          ),
-        ),
+        appBar: appBar(context, 'Like Buttons'),
         body: ListView(
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
@@ -89,7 +86,7 @@ class _LBHomePageState extends State<LBHomePage> {
                           // the total number of count
                           likeCount: likeCount,
                           // to handle the count behaviour
-                          countBuilder: (int count, bool isLiked, String text) {
+                          countBuilder: (int? count, bool isLiked, String text) {
                             // color of the count
                             final ColorSwatch<int> color = isLiked ? Colors.pinkAccent : Colors.grey;
                             Widget result;
@@ -100,7 +97,7 @@ class _LBHomePageState extends State<LBHomePage> {
                               );
                             } else
                               result = Text(
-                                count >= 1000 ? (count / 1000.0).toStringAsFixed(1) + 'k' : text,
+                                count! >= 1000 ? (count / 1000.0).toStringAsFixed(1) + 'k' : text,
                                 style: TextStyle(color: color),
                               );
                             return result;
@@ -134,7 +131,7 @@ class _LBHomePageState extends State<LBHomePage> {
                           },
                           countPostion: CountPostion.right,
                           likeCount: 100,
-                          countBuilder: (int count, bool isLiked, String text) {
+                          countBuilder: (int? count, bool isLiked, String text) {
                             final ColorSwatch<int> color = isLiked ? Colors.blue : Colors.grey;
                             Widget result;
                             if (count == 0) {
@@ -155,7 +152,7 @@ class _LBHomePageState extends State<LBHomePage> {
                           countPostion: CountPostion.right,
                           likeCount: 100,
                           likeCountAnimationType: LikeCountAnimationType.all,
-                          countBuilder: (int count, bool isLiked, String text) {
+                          countBuilder: (int? count, bool isLiked, String text) {
                             final MaterialColor color = isLiked ? Colors.blue : Colors.grey;
                             Widget result;
                             print(text);
@@ -189,7 +186,7 @@ class _LBHomePageState extends State<LBHomePage> {
                             LikeButton(
                               size: buttonSize,
                               likeCount: likeCount,
-                              countBuilder: (int count, bool isLiked, String text) {
+                              countBuilder: (int? count, bool isLiked, String text) {
                                 final ColorSwatch<int> color = isLiked ? Colors.pinkAccent : Colors.grey;
                                 Widget result;
                                 if (count == 0) {
@@ -199,7 +196,7 @@ class _LBHomePageState extends State<LBHomePage> {
                                   );
                                 } else
                                   result = Text(
-                                    count >= 1000 ? (count / 1000.0).toStringAsFixed(1) + 'k' : text,
+                                    count! >= 1000 ? (count / 1000.0).toStringAsFixed(1) + 'k' : text,
                                     style: TextStyle(color: color),
                                   );
                                 return result;
@@ -234,7 +231,7 @@ class _LBHomePageState extends State<LBHomePage> {
                               );
                             },
                             likeCount: 888,
-                            countBuilder: (int count, bool isLiked, String text) {
+                            countBuilder: (int? count, bool isLiked, String text) {
                               final ColorSwatch<int> color = isLiked ? Colors.blue : Colors.grey;
                               Widget result;
                               if (count == 0) {

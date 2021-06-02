@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/food/model/FoodModel.dart';
 import 'package:prokit_flutter/food/utils/FoodColors.dart';
-import 'package:prokit_flutter/food/utils/FoodConstant.dart';
 import 'package:prokit_flutter/food/utils/FoodDataGenerator.dart';
-import 'package:prokit_flutter/food/utils/FoodExtension.dart';
 import 'package:prokit_flutter/food/utils/FoodString.dart';
 import 'package:prokit_flutter/food/utils/FoodWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class FoodFavourite extends StatefulWidget {
   static String tag = '/FoodFavourite';
@@ -17,7 +17,7 @@ class FoodFavourite extends StatefulWidget {
 }
 
 class FoodFavouriteState extends State<FoodFavourite> {
-  List<FoodDish> mList1;
+  late List<FoodDish> mList1;
 
   @override
   void initState() {
@@ -27,23 +27,19 @@ class FoodFavouriteState extends State<FoodFavourite> {
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(food_app_background);
+    //changeStatusColor(food_app_background);
     return Scaffold(
       backgroundColor: food_app_background,
+      appBar: appBar(context, food_lbl_favourite),
       body: SafeArea(
           child: Column(
         children: <Widget>[
-          TopBar(food_lbl_favourite),
           Expanded(
             child: Container(
-              margin: EdgeInsets.all(spacing_standard_new),
+              margin: EdgeInsets.all(16),
               child: GridView.builder(
                 scrollDirection: Axis.vertical,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                    childAspectRatio: 0.75),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, crossAxisSpacing: 16, mainAxisSpacing: 16, childAspectRatio: 0.75),
                 itemCount: mList1.length,
                 itemBuilder: (context, index) {
                   return Favourite(mList1[index], index);
@@ -57,8 +53,9 @@ class FoodFavouriteState extends State<FoodFavourite> {
   }
 }
 
+// ignore: must_be_immutable
 class Favourite extends StatelessWidget {
-  FoodDish model;
+  late FoodDish model;
 
   Favourite(FoodDish model, int pos) {
     this.model = model;
@@ -68,16 +65,17 @@ class Favourite extends StatelessWidget {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     return Container(
-      decoration: boxDecoration(showShadow: true),
+      decoration: BoxDecoration(boxShadow: defaultBoxShadow(), color: white),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           ClipRRect(
             borderRadius: BorderRadius.only(
-              topRight: Radius.circular(spacing_middle),
-              topLeft: Radius.circular(spacing_middle),
+              topRight: Radius.circular(10),
+              topLeft: Radius.circular(10),
             ),
             child: CachedNetworkImage(
+              placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
               imageUrl: model.image,
               height: width * 0.3,
               width: width,
@@ -85,38 +83,16 @@ class Favourite extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(spacing_middle),
+            padding: EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                text(
-                  model.name,
-                  fontFamily: fontMedium,
-                  maxLine: 1,
-                ),
-                text(model.type,
-                    textColor: food_textColorSecondary,
-                    fontSize: textSizeSMedium),
-
+                Text(model.name, style: primaryTextStyle(), maxLines: 1),
+                Text(model.type, style: primaryTextStyle(color: food_textColorSecondary)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    text(
-                      model.price,
-                    ),
-                    Quantitybtn()
-                  ],
+                  children: <Widget>[Text(model.price), Quantitybtn()],
                 ),
-//                Container(
-//                    padding: const EdgeInsets.all(2.0),
-//                    child: StepperTouch(
-//                      initialValue: 0,
-//                      direction: Axis.horizontal,
-//                      buttonsColor: food_colorPrimary,
-//counterColor:food_colorPrimary ,
-//                      withSpring: false,
-//                      onChanged: (int value) => print('new value $value'),
-//                    )),
               ],
             ),
           )

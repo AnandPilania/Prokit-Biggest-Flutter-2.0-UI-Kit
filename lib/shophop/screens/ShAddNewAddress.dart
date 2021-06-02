@@ -1,17 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoder/geocoder.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/shophop/models/ShAddress.dart';
-import 'package:prokit_flutter/shophop/utils/ShColors.dart';
-import 'package:prokit_flutter/shophop/utils/ShConstant.dart';
-import 'package:prokit_flutter/shophop/utils/ShStrings.dart';
-import 'package:prokit_flutter/shophop/utils/ShWidget.dart';
+import 'package:prokit_flutter/shopHop/models/ShAddress.dart';
+import 'package:prokit_flutter/shopHop/utils/ShColors.dart';
+import 'package:prokit_flutter/shopHop/utils/ShConstant.dart';
+import 'package:prokit_flutter/shopHop/utils/ShStrings.dart';
+import 'package:prokit_flutter/shopHop/utils/ShWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class ShAddNewAddress extends StatefulWidget {
   static String tag = '/AddNewAddress';
-  ShAddressModel addressModel;
+  ShAddressModel? addressModel;
 
   ShAddNewAddress({this.addressModel});
 
@@ -38,14 +37,14 @@ class ShAddNewAddressState extends State<ShAddNewAddress> {
 
   init() async {
     if (widget.addressModel != null) {
-      pinCodeCont.text = widget.addressModel.pinCode;
-      addressCont.text = widget.addressModel.address;
-      cityCont.text = widget.addressModel.city;
-      stateCont.text = widget.addressModel.state;
-      countryCont.text = widget.addressModel.country;
-      firstNameCont.text = widget.addressModel.first_name;
-      lastNameCont.text = widget.addressModel.last_name;
-      phoneNumberCont.text = widget.addressModel.phone_number;
+      pinCodeCont.text = widget.addressModel!.pinCode!;
+      addressCont.text = widget.addressModel!.address!;
+      cityCont.text = widget.addressModel!.city!;
+      stateCont.text = widget.addressModel!.state!;
+      countryCont.text = widget.addressModel!.country!;
+      firstNameCont.text = widget.addressModel!.first_name!;
+      lastNameCont.text = widget.addressModel!.last_name!;
+      phoneNumberCont.text = widget.addressModel!.phone_number!;
     }
   }
 
@@ -54,9 +53,9 @@ class ShAddNewAddressState extends State<ShAddNewAddress> {
     void onSaveClicked() async {
       Navigator.pop(context, true);
     }
-
-    getLocation() async {
-      Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((position) {
+   // TODO Without NullSafety Geo coder
+/*    getLocation() async {
+      Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((position) {
         var coordinates = Coordinates(position.latitude, position.longitude);
         Geocoder.local.findAddressesFromCoordinates(coordinates).then((addresses) {
           var first = addresses.first;
@@ -74,7 +73,7 @@ class ShAddNewAddressState extends State<ShAddNewAddress> {
       }).catchError((error) {
         print(error);
       });
-    }
+    }*/
 
     final useCurrentLocation = Container(
       alignment: Alignment.center,
@@ -82,7 +81,10 @@ class ShAddNewAddressState extends State<ShAddNewAddress> {
         color: sh_light_gray,
         elevation: 0,
         padding: EdgeInsets.only(top: spacing_middle, bottom: spacing_middle),
-        onPressed: () => {getLocation()},
+        onPressed: () => {
+          // TODO Without NullSafety Geo coder
+          //getLocation()
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[

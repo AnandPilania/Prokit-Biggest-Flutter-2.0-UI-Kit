@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusColors.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusConstant.dart';
 import 'package:prokit_flutter/qibus/utils/QiBusImages.dart';
@@ -30,10 +31,7 @@ class QIBusWalletState extends State<QIBusWallet> {
             ),
           ),
         ),
-        TextSpan(
-            text: QIBus__200,
-            style:
-                TextStyle(fontSize: textSizeLarge, color: qIBus_colorPrimary)),
+        TextSpan(text: QIBus__200, style: TextStyle(fontSize: textSizeLarge, color: qIBus_colorPrimary)),
       ],
     ),
   );
@@ -67,6 +65,7 @@ class QIBusWalletState extends State<QIBusWallet> {
                 child: Column(
                   children: <Widget>[
                     CachedNetworkImage(
+                      placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                       imageUrl: qibus_ic_gr_wallet,
                       width: w * 0.4,
                       height: w * 0.4,
@@ -96,8 +95,7 @@ class QIBusWalletState extends State<QIBusWallet> {
                       children: <Widget>[
                         mSocialIcon(qibus_ic_whatsapp, context),
                         mSocialIcon(qibus_ic_fb, context),
-                        mSocialIcon(qibus_ic_google_fill, context,
-                            color: qIBus_color_google),
+                        mSocialIcon(qibus_ic_google_fill, context, color: qIBus_color_google),
                         mSocialIcon(qibus_ic_twitter, context),
                       ],
                     )

@@ -5,9 +5,11 @@ import 'package:flutter/widgets.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/integrations/utils/colors.dart';
-import 'package:prokit_flutter/integrations/utils/common.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/integrations/utils/constants.dart';
 import 'package:prokit_flutter/integrations/utils/styles.dart';
+import 'package:prokit_flutter/main.dart';
+import 'package:prokit_flutter/main/utils/AppColors.dart';
 
 class GoogleSignInScreen extends StatefulWidget {
   static String tag = '/GoogleSignInScreen';
@@ -18,16 +20,16 @@ class GoogleSignInScreen extends StatefulWidget {
 
 class GoogleSignInScreenState extends State<GoogleSignInScreen> {
   var isSuccess = false;
-  var name = 'UserName';
+  String? name = 'UserName';
   var email = 'Email id';
-  var photoUrl = '';
+  String? photoUrl = '';
 
   void onSignInTap() async {
     GoogleSignIn googleSignIn = GoogleSignIn(scopes: [
       'email',
     ]);
     await googleSignIn.signIn().then((res) async {
-      await res.authentication.then((accessToken) async {
+      await res!.authentication.then((accessToken) async {
         setState(() {
           isSuccess = true;
           name = res.displayName;
@@ -52,9 +54,9 @@ class GoogleSignInScreenState extends State<GoogleSignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(primaryColor);
+    changeStatusColor(appColorPrimary);
     return Scaffold(
-      appBar: getAppBar(context, 'Google Sign In'),
+      appBar: appBar(context, 'Google Sign In'),
       body: Column(
         children: <Widget>[
           Container(
@@ -68,7 +70,7 @@ class GoogleSignInScreenState extends State<GoogleSignInScreen> {
                   decoration: BoxDecoration(color: thirdColor, shape: BoxShape.circle),
                   padding: EdgeInsets.all(5),
                   child: CircleAvatar(
-                    backgroundImage: Image.network(photoUrl).image,
+                    backgroundImage: Image.network(photoUrl!).image,
                     radius: 50,
                   ),
                 ),
@@ -77,8 +79,8 @@ class GoogleSignInScreenState extends State<GoogleSignInScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      text(name, fontSize: textSizeLargeMedium, fontFamily: fontSemibold, textColor: isSuccess ? thirdColor : Theme.of(context).secondaryHeaderColor),
-                      text(email, fontSize: textSizeLargeMedium, textColor: isSuccess ? thirdColor : Theme.of(context).secondaryHeaderColor),
+                      text(name, fontSize: textSizeLargeMedium, fontFamily: fontSemibold, textColor: isSuccess ? greenColor : appStore.textPrimaryColor),
+                      text(email, fontSize: textSizeLargeMedium, textColor: isSuccess ? greenColor : appStore.textPrimaryColor),
                     ],
                   ),
                 )

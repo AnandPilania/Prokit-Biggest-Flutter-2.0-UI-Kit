@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/integrations/utils/colors.dart';
-import 'package:prokit_flutter/integrations/utils/common.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/integrations/utils/constants.dart';
 import 'package:prokit_flutter/integrations/utils/styles.dart';
+import 'package:prokit_flutter/main/utils/AppColors.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class ShaderMaskScreen extends StatefulWidget {
   static String tag = '/ShaderMaskScreen';
@@ -24,10 +25,8 @@ class ShaderMaskScreenState extends State<ShaderMaskScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          text("Image Shadermask:", fontFamily: fontMedium, fontSize: textSizeLargeMedium),
-          SizedBox(
-            height: 16,
-          ),
+          Text("Image Shadermask:", style: primaryTextStyle(fontFamily: fontMedium, size: 18)),
+          SizedBox(height: 16),
           Container(
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(border: Border.all(color: Theme.of(context).dividerColor, width: 1), borderRadius: BorderRadius.all(Radius.circular(2))),
@@ -45,10 +44,8 @@ class ShaderMaskScreenState extends State<ShaderMaskScreen> {
             ),
           ),
           SizedBox(height: 30),
-          text("Text Shadermask:", fontFamily: fontMedium, fontSize: textSizeLargeMedium),
-          SizedBox(
-            height: 16,
-          ),
+          Text("Text Shadermask:", style: primaryTextStyle(fontFamily: fontMedium, size: 18)),
+          SizedBox(height: 16),
           Container(
             margin: EdgeInsets.only(bottom: 50),
             padding: EdgeInsets.all(16),
@@ -75,18 +72,19 @@ class ShaderMaskScreenState extends State<ShaderMaskScreen> {
               });
             },
             child: Container(
-                alignment: Alignment.center,
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.fromLTRB(0, 16, 0, 16),
-                decoration: BoxDecoration(color: primaryColor, borderRadius: BorderRadius.all(Radius.circular(10))),
-                child: textPrimary('Change Colors', aFontFamily: fontSemibold)),
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.fromLTRB(0, 16, 0, 16),
+              decoration: BoxDecoration(color: appColorPrimary, borderRadius: BorderRadius.all(Radius.circular(10))),
+              child: textPrimary('Change Colors', aFontFamily: fontSemibold),
+            ),
           )
         ],
       ),
     );
 
     return Scaffold(
-      appBar: getAppBar(context, 'ShaderMask'),
+      appBar: appBar(context, 'ShaderMask'),
       body: body,
     );
   }

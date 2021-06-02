@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/dashboard/model/db2/Db2Model.dart';
-import 'package:prokit_flutter/dashboard/utils/Db2Widget.dart';
 import 'package:prokit_flutter/dashboard/utils/DbColors.dart';
-import 'package:prokit_flutter/dashboard/utils/DbConstant.dart';
 import 'package:prokit_flutter/dashboard/utils/DbDataGenerator.dart';
-import 'package:prokit_flutter/dashboard/utils/DbExtension.dart';
 import 'package:prokit_flutter/dashboard/utils/DbImages.dart';
 import 'package:prokit_flutter/dashboard/utils/DbStrings.dart';
+import 'package:prokit_flutter/main/utils/AppConstant.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class Dashboard2 extends StatefulWidget {
   static String tag = '/Dashboard2';
@@ -20,9 +20,9 @@ const CURVE_HEIGHT = 100.0;
 const AVATAR_RADIUS = CURVE_HEIGHT * 0.8;
 
 class Dashboard2State extends State<Dashboard2> {
-  List<Db2ShopModel> mListings;
-  List<Db2ShopModel> mListings1;
-  List<Db2ShopModel> mListings2;
+  late List<Db2ShopModel> mListings;
+  late List<Db2ShopModel> mListings1;
+  late List<Db2ShopModel> mListings2;
 
   @override
   void initState() {
@@ -34,14 +34,48 @@ class Dashboard2State extends State<Dashboard2> {
 
   @override
   Widget build(BuildContext context) {
+    Widget db2Label(var text) {
+      return Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(text, style: primaryTextStyle(size: 20, color: db2_textColorPrimary, fontFamily: fontMedium)),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(text: db2_lbl_view_all, style: primaryTextStyle(size: 14, color: db2_textColorSecondary)),
+                  WidgetSpan(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4.0),
+                      child: Icon(
+                        Icons.keyboard_arrow_right,
+                        color: db2_textColorSecondary,
+                        size: 16,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      );
+    }
+
     changeStatusColor(db2_colorSecondary);
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
+
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
           children: <Widget>[
             Stack(
               children: <Widget>[
-                Container(height: 140, child: CurvedShape()),
+                Container(
+                  width: double.infinity,
+                  height: 140,
+                  child: CustomPaint(painter: _MyPainter()),
+                ),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: 50,
@@ -51,33 +85,27 @@ class Dashboard2State extends State<Dashboard2> {
                       Row(
                         children: <Widget>[
                           IconButton(
-                            icon: Icon(
-                              Icons.menu,
-                              color: db2_white,
-                            ),
+                            icon: Icon(Icons.menu, color: white),
                             onPressed: () {
                               finish(context);
                             },
                           ),
-                          text(db2_lbl_home, textColor: db2_white, fontSize: textSizeNormal, fontFamily: fontBold),
+                          Text(
+                            db2_lbl_home,
+                            style: boldTextStyle(size: 20, color: white),
+                          ),
                         ],
                       ),
                       Row(
                         children: <Widget>[
                           IconButton(
-                            icon: Icon(
-                              Icons.favorite,
-                              color: db2_white,
-                            ),
+                            icon: Icon(Icons.favorite, color: white),
                             onPressed: () {
                               finish(context);
                             },
                           ),
                           IconButton(
-                            icon: Icon(
-                              Icons.shopping_cart,
-                              color: db2_white,
-                            ),
+                            icon: Icon(Icons.shopping_cart, color: white),
                             onPressed: () {
                               finish(context);
                             },
@@ -91,34 +119,31 @@ class Dashboard2State extends State<Dashboard2> {
                   width: MediaQuery.of(context).size.width,
                   transform: Matrix4.translationValues(0.0, 60.0, 0.0),
                   child: Padding(
-                    padding: const EdgeInsets.all(16),
+                    padding: EdgeInsets.all(16),
                     child: Container(
-                      decoration: boxDecoration(showShadow: true, bgColor: db2_white, radius: 26),
+                      decoration: BoxDecoration(color: white, borderRadius: BorderRadius.all(Radius.circular(26)), boxShadow: defaultBoxShadow()),
                       child: Stack(
                         alignment: Alignment.centerRight,
                         children: <Widget>[
                           TextField(
                               decoration: InputDecoration(
-                            filled: true,
-                            fillColor: db2_white,
-                            hintText: db2_lbl_search_here,
-                            contentPadding: EdgeInsets.only(left: 26.0, bottom: 8.0, right: 50.0),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: db2_white, width: 0.5),
-                              borderRadius: BorderRadius.circular(26),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: db2_white, width: 0.5),
-                              borderRadius: BorderRadius.circular(26),
-                            ),
-                          )),
+                                  filled: true,
+                                  fillColor: white,
+                                  hintText: db2_lbl_search_here,
+                                  contentPadding: EdgeInsets.only(left: 26.0, bottom: 8.0, right: 50.0),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: white, width: 0.5),
+                                    borderRadius: BorderRadius.circular(26),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: white, width: 0.5),
+                                    borderRadius: BorderRadius.circular(26),
+                                  ))),
                           GestureDetector(
                             child: Padding(
-                                padding: const EdgeInsets.only(right: 16.0),
-                                child: Icon(
-                                  Icons.search,
-                                  color: db2_textColorSecondary,
-                                )),
+                              padding: EdgeInsets.only(right: 16.0),
+                              child: Icon(Icons.search, color: db2_textColorSecondary),
+                            ),
                           ),
                         ],
                       ),
@@ -144,8 +169,11 @@ class Dashboard2State extends State<Dashboard2> {
                           }),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 16, bottom: 16),
-                      child: text(db2_lbl_offers, fontSize: textSizeNormal, fontFamily: fontMedium),
+                      padding: EdgeInsets.only(left: 16, bottom: 16),
+                      child: Text(
+                        db2_lbl_offers,
+                        style: primaryTextStyle(size: 20, fontFamily: fontMedium),
+                      ),
                     ),
                     Container(
                       padding: EdgeInsets.only(right: 16, left: 16),
@@ -184,9 +212,7 @@ class Dashboard2State extends State<Dashboard2> {
                             return Db2Product(mListings2[index], index);
                           }),
                     ),
-                    SizedBox(
-                      height: 16,
-                    )
+                    SizedBox(height: 16),
                   ],
                 ),
               ),
@@ -198,8 +224,9 @@ class Dashboard2State extends State<Dashboard2> {
   }
 }
 
+// ignore: must_be_immutable
 class Db2Category extends StatelessWidget {
-  Db2ShopModel model;
+  late Db2ShopModel model;
 
   Db2Category(Db2ShopModel model, int pos) {
     this.model = model;
@@ -212,26 +239,20 @@ class Db2Category extends StatelessWidget {
       child: Column(
         children: <Widget>[
           ClipRRect(
-            borderRadius: new BorderRadius.circular(12.0),
-            child: Image.asset(
-              model.img,
-              fit: BoxFit.cover,
-              height: 75,
-              width: 75,
-            ),
+            borderRadius: BorderRadius.circular(12.0),
+            child: Image.asset(model.img, fit: BoxFit.cover, height: 75, width: 75),
           ),
-          SizedBox(
-            height: 4,
-          ),
-          text(model.name)
+          SizedBox(height: 4),
+          Text(model.name, style: primaryTextStyle())
         ],
       ),
     );
   }
 }
 
+// ignore: must_be_immutable
 class Db2Product extends StatelessWidget {
-  Db2ShopModel model;
+  late Db2ShopModel model;
 
   Db2Product(Db2ShopModel model, int pos) {
     this.model = model;
@@ -246,25 +267,21 @@ class Db2Product extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           ClipRRect(
-            borderRadius: new BorderRadius.circular(12.0),
-            child: Image.asset(
-              model.img,
-              fit: BoxFit.cover,
-              height: 170,
-              width: MediaQuery.of(context).size.width,
-            ),
+            borderRadius: BorderRadius.circular(12.0),
+            child: Image.asset(model.img, fit: BoxFit.cover, height: 170, width: MediaQuery.of(context).size.width),
           ),
-          SizedBox(
-            height: 4,
-          ),
+          SizedBox(height: 4),
           Padding(
-            padding: const EdgeInsets.only(left: 4, right: 4),
+            padding: EdgeInsets.only(left: 4, right: 4),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                text(model.name),
-                text("\$100", textColor: db2_textColorSecondary, fontFamily: fontMedium),
+                Text(model.name),
+                Text(
+                  "\$100",
+                  style: primaryTextStyle(color: db2_textColorSecondary, fontFamily: fontMedium),
+                ),
               ],
             ),
           )
@@ -277,7 +294,7 @@ class Db2Product extends StatelessWidget {
 class Db2Slider extends StatelessWidget {
   final String file;
 
-  Db2Slider({Key key, @required this.file}) : super(key: key);
+  Db2Slider({Key? key, required this.file}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -287,23 +304,8 @@ class Db2Slider extends StatelessWidget {
         clipBehavior: Clip.antiAliasWithSaveLayer,
         elevation: 0,
         margin: EdgeInsets.all(0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         child: Image.asset(file, fit: BoxFit.fill),
-      ),
-    );
-  }
-}
-
-class CurvedShape extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: CURVE_HEIGHT,
-      child: CustomPaint(
-        painter: _MyPainter(),
       ),
     );
   }
@@ -312,14 +314,7 @@ class CurvedShape extends StatelessWidget {
 class _MyPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final Gradient gradient = new RadialGradient(
-      colors: <Color>[
-        Colors.green.withOpacity(1.0),
-        Colors.green.withOpacity(0.3),
-      ],
-    );
-
-    Paint paint = new Paint();
+    Paint paint = Paint();
     paint.style = PaintingStyle.fill;
     paint.color = db2_colorSecondary;
 

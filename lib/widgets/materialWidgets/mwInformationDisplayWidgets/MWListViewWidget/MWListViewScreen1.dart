@@ -29,8 +29,9 @@ class _MWListViewScreen1State extends State<MWListViewScreen1> {
   }
 }
 
+// ignore: must_be_immutable
 class DataList extends StatelessWidget {
-  DataModel model;
+  late DataModel model;
 
   DataList(DataModel model, int pos) {
     this.model = model;
@@ -40,8 +41,7 @@ class DataList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(left: 16, right: 16, top: 16),
-      decoration: boxDecoration(
-          radius: 10, showShadow: true, bgColor: appStore.scaffoldBackground),
+      decoration: boxDecoration(radius: 10, showShadow: true, bgColor: appStore.scaffoldBackground),
       padding: EdgeInsets.fromLTRB(20, 16, 20, 16),
       child: Row(
         children: [
@@ -74,133 +74,107 @@ class DataModel {
 
 List<DataModel> dataList = [
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/airplane.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/airplane.png',
     name: 'Travels',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/book.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/book.png',
     name: 'Education',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/computer.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/computer.png',
     name: 'Management',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/finance.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/finance.png',
     name: 'Finance',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/food.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/food.png',
     name: 'Food',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/graphic.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/graphic.png',
     name: 'Business',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/healthy.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/healthy.png',
     name: 'Yoga & Gym',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/heart.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/heart.png',
     name: 'Health',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/airplane.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/airplane.png',
     name: 'Travel',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/book.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/book.png',
     name: 'Education',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/computer.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/computer.png',
     name: 'Management',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/finance.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/finance.png',
     name: 'Finance',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/food.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/food.png',
     name: 'Food',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/airplane.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/airplane.png',
     name: 'Travel',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/book.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/book.png',
     name: 'Education',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/computer.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/computer.png',
     name: 'Management',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/finance.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/finance.png',
     name: 'Finance',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/food.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/food.png',
     name: 'Food',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/graphic.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/graphic.png',
     name: 'Business',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/healthy.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/healthy.png',
     name: 'Yoga & Gym',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/heart.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/heart.png',
     name: 'Health',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/airplane.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/airplane.png',
     name: 'Travel',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/book.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/book.png',
     name: 'Education',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/computer.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/computer.png',
     name: 'Management',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/finance.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/finance.png',
     name: 'Finance',
   ),
   DataModel(
-    images:
-        'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/food.png',
+    images: 'images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/food.png',
     name: 'Food',
   ),
 ];

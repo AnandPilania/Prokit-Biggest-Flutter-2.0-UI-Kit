@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../main.dart';
 import '../T5BubbleBotoomBar.dart';
 import '../T5Colors.dart';
 import '../T5Images.dart';
@@ -27,13 +28,10 @@ class T5BottomBarState extends State<T5BottomBar> {
           currentIndex = index;
         });
       },
-      //new
+      backgroundColor: appStore.appBarColor,
       hasNotch: false,
-      //new
       hasInk: true,
-      //new, gives a cute ink effect
       inkColor: t5ColorPrimaryLight,
-      //optional, uses theme color if not specified
       items: <BubbleBottomBarItem>[
         tab(t5_img_home, t5_home),
         tab(t5_list_check, t5_lbl_listing),

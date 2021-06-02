@@ -1,46 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/food/screen/FoodAddAddress.dart';
-import 'package:prokit_flutter/food/utils/FoodExtension.dart';
+import 'package:prokit_flutter/main.dart';
 
 import 'FoodColors.dart';
-import 'FoodConstant.dart';
 import 'FoodString.dart';
 
-Widget text(String text,
-    {var fontSize = textSizeMedium,
-    textColor = food_textColorPrimary,
-    var fontFamily = fontRegular,
-    var isCentered = false,
-    var maxLine = 1,
-    var latterSpacing = 0.25,
-    var textAllCaps = false,
-    var isLongText = false}) {
-  return Text(
-    textAllCaps ? text.toUpperCase() : text,
-    textAlign: isCentered ? TextAlign.center : TextAlign.start,
-    maxLines: isLongText ? null : maxLine,
-    style: TextStyle(fontFamily: fontFamily, fontSize: fontSize, color: textColor, height: 1.5, letterSpacing: latterSpacing),
-  );
-}
-
-BoxDecoration boxDecoration({double radius = spacing_middle, Color color = Colors.transparent, Color bgColor = food_white, var showShadow = false}) {
-  return BoxDecoration(
-    color: bgColor,
-    boxShadow: showShadow ? [BoxShadow(color: food_ShadowColor, blurRadius: 6, spreadRadius: 2)] : [BoxShadow(color: Colors.transparent)],
-    border: Border.all(color: color),
-    borderRadius: BorderRadius.all(Radius.circular(radius)),
-  );
-}
-
-Widget mHeading(var value) {
+Widget heading(String value) {
   return Container(
-    margin: EdgeInsets.all(spacing_standard_new),
-    child: text(value, fontFamily: fontMedium, textAllCaps: true),
+    margin: EdgeInsets.all(16),
+    child: Text(value.toString().toUpperCase(), style: primaryTextStyle()),
   );
 }
 
-BoxDecoration gradientBoxDecoration({double radius = spacing_middle, Color color = Colors.transparent, Color gradientColor2 = food_white, Color gradientColor1 = food_white, var showShadow = false}) {
+BoxDecoration gradientBoxDecoration({double radius = 10, Color color = Colors.transparent, Color gradientColor2 = food_white, Color gradientColor1 = food_white, var showShadow = false}) {
   return BoxDecoration(
     gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [gradientColor1, gradientColor2]),
     boxShadow: showShadow ? [BoxShadow(color: food_ShadowColor, blurRadius: 10, spreadRadius: 2)] : [BoxShadow(color: Colors.transparent)],
@@ -52,13 +26,13 @@ BoxDecoration gradientBoxDecoration({double radius = spacing_middle, Color color
 Widget search(BuildContext context) {
   return Container(
     width: MediaQuery.of(context).size.width,
-    decoration: boxDecoration(radius: 50, bgColor: food_white, color: food_colorPrimary),
-    padding: EdgeInsets.fromLTRB(spacing_standard_new, spacing_middle, spacing_standard_new, spacing_middle),
+    decoration: BoxDecoration(borderRadius: BorderRadius.circular(50), border: Border.all(color: food_colorPrimary), color: appStore.scaffoldBackground),
+    padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
     child: RichText(
       text: TextSpan(
         children: [
-          WidgetSpan(child: Padding(padding: const EdgeInsets.only(right: 4), child: Icon(Icons.search, color: food_textColorSecondary, size: 18))),
-          TextSpan(text: food_hint_search_restaurants, style: TextStyle(fontSize: textSizeMedium, color: food_textColorSecondary)),
+          WidgetSpan(child: Padding(padding: const EdgeInsets.only(right: 8), child: Icon(Icons.search, color: appStore.textSecondaryColor, size: 18))),
+          TextSpan(text: food_hint_search_restaurants, style: TextStyle(fontSize: 16, color: appStore.textSecondaryColor)),
         ],
       ),
     ),
@@ -67,24 +41,24 @@ Widget search(BuildContext context) {
 
 Widget mAddress(BuildContext context) {
   return Container(
-    padding: EdgeInsets.fromLTRB(spacing_standard_new, spacing_middle, spacing_standard_new, spacing_middle),
-    decoration: boxDecoration(radius: 50, bgColor: food_colorPrimary_light),
+    padding: EdgeInsets.fromLTRB(16, 10, 16, 10),
+    decoration: BoxDecoration(borderRadius: BorderRadius.circular(50), color: food_colorPrimary_light),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        text(food_lbl_address_dashboard),
+        Text(food_lbl_address_dashboard, style: primaryTextStyle()),
         GestureDetector(
           onTap: () {
             mChangeAddress(context);
           },
-          child: text(food_lbl_change, textColor: food_colorPrimary, fontFamily: fontMedium),
+          child: Text(food_lbl_change, style: primaryTextStyle(color: food_colorPrimary)),
         ),
       ],
     ),
   );
 }
 
-Widget mChangeAddress(BuildContext context) {
+void mChangeAddress(BuildContext context) {
   showModalBottomSheet(
     backgroundColor: Colors.transparent,
     context: context,
@@ -93,27 +67,27 @@ Widget mChangeAddress(BuildContext context) {
       return SingleChildScrollView(
         child: IntrinsicHeight(
           child: Container(
-            decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(spacing_large), topRight: Radius.circular(spacing_large)), color: food_white),
+            decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24)), color: food_white),
             height: MediaQuery.of(context).size.width * 1.0,
-            padding: EdgeInsets.all(spacing_large),
+            padding: EdgeInsets.all(24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    text(food_lbl_search_location, fontFamily: fontMedium),
+                    Text(food_lbl_search_location, style: primaryTextStyle()),
                     IconButton(
                       onPressed: () {
-                        back(context);
+                        finish(context);
                       },
                       icon: Icon(Icons.close, color: food_textColorSecondary),
                     )
                   ],
                 ),
-                SizedBox(height: spacing_standard),
+                SizedBox(height: 4),
                 Container(
-                  decoration: boxDecoration(radius: 10, showShadow: true),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), boxShadow: defaultBoxShadow(spreadRadius: 3.0)),
                   child: TextField(
                     textAlignVertical: TextAlignVertical.center,
                     decoration: InputDecoration(
@@ -127,21 +101,21 @@ Widget mChangeAddress(BuildContext context) {
                   ),
                   alignment: Alignment.center,
                 ),
-                SizedBox(height: spacing_standard_new),
+                SizedBox(height: 16),
                 RichText(
                   text: TextSpan(
                     children: [
                       WidgetSpan(
                         child: Padding(padding: const EdgeInsets.symmetric(horizontal: 8.0), child: Icon(Icons.my_location, color: food_colorPrimary, size: 18)),
                       ),
-                      TextSpan(text: food_lbl_use_current_location, style: TextStyle(fontSize: textSizeMedium, color: food_colorPrimary)),
+                      TextSpan(text: food_lbl_use_current_location, style: TextStyle(fontSize: 16, color: food_colorPrimary)),
                     ],
                   ),
                 ),
-                Container(height: 0.5, color: food_view_color, width: MediaQuery.of(context).size.width, margin: EdgeInsets.only(top: spacing_standard_new, bottom: spacing_standard_new)),
+                Container(height: 0.5, color: food_view_color, width: MediaQuery.of(context).size.width, margin: EdgeInsets.only(top: 16, bottom: 16)),
                 GestureDetector(
                   onTap: () {
-                    launchScreen(context, FoodAddAddress.tag);
+                    FoodAddAddress().launch(context);
                   },
                   child: RichText(
                     text: TextSpan(
@@ -149,14 +123,14 @@ Widget mChangeAddress(BuildContext context) {
                         WidgetSpan(
                           child: Padding(padding: const EdgeInsets.symmetric(horizontal: 8.0), child: Icon(Icons.add, color: food_colorPrimary, size: 18)),
                         ),
-                        TextSpan(text: food_lbl_add_address, style: TextStyle(fontSize: textSizeMedium, color: food_colorPrimary)),
+                        TextSpan(text: food_lbl_add_address, style: TextStyle(fontSize: 16, color: food_colorPrimary)),
                       ],
                     ),
                   ),
                 ),
-                Container(height: 0.5, color: food_view_color, width: MediaQuery.of(context).size.width, margin: EdgeInsets.only(top: spacing_standard_new, bottom: spacing_standard_new)),
-                text(food_lbl_recent_location, fontFamily: fontMedium),
-                text(food_lbl_location, textColor: food_textColorSecondary)
+                Container(height: 0.5, color: food_view_color, width: MediaQuery.of(context).size.width, margin: EdgeInsets.only(top: 16, bottom: 16)),
+                Text(food_lbl_recent_location, style: primaryTextStyle()),
+                Text(food_lbl_location, style: primaryTextStyle(color: food_textColorSecondary))
               ],
             ),
           ),
@@ -166,20 +140,20 @@ Widget mChangeAddress(BuildContext context) {
   );
 }
 
-Widget mViewAll(BuildContext context, var value, {var tags}) {
+Widget mViewAll(BuildContext context, var value, {required Function onTap}) {
   return GestureDetector(
     onTap: () {
-      if (tags != null) launchScreen(context, tags);
+      onTap();
     },
     child: Container(
-      margin: EdgeInsets.all(spacing_standard_new),
+      margin: EdgeInsets.all(16),
       child: RichText(
         text: TextSpan(
           children: [
             WidgetSpan(
-              child: Padding(padding: const EdgeInsets.only(right: spacing_standard), child: Icon(Icons.arrow_forward, color: food_colorPrimary, size: 18)),
+              child: Padding(padding: const EdgeInsets.only(right: 4), child: Icon(Icons.arrow_forward, color: food_colorPrimary, size: 18)),
             ),
-            TextSpan(text: value, style: TextStyle(fontSize: textSizeMedium, color: food_colorPrimary)),
+            TextSpan(text: value, style: primaryTextStyle(size: 16, color: food_colorPrimary)),
           ],
         ),
       ),
@@ -191,7 +165,7 @@ Widget mRating(var value) {
   return RichText(
     text: TextSpan(
       children: [
-        TextSpan(text: value, style: TextStyle(fontSize: textSizeSMedium, color: food_color_green)),
+        TextSpan(text: value, style: primaryTextStyle(size: 14, color: food_color_green)),
         WidgetSpan(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -203,11 +177,11 @@ Widget mRating(var value) {
   );
 }
 
-Padding editTextStyle(var hintText) {
+Padding foodEditTextStyle(var hintText) {
   return Padding(
     padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
     child: TextFormField(
-      style: TextStyle(fontSize: textSizeMedium, fontFamily: fontRegular),
+      style: primaryTextStyle(size: 14),
       decoration: InputDecoration(
         contentPadding: EdgeInsets.fromLTRB(24, 16, 24, 16),
         hintText: hintText,
@@ -218,43 +192,6 @@ Padding editTextStyle(var hintText) {
       ),
     ),
   );
-}
-
-class TopBar extends StatefulWidget {
-  var titleName;
-
-  TopBar(var this.titleName);
-
-  @override
-  State<StatefulWidget> createState() {
-    return TopBarState();
-  }
-}
-
-class TopBarState extends State<TopBar> {
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: 60,
-        child: Row(
-          children: <Widget>[
-            IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                back(context);
-              },
-            ),
-            Container(
-              padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-              child: Center(child: text(widget.titleName, fontFamily: fontBold, fontSize: textSizeLargeMedium, isCentered: true)),
-            )
-          ],
-        ),
-      ),
-    );
-  }
 }
 
 class Quantitybtn extends StatefulWidget {
@@ -281,14 +218,14 @@ class QuantitybtnState extends State<Quantitybtn> {
         height: width * 0.08,
         alignment: Alignment.center,
         width: width * 0.23,
-        decoration: boxDecoration(color: food_textColorPrimary, radius: spacing_control),
+        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: food_textColorPrimary)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Container(
               width: width * 0.08,
               height: width * 0.08,
-              decoration: BoxDecoration(color: food_textColorPrimary, borderRadius: BorderRadius.only(bottomLeft: Radius.circular(spacing_control), topLeft: Radius.circular(spacing_control))),
+              decoration: BoxDecoration(color: food_textColorPrimary, borderRadius: BorderRadius.only(bottomLeft: Radius.circular(4), topLeft: Radius.circular(4))),
               child: IconButton(
                 icon: Icon(Icons.remove, color: food_white, size: 10),
                 onPressed: () {
@@ -302,12 +239,12 @@ class QuantitybtnState extends State<Quantitybtn> {
                 },
               ),
             ),
-            text("$count"),
+            Text("$count", style: primaryTextStyle(color: food_textColorPrimary)),
             Container(
               width: width * 0.08,
               height: width * 0.08,
               alignment: Alignment.center,
-              decoration: BoxDecoration(color: food_textColorPrimary, borderRadius: BorderRadius.only(bottomRight: Radius.circular(spacing_control), topRight: Radius.circular(spacing_control))),
+              decoration: BoxDecoration(color: food_textColorPrimary, borderRadius: BorderRadius.only(bottomRight: Radius.circular(4), topRight: Radius.circular(4))),
               child: IconButton(
                 icon: Icon(Icons.add, color: food_white, size: 10),
                 onPressed: () {
@@ -327,16 +264,16 @@ class QuantitybtnState extends State<Quantitybtn> {
         child: Container(
           width: width * 0.22,
           height: width * 0.08,
-          decoration: boxDecoration(color: food_textColorPrimary, radius: spacing_control),
+          decoration: BoxDecoration(border: Border.all(color: food_textColorPrimary), borderRadius: BorderRadius.circular(4)),
           alignment: Alignment.center,
-          child: text(food_lbl_add, isCentered: true),
+          child: Text(food_lbl_add, style: primaryTextStyle()).center(),
         ),
       ),
     );
   }
 }
 
-Widget mTotalRating(var value) {
+Widget totalRatting(var value) {
   return Row(
     children: <Widget>[
       Icon(Icons.radio_button_checked, color: food_colorAccent, size: 16),
@@ -344,19 +281,17 @@ Widget mTotalRating(var value) {
       Icon(Icons.radio_button_checked, color: food_colorAccent, size: 16),
       Icon(Icons.radio_button_unchecked, color: food_colorAccent, size: 16),
       Icon(Icons.radio_button_unchecked, color: food_colorAccent, size: 16),
-      SizedBox(width: spacing_control),
-      text(value, textColor: food_textColorSecondary, fontSize: 14.0)
+      SizedBox(width: 4),
+      Text(value, style: primaryTextStyle(color: food_textColorSecondary, size: 14))
     ],
   );
 }
 
-Widget mBottom(BuildContext context, var gColor1, var gColor2, var value, var tags) {
-  var width = MediaQuery.of(context).size.width;
-
+Widget bottomBillDetail(BuildContext context, var gColor1, var gColor2, var value, {required Function onTap}) {
   return Container(
     height: 100,
-    decoration: boxDecoration(showShadow: true, radius: 0, bgColor: food_white),
-    padding: EdgeInsets.all(spacing_standard_new),
+    decoration: BoxDecoration(boxShadow: defaultBoxShadow(), border: Border.all(color: white), color: white),
+    padding: EdgeInsets.all(16),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -365,24 +300,24 @@ Widget mBottom(BuildContext context, var gColor1, var gColor2, var value, var ta
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            text(food_lbl_1799, fontFamily: fontMedium, fontSize: textSizeLargeMedium),
-            text(food_lbl_view_bill_details, textColor: food_colorPrimary),
+            Text(food_lbl_1799, style: primaryTextStyle(size: 18)),
+            Text(food_lbl_view_bill_details, style: primaryTextStyle(color: food_colorPrimary)),
           ],
         ),
         GestureDetector(
           onTap: () {
-            launchScreen(context, tags);
+            onTap();
           },
           child: Container(
-            padding: EdgeInsets.fromLTRB(spacing_large, spacing_middle, spacing_large, spacing_middle),
+            padding: EdgeInsets.fromLTRB(24, 10, 24, 10),
             decoration: gradientBoxDecoration(radius: 50, showShadow: true, gradientColor1: gColor1, gradientColor2: gColor2),
             child: RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
                 children: [
-                  TextSpan(text: value, style: TextStyle(fontFamily: fontMedium, fontSize: textSizeMedium, color: food_white)),
+                  TextSpan(text: value, style: primaryTextStyle(size: 16, color: food_white)),
                   WidgetSpan(
-                    child: Padding(padding: const EdgeInsets.only(left: spacing_standard), child: Icon(Icons.arrow_forward, color: food_white, size: 18)),
+                    child: Padding(padding: EdgeInsets.only(left: 4), child: Icon(Icons.arrow_forward, color: food_white, size: 18)),
                   ),
                 ],
               ),
@@ -392,8 +327,4 @@ Widget mBottom(BuildContext context, var gColor1, var gColor2, var value, var ta
       ],
     ),
   );
-}
-
-Widget mDot() {
-  return Container(decoration: BoxDecoration(shape: BoxShape.circle, color: food_view_color), width: 8, height: 8);
 }

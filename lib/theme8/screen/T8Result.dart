@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:prokit_flutter/main.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/main/utils/percent_indicator/circular_percent_indicator.dart';
 import 'package:prokit_flutter/theme8/utils/T8Colors.dart';
 import 'package:prokit_flutter/theme8/utils/T8Constant.dart';
-import 'package:prokit_flutter/theme8/utils/T8Extension.dart';
 import 'package:prokit_flutter/theme8/utils/T8Images.dart';
-import 'package:prokit_flutter/theme8/utils/T8Widget.dart';
 
 class T8Result extends StatefulWidget {
   static String tag = '/T8Result';
 
   const T8Result({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -22,12 +22,13 @@ class T8Result extends StatefulWidget {
 class T8ResultState extends State<T8Result> {
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(t8_app_background);
-    return new Scaffold(
-      backgroundColor: t8_app_background,
+    changeStatusColor(appStore.appBarColor!);
+    return Scaffold(
+      backgroundColor: appStore.scaffoldBackground,
       body: SafeArea(
         child: Container(
           height: MediaQuery.of(context).size.height,
+          color: appStore.scaffoldBackground,
           child: Stack(
             alignment: Alignment.topCenter,
             children: <Widget>[
@@ -39,7 +40,7 @@ class T8ResultState extends State<T8Result> {
                 child: IconButton(
                   icon: Icon(
                     Icons.close,
-                    color: t8_icon_color,
+                    color: appStore.iconColor,
                   ),
                   onPressed: () {
                     Navigator.of(context).pop();
@@ -64,30 +65,23 @@ class T8ResultState extends State<T8Result> {
                       center: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          text("100", fontSize: 20.0, fontFamily: fontBold),
-                          text(
-                            "5 out 5",
-                            textColor: t8_textColorSecondary,
-                          ),
+                          text("100", textColor: appStore.textPrimaryColor, fontSize: 20.0, fontFamily: fontBold),
+                          text("5 out 5", textColor: appStore.textSecondaryColor),
                         ],
                       ),
                       footer: Container(
                         transform: Matrix4.translationValues(0.0, -30.0, 0.0),
-                        decoration: boxDecoration(
-                            showShadow: true, bgColor: t8_white, radius: 8),
+                        decoration: boxDecoration(showShadow: true, bgColor: t8_white, radius: 8),
                         padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
-                        child: new Text(
+                        child: Text(
                           "+50 XP",
-                          style: new TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 17.0),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.0),
                         ),
                       ),
                       progressColor: t8_colorAccent,
                     ),
-                    text("You are awesome!",
-                        fontFamily: fontMedium, fontSize: textSizeLargeMedium),
-                    text("Congratulations for getting\nall the answer correct!",
-                        isLongText: true, textColor: t8_textColorSecondary),
+                    text("You are awesome!", fontFamily: fontMedium, fontSize: textSizeLargeMedium),
+                    text("Congratulations for getting\nall the answer correct!", isLongText: true, textColor: appStore.textSecondaryColor, isCentered: true),
                   ],
                 ),
               ),
@@ -100,53 +94,37 @@ class T8ResultState extends State<T8Result> {
                         margin: EdgeInsets.only(left: 16, bottom: 20),
                         width: MediaQuery.of(context).size.width * 0.15,
                         height: MediaQuery.of(context).size.width * 0.15,
-                        decoration: boxDecoration(
-                            radius: 10,
-                            bgColor: t8_color_facebook,
-                            showShadow: true),
+                        decoration: boxDecoration(radius: 10, bgColor: t8_color_facebook, showShadow: true),
                         child: Padding(
                           padding: EdgeInsets.all(10.0),
-                          child:
-                              SvgPicture.asset(t8_ic_facebook, color: t8_white),
+                          child: SvgPicture.asset(t8_ic_facebook, color: t8_white),
                         )),
                     Container(
                         margin: EdgeInsets.only(left: 16, bottom: 20),
                         width: MediaQuery.of(context).size.width * 0.15,
                         height: MediaQuery.of(context).size.width * 0.15,
-                        decoration: boxDecoration(
-                            radius: 10,
-                            bgColor: t8_form_google,
-                            showShadow: true),
+                        decoration: boxDecoration(radius: 10, bgColor: t8_form_google, showShadow: true),
                         child: Padding(
                           padding: EdgeInsets.all(10.0),
-                          child:
-                              SvgPicture.asset(t8_ic_google, color: t8_white),
+                          child: SvgPicture.asset(t8_ic_google, color: t8_white),
                         )),
                     Container(
                         margin: EdgeInsets.only(left: 16, bottom: 20),
                         width: MediaQuery.of(context).size.width * 0.15,
                         height: MediaQuery.of(context).size.width * 0.15,
-                        decoration: boxDecoration(
-                            radius: 10,
-                            bgColor: t8_color_message,
-                            showShadow: true),
+                        decoration: boxDecoration(radius: 10, bgColor: t8_color_message, showShadow: true),
                         child: Padding(
                           padding: EdgeInsets.all(10.0),
                           child: SvgPicture.asset(t8_ic_mail, color: t8_white),
                         )),
                     Container(
-                        margin:
-                            EdgeInsets.only(left: 16, right: 16, bottom: 20),
+                        margin: EdgeInsets.only(left: 16, right: 16, bottom: 20),
                         width: MediaQuery.of(context).size.width * 0.15,
                         height: MediaQuery.of(context).size.width * 0.15,
-                        decoration: boxDecoration(
-                            radius: 10,
-                            bgColor: t8_color_twitter,
-                            showShadow: true),
+                        decoration: boxDecoration(radius: 10, bgColor: t8_color_twitter, showShadow: true),
                         child: Padding(
                           padding: EdgeInsets.all(10.0),
-                          child:
-                              SvgPicture.asset(t8_ic_twitter, color: t8_white),
+                          child: SvgPicture.asset(t8_ic_twitter, color: t8_white),
                         )),
                   ],
                 ),

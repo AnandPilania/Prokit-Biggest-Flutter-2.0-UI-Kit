@@ -1,7 +1,7 @@
-import 'package:date_utils/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:prokit_flutter/integrations/screens/flutterCalender/date_utils.dart';
 
 import 'CalendarTile.dart';
 import 'SimpleGestureDetector.dart';
@@ -10,34 +10,34 @@ typedef DayBuilder(BuildContext context, DateTime day);
 
 class Range {
   final DateTime from;
-  final DateTime to;
+  final DateTime? to;
 
   Range(this.from, this.to);
 }
 
 class Calendar extends StatefulWidget {
-  final ValueChanged<DateTime> onDateSelected;
-  final ValueChanged<DateTime> onMonthChanged;
-  final ValueChanged onRangeSelected;
+  final ValueChanged<DateTime>? onDateSelected;
+  final ValueChanged<DateTime>? onMonthChanged;
+  final ValueChanged? onRangeSelected;
   final bool isExpandable;
-  final DayBuilder dayBuilder;
+  final DayBuilder? dayBuilder;
   final bool hideArrows;
   final bool hideTodayIcon;
-  final Map<DateTime, List> events;
-  final Color selectedColor;
-  final Color todayColor;
-  final Color eventColor;
-  final Color eventDoneColor;
-  final DateTime initialDate;
+  final Map<DateTime, List>? events;
+  final Color? selectedColor;
+  final Color? todayColor;
+  final Color? eventColor;
+  final Color? eventDoneColor;
+  final DateTime? initialDate;
   final bool isExpanded;
   final List<String> weekDays;
   final String locale;
   final bool startOnMonday;
   final bool hideBottomBar;
-  final TextStyle dayOfWeekStyle;
-  final TextStyle bottomBarTextStyle;
-  final Color bottomBarArrowColor;
-  final Color bottomBarColor;
+  final TextStyle? dayOfWeekStyle;
+  final TextStyle? bottomBarTextStyle;
+  final Color? bottomBarArrowColor;
+  final Color? bottomBarColor;
 
   Calendar({
     this.onMonthChanged,
@@ -70,10 +70,10 @@ class Calendar extends StatefulWidget {
 
 class _CalendarState extends State<Calendar> {
   final calendarUtils = Utils();
-  List<DateTime> selectedMonthsDays;
-  Iterable<DateTime> selectedWeekDays;
+  late List<DateTime> selectedMonthsDays;
+  late Iterable<DateTime> selectedWeekDays;
   DateTime _selectedDate = DateTime.now();
-  String currentMonth;
+  String? currentMonth;
   bool isExpanded = false;
   String displayMonth = "";
 
@@ -81,8 +81,8 @@ class _CalendarState extends State<Calendar> {
 
   void initState() {
     super.initState();
-    _selectedDate = widget?.initialDate ?? DateTime.now();
-    isExpanded = widget?.isExpanded ?? false;
+    _selectedDate = widget.initialDate ?? DateTime.now();
+    isExpanded = widget.isExpanded;
     selectedMonthsDays = _daysInMonth(_selectedDate);
     selectedWeekDays = Utils.daysInRange(_firstDayOfWeek(_selectedDate), _lastDayOfWeek(_selectedDate)).toList();
     initializeDateFormatting(widget.locale, null).then((_) => setState(() {
@@ -167,7 +167,7 @@ class _CalendarState extends State<Calendar> {
 
   List<Widget> calendarBuilder() {
     List<Widget> dayWidgets = [];
-    List<DateTime> calendarDays = isExpanded ? selectedMonthsDays : selectedWeekDays;
+    List<DateTime> calendarDays = isExpanded ? selectedMonthsDays : selectedWeekDays as List<DateTime>;
     widget.weekDays.forEach(
       (day) {
         dayWidgets.add(
@@ -176,7 +176,7 @@ class _CalendarState extends State<Calendar> {
             todayColor: widget.todayColor,
             eventColor: widget.eventColor,
             eventDoneColor: widget.eventDoneColor,
-            events: widget.events[day],
+            events: widget.events![day],
             isDayOfWeek: true,
             dayOfWeek: day,
             dayOfWeekStyle: widget.dayOfWeekStyle ??
@@ -215,8 +215,8 @@ class _CalendarState extends State<Calendar> {
               todayColor: widget.todayColor,
               eventColor: widget.eventColor,
               eventDoneColor: widget.eventDoneColor,
-              events: widget.events[day],
-              child: this.widget.dayBuilder(context, day),
+              events: widget.events![day],
+              child: this.widget.dayBuilder!(context, day),
               date: day,
               onDateSelected: () => handleSelectedDateAndUserCallback(day),
             ),
@@ -228,7 +228,7 @@ class _CalendarState extends State<Calendar> {
                 todayColor: widget.todayColor,
                 eventColor: widget.eventColor,
                 eventDoneColor: widget.eventDoneColor,
-                events: widget.events[day],
+                events: widget.events![day],
                 onDateSelected: () => handleSelectedDateAndUserCallback(day),
                 date: day,
                 dateStyles: configureDateStyle(monthStarted, monthEnded),
@@ -241,17 +241,17 @@ class _CalendarState extends State<Calendar> {
     return dayWidgets;
   }
 
-  TextStyle configureDateStyle(monthStarted, monthEnded) {
-    TextStyle dateStyles;
-    final TextStyle body1Style = Theme.of(context).textTheme.body1;
+  TextStyle? configureDateStyle(monthStarted, monthEnded) {
+    TextStyle? dateStyles;
+    final TextStyle? body1Style = Theme.of(context).textTheme.body1;
 
     if (isExpanded) {
-      final TextStyle body1StyleDisabled = body1Style.copyWith(
+      final TextStyle body1StyleDisabled = body1Style!.copyWith(
           color: Color.fromARGB(
         100,
-        body1Style.color.red,
-        body1Style.color.green,
-        body1Style.color.blue,
+        body1Style.color!.red,
+        body1Style.color!.green,
+        body1Style.color!.blue,
       ));
 
       dateStyles = monthStarted && !monthEnded ? body1Style : body1StyleDisabled;
@@ -387,10 +387,10 @@ class _CalendarState extends State<Calendar> {
     _launchDateSelectionCallback(_selectedDate);
   }
 
-  void updateSelectedRange(DateTime start, DateTime end) {
+  void updateSelectedRange(DateTime start, DateTime? end) {
     Range _rangeSelected = Range(start, end);
     if (widget.onRangeSelected != null) {
-      widget.onRangeSelected(_rangeSelected);
+      widget.onRangeSelected!(_rangeSelected);
     }
   }
 
@@ -444,10 +444,10 @@ class _CalendarState extends State<Calendar> {
 
   void _launchDateSelectionCallback(DateTime day) {
     if (widget.onDateSelected != null) {
-      widget.onDateSelected(day);
+      widget.onDateSelected!(day);
     }
     if (widget.onMonthChanged != null) {
-      widget.onMonthChanged(day);
+      widget.onMonthChanged!(day);
     }
   }
 
@@ -479,9 +479,9 @@ class _CalendarState extends State<Calendar> {
 }
 
 class ExpansionCrossFade extends StatelessWidget {
-  final Widget collapsed;
-  final Widget expanded;
-  final bool isExpanded;
+  final Widget? collapsed;
+  final Widget? expanded;
+  final bool? isExpanded;
 
   ExpansionCrossFade({this.collapsed, this.expanded, this.isExpanded});
 
@@ -490,12 +490,12 @@ class ExpansionCrossFade extends StatelessWidget {
     return Flexible(
       flex: 1,
       child: AnimatedCrossFade(
-        firstChild: collapsed,
-        secondChild: expanded,
+        firstChild: collapsed!,
+        secondChild: expanded!,
         firstCurve: const Interval(0.0, 1.0, curve: Curves.fastOutSlowIn),
         secondCurve: const Interval(0.0, 1.0, curve: Curves.fastOutSlowIn),
         sizeCurve: Curves.decelerate,
-        crossFadeState: isExpanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+        crossFadeState: isExpanded! ? CrossFadeState.showSecond : CrossFadeState.showFirst,
         duration: const Duration(milliseconds: 300),
       ),
     );

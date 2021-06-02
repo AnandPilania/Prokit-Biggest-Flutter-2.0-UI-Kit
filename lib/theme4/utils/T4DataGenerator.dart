@@ -4,7 +4,7 @@ import 'package:prokit_flutter/theme4/utils/T4Images.dart';
 import 'T4Colors.dart';
 
 List<T4NewsModel> getList1Data() {
-  var list = List<T4NewsModel>();
+  List<T4NewsModel> list = [];
   var model1 = T4NewsModel();
   model1.name = "Life speed racered";
   model1.info = "7th aug- 3 min read";
@@ -51,7 +51,7 @@ List<T4NewsModel> getList1Data() {
 }
 
 List<T4NewsModel> getCategoryData() {
-  var list = List<T4NewsModel>();
+  List<T4NewsModel> list = [];
   var model1 = T4NewsModel();
   model1.category = "World";
   model1.color = t4_cat1;
@@ -83,7 +83,7 @@ List<T4NewsModel> getCategoryData() {
 }
 
 List<T4NewsModel> getList2Data() {
-  var list = List<T4NewsModel>();
+  List<T4NewsModel> list = [];
   var model1 = T4NewsModel();
   model1.name = "Life speed racered";
   model1.info = "7th aug- 3 min read";
@@ -112,7 +112,7 @@ List<T4NewsModel> getList2Data() {
 }
 
 List<T4NewsModel> getDashboardData() {
-  var list = List<T4NewsModel>();
+  List<T4NewsModel> list = [];
   var model1 = T4NewsModel();
   model1.name = "Life speed racered";
   model1.info = "7th aug- 3 min read";

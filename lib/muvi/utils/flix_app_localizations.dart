@@ -11,11 +11,11 @@ class MuviAppLocalizations {
 
   MuviAppLocalizations(this.locale);
 
-  static MuviAppLocalizations of(BuildContext context) {
+  static MuviAppLocalizations? of(BuildContext context) {
     return Localizations.of<MuviAppLocalizations>(context, MuviAppLocalizations);
   }
 
-  Map<String, String> _localizedStrings;
+  late Map<String, String> _localizedStrings;
 
   Future<bool> load() async {
     // Load the language JSON file from the "lang" folder
@@ -30,7 +30,7 @@ class MuviAppLocalizations {
   }
 
   // This method will be called from every widget which needs a localized text
-  String translate(String key) {
+  String? translate(String key) {
     return _localizedStrings[key];
   }
 }
@@ -58,6 +58,6 @@ class _MuviAppLocalizationsDelegate extends LocalizationsDelegate<MuviAppLocaliz
   bool shouldReload(_MuviAppLocalizationsDelegate old) => true;
 }
 
-String keyString(BuildContext context, String key) {
-  return MuviAppLocalizations.of(context).translate(key);
+String? keyString(BuildContext context, String key) {
+  return MuviAppLocalizations.of(context)!.translate(key);
 }

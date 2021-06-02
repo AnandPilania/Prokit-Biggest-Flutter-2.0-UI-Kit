@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-
 import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class MWFloatingActionButtonScreen extends StatefulWidget {
   static String tag = '/MWFloatingActionButtonScreen';
 
   @override
-  MWFloatingActionButtonScreenState createState() =>
-      MWFloatingActionButtonScreenState();
+  MWFloatingActionButtonScreenState createState() => MWFloatingActionButtonScreenState();
 }
 
-class MWFloatingActionButtonScreenState
-    extends State<MWFloatingActionButtonScreen> {
+class MWFloatingActionButtonScreenState extends State<MWFloatingActionButtonScreen> {
   @override
   void initState() {
     super.initState();
@@ -97,8 +94,7 @@ class MWFloatingActionButtonScreenState
               Center(
                 child: FloatingActionButton(
                     heroTag: '4',
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     backgroundColor: Colors.amber,
                     child: Icon(
                       Icons.shopping_cart,
@@ -137,8 +133,7 @@ class MWFloatingActionButtonScreenState
                   FloatingActionButton.extended(
                       heroTag: '6',
                       elevation: 4,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.0)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
                       label: Text(
                         "Take pic",
                         style: primaryTextStyle(color: Colors.white),

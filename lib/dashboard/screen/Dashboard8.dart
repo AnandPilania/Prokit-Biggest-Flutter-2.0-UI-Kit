@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:prokit_flutter/dashboard/model/db8/Db8Model.dart';
-import 'package:prokit_flutter/dashboard/utils/Db8Widget.dart';
 import 'package:prokit_flutter/dashboard/utils/DbColors.dart';
-import 'package:prokit_flutter/dashboard/utils/DbConstant.dart';
 import 'package:prokit_flutter/dashboard/utils/DbDataGenerator.dart';
 import 'package:prokit_flutter/dashboard/utils/DbImages.dart';
 import 'package:prokit_flutter/dashboard/utils/DbStrings.dart';
+import 'package:prokit_flutter/main/utils/AppConstant.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class Dashboard8 extends StatefulWidget {
   static String tag = '/Dashboard8';
@@ -17,8 +17,8 @@ class Dashboard8 extends StatefulWidget {
 }
 
 class Dashboard8State extends State<Dashboard8> {
-  List<DB8Scene> mList1;
-  List<DB8Rooms> mList2;
+  late List<DB8Scene> mList1;
+  late List<DB8Rooms> mList2;
 
   @override
   void initState() {
@@ -80,7 +80,7 @@ class Dashboard8State extends State<Dashboard8> {
             child: Container(
               alignment: Alignment.center,
               margin: EdgeInsets.only(left: 16),
-              decoration: boxDecoration(bgColor: mSelection == index ? db8_colorPrimary : db8_white),
+              decoration: boxDecoration(bgColor: mSelection == index ? db8_colorPrimary : db8_white, radius: 10),
               padding: EdgeInsets.fromLTRB(16, 10, 16, 10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -110,7 +110,7 @@ class Dashboard8State extends State<Dashboard8> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Icon(Icons.menu, color: db8_white, size: 24),
-                      text(db8_lbl_control_panel, textColor: db8_white, fontSize: textSizeNormal, fontFamily: fontBold),
+                      text(db8_lbl_control_panel, textColor: db8_white, fontSize: 20.0, fontFamily: fontBold),
                       SvgPicture.asset(db8_ic_notification, color: db8_white, width: 24, height: 24),
                     ],
                   ),
@@ -126,13 +126,13 @@ class Dashboard8State extends State<Dashboard8> {
                       ),
                       Column(
                         children: <Widget>[
-                          text(db8_lbl_19_c, textColor: db8_white, fontSize: textSizeLargeMedium),
+                          text(db8_lbl_19_c, textColor: db8_white, fontSize: 18.0),
                           text(db8_lbl_temp_outside, textColor: db8_white),
                         ],
                       ),
                       Column(
                         children: <Widget>[
-                          text(db8_lbl_25_c, textColor: db8_white, fontSize: textSizeLargeMedium),
+                          text(db8_lbl_25_c, textColor: db8_white, fontSize: 18.0),
                           text(db8_lbl_temp_indoor, textColor: db8_white),
                         ],
                       ),
@@ -195,7 +195,7 @@ class Dashboard8State extends State<Dashboard8> {
 }
 
 class Rooms extends StatelessWidget {
-  DB8Rooms model;
+  late DB8Rooms model;
 
   Rooms(DB8Rooms model, int pos) {
     this.model = model;
@@ -207,7 +207,7 @@ class Rooms extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(left: 16),
       width: MediaQuery.of(context).size.width * 0.7,
-      decoration: boxDecoration(),
+      decoration: boxDecoration(radius: 10),
       padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/smartDeck/SDUtils/SDColors.dart';
-import 'package:prokit_flutter/smartDeck/SDUtils/SDStyle.dart';
 
 class SDSettingScreen extends StatefulWidget {
   @override
@@ -18,36 +19,19 @@ class _SDSettingScreenState extends State<SDSettingScreen> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Icon(
-                  icon,
-                  color: sdIconColor,
-                  size: 18,
-                ),
-                SizedBox(
-                  width: 16,
-                ),
-                Text(
-                  heading,
-                  style:
-                      primaryTextStyle(size: 16, textColor: sdTextPrimaryColor),
-                ),
+                Icon(icon, color: sdIconColor, size: 18),
+                SizedBox(width: 16),
+                Text(heading, style: primaryTextStyle(size: 16, color: sdTextPrimaryColor)),
               ],
             ),
-            Icon(
-              Icons.keyboard_arrow_right,
-              color: sdIconColor,
-            )
+            Icon(Icons.keyboard_arrow_right, color: sdIconColor)
           ],
         ),
       );
     }
 
     Widget mDivider() {
-      return Container(
-        color: sdViewColor,
-//        margin: EdgeInsets.only(bottom: 10),
-        height: 1,
-      );
+      return Container(color: sdViewColor, height: 1);
     }
 
     changeStatusColor(sdAppBackground);
@@ -56,12 +40,9 @@ class _SDSettingScreenState extends State<SDSettingScreen> {
         appBar: AppBar(
           leading: InkWell(
             onTap: () {
-              Navigator.pop(context);
+              finish(context);
             },
-            child: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
+            child: Icon(Icons.arrow_back, color: Colors.black),
           ),
           title: Text('Settings', style: boldTextStyle(size: 20)),
           backgroundColor: Colors.transparent,

@@ -1,20 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/muvi/models/flix_response.dart';
 import 'package:prokit_flutter/muvi/screens/flix_view_movie_screen.dart';
 import 'package:prokit_flutter/muvi/utils/flix_app_localizations.dart';
 import 'package:prokit_flutter/muvi/utils/flix_app_widgets.dart';
 import 'package:prokit_flutter/muvi/utils/flix_constants.dart';
 import 'package:prokit_flutter/muvi/utils/flix_data_generator.dart';
-import 'package:prokit_flutter/muvi/utils/flix_widget_extensions.dart';
+
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_colors.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_images.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_size.dart';
 
 class MovieDetail2Screen extends StatefulWidget {
   static String tag = '/MovieDetail2Screen';
-  var title = "";
+  String? title = "";
 
   MovieDetail2Screen({this.title});
 
@@ -23,8 +26,8 @@ class MovieDetail2Screen extends StatefulWidget {
 }
 
 class MovieDetail2ScreenState extends State<MovieDetail2Screen> {
-  var mMovieList = List<Movie>();
-  var mMovieOriginalsList = List<Movie>();
+  List<Movie> mMovieList = [];
+  List<Movie> mMovieOriginalsList = [];
   var trailerVideo;
   var isloaded = false;
   var isLoading = false;
@@ -99,14 +102,13 @@ class MovieDetail2ScreenState extends State<MovieDetail2Screen> {
                         Container(
                           child: Column(
                             children: <Widget>[
-                              text(context, "The Silence", fontSize: ts_xlarge, textColor: muvi_textColorPrimary, fontFamily: font_bold)
-                                  .paddingOnly(left: spacing_standard_new, right: spacing_standard_new),
+                              text("The Silence", fontSize: ts_xlarge, textColor: muvi_textColorPrimary, fontFamily: font_bold).paddingOnly(left: spacing_standard_new, right: spacing_standard_new),
                               Row(
                                 children: <Widget>[
                                   itemSubTitle(context, "1h 29m"),
                                   Container(
-                                    decoration: boxDecoration(context, color: muvi_textColorSecondary, bgColor: Colors.transparent),
-                                    child: text(context, "HD", fontSize: ts_medium_small),
+                                    decoration: boxDecoration(color: muvi_textColorSecondary, bgColor: Colors.transparent),
+                                    child: text("HD", fontSize: ts_medium_small),
                                     padding: EdgeInsets.only(left: spacing_control_half, right: spacing_control_half, top: 0, bottom: 0),
                                   ).paddingLeft(spacing_control_half)
                                 ],

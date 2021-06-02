@@ -34,15 +34,16 @@ class _MWTextFieldScreen1State extends State<MWTextFieldScreen1> {
                 style: primaryTextStyle(),
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: appStore.textPrimaryColor),
+                    borderSide: BorderSide(color: appStore.textPrimaryColor!),
                   ),
                   enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: appStore.textPrimaryColor),
+                    borderSide: BorderSide(color: appStore.textPrimaryColor!),
                   ),
                   labelText: 'Username',
                   labelStyle: primaryTextStyle(size: 14),
                   filled: true,
                 ),
+                cursorColor: appStore.isDarkModeOn ? white : blackColor,
                 keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.done,
               ),
@@ -50,10 +51,10 @@ class _MWTextFieldScreen1State extends State<MWTextFieldScreen1> {
                 style: primaryTextStyle(),
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: appStore.textPrimaryColor),
+                    borderSide: BorderSide(color: appStore.textPrimaryColor!),
                   ),
                   enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: appStore.textPrimaryColor),
+                    borderSide: BorderSide(color: appStore.textPrimaryColor!),
                   ),
                   labelText: "E-Mail",
                   labelStyle: primaryTextStyle(size: 14),
@@ -63,6 +64,7 @@ class _MWTextFieldScreen1State extends State<MWTextFieldScreen1> {
                   ),
                   filled: true,
                 ),
+                cursorColor: appStore.isDarkModeOn ? white : blackColor,
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.done,
               ),
@@ -74,10 +76,10 @@ class _MWTextFieldScreen1State extends State<MWTextFieldScreen1> {
                     labelText: 'Password',
                     labelStyle: primaryTextStyle(size: 14),
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: appStore.textPrimaryColor),
+                      borderSide: BorderSide(color: appStore.textPrimaryColor!),
                     ),
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: appStore.textPrimaryColor),
+                      borderSide: BorderSide(color: appStore.textPrimaryColor!),
                     ),
                     filled: true,
                     suffixIcon: IconButton(
@@ -91,38 +93,38 @@ class _MWTextFieldScreen1State extends State<MWTextFieldScreen1> {
                         });
                       },
                     )),
+                cursorColor: appStore.isDarkModeOn ? white : blackColor,
               ),
               TextField(
                 style: primaryTextStyle(),
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: appStore.textPrimaryColor),
+                    borderSide: BorderSide(color: appStore.textPrimaryColor!),
                   ),
                   enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: appStore.textPrimaryColor),
+                    borderSide: BorderSide(color: appStore.textPrimaryColor!),
                   ),
                   labelText: "Phone Number",
                   labelStyle: primaryTextStyle(size: 14),
                   prefixIcon: Icon(Icons.phone, color: Colors.blue),
                   filled: true,
                 ),
+                cursorColor: appStore.isDarkModeOn ? white : blackColor,
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.done,
               ),
               TextField(
                 style: primaryTextStyle(),
                 decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: appStore.textPrimaryColor),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: appStore.textPrimaryColor),
-                  ),
+                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: appStore.textPrimaryColor!)),
+                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: appStore.textPrimaryColor!)),
                   labelText: "Pincode",
                   labelStyle: primaryTextStyle(size: 14),
                   filled: true,
+                  counterStyle: secondaryTextStyle(),
                 ),
                 maxLength: 6,
+                cursorColor: appStore.isDarkModeOn ? white : blackColor,
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.done,
               ),

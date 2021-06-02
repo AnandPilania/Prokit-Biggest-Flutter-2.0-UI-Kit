@@ -4,7 +4,7 @@ import 'package:prokit_flutter/theme2/utils/T2Strings.dart';
 import 'T2Images.dart';
 
 List<T2Favourite> getFavourites() {
-  List<T2Favourite> list = List<T2Favourite>();
+  List<T2Favourite> list = [];
   T2Favourite model1 = T2Favourite();
   model1.name = "Best Jogging tips in the world";
   model1.duration = "5 min ago";
@@ -54,7 +54,7 @@ List<T2Favourite> getFavourites() {
 }
 
 List<T2Slider> getSliders() {
-  List<T2Slider> list = List<T2Slider>();
+  List<T2Slider> list = [];
   T2Slider model1 = T2Slider();
   model1.title = t2_usable_flower_for_health;
   model1.subTitle = t2_sample_text;
@@ -76,7 +76,7 @@ List<T2Slider> getSliders() {
 }
 
 List<T2ListModel> getListData() {
-  List<T2ListModel> mData = List<T2ListModel>();
+  List<T2ListModel> mData = [];
 
   T2ListModel model1 = T2ListModel();
   model1.name = "Flower Tips";

@@ -1,12 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme10/utils/T10Colors.dart';
 import 'package:prokit_flutter/theme10/utils/T10Constant.dart';
-import 'package:prokit_flutter/theme10/utils/T10Extension.dart';
 import 'package:prokit_flutter/theme10/utils/T10Images.dart';
 import 'package:prokit_flutter/theme10/utils/T10Strings.dart';
 import 'package:prokit_flutter/theme10/utils/T10Widget.dart';
+
+import '../../main.dart';
 
 class T10Description extends StatefulWidget {
   static String tag = '/T10Description';
@@ -18,14 +21,13 @@ class T10Description extends StatefulWidget {
 class T10DescriptionState extends State<T10Description> {
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(t10_white);
+    changeStatusColor(appStore.appBarColor!);
     var width = MediaQuery.of(context).size.width;
 
     Widget mTag(var value) {
       return Container(
-        decoration: boxDecoration(color: t10_view_color),
-        padding: EdgeInsets.fromLTRB(spacing_standard_new, spacing_control,
-            spacing_standard_new, spacing_control),
+        decoration: boxDecoration(color: t10_view_color, bgColor: appStore.scaffoldBackground, showShadow: true),
+        padding: EdgeInsets.fromLTRB(spacing_standard_new, spacing_control, spacing_standard_new, spacing_control),
         child: text(value, textColor: t10_textColorSecondary),
       );
     }
@@ -33,31 +35,20 @@ class T10DescriptionState extends State<T10Description> {
     Widget mInfo() {
       return Container(
         margin: EdgeInsets.all(spacing_standard_new),
+        color: appStore.scaffoldBackground,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            text(theme10_sample_long_text,
-                textColor: t10_textColorSecondary, isLongText: true),
-            SizedBox(
-              height: spacing_standard_new,
-            ),
-            Divider(
-              height: 1,
-              color: t10_view_color,
-            ),
-            SizedBox(
-              height: spacing_standard_new,
-            ),
+            Text(theme10_sample_long_text, style: secondaryTextStyle()),
+            SizedBox(height: spacing_standard_new),
+            Divider(height: 1, color: t10_view_color),
+            SizedBox(height: spacing_standard_new),
             Row(
               children: <Widget>[
                 mTag(theme10_lbl_bags),
-                SizedBox(
-                  width: spacing_standard_new,
-                ),
+                SizedBox(width: spacing_standard_new),
                 mTag(theme10_lbl_shoes),
-                SizedBox(
-                  width: spacing_standard_new,
-                ),
+                SizedBox(width: spacing_standard_new),
                 mTag(theme10_lbl_packs),
               ],
             )
@@ -67,7 +58,7 @@ class T10DescriptionState extends State<T10Description> {
     }
 
     return Scaffold(
-      backgroundColor: t10_white,
+      backgroundColor: appStore.scaffoldBackground,
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -81,32 +72,25 @@ class T10DescriptionState extends State<T10Description> {
                       child: Column(
                         children: <Widget>[
                           CachedNetworkImage(
+                            placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                             imageUrl: t10_slider_3,
                             width: width,
                             height: width * 0.4,
                             fit: BoxFit.fill,
                           ),
-                          SizedBox(
-                            height: spacing_standard_new,
-                          ),
+                          SizedBox(height: spacing_standard_new),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              text(theme10_nike_shoes,
-                                  fontFamily: fontMedium,
-                                  fontSize: textSizeNormal),
-                              text(theme10_100,
-                                  fontFamily: fontMedium,
-                                  fontSize: textSizeNormal),
+                              text(theme10_nike_shoes, fontFamily: fontMedium, fontSize: textSizeNormal),
+                              text(theme10_100, fontFamily: fontMedium, fontSize: textSizeNormal),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              text(theme10_from_boots_category,
-                                  textColor: t10_textColorSecondary),
-                              text(theme10__50,
-                                  textColor: t10_textColorSecondary),
+                              text(theme10_from_boots_category, textColor: t10_textColorSecondary),
+                              text(theme10__50, textColor: t10_textColorSecondary),
                             ],
                           )
                         ],
@@ -119,22 +103,16 @@ class T10DescriptionState extends State<T10Description> {
                         labelColor: t10_colorPrimary,
                         tabs: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                            child: text(
-                              theme10_lbl_tabDescription,
-                            ),
+                            padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
+                            child: text(theme10_lbl_tabDescription),
                           ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                            child: text(
-                              theme10_lbl_tabSpecification,
-                            ),
+                            padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
+                            child: text(theme10_lbl_tabSpecification),
                           ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                            child: text(
-                              theme10_lbl_tab_more_info,
-                            ),
+                            padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
+                            child: text(theme10_lbl_tab_more_info),
                           ),
                         ],
                       ),

@@ -1,37 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizExtension.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
+import '../../main.dart';
 import 'T10Colors.dart';
 import 'T10Constant.dart';
 import 'T10Images.dart';
-
-Widget text(String text,
-    {var fontSize = textSizeMedium,
-    textColor = t10_textColorPrimary,
-    var fontFamily = fontRegular,
-    var isCentered = false,
-    var maxLine = 1,
-    var lineThrough = false,
-    var latterSpacing = 0.25,
-    var textAllCaps = false,
-    var isLongText = false}) {
-  return Text(textAllCaps ? text.toUpperCase() : text,
-      textAlign: isCentered ? TextAlign.center : TextAlign.start,
-      maxLines: isLongText ? null : maxLine,
-      style: TextStyle(
-          fontFamily: fontFamily, fontSize: fontSize, decoration: lineThrough ? TextDecoration.lineThrough : TextDecoration.none, color: textColor, height: 1.5, letterSpacing: latterSpacing));
-}
-
-BoxDecoration boxDecoration({double radius = 10, Color color = Colors.transparent, Color bgColor = t10_white, var showShadow = false}) {
-  return BoxDecoration(
-      color: bgColor,
-      //gradient: LinearGradient(colors: [bgColor, whiteColor]),
-      boxShadow: showShadow ? [BoxShadow(color: t10_ShadowColor, blurRadius: 10, spreadRadius: 2)] : [BoxShadow(color: Colors.transparent)],
-      border: Border.all(color: color),
-      borderRadius: BorderRadius.all(Radius.circular(radius)));
-}
 
 class EditText extends StatefulWidget {
   var isPassword;
@@ -41,9 +17,9 @@ class EditText extends StatefulWidget {
   var fontFamily;
   var text;
   var maxLine;
-  TextEditingController mController;
+  TextEditingController? mController;
 
-  VoidCallback onPressed;
+  VoidCallback? onPressed;
 
   EditText(
       {var this.fontSize = textSizeMedium,
@@ -73,15 +49,17 @@ class EditTextState extends State<EditText> {
           contentPadding: EdgeInsets.fromLTRB(16, 8, 4, 8),
           hintText: widget.text,
           labelText: widget.text,
+          hintStyle: secondaryTextStyle(),
+          labelStyle: secondaryTextStyle(),
           enabledBorder: UnderlineInputBorder(
-            borderSide: const BorderSide(color: t10_view_color, width: 0.0),
+            borderSide: BorderSide(color: appStore.textPrimaryColor!, width: 0.0),
           ),
           focusedBorder: UnderlineInputBorder(
-            borderSide: const BorderSide(color: t10_view_color, width: 0.0),
+            borderSide: BorderSide(color: appStore.textPrimaryColor!, width: 0.0),
           ),
         ),
         maxLines: widget.maxLine,
-        style: TextStyle(fontSize: widget.fontSize, color: t10_textColorPrimary, fontFamily: widget.fontFamily),
+        style: TextStyle(fontSize: widget.fontSize, color: appStore.textPrimaryColor, fontFamily: widget.fontFamily),
       );
     } else {
       return TextField(
@@ -89,48 +67,50 @@ class EditTextState extends State<EditText> {
         obscureText: widget.isPassword,
         cursorColor: t10_colorPrimary,
         decoration: InputDecoration(
-          suffixIcon: new GestureDetector(
+          suffixIcon: GestureDetector(
             onTap: () {
               setState(() {
                 widget.isPassword = !widget.isPassword;
               });
             },
-            child: new Icon(widget.isPassword ? Icons.visibility : Icons.visibility_off),
+            child: Icon(widget.isPassword ? Icons.visibility : Icons.visibility_off, color: appStore.iconColor),
           ),
           contentPadding: EdgeInsets.fromLTRB(16, 8, 4, 8),
           hintText: widget.text,
           labelText: widget.text,
+          hintStyle: secondaryTextStyle(),
+          labelStyle: secondaryTextStyle(),
           enabledBorder: UnderlineInputBorder(
-            borderSide: const BorderSide(color: t10_view_color, width: 0.0),
+            borderSide: BorderSide(color: appStore.textPrimaryColor!, width: 0.0),
           ),
           focusedBorder: UnderlineInputBorder(
-            borderSide: const BorderSide(color: t10_view_color, width: 0.0),
+            borderSide: BorderSide(color: appStore.textPrimaryColor!, width: 0.0),
           ),
         ),
-        style: TextStyle(fontSize: widget.fontSize, color: t10_textColorPrimary, fontFamily: widget.fontFamily),
+        style: TextStyle(fontSize: widget.fontSize, color: appStore.textPrimaryColor, fontFamily: widget.fontFamily),
       );
     }
   }
 
   @override
-  State<StatefulWidget> createState() {
+  State<StatefulWidget>? createState() {
     return null;
   }
 }
 
-class AppButton extends StatefulWidget {
+class AppButtons extends StatefulWidget {
   var textContent;
   VoidCallback onPressed;
 
-  AppButton({@required this.textContent, @required this.onPressed});
+  AppButtons({required this.textContent, required this.onPressed});
 
   @override
   State<StatefulWidget> createState() {
-    return AppButtonState();
+    return AppButtonsState();
   }
 }
 
-class AppButtonState extends State<AppButton> {
+class AppButtonsState extends State<AppButtons> {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
@@ -158,7 +138,7 @@ class AppButtonState extends State<AppButton> {
   }
 
   @override
-  State<StatefulWidget> createState() {
+  State<StatefulWidget>? createState() {
     // TODO: implement createState
     return null;
   }
@@ -181,29 +161,28 @@ class T10TopBarState extends State<T10TopBar> {
     return SafeArea(
       child: Container(
         height: 60,
-        margin: EdgeInsets.only(right: spacing_standard_new),
+        width: MediaQuery.of(context).size.width,
+        color: appStore.appBarColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             IconButton(
               icon: Icon(Icons.arrow_back),
-              color: t10_textColorSecondary,
+              color: appStore.iconColor,
               onPressed: () {
-                back(context);
+                finish(context);
               },
             ),
             Center(
               child: text(
                 widget.titleName,
                 fontFamily: fontBold,
+                textColor: appStore.textPrimaryColor,
                 fontSize: textSizeLargeMedium,
               ),
             ),
-            SvgPicture.asset(
-              t10_ic_search,
-              color: t10_textColorSecondary,
-            ),
+            SvgPicture.asset(t10_ic_search, color: appStore.iconColor).paddingOnly(right: 16),
           ],
         ),
       ),
@@ -211,7 +190,7 @@ class T10TopBarState extends State<T10TopBar> {
   }
 
   @override
-  State<StatefulWidget> createState() {
+  State<StatefulWidget>? createState() {
     return null;
   }
 }

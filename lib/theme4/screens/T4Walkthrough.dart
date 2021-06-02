@@ -1,15 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:prokit_flutter/main/utils/dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/main/utils/dots_indicator/dots_indicator.dart';
 import 'package:prokit_flutter/theme4/utils/T4Colors.dart';
 import 'package:prokit_flutter/theme4/utils/T4Constant.dart';
-import 'package:prokit_flutter/theme4/utils/T4Extension.dart';
 import 'package:prokit_flutter/theme4/utils/T4Images.dart';
 import 'package:prokit_flutter/theme4/utils/T4Strings.dart';
-import 'package:prokit_flutter/theme4/utils/T4Widgets.dart';
 import 'package:prokit_flutter/theme4/utils/widgets/T4Button.dart';
+
+import '../../main.dart';
 
 class T4WalkThrough extends StatefulWidget {
   static var tag = "/T4WalkThrough";
@@ -29,7 +30,7 @@ class T4WalkThroughState extends State<T4WalkThrough> {
     currentIndexPage = 0;
   }
 
-  VoidCallback onPrev() {
+  VoidCallback? onPrev() {
     setState(() {
       if (currentIndexPage >= 1) {
         currentIndexPage = currentIndexPage - 1;
@@ -38,7 +39,7 @@ class T4WalkThroughState extends State<T4WalkThrough> {
     });
   }
 
-  VoidCallback onNext() {
+ VoidCallback? onNext() {
     setState(() {
       if (currentIndexPage < 2) {
         currentIndexPage = currentIndexPage + 1;
@@ -53,64 +54,60 @@ class T4WalkThroughState extends State<T4WalkThrough> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
-        body: Stack(
-      children: <Widget>[
-        Image.asset(
-          t4_walk_bg,
-          width: width * 0.8,
-          height: height * 0.5,
-          fit: BoxFit.fill,
-        ),
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: PageView(
-            controller: _controller,
-            children: <Widget>[
-              WalkThrough(textContent: latest_news_daily, walkImg: t4_walk1),
-              WalkThrough(textContent: regularNotifications, walkImg: t4_walk2),
-              WalkThrough(textContent: awardWinningApp, walkImg: t4_walk3),
-            ],
-            onPageChanged: (value) {
-              setState(() => currentIndexPage = value);
-            },
-          ),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            height: 80,
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: Stack(
+        children: <Widget>[
+          Image.asset(t4_walk_bg, width: width * 0.8, height: height * 0.5, fit: BoxFit.fill),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: PageView(
+              controller: _controller,
               children: <Widget>[
-                Align(child: T4Button(textContent: "Prev", onPressed: onPrev)),
-                DotsIndicator(
-                    dotsCount: 3,
-                    position: currentIndexPage,
-                    decorator: DotsDecorator(
-                      color: t4_view_color,
-                      activeColor: t4_colorPrimary,
-                    )),
-                T4Button(
-                  textContent: "Next",
-                  onPressed: onNext,
-                  isStroked: true,
-                ),
+                WalkThrough(textContent: latest_news_daily, walkImg: t4_walk1),
+                WalkThrough(textContent: regularNotifications, walkImg: t4_walk2),
+                WalkThrough(textContent: awardWinningApp, walkImg: t4_walk3),
               ],
+              onPageChanged: (value) {
+                setState(() => currentIndexPage = value);
+              },
             ),
           ),
-        )
-      ],
-    ));
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 80,
+              padding: EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Align(child: T4Button(textContent: "Prev", onPressed: onPrev)),
+                  DotsIndicator(
+                      dotsCount: 3,
+                      position: currentIndexPage,
+                      decorator: DotsDecorator(
+                        color: t4_view_color,
+                        activeColor: t4_colorPrimary,
+                      )),
+                  T4Button(
+                    textContent: "Next",
+                    onPressed: onNext,
+                    isStroked: true,
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
 
 class WalkThrough extends StatelessWidget {
-  final String textContent;
-  final String walkImg;
+  final String? textContent;
+  final String? walkImg;
 
-  WalkThrough({Key key, this.textContent, this.walkImg}) : super(key: key);
+  WalkThrough({Key? key, this.textContent, this.walkImg}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -127,25 +124,15 @@ class WalkThrough extends StatelessWidget {
             child: Stack(
               alignment: Alignment.bottomCenter,
               children: <Widget>[
-                CachedNetworkImage(
-                    imageUrl: walkImg, width: width * 0.8, height: h * 0.4),
+                CachedNetworkImage(placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?, imageUrl: walkImg!, width: width * 0.8, height: h * 0.4),
               ],
             ),
           ),
-          SizedBox(
-            height: h * 0.08,
-          ),
-          text(textContent,
-              textColor: t4_textColorPrimary,
-              fontSize: textSizeNormal,
-              fontFamily: fontMedium),
+          SizedBox(height: h * 0.08),
+          text(textContent, textColor: appStore.textPrimaryColor, fontSize: textSizeNormal, fontFamily: fontMedium),
           Padding(
-            padding: const EdgeInsets.only(left: 28.0, right: 28.0),
-            child: text(
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry.simply duumy text ",
-                fontSize: textSizeMedium,
-                maxLine: 3,
-                isCentered: true),
+            padding: EdgeInsets.only(left: 28.0, right: 28.0),
+            child: text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.simply duumy text ", fontSize: textSizeMedium, maxLine: 3, isCentered: true),
           )
         ],
       ),

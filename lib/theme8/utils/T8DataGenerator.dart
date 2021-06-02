@@ -4,7 +4,7 @@ import 'package:prokit_flutter/theme9/models/T9Models.dart';
 import 'package:prokit_flutter/theme9/utils/T9Images.dart';
 
 List<T8QuizModel> t8GetQuizData() {
-  List<T8QuizModel> list = List<T8QuizModel>();
+  List<T8QuizModel> list = [];
   T8QuizModel model1 = T8QuizModel();
   model1.quizName = "Biology & The \nScientific Method";
   model1.totalQuiz = "15 Quiz";
@@ -46,7 +46,7 @@ List<T8QuizModel> t8GetQuizData() {
 }
 
 List<T8TestModel> t8GetData() {
-  List<T8TestModel> list = List<T8TestModel>();
+  List<T8TestModel> list = [];
   T8TestModel model1 = T8TestModel();
   model1.heading = "The Scientific Method";
   model1.image = t8_ic_quiz1;
@@ -76,7 +76,7 @@ List<T8TestModel> t8GetData() {
 }
 
 List<T9PeopleModel> getRecoom() {
-  List<T9PeopleModel> list = List<T9PeopleModel>();
+  List<T9PeopleModel> list = [];
 
   T9PeopleModel people = T9PeopleModel();
   people.img = t9_walk_1;
@@ -106,7 +106,7 @@ List<T9PeopleModel> getRecoom() {
 }
 
 List<T9PeopleModel> getPeoples() {
-  List<T9PeopleModel> list = List<T9PeopleModel>();
+  List<T9PeopleModel> list = [];
 
   var people = T9PeopleModel();
   people.img = t9_ic_profile;

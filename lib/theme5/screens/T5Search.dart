@@ -1,13 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme5/model/T5Models.dart';
 import 'package:prokit_flutter/theme5/utils/T5Colors.dart';
 import 'package:prokit_flutter/theme5/utils/T5Constant.dart';
 import 'package:prokit_flutter/theme5/utils/T5DataGenerator.dart';
-import 'package:prokit_flutter/theme5/utils/T5Extension.dart';
 import 'package:prokit_flutter/theme5/utils/T5Strings.dart';
 import 'package:prokit_flutter/theme5/utils/T5Widget.dart';
+
+import '../../main.dart';
 
 class T5Search extends StatefulWidget {
   static String tag = '/T5Search';
@@ -17,8 +19,8 @@ class T5Search extends StatefulWidget {
 }
 
 class T5SearchState extends State<T5Search> {
-  List<T5Contact> mRecentContact = List<T5Contact>();
-  List<T5Contact> mOtherContact = List<T5Contact>();
+  List<T5Contact> mRecentContact = [];
+  List<T5Contact> mOtherContact = [];
 
   @override
   void initState() {
@@ -43,20 +45,15 @@ class T5SearchState extends State<T5Search> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     CircleAvatar(
-                      backgroundImage:
-                          CachedNetworkImageProvider(mContactList[index].img),
+                      backgroundImage: CachedNetworkImageProvider(mContactList[index].img),
                       radius: 28,
                     ),
                     SizedBox(width: 16),
                     Expanded(
                       child: Column(
                         children: <Widget>[
-                          text(mContactList[index].name,
-                              textColor: t5TextColorPrimary,
-                              fontSize: textSizeMedium,
-                              fontFamily: fontMedium),
-                          text(mContactList[index].contactno,
-                              fontSize: textSizeMedium)
+                          text(mContactList[index].name, textColor: appStore.textPrimaryColor, fontSize: textSizeMedium, fontFamily: fontMedium),
+                          text(mContactList[index].contactno, fontSize: textSizeMedium)
                         ],
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,10 +62,7 @@ class T5SearchState extends State<T5Search> {
                   ],
                 ),
               ),
-              Divider(
-                height: 0.5,
-                color: t5ViewColor,
-              )
+              Divider(height: 0.5, color: t5ViewColor)
             ],
           );
         });
@@ -76,7 +70,7 @@ class T5SearchState extends State<T5Search> {
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(t5White);
+    changeStatusColor(appStore.appBarColor!);
 
     return Scaffold(
       body: Container(
@@ -88,24 +82,21 @@ class T5SearchState extends State<T5Search> {
           children: <Widget>[
             TopBar(titleName: t5_contact_list),
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(16),
               child: TextFormField(
-                style: TextStyle(
-                    fontSize: textSizeLargeMedium, fontFamily: fontRegular),
+                style: TextStyle(fontSize: textSizeLargeMedium, fontFamily: fontRegular),
                 decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.search),
+                  prefixIcon: Icon(Icons.search, color: appStore.iconColor),
                   contentPadding: EdgeInsets.fromLTRB(16, 10, 16, 10),
                   hintText: t5_hint_search,
-                  hintStyle: TextStyle(color: t5TextColorThird),
+                  hintStyle: TextStyle(color: appStore.textPrimaryColor),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
-                    borderSide:
-                        const BorderSide(color: t5ViewColor, width: 0.7),
+                    borderSide: BorderSide(color: t5ViewColor, width: 0.7),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
-                    borderSide:
-                        const BorderSide(color: t5ViewColor, width: 0.7),
+                    borderSide: BorderSide(color: t5ViewColor, width: 0.7),
                   ),
                 ),
               ),
@@ -118,16 +109,10 @@ class T5SearchState extends State<T5Search> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      text(t5_recently_contact,
-                          textColor: t5TextColorPrimary,
-                          fontSize: textSizeNormal,
-                          fontFamily: fontBold),
+                      text(t5_recently_contact, textColor: appStore.textPrimaryColor, fontSize: textSizeNormal, fontFamily: fontBold),
                       Container(child: contactList(mRecentContact)),
                       SizedBox(height: 26),
-                      text(t5_other_contact,
-                          textColor: t5TextColorPrimary,
-                          fontSize: textSizeNormal,
-                          fontFamily: fontBold),
+                      text(t5_other_contact, textColor: appStore.textPrimaryColor, fontSize: textSizeNormal, fontFamily: fontBold),
                       Container(child: contactList(mOtherContact)),
                     ],
                   ),

@@ -1,8 +1,8 @@
 class LiveModel {
-  String image;
-  String title;
-  String message;
-  String status;
+  String? image;
+  String? title;
+  String? message;
+  String? status;
 
   LiveModel({
     this.image,

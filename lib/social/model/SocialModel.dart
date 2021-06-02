@@ -3,7 +3,7 @@ class SocialUser {
   var info;
   var duration;
   var call;
-  var image;
+  late var image;
 }
 
 class Media {

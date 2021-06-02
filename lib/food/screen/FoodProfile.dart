@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/food/utils/FoodColors.dart';
-import 'package:prokit_flutter/food/utils/FoodConstant.dart';
-import 'package:prokit_flutter/food/utils/FoodExtension.dart';
 import 'package:prokit_flutter/food/utils/FoodImages.dart';
 import 'package:prokit_flutter/food/utils/FoodString.dart';
 import 'package:prokit_flutter/food/utils/FoodWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class FoodProfile extends StatefulWidget {
   static String tag = '/FoodProfile';
@@ -18,89 +18,61 @@ class FoodProfile extends StatefulWidget {
 class FoodProfileState extends State<FoodProfile> {
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(food_app_background);
-    String _selectedLocation = 'Female';
+    //changeStatusColor(food_app_background);
+    String? _selectedLocation = 'Female';
     return Scaffold(
       backgroundColor: food_white,
+      appBar: appBar(context, food_lbl_profile),
       body: SafeArea(
         child: Column(
           children: <Widget>[
-            TopBar(food_lbl_profile),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
+                    16.height,
                     Stack(
                       alignment: Alignment.bottomRight,
                       children: <Widget>[
-                        CircleAvatar(
-                          backgroundImage:
-                              CachedNetworkImageProvider(food_ic_user1),
-                          radius: 50,
-                        ),
+                        CircleAvatar(backgroundImage: CachedNetworkImageProvider(food_ic_user1), radius: 50),
                         Container(
                           alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: food_white,
-                          ),
+                          decoration: BoxDecoration(shape: BoxShape.circle, color: food_white),
                           width: 30,
                           height: 30,
                           child: Container(
                             alignment: Alignment.center,
-                            padding: EdgeInsets.all(spacing_standard),
-                            child: Icon(
-                              Icons.edit,
-                              size: 20,
-                            ),
+                            padding: EdgeInsets.all(4),
+                            child: Icon(Icons.edit, size: 20),
                           ),
                         )
                       ],
                     ),
                     Container(
-                      margin: EdgeInsets.all(spacing_standard_new),
+                      margin: EdgeInsets.all(16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: editTextStyle(food_hint_first_name),
-                              ),
-                              SizedBox(
-                                width: spacing_standard_new,
-                              ),
-                              Expanded(
-                                child: editTextStyle(food_hint_last_name),
-                              )
-                            ],
+                            children: <Widget>[Expanded(child: foodEditTextStyle(food_hint_first_name)), SizedBox(width: 16), Expanded(child: foodEditTextStyle(food_hint_last_name))],
                           ),
-                          SizedBox(
-                            height: spacing_standard_new,
-                          ),
+                          SizedBox(height: 16),
                           Container(
-                            padding: EdgeInsets.only(
-                                left: spacing_standard_new,
-                                right: spacing_standard_new),
+                            padding: EdgeInsets.only(left: 16, right: 16),
                             decoration: BoxDecoration(
                                 border: Border.all(
                                   color: food_view_color,
                                   width: 1,
                                 ),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(40))),
+                                borderRadius: BorderRadius.all(Radius.circular(40))),
                             width: MediaQuery.of(context).size.width,
                             child: DropdownButtonHideUnderline(
                                 child: DropdownButton<String>(
                               value: _selectedLocation,
-                              items: <String>['Female', 'Male']
-                                  .map((String value) {
+                              items: <String>['Female', 'Male'].map((String value) {
                                 return new DropdownMenuItem<String>(
                                   value: value,
-                                  child: text(value,
-                                      fontFamily: fontRegular,
-                                      fontSize: textSizeMedium,
-                                      textColor: food_textColorSecondary),
+                                  child: Text(value, style: primaryTextStyle(size: 12)),
                                 );
                               }).toList(),
                               onChanged: (newValue) {
@@ -110,27 +82,16 @@ class FoodProfileState extends State<FoodProfile> {
                               },
                             )),
                           ),
-                          SizedBox(
-                            height: spacing_standard_new,
-                          ),
-                          editTextStyle(food_hint_mobile_no),
-                          SizedBox(
-                            height: spacing_standard_new,
-                          ),
-                          editTextStyle(food_hint_email),
-                          SizedBox(
-                            height: spacing_standard_new,
-                          ),
+                          SizedBox(height: 16),
+                          foodEditTextStyle(food_hint_mobile_no),
+                          SizedBox(height: 16),
+                          foodEditTextStyle(food_hint_email),
+                          SizedBox(height: 16),
                           Container(
                             width: MediaQuery.of(context).size.width,
-                            padding: EdgeInsets.only(
-                                top: spacing_middle, bottom: spacing_middle),
-                            decoration: boxDecoration(
-                                bgColor: food_colorPrimary,
-                                radius: 50,
-                                showShadow: true),
-                            child: text(food_lbl_save_profile,
-                                textColor: food_white, isCentered: true),
+                            padding: EdgeInsets.only(top: 10, bottom: 10),
+                            decoration: BoxDecoration(color: food_colorPrimary, borderRadius: BorderRadius.circular(50), boxShadow: defaultBoxShadow()),
+                            child: Text(food_lbl_save_profile.toUpperCase(), style: primaryTextStyle(color: white)),
                           )
                         ],
                       ),

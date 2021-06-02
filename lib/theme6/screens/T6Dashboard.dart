@@ -1,17 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme6/models/T6Models.dart';
 import 'package:prokit_flutter/theme6/utils/T6CalendarStrip.dart';
 import 'package:prokit_flutter/theme6/utils/T6Colors.dart';
 import 'package:prokit_flutter/theme6/utils/T6Constant.dart';
 import 'package:prokit_flutter/theme6/utils/T6DataGenerator.dart';
-import 'package:prokit_flutter/theme6/utils/T6Extension.dart';
 import 'package:prokit_flutter/theme6/utils/T6Images.dart';
 import 'package:prokit_flutter/theme6/utils/T6Strings.dart';
 import 'package:prokit_flutter/theme6/utils/T6Widget.dart';
 import 'package:prokit_flutter/theme6/utils/Widget/T6Bar.dart';
 import 'package:prokit_flutter/theme6/utils/Widget/T6SliderWidget.dart';
+
+import '../../main.dart';
 
 class T6Dashboard extends StatefulWidget {
   static String tag = '/T6Dashboard';
@@ -26,8 +29,8 @@ class T6DashboardState extends State<T6Dashboard> {
   DateTime selectedDate = DateTime.now().subtract(Duration(days: 2));
   List<DateTime> markedDates = [DateTime.now().subtract(Duration(days: 1)), DateTime.now().subtract(Duration(days: 2)), DateTime.now().add(Duration(days: 4))];
   int selectedPos = 1;
-  List<T6Slider> mSliderList;
-  List<T6LogModel> mActivity;
+  List<T6Slider>? mSliderList;
+   List<T6LogModel>? mActivity;
 
   onSelect(data) {
     print("Selected Date -> $data");
@@ -80,7 +83,6 @@ class T6DashboardState extends State<T6Dashboard> {
     return AnimatedContainer(
       duration: Duration(milliseconds: 150),
       alignment: Alignment.center,
-      padding: EdgeInsets.only(top: 8, left: 5, right: 5, bottom: 5),
       decoration: BoxDecoration(
         color: !isSelectedDate ? Colors.transparent : t6view_color,
         borderRadius: BorderRadius.all(Radius.circular(60)),
@@ -109,12 +111,12 @@ class T6DashboardState extends State<T6Dashboard> {
         });
       },
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.0),
         child: Container(
           alignment: Alignment.center,
           decoration: isSelected == pos ? BoxDecoration(shape: BoxShape.rectangle, color: t6colorPrimary, borderRadius: BorderRadius.circular(8)) : BoxDecoration(),
           child: Padding(
-            padding: const EdgeInsets.all(6.0),
+            padding: EdgeInsets.all(6.0),
             child: Column(
               children: <Widget>[
                 SvgPicture.asset(
@@ -134,10 +136,10 @@ class T6DashboardState extends State<T6Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(t6white);
+    changeStatusColor(appStore.appBarColor!);
 
     return Scaffold(
-      backgroundColor: t6form_background,
+      backgroundColor: appStore.scaffoldBackground,
       body: SafeArea(
         child: Stack(
           children: <Widget>[
@@ -146,102 +148,89 @@ class T6DashboardState extends State<T6Dashboard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    color: t6white,
+                    color: appStore.scaffoldBackground,
                     child: Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: EdgeInsets.all(20.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              text(t6_lbl_hi_carnegie, textColor: t6colorPrimary),
-                              Icon(
-                                Icons.notifications_active,
-                                color: t6icon_color,
-                              )
+                              text(t6_lbl_hi_carnegie, textColor: appStore.textPrimaryColor),
+                              Icon(Icons.notifications_active, color: appStore.iconColor),
                             ],
                           ),
-                          text(t6_lbl_how_was_your_day, textColor: t6textColorPrimary, fontFamily: fontMedium)
+                          text(t6_lbl_how_was_your_day, textColor: appStore.textPrimaryColor, fontFamily: fontMedium)
                         ],
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: 20),
                   Container(
                     margin: EdgeInsets.only(left: 16),
                     child: text(t6_lbl_your_progress_this_week, textColor: t6colorPrimary, fontFamily: fontMedium),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox(height: 10),
                   Container(
                     margin: EdgeInsets.only(left: 16, right: 16),
-                    child: CalendarStrip(
-                      startDate: startDate,
-                      endDate: endDate,
-                      onDateSelected: onSelect,
-                      dateTileBuilder: dateTileBuilder,
-                      iconColor: Colors.transparent,
-                      monthNameWidget: _monthNameWidget,
-                      containerDecoration: boxDecoration(radius: 16, showShadow: true, bgColor: t6white),
-                      addSwipeGesture: true,
+                    child: CustomTheme(
+                      child: CalendarStrip(
+                        startDate: startDate,
+                        endDate: endDate,
+                        onDateSelected: onSelect,
+                        dateTileBuilder: dateTileBuilder,
+                        iconColor: Colors.transparent,
+                        monthNameWidget: _monthNameWidget,
+                        containerDecoration: boxDecoration(radius: 16, showShadow: true, bgColor: appStore.scaffoldBackground),
+                        addSwipeGesture: true,
+                      ),
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: 20),
                   Container(
                     margin: EdgeInsets.only(left: 16, right: 16),
                     child: text(t6_lbl_today_s_workout, textColor: t6colorPrimary, fontFamily: fontMedium),
                   ),
-                  SizedBox(
-                    height: 16,
-                  ),
+                  SizedBox(height: 16),
                   T6SliderWidget(mSliderList),
-                  SizedBox(
-                    height: 16,
-                  ),
+                  SizedBox(height: 16),
                   Container(
                     margin: EdgeInsets.only(left: 16),
                     child: text(t6_lbl_log_other_activities, textColor: t6colorPrimary, fontFamily: fontMedium),
                   ),
+                  SizedBox(height: 16),
                   SizedBox(
-                    height: 16,
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.width * 0.3,
+                    height: MediaQuery.of(context).size.width * 0.32,
                     child: ListView.builder(
+                        padding: EdgeInsets.all(8),
                         scrollDirection: Axis.horizontal,
-                        itemCount: mActivity.length,
+                        itemCount: mActivity!.length,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
-                          return T6Activity(mActivity[index], index);
+                          return T6Activity(mActivity![index], index);
                         }),
                   ),
                   Container(
-                    height: 380,
+                    height: 400,
                     child: ListView(
                       shrinkWrap: true,
+                      padding: EdgeInsets.all(8),
                       scrollDirection: Axis.horizontal,
                       children: <Widget>[
                         Container(
                           width: MediaQuery.of(context).size.width / 1.3,
-                          margin: EdgeInsets.only(left: 16, top: 16),
+                          margin: EdgeInsets.only(left: 16, top: 16, right: 16),
                           decoration: boxDecoration(radius: 10, showShadow: true, bgColor: t6light_blue),
                           child: (Padding(
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(8),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 text(t6_lbl_calories, textColor: t6colorPrimary, fontFamily: fontMedium),
-                                SizedBox(
-                                  height: 50,
-                                ),
+                                SizedBox(height: 50),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),
+                                  padding: EdgeInsets.fromLTRB(0, 10, 10, 0),
                                   child: Row(
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -265,7 +254,7 @@ class T6DashboardState extends State<T6Dashboard> {
                                 RotationTransition(
                                   turns: new AlwaysStoppedAnimation(180 / 360),
                                   child: Padding(
-                                    padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),
+                                    padding: EdgeInsets.fromLTRB(0, 10, 10, 0),
                                     child: Row(
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -293,17 +282,15 @@ class T6DashboardState extends State<T6Dashboard> {
                         ),
                         Container(
                           margin: EdgeInsets.only(left: 16, right: 16, top: 16),
-                          width: MediaQuery.of(context).size.width / 1.3,
+                          width: context.width() / 1.3,
                           decoration: boxDecoration(radius: 10, showShadow: true, bgColor: t6light_blue),
-                          child: (Padding(
+                          child: Padding(
                             padding: EdgeInsets.all(16),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 text(t6_lbl_log_other_activities, textColor: t6colorPrimary, fontFamily: fontMedium),
-                                SizedBox(
-                                  height: 20,
-                                ),
+                                SizedBox(height: 20),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
@@ -311,9 +298,7 @@ class T6DashboardState extends State<T6Dashboard> {
                                     circleProgressDashboard("55.0g", t6_lbl_fats, t6_lbl_over, 0.2),
                                   ],
                                 ),
-                                SizedBox(
-                                  height: 20,
-                                ),
+                                SizedBox(height: 20),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
@@ -323,14 +308,12 @@ class T6DashboardState extends State<T6Dashboard> {
                                 )
                               ],
                             ),
-                          )),
+                          ),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 16,
-                  )
+                  SizedBox(height: 16)
                 ],
               ),
             ),
@@ -344,11 +327,11 @@ class T6DashboardState extends State<T6Dashboard> {
             //margin: EdgeInsets.fromLTRB(16, 0, 16, 16),
             height: 70,
             decoration: BoxDecoration(
-              color: t6white,
+              color: appStore.scaffoldBackground,
               borderRadius: BorderRadius.all(Radius.circular(10)),
               boxShadow: [
                 BoxShadow(
-                  color: t6ShadowColor,
+                  color: shadowColorGlobal,
                   blurRadius: 10,
                   spreadRadius: 2,
                 ),
@@ -387,7 +370,7 @@ class T6DashboardState extends State<T6Dashboard> {
 }
 
 class T6Activity extends StatelessWidget {
-  T6LogModel model;
+  late T6LogModel model;
 
   T6Activity(T6LogModel model, int pos) {
     this.model = model;
@@ -396,32 +379,21 @@ class T6Activity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var w = MediaQuery.of(context).size.width;
+
     return Container(
       margin: EdgeInsets.only(left: 16, right: 4, bottom: 6),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-            decoration: boxDecoration(
-              radius: 10,
-              showShadow: true,
-            ),
+            decoration: boxDecoration(radius: 10, showShadow: true, bgColor: appStore.scaffoldBackground),
             child: Padding(
-              padding: EdgeInsets.all(10),
-              child: SvgPicture.asset(
-                model.Image,
-                height: w * 0.08,
-                width: w * 0.08,
-                color: t6icon_color,
-              ),
+              padding: EdgeInsets.all(12),
+              child: SvgPicture.asset(model.Image, height: w * 0.08, width: w * 0.08, color: appStore.iconSecondaryColor),
             ),
           ),
-          SizedBox(
-            height: 8,
-          ),
-          text(
-            model.name,
-          )
+          SizedBox(height: 8),
+          text(model.name, textColor: appStore.textSecondaryColor)
         ],
       ),
     );

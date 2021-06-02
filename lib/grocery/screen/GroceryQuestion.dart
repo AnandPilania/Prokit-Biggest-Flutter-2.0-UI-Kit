@@ -4,8 +4,7 @@ import 'package:prokit_flutter/grocery/model/grocery_question_model.dart';
 import 'package:prokit_flutter/grocery/utils/GeoceryStrings.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryColors.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
-import 'package:prokit_flutter/grocery/utils/GroceryExtension.dart';
-import 'package:prokit_flutter/grocery/utils/GroceryWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 import 'GroceryGotQuestion.dart';
 
@@ -27,7 +26,7 @@ class _GroceryQuestionScreenState extends State<GroceryQuestionScreen> {
         physics: NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return Container(
-            decoration: boxDecoration(showShadow: true),
+            decoration: boxDecoration(showShadow: true, radius: 10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -59,7 +58,7 @@ class _GroceryQuestionScreenState extends State<GroceryQuestionScreen> {
           size: 30,
           color: grocery_color_white,
         ).onTap(() {
-          Navigator.pop(context);
+          finish(context);
         }),
         title: text(grocery_question, fontSize: textSizeNormal, textColor: grocery_color_white, fontFamily: fontBold),
         actions: <Widget>[
@@ -68,7 +67,7 @@ class _GroceryQuestionScreenState extends State<GroceryQuestionScreen> {
             size: 30,
             color: grocery_color_white,
           ).paddingOnly(right: 16).onTap(() {
-            callNext(GroceryGotQuestionScreen(), context);
+            GroceryGotQuestionScreen().launch(context);
           }),
         ],
       ),

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/Learner/model/LearnerModels.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerColors.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerConstant.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerDataGenerator.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerExtension.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerImages.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerWidget.dart';
+import 'package:prokit_flutter/learner/model/LearnerModels.dart';
+import 'package:prokit_flutter/learner/utils/LearnerColors.dart';
+import 'package:prokit_flutter/learner/utils/LearnerConstant.dart';
+import 'package:prokit_flutter/learner/utils/LearnerDataGenerator.dart';
+import 'package:prokit_flutter/learner/utils/LearnerImages.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class LearnerChattingScreen extends StatefulWidget {
   @override
@@ -27,7 +26,10 @@ class _LearnerChattingScreenState extends State<LearnerChattingScreen> {
               alignment: Alignment.centerRight,
               width: MediaQuery.of(context).size.width * 0.45,
               decoration: BoxDecoration(color: learner_colorPrimary, borderRadius: BorderRadius.only(topRight: Radius.circular(10), topLeft: Radius.circular(10), bottomLeft: Radius.circular(10))),
-              child: text(message.message, textColor: learner_white, fontSize: textSizeMedium, fontFamily: fontMedium, isLongText: true).center().paddingOnly(left: 8, right: 8, top: 8, bottom: 8),
+              child: Text(
+                message.message,
+                style: primaryTextStyle(color: white),
+              ).center().paddingOnly(left: 8, right: 8, top: 8, bottom: 8),
             ).paddingOnly(left: 16, right: 16, bottom: 16),
           ],
         );
@@ -38,7 +40,7 @@ class _LearnerChattingScreenState extends State<LearnerChattingScreen> {
               decoration:
                   BoxDecoration(color: learner_layout_background, borderRadius: BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10), topLeft: Radius.circular(10))),
               width: MediaQuery.of(context).size.width * 0.75,
-              child: text(message.message, textColor: learner_textColorPrimary, fontSize: textSizeMedium, maxLine: 3, fontFamily: fontMedium, isLongText: true).paddingAll(8),
+              child: Text(message.message, style: primaryTextStyle()).paddingAll(8),
             ).paddingOnly(left: 16, right: 16, bottom: 16),
           ],
         );

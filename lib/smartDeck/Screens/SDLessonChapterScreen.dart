@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/smartDeck/SDUtils/SDColors.dart';
-import 'package:prokit_flutter/smartDeck/SDUtils/SDStyle.dart';
+import 'package:prokit_flutter/main/utils/Lipsum.dart' as lipsum;
 
-import 'package:lipsum/lipsum.dart' as lipsum;
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/smartDeck/SDUtils/SDColors.dart';
 
 class SDLessonsDetailsScreen extends StatefulWidget {
   @override
@@ -10,7 +10,7 @@ class SDLessonsDetailsScreen extends StatefulWidget {
 }
 
 class _SDLessonsDetailsScreenState extends State<SDLessonsDetailsScreen> {
-  var text;
+  late var text;
 
   @override
   void initState() {
@@ -26,35 +26,18 @@ class _SDLessonsDetailsScreenState extends State<SDLessonsDetailsScreen> {
           backgroundColor: Colors.transparent,
           elevation: 0.0,
           automaticallyImplyLeading: false,
-          leading: Container(
-//            child: CloseButton(
-//              color: Colors.black,
-//            ),
-              ),
+          leading: Container(),
           actions: <Widget>[
             Container(
               padding: EdgeInsets.only(right: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Icon(
-                    Icons.details,
-                    color: Colors.black,
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Icon(
-                    Icons.message,
-                    color: Colors.black,
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Icon(
-                    Icons.more_vert,
-                    color: Colors.black,
-                  )
+                  Icon(Icons.details, color: Colors.black),
+                  SizedBox(width: 15),
+                  Icon(Icons.message, color: Colors.black),
+                  SizedBox(width: 15),
+                  Icon(Icons.more_vert, color: Colors.black)
                 ],
               ),
             ),
@@ -63,14 +46,7 @@ class _SDLessonsDetailsScreenState extends State<SDLessonsDetailsScreen> {
         body: Container(
           child: SingleChildScrollView(
             padding: EdgeInsets.all(10),
-            child: Text(
-              text,
-              style: boldTextStyle(
-                  letterSpacing: 1,
-                  wordSpacing: 1,
-                  textWeight: FontWeight.normal),
-              textAlign: TextAlign.justify,
-            ),
+            child: Text(text, style: boldTextStyle(letterSpacing: 1, wordSpacing: 1, weight: FontWeight.normal), textAlign: TextAlign.justify),
           ),
         ),
         persistentFooterButtons: <Widget>[
@@ -86,35 +62,19 @@ class _SDLessonsDetailsScreenState extends State<SDLessonsDetailsScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      'Ch 4 - Igneous Rocks',
-                      style: boldTextStyle(),
-                    ),
+                    Text('Ch 4 - Igneous Rocks', style: boldTextStyle()),
                     Container(
                       margin: EdgeInsets.only(top: 10),
-                      child: Text(
-                        '25 of 32 pages',
-                        style: secondaryTextStyle(),
-                      ),
+                      child: Text('25 of 32 pages', style: secondaryTextStyle()),
                     ),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Icon(
-                      Icons.arrow_back,
-                      color: sdPrimaryColor,
-                      size: 30,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Icon(
-                      Icons.arrow_forward,
-                      color: sdPrimaryColor,
-                      size: 30,
-                    )
+                    Icon(Icons.arrow_back, color: sdPrimaryColor, size: 30),
+                    SizedBox(width: 10),
+                    Icon(Icons.arrow_forward, color: sdPrimaryColor, size: 30),
                   ],
                 )
               ],

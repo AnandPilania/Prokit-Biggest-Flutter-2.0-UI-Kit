@@ -150,17 +150,11 @@ class CWActionSheetScreenState extends State<CWActionSheetScreen> {
             itemBuilder: (BuildContext context, index) {
               return ExampleItemWidget(example[index], onTap: () {
                 if (index == 0) {
-                  showCupertinoModalPopup(
-                      context: context,
-                      builder: (BuildContext context) => action1);
+                  showCupertinoModalPopup(context: context, builder: (BuildContext context) => action1);
                 } else if (index == 1) {
-                  showCupertinoModalPopup(
-                      context: context,
-                      builder: (BuildContext context) => action2);
+                  showCupertinoModalPopup(context: context, builder: (BuildContext context) => action2);
                 } else if (index == 2) {
-                  showCupertinoModalPopup(
-                      context: context,
-                      builder: (BuildContext context) => action3);
+                  showCupertinoModalPopup(context: context, builder: (BuildContext context) => action3);
                 }
               });
             }),

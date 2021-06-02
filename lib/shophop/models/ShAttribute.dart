@@ -1,10 +1,10 @@
-import 'package:prokit_flutter/shophop/models/ShCategory.dart';
+import 'package:prokit_flutter/shopHop/models/ShCategory.dart';
 
 class ShAttributes {
-  List<Brand> brand;
-  List<ShSize> size;
-  List<ShColor> color;
-  List<ShCategory> categories;
+  List<Brand>? brand;
+  List<ShSize>? size;
+  List<ShColor>? color;
+  List<ShCategory>? categories;
 
   ShAttributes({this.brand, this.size, this.color, this.categories});
 
@@ -19,12 +19,12 @@ class ShAttributes {
 }
 
 class ShColor {
-  int count;
-  String description;
-  int id;
-  int menu_order;
-  String name;
-  String slug;
+  int? count;
+  String? description;
+  int? id;
+  int? menu_order;
+  String? name;
+  String? slug;
   bool isSelected = false;
 
   ShColor({this.count, this.description, this.id, this.menu_order, this.name, this.slug});
@@ -53,12 +53,12 @@ class ShColor {
 }
 
 class ShSize {
-  int count;
-  String description;
-  int id;
-  int menu_order;
-  String name;
-  String slug;
+  int? count;
+  String? description;
+  int? id;
+  int? menu_order;
+  String? name;
+  String? slug;
   bool isSelected = false;
 
   ShSize({this.count, this.description, this.id, this.menu_order, this.name, this.slug});
@@ -87,8 +87,8 @@ class ShSize {
 }
 
 class Brand {
-  String name;
-  String slug;
+  String? name;
+  String? slug;
   bool isSelected = false;
 
   Brand({this.name, this.slug});

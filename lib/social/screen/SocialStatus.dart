@@ -7,12 +7,13 @@ import 'package:prokit_flutter/social/model/SocialModel.dart';
 import 'package:prokit_flutter/social/utils/SocialColors.dart';
 import 'package:prokit_flutter/social/utils/SocialConstant.dart';
 import 'package:prokit_flutter/social/utils/SocialDataGenerator.dart';
-import 'package:prokit_flutter/social/utils/SocialExtension.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+
 import 'package:prokit_flutter/social/utils/SocialImages.dart';
 import 'package:prokit_flutter/social/utils/SocialStrings.dart';
-import 'package:prokit_flutter/social/utils/SocialWidget.dart';
 
 import 'SocialGallery.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class SocialHomeStatus extends StatefulWidget {
   @override
@@ -35,26 +36,18 @@ class SocialHomeStatusState extends State<SocialHomeStatus> {
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-                  launchScreen(context, SocialGallery.tag);
+                  SocialGallery().launch(context);
                 },
                 child: Stack(
                   alignment: Alignment.bottomRight,
                   children: <Widget>[
                     ClipRRect(
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(spacing_middle)),
-                      child: CachedNetworkImage(
-                          imageUrl: social_ic_user1,
-                          height: width * 0.13,
-                          width: width * 0.13,
-                          fit: BoxFit.cover),
+                      borderRadius: BorderRadius.all(Radius.circular(spacing_middle)),
+                      child: CachedNetworkImage(placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?, imageUrl: social_ic_user1, height: width * 0.13, width: width * 0.13, fit: BoxFit.cover),
                     ),
                     Container(
                       alignment: Alignment.bottomRight,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(spacing_middle)),
-                          color: social_colorPrimary),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(spacing_middle)), color: social_colorPrimary),
                       child: Icon(Icons.add, color: social_white, size: 20),
                     )
                   ],
@@ -75,14 +68,13 @@ class SocialHomeStatusState extends State<SocialHomeStatus> {
               ),
             ],
           ),
-          text(social_7_30_pm,
-              fontFamily: fontMedium, fontSize: textSizeSMedium),
+          text(social_7_30_pm, fontFamily: fontMedium, fontSize: textSizeSMedium),
         ],
       ),
     );
   }
 
-  List<SocialUser> mList;
+  late List<SocialUser> mList;
 
   @override
   void initState() {
@@ -132,7 +124,7 @@ class SocialHomeStatusState extends State<SocialHomeStatus> {
 }
 
 class Friends extends StatelessWidget {
-  SocialUser model;
+  late SocialUser model;
 
   Friends(SocialUser model, int pos) {
     this.model = model;
@@ -157,6 +149,7 @@ class Friends extends StatelessWidget {
                       child: Container(
                         color: social_white,
                         child: CachedNetworkImage(
+                          placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                           imageUrl: model.image,
                           height: width * 0.2,
                           width: width * 0.2,
@@ -181,8 +174,7 @@ class Friends extends StatelessWidget {
               ),
             ],
           ),
-          text(model.duration,
-              fontFamily: fontMedium, fontSize: textSizeSMedium),
+          text(model.duration, fontFamily: fontMedium, fontSize: textSizeSMedium),
         ],
       ),
     );

@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/grocery/model/GroceryModel.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryColors.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryDataGenerator.dart';
-import 'package:prokit_flutter/grocery/utils/GroceryExtension.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryImages.dart';
-import 'package:prokit_flutter/grocery/utils/GroceryWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 import 'GrocerySubCategoryList.dart';
 
@@ -18,7 +18,7 @@ class GroceryCategoryList extends StatefulWidget {
 }
 
 class GroceryCategoryListState extends State<GroceryCategoryList> {
-  List<CategoryOptionModel> mOptionList;
+  late List<CategoryOptionModel> mOptionList;
 
   @override
   void initState() {
@@ -56,7 +56,7 @@ class GroceryCategoryListState extends State<GroceryCategoryList> {
                           icon: Icon(Icons.arrow_back),
                           color: grocery_color_white,
                           onPressed: () {
-                            back(context);
+                            finish(context);
                           },
                         ),
                         Padding(
@@ -71,7 +71,7 @@ class GroceryCategoryListState extends State<GroceryCategoryList> {
                       icon: Icon(Icons.favorite_border),
                       color: grocery_color_white,
                       onPressed: () {
-                        back(context);
+                        finish(context);
                       },
                     ),
                   ],
@@ -81,7 +81,7 @@ class GroceryCategoryListState extends State<GroceryCategoryList> {
             Container(
               margin: EdgeInsets.only(left: spacing_standard_new, right: spacing_standard_new, bottom: spacing_large, top: expandHeight * 0.23),
               padding: EdgeInsets.only(left: spacing_standard_new, right: spacing_standard_new),
-              decoration: boxDecoration(),
+              decoration: boxDecoration(radius: 10.0),
               child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: mOptionList.length,
@@ -161,7 +161,7 @@ class GroceryCategoryListState extends State<GroceryCategoryList> {
 }
 
 class CategoryList extends StatelessWidget {
-  CategoryOptionModel model;
+  late CategoryOptionModel model;
 
   CategoryList(CategoryOptionModel model, int pos) {
     this.model = model;
@@ -171,7 +171,7 @@ class CategoryList extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        callNext(GrocerySubCategoryList(), context);
+        GrocerySubCategoryList().launch(context);
       },
       child: Container(
         width: MediaQuery.of(context).size.width,

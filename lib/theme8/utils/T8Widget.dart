@@ -1,37 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme8/utils/T8Colors.dart';
 
+import '../../main.dart';
 import 'T8Constant.dart';
-import 'T8Extension.dart';
-
-Widget text(String text,
-    {var fontSize = textSizeMedium,
-    textColor = t8_textColorPrimary,
-    var fontFamily = fontRegular,
-    var isCentered = false,
-    var maxLine = 1,
-    var latterSpacing = 0.25,
-    var textAllCaps = false,
-    var isLongText = false}) {
-  return Text(textAllCaps ? text.toUpperCase() : text,
-      textAlign: isCentered ? TextAlign.center : TextAlign.start,
-      maxLines: isLongText ? null : maxLine,
-      style: TextStyle(fontFamily: fontFamily, fontSize: fontSize, color: textColor, height: 1.5, letterSpacing: latterSpacing));
-}
-
-BoxDecoration boxDecoration({double radius = 2, Color color = Colors.transparent, Color bgColor = t8_white, var showShadow = false}) {
-  return BoxDecoration(
-      color: bgColor,
-      //gradient: LinearGradient(colors: [bgColor, whiteColor]),
-      boxShadow: showShadow ? [BoxShadow(color: t8_ShadowColor, blurRadius: 10, spreadRadius: 2)] : [BoxShadow(color: Colors.transparent)],
-      border: Border.all(color: color),
-      borderRadius: BorderRadius.all(Radius.circular(radius)));
-}
 
 TextFormField d8EditTextStyle(var hintText, {isPassword = true}) {
   return TextFormField(
-    style: TextStyle(fontSize: textSizeMedium, fontFamily: fontRegular),
+    style: TextStyle(color: appStore.textPrimaryColor, fontSize: textSizeMedium, fontFamily: fontRegular),
     obscureText: isPassword,
+    cursorColor: appStore.textPrimaryColor,
     decoration: InputDecoration(
       contentPadding: EdgeInsets.fromLTRB(16, 22, 16, 22),
       hintText: hintText,
@@ -44,11 +23,12 @@ TextFormField d8EditTextStyle(var hintText, {isPassword = true}) {
 Divider d8Divider() {
   return Divider(
     height: 1,
-    color: t8_view_color,
+    color: appStore.textSecondaryColor,
     thickness: 1,
   );
 }
 
+// ignore: must_be_immutable
 class T8Button extends StatefulWidget {
   var textContent;
 
@@ -56,8 +36,8 @@ class T8Button extends StatefulWidget {
   VoidCallback onPressed;
 
   T8Button({
-    @required this.textContent,
-    @required this.onPressed,
+    required this.textContent,
+    required this.onPressed,
     //   @required this.icon,
   });
 
@@ -101,6 +81,7 @@ class T8ButtonState extends State<T8Button> {
   }
 }
 
+// ignore: must_be_immutable, camel_case_types
 class t8TopBar extends StatefulWidget {
   var titleName;
 
@@ -112,6 +93,7 @@ class t8TopBar extends StatefulWidget {
   }
 }
 
+// ignore: camel_case_types
 class t8TopBarState extends State<t8TopBar> {
   @override
   Widget build(BuildContext context) {
@@ -119,13 +101,14 @@ class t8TopBarState extends State<t8TopBar> {
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: 60,
+        color: appStore.appBarColor,
         child: Row(
           children: <Widget>[
             IconButton(
               icon: Icon(Icons.arrow_back),
               color: t8_colorPrimary,
               onPressed: () {
-                back(context);
+                finish(context);
               },
             ),
             Center(
@@ -141,8 +124,7 @@ class t8TopBarState extends State<t8TopBar> {
     );
   }
 
-  @override
-  State<StatefulWidget> createState() {
+  State<StatefulWidget>? createState() {
     return null;
   }
 }
@@ -153,7 +135,7 @@ Container t8HeaderText(var text) {
     child: Text(
       text,
       maxLines: 2,
-      style: TextStyle(fontFamily: fontBold, fontSize: 22, color: t8_textColorPrimary),
+      style: TextStyle(fontFamily: fontBold, fontSize: 22, color: appStore.textPrimaryColor),
     ),
   );
 }

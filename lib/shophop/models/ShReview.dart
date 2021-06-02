@@ -1,13 +1,13 @@
 class ShReview {
-  String date_created;
-  String date_created_gmt;
-  String email;
-  int id;
-  String name;
-  int product_id;
-  int rating;
-  String review;
-  bool verified;
+  String? date_created;
+  String? date_created_gmt;
+  String? email;
+  int? id;
+  String? name;
+  int? product_id;
+  int? rating;
+  String? review;
+  bool? verified;
 
   ShReview({this.date_created, this.date_created_gmt, this.email, this.id, this.name, this.product_id, this.rating, this.review, this.verified});
 

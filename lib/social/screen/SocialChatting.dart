@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/social/model/SocialModel.dart';
 import 'package:prokit_flutter/social/utils/SocialColors.dart';
 import 'package:prokit_flutter/social/utils/SocialConstant.dart';
 import 'package:prokit_flutter/social/utils/SocialDataGenerator.dart';
-import 'package:prokit_flutter/social/utils/SocialExtension.dart';
 import 'package:prokit_flutter/social/utils/SocialImages.dart';
 import 'package:prokit_flutter/social/utils/SocialStrings.dart';
-import 'package:prokit_flutter/social/utils/SocialWidget.dart';
 
 class SocialChatting extends StatefulWidget {
   static String tag = '/SocialChatting';
@@ -25,8 +25,7 @@ class SocialChattingState extends State<SocialChatting> {
     Widget buildChatMessages(Chat model) {
       if (model.isSender == true) {
         return Container(
-          margin: EdgeInsets.only(
-              right: spacing_standard_new, bottom: spacing_standard),
+          margin: EdgeInsets.only(right: spacing_standard_new, bottom: spacing_standard),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.end,
@@ -34,17 +33,8 @@ class SocialChattingState extends State<SocialChatting> {
               Container(
                 padding: EdgeInsets.all(spacing_standard),
                 width: MediaQuery.of(context).size.width * 0.45,
-                decoration: BoxDecoration(
-                    color: social_colorPrimary,
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(10),
-                        topLeft: Radius.circular(10),
-                        bottomLeft: Radius.circular(10))),
-                child: text(model.msg,
-                    textColor: social_white,
-                    fontSize: textSizeMedium,
-                    fontFamily: fontMedium,
-                    isLongText: true),
+                decoration: BoxDecoration(color: social_colorPrimary, borderRadius: BorderRadius.only(topRight: Radius.circular(10), topLeft: Radius.circular(10), bottomLeft: Radius.circular(10))),
+                child: text(model.msg, textColor: social_white, fontSize: textSizeMedium, fontFamily: fontMedium, isLongText: true),
               ),
               RichText(
                 text: TextSpan(
@@ -52,17 +42,10 @@ class SocialChattingState extends State<SocialChatting> {
                     WidgetSpan(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: SvgPicture.asset(social_double_tick_indicator,
-                            color: social_textColorSecondary,
-                            width: 16,
-                            height: 16),
+                        child: SvgPicture.asset(social_double_tick_indicator, color: social_textColorSecondary, width: 16, height: 16),
                       ),
                     ),
-                    TextSpan(
-                        text: model.duration,
-                        style: TextStyle(
-                            fontSize: textSizeMedium,
-                            color: social_textColorSecondary)),
+                    TextSpan(text: model.duration, style: TextStyle(fontSize: textSizeMedium, color: social_textColorSecondary)),
                   ],
                 ),
               ),
@@ -77,18 +60,10 @@ class SocialChattingState extends State<SocialChatting> {
                 padding: EdgeInsets.all(spacing_standard),
                 decoration: BoxDecoration(
                   color: social_app_background_color,
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(10),
-                      bottomRight: Radius.circular(10),
-                      topLeft: Radius.circular(10)),
+                  borderRadius: BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10), topLeft: Radius.circular(10)),
                 ),
                 width: MediaQuery.of(context).size.width * 0.5,
-                child: text(model.msg,
-                    textColor: social_textColorPrimary,
-                    fontSize: textSizeMedium,
-                    maxLine: 3,
-                    fontFamily: fontMedium,
-                    isLongText: true))
+                child: text(model.msg, textColor: social_textColorPrimary, fontSize: textSizeMedium, maxLine: 3, fontFamily: fontMedium, isLongText: true))
           ],
         );
       } else if (model.type == "Media") {
@@ -97,19 +72,10 @@ class SocialChattingState extends State<SocialChatting> {
             Container(
                 margin: EdgeInsets.only(left: spacing_standard_new),
                 padding: EdgeInsets.all(spacing_standard),
-                decoration: BoxDecoration(
-                    color: social_app_background_color,
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(10),
-                        bottomRight: Radius.circular(10),
-                        topLeft: Radius.circular(10))),
+                decoration:
+                    BoxDecoration(color: social_app_background_color, borderRadius: BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10), topLeft: Radius.circular(10))),
                 width: MediaQuery.of(context).size.width * 0.5,
-                child: text(model.msg,
-                    textColor: social_textColorPrimary,
-                    fontSize: textSizeMedium,
-                    maxLine: 3,
-                    fontFamily: fontMedium,
-                    isLongText: true))
+                child: text(model.msg, textColor: social_textColorPrimary, fontSize: textSizeMedium, maxLine: 3, fontFamily: fontMedium, isLongText: true))
           ],
         );
       } else {
@@ -129,14 +95,13 @@ class SocialChattingState extends State<SocialChatting> {
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-                  back(context);
+                  finish(context);
                 },
                 child: Container(
                   margin: EdgeInsets.only(left: spacing_standard_new),
                   width: width * 0.1,
                   height: width * 0.1,
-                  decoration: boxDecoration(
-                      showShadow: false, bgColor: social_view_color),
+                  decoration: boxDecoration(showShadow: false, bgColor: social_view_color, radius: 12),
                   child: Icon(Icons.keyboard_arrow_left, color: social_white),
                 ),
               ),
@@ -144,10 +109,12 @@ class SocialChattingState extends State<SocialChatting> {
               ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(spacing_middle)),
                 child: CachedNetworkImage(
-                    imageUrl: social_ic_user1,
-                    height: width * 0.1,
-                    width: width * 0.1,
-                    fit: BoxFit.fill),
+                  placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
+                  imageUrl: social_ic_user1,
+                  height: width * 0.1,
+                  width: width * 0.1,
+                  fit: BoxFit.fill,
+                ),
               ),
               SizedBox(width: spacing_standard),
               Column(
@@ -155,22 +122,18 @@ class SocialChattingState extends State<SocialChatting> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   text(social_name, fontFamily: fontMedium),
-                  text(social_lbl_today_8_00_pm,
-                      textColor: social_textColorSecondary,
-                      fontSize: textSizeSMedium),
+                  text(social_lbl_today_8_00_pm, textColor: social_textColorSecondary, fontSize: textSizeSMedium),
                 ],
               )
             ],
           ),
-          Row(
-            children: <Widget>[
-              IconButton(
-                  icon: Icon(Icons.call, color: social_textColorPrimary),
-                  onPressed: null),
-              IconButton(
-                  icon: Icon(Icons.videocam, color: social_textColorPrimary),
-                  onPressed: null),
-            ],
+          Expanded(
+            child: Row(
+              children: <Widget>[
+                IconButton(icon: Icon(Icons.call, color: social_textColorPrimary), onPressed: null),
+                IconButton(icon: Icon(Icons.videocam, color: social_textColorPrimary), onPressed: null).expand(),
+              ],
+            ),
           )
         ],
       ),
@@ -188,8 +151,7 @@ class SocialChattingState extends State<SocialChatting> {
                   mToolbar,
                   SizedBox(height: spacing_standard_new),
                   ListView.builder(
-                    itemBuilder: (context, i) =>
-                        buildChatMessages(getUserChats()[i]),
+                    itemBuilder: (context, i) => buildChatMessages(getUserChats()[i]),
                     itemCount: getUserChats().length,
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
@@ -212,11 +174,8 @@ class SocialChattingState extends State<SocialChatting> {
                     SizedBox(width: 16),
                     Expanded(
                       child: TextFormField(
-                        style: TextStyle(
-                            fontSize: textSizeMedium, fontFamily: fontRegular),
-                        decoration: InputDecoration(
-                            hintText: social_lbl_type_a_message,
-                            border: InputBorder.none),
+                        style: TextStyle(fontSize: textSizeMedium, fontFamily: fontRegular),
+                        decoration: InputDecoration(hintText: social_lbl_type_a_message, border: InputBorder.none),
                       ),
                     ),
                     SizedBox(width: 8),
@@ -224,11 +183,9 @@ class SocialChattingState extends State<SocialChatting> {
                     SizedBox(width: 8),
                     Row(
                       children: <Widget>[
-                        SvgPicture.asset(social_attachment,
-                            color: social_icon_color),
+                        SvgPicture.asset(social_attachment, color: social_icon_color),
                         SizedBox(width: 8),
-                        SvgPicture.asset(social_mic_line,
-                            color: social_icon_color),
+                        SvgPicture.asset(social_mic_line, color: social_icon_color),
                       ],
                     )
                   ],

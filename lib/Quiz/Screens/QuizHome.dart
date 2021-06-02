@@ -1,16 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/Quiz/Screens/QuizDetails.dart';
-import 'package:prokit_flutter/Quiz/Screens/QuizNewList.dart';
-import 'package:prokit_flutter/Quiz/Screens/QuizSearch.dart';
-import 'package:prokit_flutter/Quiz/model/QuizModels.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizColors.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizConstant.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizDataGenerator.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizExtension.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizStrings.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/quiz/Screens/QuizDetails.dart';
+import 'package:prokit_flutter/quiz/Screens/QuizNewList.dart';
+import 'package:prokit_flutter/quiz/Screens/QuizSearch.dart';
+import 'package:prokit_flutter/quiz/model/QuizModels.dart';
+import 'package:prokit_flutter/quiz/utils/QuizColors.dart';
+import 'package:prokit_flutter/quiz/utils/QuizConstant.dart';
+import 'package:prokit_flutter/quiz/utils/QuizDataGenerator.dart';
+import 'package:prokit_flutter/quiz/utils/QuizStrings.dart';
+import 'package:prokit_flutter/quiz/utils/QuizWidget.dart';
 
 class QuizHome extends StatefulWidget {
   static String tag = '/QuizHome';
@@ -20,7 +20,7 @@ class QuizHome extends StatefulWidget {
 }
 
 class _QuizHomeState extends State<QuizHome> {
-  List<NewQuizModel> mListings;
+  late List<NewQuizModel> mListings;
 
   @override
   void initState() {
@@ -40,34 +40,23 @@ class _QuizHomeState extends State<QuizHome> {
               child: Column(
                 children: <Widget>[
                   SizedBox(height: 30),
-                  text(quiz_lbl_hi_antonio,
-                      fontFamily: fontBold, fontSize: textSizeXLarge),
-                  text(
-                      quiz_lbl_what_would_you_like_to_learn_n_today_search_below,
-                      textColor: quiz_textColorSecondary,
-                      isLongText: true,
-                      isCentered: true),
+                  text(quiz_lbl_hi_antonio, fontFamily: fontBold, fontSize: textSizeXLarge),
+                  text(quiz_lbl_what_would_you_like_to_learn_n_today_search_below, textColor: quiz_textColorSecondary, isLongText: true, isCentered: true),
                   SizedBox(height: 30),
                   Container(
                     margin: EdgeInsets.all(16.0),
-                    decoration: boxDecoration(
-                        radius: 10, showShadow: true, bgColor: quiz_white),
+                    decoration: boxDecoration(radius: 10, showShadow: true, bgColor: quiz_white),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Expanded(
-                            child: quizEditTextStyle(quiz_lbl_search,
-                                isPassword: false)),
+                        Expanded(child: quizEditTextStyle(quiz_lbl_search, isPassword: false)),
                         Container(
                           margin: EdgeInsets.only(right: 10),
-                          decoration: boxDecoration(
-                              radius: 10,
-                              showShadow: false,
-                              bgColor: quiz_colorPrimary),
+                          decoration: boxDecoration(radius: 10, showShadow: false, bgColor: quiz_colorPrimary),
                           padding: EdgeInsets.all(10),
                           child: Icon(Icons.search, color: quiz_white),
                         ).onTap(() {
-                          launchScreen(context, QuizSearch.tag);
+                          QuizSearch().launch(context);
                           setState(() {});
                         })
                       ],
@@ -78,16 +67,13 @@ class _QuizHomeState extends State<QuizHome> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        text(quiz_lbl_new_quiz,
-                            textAllCaps: true,
-                            fontFamily: fontMedium,
-                            fontSize: textSizeNormal),
+                        text(quiz_lbl_new_quiz, textAllCaps: true, fontFamily: fontMedium, fontSize: textSizeNormal),
                         text(
                           quiz_lbl_view_all,
                           textColor: quiz_textColorSecondary,
                         ).onTap(() {
                           setState(() {
-                            launchScreen(context, QuizListing.tag);
+                            QuizListing().launch(context);
                           });
                         }),
                       ],
@@ -101,10 +87,9 @@ class _QuizHomeState extends State<QuizHome> {
                       itemCount: mListings.length,
                       shrinkWrap: true,
                       physics: ScrollPhysics(),
-                      itemBuilder: (BuildContext context, int index) =>
-                          GestureDetector(
+                      itemBuilder: (BuildContext context, int index) => GestureDetector(
                         onTap: () {
-                          launchScreen(context, QuizDetails.tag);
+                          QuizDetails().launch(context);
                         },
                         child: NewQuiz(mListings[index], index),
                       ),
@@ -121,7 +106,7 @@ class _QuizHomeState extends State<QuizHome> {
 }
 
 class NewQuiz extends StatelessWidget {
-  NewQuizModel model;
+  late NewQuizModel model;
 
   NewQuiz(NewQuizModel model, int pos) {
     this.model = model;
@@ -134,8 +119,7 @@ class NewQuiz extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(left: 16),
       width: MediaQuery.of(context).size.width * 0.75,
-      decoration:
-          boxDecoration(radius: 16, showShadow: true, bgColor: quiz_white),
+      decoration: boxDecoration(radius: 16, showShadow: true, bgColor: quiz_white),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -143,14 +127,8 @@ class NewQuiz extends StatelessWidget {
             alignment: Alignment.topRight,
             children: <Widget>[
               ClipRRect(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(16.0),
-                    topRight: Radius.circular(16.0)),
-                child: CachedNetworkImage(
-                    imageUrl: model.quizImage,
-                    height: w * 0.4,
-                    width: MediaQuery.of(context).size.width * 0.75,
-                    fit: BoxFit.cover),
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
+                child: CachedNetworkImage(placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?, imageUrl: model.quizImage, height: w * 0.4, width: MediaQuery.of(context).size.width * 0.75, fit: BoxFit.cover),
               ),
             ],
           ),
@@ -164,11 +142,7 @@ class NewQuiz extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    text(model.quizName,
-                        fontSize: textSizeMedium,
-                        isLongText: true,
-                        fontFamily: fontMedium,
-                        isCentered: false),
+                    text(model.quizName, fontSize: textSizeMedium, isLongText: true, fontFamily: fontMedium, isCentered: false),
                     text(model.totalQuiz, textColor: quiz_textColorSecondary),
                   ],
                 ),

@@ -6,9 +6,9 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/grocery/utils/GeoceryStrings.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryColors.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
-import 'package:prokit_flutter/grocery/utils/GroceryExtension.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryImages.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 import 'GrocerySignUp.dart';
 
@@ -40,6 +40,7 @@ class _GrocerySplashScreenState extends State<GrocerySplashScreen> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     changeStatusColor(grocery_colorPrimary);
+
     return Scaffold(
       backgroundColor: grocery_colorPrimary,
       body: Column(
@@ -81,14 +82,14 @@ class _GrocerySplashScreenState extends State<GrocerySplashScreen> {
                 ),
                 FittedBox(
                     child: groceryButton(
-                      textContent: grocery_lbl_Sign_Up,
-                      onPressed: (() {
-                        GrocerySignUp(
-                          isSignUp: true,
-                          isSignIn: false,
-                        ).launch(context);
-                      }),
-                    ))
+                  textContent: grocery_lbl_Sign_Up,
+                  onPressed: (() {
+                    GrocerySignUp(
+                      isSignUp: true,
+                      isSignIn: false,
+                    ).launch(context);
+                  }),
+                ))
               ],
             ).paddingOnly(bottom: spacing_xxLarge),
           )

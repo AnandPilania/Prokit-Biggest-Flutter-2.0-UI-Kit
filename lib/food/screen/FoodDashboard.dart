@@ -2,14 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/food/model/FoodModel.dart';
 import 'package:prokit_flutter/food/utils/FoodColors.dart';
-import 'package:prokit_flutter/food/utils/FoodConstant.dart';
 import 'package:prokit_flutter/food/utils/FoodDataGenerator.dart';
-import 'package:prokit_flutter/food/utils/FoodExtension.dart';
 import 'package:prokit_flutter/food/utils/FoodImages.dart';
 import 'package:prokit_flutter/food/utils/FoodString.dart';
 import 'package:prokit_flutter/food/utils/FoodWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 import 'FoodAddAddress.dart';
 import 'FoodBookCart.dart';
@@ -30,12 +30,12 @@ class FoodDashboard extends StatefulWidget {
 class FoodDashboardState extends State<FoodDashboard> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
-  List<DashboardCollections> mCollectionList;
-  List<Restaurants> mBakeryList;
-  List<Restaurants> mDeliveryList;
-  List<Restaurants> mDineOutList;
-  List<DashboardCollections> mExperienceList;
-  List<Restaurants> mCafeList;
+  late List<DashboardCollections> mCollectionList;
+  late List<Restaurants> mBakeryList;
+  late List<Restaurants> mDeliveryList;
+  late List<Restaurants> mDineOutList;
+  late List<DashboardCollections> mExperienceList;
+  late List<Restaurants> mCafeList;
 
   @override
   void initState() {
@@ -50,51 +50,27 @@ class FoodDashboardState extends State<FoodDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(food_white);
-    var width = MediaQuery.of(context).size.width;
-
-    Widget mTopGradient(var gradientColor1, var gradientColor2, var icon,
-        var heading, var subHeading, var tags) {
+    changeStatusColor(white);
+    Widget topGradient(var gradientColor1, var gradientColor2, var icon, var heading, var subHeading) {
       var width = MediaQuery.of(context).size.width;
       return GestureDetector(
         onTap: () {
-          launchScreen(context, tags);
+          FoodViewRestaurants().launch(context);
         },
         child: Container(
-          decoration: gradientBoxDecoration(
-              showShadow: true,
-              gradientColor1: gradientColor1,
-              gradientColor2: gradientColor2),
-          padding: EdgeInsets.all(spacing_middle),
+          decoration: gradientBoxDecoration(showShadow: true, gradientColor1: gradientColor1, gradientColor2: gradientColor2),
+          padding: EdgeInsets.all(10),
           child: (Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              SvgPicture.asset(icon,
-                  color: food_white, width: width * 0.06, height: width * 0.06),
-              text(heading, fontFamily: fontMedium, textColor: food_white),
-              text(subHeading, textColor: food_white, fontSize: textSizeSmall),
+              SvgPicture.asset(icon, color: food_white, width: width * 0.06, height: width * 0.06),
+              Text(heading, style: primaryTextStyle(color: food_white)),
+              Text(
+                subHeading,
+                style: primaryTextStyle(color: food_white, size: 12),
+              ),
             ],
           )),
-        ),
-      );
-    }
-
-    Widget mIntro(BuildContext context) {
-      return Container(
-        margin: EdgeInsets.only(
-            left: spacing_standard_new,
-            right: spacing_standard_new,
-            bottom: spacing_standard_new),
-        child: Stack(
-          children: <Widget>[
-            ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(spacing_middle)),
-                child: Image.asset(food_lbl_cake_ice_cream_and_bakery,
-                    height: width * 0.3, fit: BoxFit.fill)),
-            Column(children: <Widget>[
-              text(food_lbl_instagold, textColor: food_white)
-            ])
-          ],
         ),
       );
     }
@@ -113,15 +89,14 @@ class FoodDashboardState extends State<FoodDashboard> {
                   IconButton(
                     icon: Icon(Icons.menu),
                     onPressed: () {
-                      _scaffoldKey.currentState.openDrawer();
+                      _scaffoldKey.currentState!.openDrawer();
                     },
                   ),
-                  text(food_app_name,
-                      fontFamily: fontBold, fontSize: textSizeLargeMedium),
+                  Text(food_app_name, style: boldTextStyle(size: 18)),
                   IconButton(
                     icon: Icon(Icons.shopping_cart),
                     onPressed: () {
-                      launchScreen(context, FoodBookCart.tag);
+                      FoodBookCart().launch(context);
                     },
                   ),
                 ],
@@ -132,104 +107,102 @@ class FoodDashboardState extends State<FoodDashboard> {
                 child: Column(
                   children: <Widget>[
                     Container(
-                        decoration: boxDecoration(showShadow: true, radius: 0),
-                        padding: EdgeInsets.all(spacing_standard_new),
-                        child: Column(
-                          children: <Widget>[
-                            mAddress(context),
-                            SizedBox(height: spacing_standard_new),
-                            search(context),
-                            SizedBox(height: spacing_standard_new),
-                            Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: mTopGradient(
-                                    food_color_blue_gradient1,
-                                    food_color_blue_gradient2,
-                                    food_cloche,
-                                    food_lbl_food_order,
-                                    food_lbl_find_near_by_restaurants,
-                                    FoodViewRestaurants.tag,
-                                  ),
-                                  flex: 1,
+                      decoration: BoxDecoration(boxShadow: defaultBoxShadow(), color: white),
+                      padding: EdgeInsets.all(16),
+                      child: Column(
+                        children: <Widget>[
+                          mAddress(context),
+                          SizedBox(height: 16),
+                          search(context),
+                          SizedBox(height: 16),
+                          Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: topGradient(
+                                  food_color_blue_gradient1,
+                                  food_color_blue_gradient2,
+                                  food_cloche,
+                                  food_lbl_food_order,
+                                  food_lbl_find_near_by_restaurants,
                                 ),
-                                SizedBox(width: spacing_middle),
-                                Expanded(
-                                  child: mTopGradient(
-                                    food_color_orange_gradient1,
-                                    food_color_orange_gradient2,
-                                    food_ic_table,
-                                    food_lbl_book_a_table,
-                                    food_lbl_may_take_upto_3_mins,
-                                    FoodViewRestaurants.tag,
-                                  ),
-                                  flex: 1,
-                                )
-                              ],
-                            ),
-                          ],
-                        )),
-                    SizedBox(height: spacing_standard_new),
+                                flex: 1,
+                              ),
+                              SizedBox(width: 10),
+                              Expanded(
+                                child: topGradient(
+                                  food_color_orange_gradient1,
+                                  food_color_orange_gradient2,
+                                  food_ic_table,
+                                  food_lbl_book_a_table,
+                                  food_lbl_may_take_upto_3_mins,
+                                ),
+                                flex: 1,
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 16),
                     Container(
-                      decoration: boxDecoration(showShadow: true, radius: 0),
+                      decoration: BoxDecoration(boxShadow: defaultBoxShadow(), color: white),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          mHeading(food_lbl_get_inspired_by_collections),
+                          heading(food_lbl_get_inspired_by_collections),
                           SizedBox(
                             height: 250,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: mCollectionList.length,
+                              padding: EdgeInsets.only(right: 16),
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
-                                return Collection(
-                                    mCollectionList[index], index);
+                                return Collection(mCollectionList[index], index);
                               },
                             ),
                           ),
-                          SizedBox(height: spacing_standard_new),
+                          SizedBox(height: 16),
                         ],
                       ),
                     ),
-                    SizedBox(height: spacing_standard_new),
+                    SizedBox(height: 16),
                     Container(
-                      decoration: boxDecoration(showShadow: true, radius: 0),
+                      decoration: BoxDecoration(boxShadow: defaultBoxShadow(), color: white),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          mHeading(food_lbl_cake_ice_cream_and_bakery),
+                          heading(food_lbl_cake_ice_cream_and_bakery),
                           SizedBox(
                             height: 250,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: mBakeryList.length,
-                              padding:
-                                  EdgeInsets.only(bottom: spacing_standard),
+                              padding: EdgeInsets.only(bottom: 4, right: 16),
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
                                 return Item(mBakeryList[index], index);
                               },
                             ),
                           ),
-                          mViewAll(context, food_lbl_view_all_restaurants,
-                              tags: FoodViewRestaurants.tag),
+                          mViewAll(context, food_lbl_view_all_restaurants, onTap: () {
+                            FoodViewRestaurants().launch(context);
+                          }),
                         ],
                       ),
                     ),
-                    SizedBox(height: spacing_standard_new),
+                    SizedBox(height: 16),
                     Container(
-                      decoration: boxDecoration(showShadow: true, radius: 0),
+                      decoration: BoxDecoration(boxShadow: defaultBoxShadow(), color: white),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          mHeading(food_lbl_delivery_restaurants),
+                          heading(food_lbl_delivery_restaurants),
                           SizedBox(
                             height: 250,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              padding:
-                                  EdgeInsets.only(bottom: spacing_standard),
+                              padding: EdgeInsets.only(bottom: 4, right: 16),
                               itemCount: mDeliveryList.length,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
@@ -237,72 +210,72 @@ class FoodDashboardState extends State<FoodDashboard> {
                               },
                             ),
                           ),
-                          mViewAll(context, food_lbl_view_all_restaurants,
-                              tags: FoodViewRestaurants.tag),
+                          mViewAll(context, food_lbl_view_all_restaurants, onTap: () {
+                            FoodViewRestaurants().launch(context);
+                          }),
                         ],
                       ),
                     ),
-                    SizedBox(height: spacing_standard_new),
+                    SizedBox(height: 16),
                     Container(
-                      decoration: boxDecoration(showShadow: true, radius: 0),
+                      decoration: BoxDecoration(boxShadow: defaultBoxShadow(), color: white),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          mHeading(food_lbl_dine_out_restaurants),
+                          heading(food_lbl_dine_out_restaurants),
                           SizedBox(
                             height: 250,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: mDineOutList.length,
-                              padding:
-                                  EdgeInsets.only(bottom: spacing_standard),
+                              padding: EdgeInsets.only(bottom: 4, right: 16),
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
                                 return Item(mDineOutList[index], index);
                               },
                             ),
                           ),
-                          mViewAll(context, food_lbl_view_all_restaurants,
-                              tags: FoodViewRestaurants.tag),
+                          mViewAll(context, food_lbl_view_all_restaurants, onTap: () {
+                            FoodViewRestaurants().launch(context);
+                          }),
                         ],
                       ),
                     ),
-                    SizedBox(height: spacing_standard_new),
+                    SizedBox(height: 16),
                     Container(
-                      decoration: boxDecoration(showShadow: true, radius: 0),
+                      decoration: BoxDecoration(boxShadow: defaultBoxShadow(), color: white),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          mHeading(food_lbl_experience_your_favourite_cuisine),
+                          heading(food_lbl_experience_your_favourite_cuisine),
                           SizedBox(
                             height: 250,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
+                              padding: EdgeInsets.only(right: 16),
                               itemCount: mExperienceList.length,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
-                                return Collection(
-                                    mExperienceList[index], index);
+                                return Collection(mExperienceList[index], index);
                               },
                             ),
                           ),
-                          SizedBox(height: spacing_standard_new),
+                          SizedBox(height: 16),
                         ],
                       ),
                     ),
-                    SizedBox(height: spacing_standard_new),
+                    SizedBox(height: 16),
                     Container(
-                      decoration: boxDecoration(showShadow: true, radius: 0),
+                      decoration: BoxDecoration(boxShadow: defaultBoxShadow(), color: white),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          mHeading(food_lbl_cafe),
+                          heading(food_lbl_cafe),
                           SizedBox(
                             height: 250,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              padding:
-                                  EdgeInsets.only(bottom: spacing_standard),
+                              padding: EdgeInsets.only(bottom: 4, right: 16),
                               itemCount: mCafeList.length,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
@@ -310,12 +283,13 @@ class FoodDashboardState extends State<FoodDashboard> {
                               },
                             ),
                           ),
-                          mViewAll(context, food_lbl_view_all_restaurants,
-                              tags: FoodViewRestaurants.tag),
+                          mViewAll(context, food_lbl_view_all_restaurants, onTap: () {
+                            FoodViewRestaurants().launch(context);
+                          }),
                         ],
                       ),
                     ),
-                    SizedBox(height: spacing_standard_new),
+                    SizedBox(height: 16),
                   ],
                 ),
               ),
@@ -329,7 +303,7 @@ class FoodDashboardState extends State<FoodDashboard> {
 }
 
 class Item extends StatelessWidget {
-  Restaurants model;
+  late Restaurants model;
 
   Item(Restaurants model, int pos) {
     this.model = model;
@@ -340,48 +314,48 @@ class Item extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
-        launchScreen(context, FoodDescription.tag);
+        FoodDescription().launch(context);
       },
       child: Container(
         width: width * 0.4,
-        margin: EdgeInsets.only(left: spacing_standard_new),
-        decoration: boxDecoration(showShadow: true),
+        margin: EdgeInsets.only(left: 16),
+        decoration: BoxDecoration(boxShadow: defaultBoxShadow(), color: white),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             ClipRRect(
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(spacing_middle),
-                  topLeft: Radius.circular(spacing_middle)),
+              borderRadius: BorderRadius.only(topRight: Radius.circular(10), topLeft: Radius.circular(10)),
               child: Stack(
                 children: <Widget>[
                   CachedNetworkImage(
-                      imageUrl: model.image,
-                      height: width * 0.3,
-                      width: width * 0.4,
-                      fit: BoxFit.cover),
+                    placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
+                    imageUrl: model.image,
+                    height: width * 0.3,
+                    width: width * 0.4,
+                    fit: BoxFit.cover,
+                  ),
                   Container(
                     alignment: Alignment.topRight,
-                    padding: EdgeInsets.all(spacing_standard),
-                    child: Icon(Icons.favorite_border,
-                        color: food_white, size: 18),
+                    padding: EdgeInsets.all(4),
+                    child: Icon(Icons.favorite_border, color: food_white, size: 18),
                   )
                 ],
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(spacing_middle),
+              padding: EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  text(model.name,
-                      fontFamily: fontMedium, maxLine: 2, isCentered: false),
+                  Text(model.name, style: primaryTextStyle(), maxLines: 2),
+                  4.height,
                   Row(
                     children: <Widget>[
                       mRating(model.rating.toString()),
-                      text(model.review,
-                          textColor: food_textColorSecondary,
-                          fontSize: textSizeSMedium),
+                      Text(
+                        model.review,
+                        style: primaryTextStyle(color: food_textColorSecondary, size: 14),
+                      ),
                     ],
                   ),
                 ],
@@ -394,8 +368,9 @@ class Item extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class Collection extends StatelessWidget {
-  DashboardCollections model;
+  late DashboardCollections model;
 
   Collection(DashboardCollections model, int pos) {
     this.model = model;
@@ -406,34 +381,32 @@ class Collection extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
-        launchScreen(context, FoodViewRestaurants.tag);
+        FoodViewRestaurants().launch(context);
       },
       child: Container(
-        margin: EdgeInsets.only(left: spacing_standard_new),
+        margin: EdgeInsets.only(left: 16),
         child: Stack(
           children: <Widget>[
             ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(spacing_middle)),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
               child: CachedNetworkImage(
-                  imageUrl: model.image,
-                  width: width * 0.5,
-                  height: 250,
-                  fit: BoxFit.fill),
+                placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
+                imageUrl: model.image,
+                width: width * 0.5,
+                height: 250,
+                fit: BoxFit.fill,
+              ),
             ),
             Container(
-              padding: EdgeInsets.all(spacing_middle),
+              padding: EdgeInsets.all(10),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  text(model.name,
-                      fontSize: textSizeLargeMedium,
-                      fontFamily: fontAntina,
-                      textColor: food_white),
-                  SizedBox(height: spacing_control),
-                  text(model.info,
-                      fontSize: textSizeSMedium, textColor: food_white),
+                  Text(model.name, style: primaryTextStyle(size: 20, fontFamily: 'Andina', color: white)),
+                  SizedBox(height: 4),
+                  Text(model.info, style: primaryTextStyle(size: 14, color: food_white)),
                 ],
               ),
             ),
@@ -450,33 +423,32 @@ class FoodSideMenu extends StatefulWidget {
 }
 
 class FoodSideMenuState extends State<FoodSideMenu> {
-  Widget mOption(
-      var gradientColor1, var gradientColor2, var icon, var value, var tags) {
+  Widget mOption(var gradientColor1, var gradientColor2, var icon, var value, var tags) {
     return GestureDetector(
       onTap: () {
-        Navigator.pop(context);
+        finish(context);
         Navigator.push(context, MaterialPageRoute(builder: (context) => tags));
 //         launchScreen(context, tags);
       },
       child: Container(
-        margin: EdgeInsets.only(bottom: spacing_standard_new),
+        margin: EdgeInsets.only(bottom: 16),
         child: Row(
           children: <Widget>[
             Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [gradientColor1, gradientColor2]),
+                gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [gradientColor1, gradientColor2]),
               ),
               child: Padding(
-                padding: EdgeInsets.all(spacing_middle),
+                padding: EdgeInsets.all(10),
                 child: Icon(icon, size: 18, color: food_white),
               ),
             ),
-            SizedBox(width: spacing_standard_new),
-            text(value)
+            SizedBox(width: 16),
+            Text(
+              value,
+              style: primaryTextStyle(),
+            )
           ],
         ),
       ),
@@ -487,10 +459,7 @@ class FoodSideMenuState extends State<FoodSideMenu> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
 
-    var mView = Container(
-        width: MediaQuery.of(context).size.width,
-        height: 0.5,
-        color: food_view_color);
+    var mView = Container(width: MediaQuery.of(context).size.width, height: 0.5, color: food_view_color);
 
     return SafeArea(
       child: SizedBox(
@@ -502,82 +471,41 @@ class FoodSideMenuState extends State<FoodSideMenu> {
             child: Column(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(spacing_standard_new),
+                  padding: EdgeInsets.all(16),
                   width: width,
-                  decoration: gradientBoxDecoration(
-                      gradientColor1: food_colorPrimary,
-                      gradientColor2: food_colorPrimary,
-                      radius: 0),
+                  decoration: gradientBoxDecoration(gradientColor1: food_colorPrimary, gradientColor2: food_colorPrimary, radius: 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      CircleAvatar(
-                          backgroundImage:
-                              CachedNetworkImageProvider(food_ic_user1),
-                          radius: 40),
-                      text(food_username,
-                          textColor: food_white, fontFamily: fontMedium),
-                      text(food_user_email, textColor: food_white)
+                      CircleAvatar(backgroundImage: CachedNetworkImageProvider(food_ic_user1), radius: 40),
+                      Text(food_username, style: primaryTextStyle(color: food_white)),
+                      Text(food_user_email, style: primaryTextStyle(color: white))
                     ],
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(
-                      spacing_standard_new,
-                      spacing_standard_new,
-                      spacing_large,
-                      spacing_standard_new),
+                  padding: EdgeInsets.fromLTRB(16, 16, 24, 16),
                   child: Column(
                     children: <Widget>[
-                      mOption(
-                          food_color_blue_gradient1,
-                          food_color_blue_gradient2,
-                          Icons.favorite_border,
-                          food_lbl_favourite,
-                          FoodFavourite()),
-                      mOption(
-                          food_color_orange_gradient1,
-                          food_color_orange_gradient2,
-                          Icons.add,
-                          food_lbl_add_address,
-                          FoodAddAddress()),
-                      mOption(
-                          food_color_yellow_gradient1,
-                          food_color_yellow_gradient2,
-                          Icons.insert_drive_file,
-                          food_lbl_orders,
-                          FoodOrder()),
-                      mOption(
-                          food_color_blue_gradient1,
-                          food_color_blue_gradient2,
-                          Icons.person_outline,
-                          food_lbl_profile,
-                          FoodProfile()),
-                      mOption(
-                          food_color_orange_gradient1,
-                          food_color_orange_gradient2,
-                          Icons.settings_power,
-                          food_lbl_logout,
-                          FoodSignIn()),
+                      mOption(food_color_blue_gradient1, food_color_blue_gradient2, Icons.favorite_border, food_lbl_favourite, FoodFavourite()),
+                      mOption(food_color_orange_gradient1, food_color_orange_gradient2, Icons.add, food_lbl_add_address, FoodAddAddress()),
+                      mOption(food_color_yellow_gradient1, food_color_yellow_gradient2, Icons.insert_drive_file, food_lbl_orders, FoodOrder()),
+                      mOption(food_color_blue_gradient1, food_color_blue_gradient2, Icons.person_outline, food_lbl_profile, FoodProfile()),
+                      mOption(food_color_orange_gradient1, food_color_orange_gradient2, Icons.settings_power, food_lbl_logout, FoodSignIn()),
                     ],
                   ),
                 ),
                 mView,
                 Container(
                   width: width,
-                  padding: EdgeInsets.fromLTRB(
-                      spacing_large,
-                      spacing_standard_new,
-                      spacing_large,
-                      spacing_standard_new),
+                  padding: EdgeInsets.fromLTRB(24, 16, 24, 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      text(food_lbl_quick_searches),
-                      text(food_lbl_cafe, textColor: food_textColorSecondary),
-                      text(food_hint_search_restaurants,
-                          textColor: food_textColorSecondary),
-                      text(food_lbl_bars, textColor: food_textColorSecondary),
+                      Text(food_lbl_quick_searches, style: primaryTextStyle()),
+                      Text(food_lbl_cafe, style: primaryTextStyle(color: food_textColorSecondary)),
+                      Text(food_hint_search_restaurants, style: primaryTextStyle(color: food_textColorSecondary)),
+                      Text(food_lbl_bars, style: primaryTextStyle(color: food_textColorSecondary)),
                     ],
                   ),
                 )

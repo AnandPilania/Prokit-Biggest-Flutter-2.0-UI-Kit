@@ -14,71 +14,65 @@ enum ColorMode {
 }
 
 abstract class Config {
-  final ColorMode colorMode;
+  final ColorMode? colorMode;
 
   Config({this.colorMode});
 
   void throwNullError(String colorModeStr, String configStr) {
-    throw FlutterError(
-        'When using `ColorMode.$colorModeStr`, `$configStr` must be set.');
+    throw FlutterError('When using `ColorMode.$colorModeStr`, `$configStr` must be set.');
   }
 }
 
 class CustomConfig extends Config {
-  final List<Color> colors;
-  final List<List<Color>> gradients;
-  final Alignment gradientBegin;
-  final Alignment gradientEnd;
+  final List<Color>? colors;
+  final List<List<Color>>? gradients;
+  final Alignment? gradientBegin;
+  final Alignment? gradientEnd;
   final List<int> durations;
   final List<double> heightPercentages;
-  final MaskFilter blur;
+  final MaskFilter? blur;
 
   CustomConfig({
     this.colors,
     this.gradients,
     this.gradientBegin,
     this.gradientEnd,
-    @required this.durations,
-    @required this.heightPercentages,
+    required this.durations,
+    required this.heightPercentages,
     this.blur,
   })  : assert(() {
           if (colors == null && gradients == null) {
-            throwNullError('custom', 'colors` or `gradients');
+            throw 'colors` or `gradients';
           }
           return true;
         }()),
         assert(() {
-          if (gradients == null &&
-              (gradientBegin != null || gradientEnd != null)) {
-            throw FlutterError(
-                'You set a gradient direction but forgot setting `gradients`.');
+          if (gradients == null && (gradientBegin != null || gradientEnd != null)) {
+            throw FlutterError('You set a gradient direction but forgot setting `gradients`.');
           }
           return true;
         }()),
         assert(() {
           if (durations == null) {
-            throwNullError('custom', 'durations');
+            throw 'durations';
           }
           return true;
         }()),
         assert(() {
           if (heightPercentages == null) {
-            throwNullError('custom', 'heightPercentages');
+            throw 'heightPercentages';
           }
           return true;
         }()),
         assert(() {
           if (colors != null) {
-            if (colors.length != durations.length ||
-                colors.length != heightPercentages.length) {
-              throw FlutterError(
-                  'Length of `colors`, `durations` and `heightPercentages` must be equal.');
+            if (colors.length != durations.length || colors.length != heightPercentages.length) {
+              throw FlutterError('Length of `colors`, `durations` and `heightPercentages` must be equal.');
             }
           }
           return true;
         }()),
-        assert(colors == null || gradients == null,
-            'Cannot provide both colors and gradients.'),
+        assert(colors == null || gradients == null, 'Cannot provide both colors and gradients.'),
         super(colorMode: ColorMode.custom);
 }
 

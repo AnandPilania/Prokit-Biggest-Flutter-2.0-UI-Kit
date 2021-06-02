@@ -4,13 +4,15 @@ import 'package:prokit_flutter/muvi/models/flix_response.dart';
 import 'package:prokit_flutter/muvi/utils/flix_app_widgets.dart';
 import 'package:prokit_flutter/muvi/utils/flix_constants.dart';
 import 'package:prokit_flutter/muvi/utils/flix_data_generator.dart';
-import 'package:prokit_flutter/muvi/utils/flix_widget_extensions.dart';
+
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_colors.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_size.dart';
 
 class ViewSeriesEpisodeScreen extends StatefulWidget {
   static String tag = '/ViewSeriesEpisodeScreen';
-  var title = "";
+  String? title = "";
 
   ViewSeriesEpisodeScreen({this.title});
 
@@ -19,7 +21,7 @@ class ViewSeriesEpisodeScreen extends StatefulWidget {
 }
 
 class ViewSeriesEpisodeScreenState extends State<ViewSeriesEpisodeScreen> {
-  var episodes = List<Movie>();
+  List<Movie> episodes = [];
 
   @override
   void initState() {
@@ -57,9 +59,9 @@ class ViewSeriesEpisodeScreenState extends State<ViewSeriesEpisodeScreen> {
                       children: <Widget>[
                         networkImage(episodes[index].slideImage, aWidth: (width / 2) - 36, aHeight: ((width / 2) - 36) * (2.5 / 4)),
                         Container(
-                          decoration: boxDecoration(context, bgColor: Colors.white.withOpacity(0.8)),
+                          decoration: boxDecoration(bgColor: Colors.white.withOpacity(0.8)),
                           padding: EdgeInsets.only(left: spacing_control, right: spacing_control),
-                          child: text(context, "EPISODE " + (index + 1).toString(), fontSize: 10, textColor: Colors.black, fontFamily: font_bold),
+                          child: text("EPISODE " + (index + 1).toString(), fontSize: 10, textColor: Colors.black, fontFamily: font_bold),
                         ).paddingAll(spacing_control)
                       ],
                     ),
@@ -68,7 +70,7 @@ class ViewSeriesEpisodeScreenState extends State<ViewSeriesEpisodeScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        text(context, "Episode " + (index + 1).toString(), textColor: muvi_textColorPrimary, fontSize: ts_normal),
+                        text("Episode " + (index + 1).toString(), textColor: muvi_textColorPrimary, fontSize: ts_normal),
                         itemSubTitle(context, "S1 E" + (index + 1).toString() + ", 06 Mar 2020", fontsize: ts_medium),
                       ],
                     ),

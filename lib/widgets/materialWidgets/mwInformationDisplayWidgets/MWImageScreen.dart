@@ -56,12 +56,7 @@ class MWImageScreenState extends State<MWImageScreen> {
                   style: boldTextStyle(color: appStore.textPrimaryColor),
                 ),
               ),
-              Image.network(
-                      'https://killerattitudestatus.in/wp-content/uploads/2019/12/gud-night-images.jpg',
-                      fit: BoxFit.cover,
-                      width: 130,
-                      height: 150.0)
-                  .paddingLeft(16),
+              Image.network('https://killerattitudestatus.in/wp-content/uploads/2019/12/gud-night-images.jpg', fit: BoxFit.cover, width: 130, height: 150.0).paddingLeft(16),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
                 child: Text(
@@ -102,13 +97,14 @@ class MWImageScreenState extends State<MWImageScreen> {
                     ),
                   ).paddingOnly(right: 16, left: 16),
                   CircleAvatar(
-                    backgroundImage: AssetImage(
-                        'images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item4.jpg'),
+                    backgroundImage: AssetImage('images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/ic_item4.jpg'),
                     radius: 40,
                   ),
                 ],
               ),
-              SizedBox(height: 16,)
+              SizedBox(
+                height: 16,
+              )
             ],
           ),
         ),

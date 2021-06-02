@@ -2,11 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme9/utils/T9Colors.dart';
-import 'package:prokit_flutter/theme9/utils/T9Extension.dart';
 import 'package:prokit_flutter/theme9/utils/T9Images.dart';
 import 'package:prokit_flutter/theme9/utils/T9Strings.dart';
 import 'package:prokit_flutter/theme9/utils/T9Widget.dart';
+
+import '../../main.dart';
 
 class T9SignIn extends StatefulWidget {
   static String tag = '/T9SignIn';
@@ -18,10 +20,10 @@ class T9SignIn extends StatefulWidget {
 class T9SignInState extends State<T9SignIn> {
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(t9_layout_background);
+    changeStatusColor(appStore.scaffoldBackground!);
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: t9_layout_background,
+      backgroundColor: appStore.scaffoldBackground,
       body: Stack(
         children: <Widget>[
           SafeArea(
@@ -31,10 +33,7 @@ class T9SignInState extends State<T9SignIn> {
               width: MediaQuery.of(context).size.width,
               height: 50,
               child: IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: t9_colorPrimary,
-                ),
+                icon: Icon(Icons.arrow_back, color: t9_colorPrimary),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -52,25 +51,14 @@ class T9SignInState extends State<T9SignIn> {
                   children: <Widget>[
                     Container(
                       alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: t9_white, width: 4)),
-                      child: CircleAvatar(
-                          backgroundImage:
-                              CachedNetworkImageProvider(t9_ic_profile),
-                          radius: width / 7),
+                      decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: t9_white, width: 4)),
+                      child: CircleAvatar(backgroundImage: CachedNetworkImageProvider(t9_ic_profile), radius: width / 7),
                     ),
-                    SizedBox(
-                      height: 30,
-                    ),
+                    SizedBox(height: 30),
                     T9EditTextStyle(t9_hint_email, isPassword: false),
-                    SizedBox(
-                      height: 16,
-                    ),
+                    SizedBox(height: 16),
                     T9EditTextStyle(t9_hint_password, isPassword: true),
-                    SizedBox(
-                      height: 50,
-                    ),
+                    SizedBox(height: 50),
                     Align(
                       alignment: Alignment.center,
                       child: Container(
@@ -82,9 +70,7 @@ class T9SignInState extends State<T9SignIn> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
+                    SizedBox(height: 20),
                   ],
                 ),
               ),

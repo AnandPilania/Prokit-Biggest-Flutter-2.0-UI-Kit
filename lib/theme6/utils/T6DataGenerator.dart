@@ -2,7 +2,7 @@ import 'package:prokit_flutter/theme6/models/T6Models.dart';
 import 'package:prokit_flutter/theme6/utils/T6Images.dart';
 
 List<T6LogModel> getList() {
-  List<T6LogModel> list = List<T6LogModel>();
+  List<T6LogModel> list = [];
   T6LogModel model = T6LogModel();
   model.name = "Lower Body";
   model.Image = t6_ic_work1;
@@ -43,7 +43,7 @@ List<T6LogModel> getList() {
 }
 
 List<T6Slider> getSliders() {
-  List<T6Slider> list = List<T6Slider>();
+  List<T6Slider> list = [];
   T6Slider model1 = T6Slider();
   model1.name = "Superset Solider";
   model1.Image = t6_ic_work1;
@@ -69,7 +69,7 @@ List<T6Slider> getSliders() {
 }
 
 List<T6LogModel> getData() {
-  List<T6LogModel> list = List<T6LogModel>();
+  List<T6LogModel> list = [];
   T6LogModel model = T6LogModel();
   model.name = "Cycle";
   model.Image = t6_ic_cycle;

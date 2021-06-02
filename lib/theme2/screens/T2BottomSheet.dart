@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme2/utils/T2Colors.dart';
-import 'package:prokit_flutter/theme2/utils/T2Constant.dart';
-import 'package:prokit_flutter/theme2/utils/T2Extension.dart';
 import 'package:prokit_flutter/theme2/utils/T2Images.dart';
 import 'package:prokit_flutter/theme2/utils/T2Strings.dart';
 import 'package:prokit_flutter/theme2/utils/T2Widgets.dart';
+
+import '../../main.dart';
 
 class T2BottomSheet extends StatefulWidget {
   static var tag = "/T2BottomSheet";
@@ -15,7 +18,7 @@ class T2BottomSheet extends StatefulWidget {
 }
 
 class T2BottomSheetState extends State<T2BottomSheet> {
-  GlobalKey<ScaffoldState> _scaffoldKey = null;
+  GlobalKey<ScaffoldState>? scaffoldKey;
 
   @override
   void initState() {
@@ -25,10 +28,10 @@ class T2BottomSheetState extends State<T2BottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(t2White);
+    changeStatusColor(appStore.appBarColor!);
 
-    _scaffoldKey = new GlobalKey<ScaffoldState>();
-    Future.delayed(const Duration(milliseconds: 1000), () {
+    scaffoldKey = GlobalKey<ScaffoldState>();
+    Future.delayed(Duration(milliseconds: 1000), () {
       showModalBottomSheet(
           backgroundColor: Colors.transparent,
           context: context,
@@ -37,7 +40,7 @@ class T2BottomSheetState extends State<T2BottomSheet> {
               alignment: Alignment.topRight,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(top: 22),
+                  padding: EdgeInsets.only(top: 22),
                   child: Container(
                     padding: EdgeInsets.fromLTRB(20, 25, 20, 20),
                     color: t2_bg_bottom_sheet,
@@ -46,31 +49,16 @@ class T2BottomSheetState extends State<T2BottomSheet> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        text(t2_lbl_share_to, textColor: t2TextColorPrimary, fontFamily: fontMedium),
-                        SizedBox(
-                          height: 20,
-                        ),
+                        Text(t2_lbl_share_to, style: boldTextStyle(color: t2TextColorPrimary)),
+                        SizedBox(height: 20),
                         /**/
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Icon(
-                              Icons.keyboard_arrow_left,
-                              size: 24,
-                            ),
+                            Icon(Icons.keyboard_arrow_left, size: 24),
                             Container(
-                              width: MediaQuery.of(context).size.width - 100,
+                              width: MediaQuery.of(context).size.width - 90,
                               height: 50,
-                              /*child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                itemBuilder: (context,index){
-                                  return Padding(
-                                    padding: const EdgeInsets.only(left:20.0,right: 20),
-                                    child: SvgPicture.asset(t2_whatsup,width: 30,height: 30,),
-                                  );
-                                },
-                                itemCount: 10)*/
                               child: SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
                                 child: Row(
@@ -84,10 +72,7 @@ class T2BottomSheetState extends State<T2BottomSheet> {
                                 ),
                               ),
                             ),
-                            Icon(
-                              Icons.keyboard_arrow_right,
-                              size: 24,
-                            ),
+                            Icon(Icons.keyboard_arrow_right, size: 24),
                           ],
                         )
                       ],
@@ -95,13 +80,13 @@ class T2BottomSheetState extends State<T2BottomSheet> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 20),
+                  padding: EdgeInsets.only(right: 20),
                   child: Container(
                     width: 45,
                     height: 45,
                     child: FloatingActionButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        finish(context);
                       },
                       child: Icon(Icons.close, color: t2_colorPrimary),
                       backgroundColor: t2_white,
@@ -113,9 +98,14 @@ class T2BottomSheetState extends State<T2BottomSheet> {
           });
     });
     return Scaffold(
-      body: Stack(
-        alignment: Alignment.topCenter,
-        children: <Widget>[TopBar(t2_Bottom_Sheet), ring(t2_lbl_welcome_to_bottom_n_sheet)],
+      appBar: appBar(context, t2_Bottom_Sheet),
+      body: Observer(
+        builder: (_) => Stack(
+          alignment: Alignment.topCenter,
+          children: <Widget>[
+            Center(child: ring(t2_lbl_welcome_to_bottom_n_sheet)),
+          ],
+        ),
       ),
     );
   }

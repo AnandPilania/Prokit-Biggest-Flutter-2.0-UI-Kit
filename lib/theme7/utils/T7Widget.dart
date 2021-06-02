@@ -1,39 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/main/utils/percent_indicator/circular_percent_indicator.dart';
 
+import '../../main.dart';
 import 'T7Colors.dart';
 import 'T7Constant.dart';
-import 'T7Extension.dart';
 
-Widget text(String text,
-    {var fontSize = textSizeMedium,
-    textColor = t7black,
-    var fontFamily = fontRegular,
-    var isCentered = false,
-    var maxLine = 1,
-    var latterSpacing = 0.25,
-    var textAllCaps = false,
-    var isLongText = false}) {
-  return Text(textAllCaps ? text.toUpperCase() : text,
-      textAlign: isCentered ? TextAlign.center : TextAlign.start,
-      maxLines: isLongText ? null : maxLine,
-      style: TextStyle(
-          fontFamily: fontFamily,
-          fontSize: fontSize,
-          color: textColor,
-          height: 1.5,
-          letterSpacing: latterSpacing));
-}
-
+// ignore: must_be_immutable
 class T7Button extends StatefulWidget {
   var textContent;
   VoidCallback onPressed;
   Color bgColor = t7white;
 
   T7Button({
-    @required this.textContent,
-    @required this.onPressed,
-    @required this.bgColor,
+    required this.textContent,
+    required this.onPressed,
+    required this.bgColor,
   });
 
   @override
@@ -47,35 +30,26 @@ class T7ButtonState extends State<T7Button> {
       onTap: widget.onPressed,
       child: Container(
           padding: EdgeInsets.fromLTRB(16, 10, 16, 10),
-          child: text(widget.textContent,
-              textColor: widget.bgColor == t7white ? t7black : t7white,
-              isCentered: true,
-              fontFamily: fontMedium,
-              textAllCaps: true),
+          child: text(widget.textContent, textColor: widget.bgColor == t7white ? t7black : t7white, isCentered: true, fontFamily: fontMedium, textAllCaps: true),
           decoration: boxDecoration(bgColor: widget.bgColor, radius: 6)),
     );
   }
 }
 
-Widget backIcon(var color, var icon, var iconColor) {
-  return Container(
-      width: 38,
-      height: 38,
-      decoration: boxDecoration(
-          bgColor: color, radius: 10, color: t7white, showShadow: false),
-      child: Icon(icon, color: iconColor));
+Widget backIcon(BuildContext context, var color, var icon, var iconColor) {
+  return Container(width: 38, height: 38, decoration: boxDecoration(bgColor: color, radius: 10, color: t7white, showShadow: false), child: Icon(icon, color: iconColor)).onTap(() {
+    finish(context);
+  });
 }
 
 Widget starText(var text, var txtColor) {
   return RichText(
     text: TextSpan(
       children: [
-        TextSpan(
-            text: text,
-            style: TextStyle(fontSize: textSizeSMedium, color: txtColor)),
+        TextSpan(text: text, style: TextStyle(fontSize: textSizeSMedium, color: txtColor)),
         WidgetSpan(
           child: Padding(
-            padding: const EdgeInsets.only(left: 4),
+            padding: EdgeInsets.only(left: 4),
             child: Icon(
               Icons.star_border,
               color: Colors.amber,
@@ -88,20 +62,22 @@ Widget starText(var text, var txtColor) {
   );
 }
 
+// ignore: non_constant_identifier_names
 Container T7EditTextStyle(var hintText, var text, {isPassword = false}) {
   return Container(
     child: TextFormField(
-      style: TextStyle(fontSize: textSizeMedium, fontFamily: fontRegular),
+      style: TextStyle(color: appStore.textPrimaryColor, fontSize: textSizeMedium, fontFamily: fontRegular),
       obscureText: isPassword,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.fromLTRB(26, 20, 4, 20),
         hintText: hintText,
-        labelText: text,
+        hintStyle: primaryTextStyle(),
+        labelStyle: primaryTextStyle(),
         enabledBorder: UnderlineInputBorder(
-          borderSide: const BorderSide(color: t7view_color, width: 0.0),
+          borderSide: BorderSide(color: t7view_color, width: 0.0),
         ),
         focusedBorder: UnderlineInputBorder(
-          borderSide: const BorderSide(color: t7view_color, width: 0.0),
+          borderSide: BorderSide(color: t7view_color, width: 0.0),
         ),
       ),
     ),
@@ -117,8 +93,7 @@ Column circleProgressDashboard(var text, var text1, var text2, var per) {
         children: <Widget>[
           Text(
             text1,
-            style:
-                new TextStyle(color: t7colorPrimary, fontSize: textSizeSMedium),
+            style: new TextStyle(color: t7colorPrimary, fontSize: textSizeSMedium),
           ),
           SizedBox(
             width: 26,
@@ -159,16 +134,17 @@ TextFormField editTextStyle(var hintText, {isPassword = true}) {
       hintStyle: TextStyle(color: t7textColorSecondary),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4),
-        borderSide: const BorderSide(color: t7view_color, width: 0.0),
+        borderSide: BorderSide(color: t7view_color, width: 0.0),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4),
-        borderSide: const BorderSide(color: t7view_color, width: 0.0),
+        borderSide: BorderSide(color: t7view_color, width: 0.0),
       ),
     ),
   );
 }
 
+// ignore: must_be_immutable
 class TopBar extends StatefulWidget {
   var titleName;
 
@@ -196,43 +172,23 @@ class TopBarState extends State<TopBar> {
                 finish(context);
               },
             ),
-            Center(
-                child: text(widget.titleName,
-                    textColor: t7colorPrimary,
-                    fontSize: textSizeLargeMedium,
-                    fontFamily: fontBold))
+            Center(child: text(widget.titleName, textColor: t7colorPrimary, fontSize: textSizeLargeMedium, fontFamily: fontBold))
           ],
         ),
       ),
     );
   }
 
-  @override
-  State<StatefulWidget> createState() {
+  State<StatefulWidget>? createState() {
     return null;
   }
 }
 
 Widget shareIcon(String iconPath) {
   return Padding(
-    padding: const EdgeInsets.only(left: 20, right: 20),
+    padding: EdgeInsets.only(left: 20, right: 20),
     child: Image.asset(iconPath, width: 28, height: 28, fit: BoxFit.fill),
   );
-}
-
-BoxDecoration boxDecoration(
-    {double radius = 2,
-    Color color = Colors.transparent,
-    Color bgColor = t7white,
-    var showShadow = false}) {
-  return BoxDecoration(
-      color: bgColor,
-      //gradient: LinearGradient(colors: [bgColor, whiteColor]),
-      boxShadow: showShadow
-          ? [BoxShadow(color: t7ShadowColor, blurRadius: 10, spreadRadius: 2)]
-          : [BoxShadow(color: Colors.transparent)],
-      border: Border.all(color: color),
-      borderRadius: BorderRadius.all(Radius.circular(radius)));
 }
 
 Widget ring(String description) {
@@ -251,28 +207,15 @@ Widget ring(String description) {
         ),
       ),
       SizedBox(height: 16),
-      text(description,
-          textColor: t7textColorPrimary,
-          fontSize: textSizeNormal,
-          fontFamily: fontSemibold,
-          isCentered: true,
-          maxLine: 2)
+      text(description, textColor: t7textColorPrimary, fontSize: textSizeNormal, fontFamily: fontSemibold, isCentered: true, maxLine: 2)
     ],
   );
-}
-
-class ScrollingBehavior extends ScrollBehavior {
-  @override
-  Widget buildViewportChrome(
-      BuildContext context, Widget child, AxisDirection axisDirection) {
-    return child;
-  }
 }
 
 class Slider extends StatelessWidget {
   final String file;
 
-  Slider({Key key, @required this.file}) : super(key: key);
+  Slider({Key? key, required this.file}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -310,7 +253,7 @@ Padding settingText(
 
 Widget divider() {
   return Padding(
-    padding: const EdgeInsets.only(top: 16.0, bottom: 16),
+    padding: EdgeInsets.only(top: 16.0, bottom: 16),
     child: Divider(
       color: t7view_color,
       height: 0.5,

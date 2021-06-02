@@ -14,9 +14,8 @@ class MWAppBarScreen extends StatefulWidget {
 class MWAppBarScreenState extends State<MWAppBarScreen> {
   FocusNode focusNode = FocusNode();
 
-  bool _isSearching = false;
-  Widget appBarTitle = Text("Search Toolbar",
-      style: boldTextStyle(color: appStore.textPrimaryColor));
+  bool isSearching = false;
+  Widget appBarTitle = Text("Search Toolbar", style: boldTextStyle(color: appStore.textPrimaryColor));
 
   Icon actionIcon = Icon(
     Icons.search,
@@ -27,7 +26,7 @@ class MWAppBarScreenState extends State<MWAppBarScreen> {
   @override
   void initState() {
     super.initState();
-    _isSearching = false;
+    isSearching = false;
   }
 
   init() async {}
@@ -60,14 +59,12 @@ class MWAppBarScreenState extends State<MWAppBarScreen> {
               children: [
                 // Simple AppBar without actions and back button
                 AppBar(
-                  title: Text('Without Back Button & Actions',
-                      style: boldTextStyle(color: appStore.textPrimaryColor)),
+                  title: Text('Without Back Button & Actions', style: boldTextStyle(color: appStore.textPrimaryColor)),
                   backgroundColor: appStore.appBarColor,
                   automaticallyImplyLeading: false,
                 ),
                 AppBar(
-                  title: Text('Center Title',
-                      style: boldTextStyle(color: appStore.textPrimaryColor)),
+                  title: Text('Center Title', style: boldTextStyle(color: appStore.textPrimaryColor)),
                   // Center the title in AppBar with setting center title property to true.
                   centerTitle: true,
                   backgroundColor: appStore.appBarColor,
@@ -75,18 +72,15 @@ class MWAppBarScreenState extends State<MWAppBarScreen> {
                 ),
                 AppBar(
                   leading: leadingWidget(),
-                  title: Text('With Back Button',
-                      style: boldTextStyle(color: appStore.textPrimaryColor)),
+                  title: Text('With Back Button', style: boldTextStyle(color: appStore.textPrimaryColor)),
                   backgroundColor: appStore.appBarColor,
                 ),
                 AppBar(
-                  title: Text('With Single Action',
-                      style: boldTextStyle(color: appStore.textPrimaryColor)),
+                  title: Text('With Single Action', style: boldTextStyle(color: appStore.textPrimaryColor)),
                   leading: leadingWidget(),
                   actions: [
                     IconButton(
-                      icon: Icon(Icons.settings,
-                          color: appStore.textPrimaryColor),
+                      icon: Icon(Icons.settings, color: appStore.textPrimaryColor),
                       onPressed: () {
                         toast('Settings');
                       },
@@ -99,40 +93,31 @@ class MWAppBarScreenState extends State<MWAppBarScreen> {
                   leading: leadingWidget(),
                   actions: [
                     IconButton(
-                      icon: Icon(actionIcon.icon,
-                          color: appStore.textPrimaryColor),
+                      icon: Icon(actionIcon.icon, color: appStore.textPrimaryColor),
                       onPressed: () {
                         if (this.actionIcon.icon == Icons.search) {
-                          this.actionIcon = Icon(Icons.close,
-                              color: appStore.textPrimaryColor);
+                          this.actionIcon = Icon(Icons.close, color: appStore.textPrimaryColor);
                           this.appBarTitle = TextField(
                             focusNode: focusNode,
                             onChanged: (value) {
                               setState(() {});
                             },
-                            style: TextStyle(
-                                color: appStore.textPrimaryColor, fontSize: 20),
+                            style: TextStyle(color: appStore.textPrimaryColor, fontSize: 20),
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              prefixIcon: Icon(Icons.search,
-                                  color: appStore.textPrimaryColor),
+                              prefixIcon: Icon(Icons.search, color: appStore.textPrimaryColor),
                               hintText: "Search",
-                              hintStyle: TextStyle(
-                                  color: appStore.textPrimaryColor,
-                                  fontWeight: FontWeight.normal),
+                              hintStyle: TextStyle(color: appStore.textPrimaryColor, fontWeight: FontWeight.normal),
                             ),
                           );
                           setState(() {
-                            _isSearching = true;
+                            isSearching = true;
                           });
                         } else {
                           setState(() {
-                            this.actionIcon = Icon(Icons.search,
-                                color: appStore.textPrimaryColor);
-                            this.appBarTitle = Text("Search Toolbar",
-                                style: boldTextStyle(
-                                    color: appStore.textPrimaryColor));
-                            _isSearching = false;
+                            this.actionIcon = Icon(Icons.search, color: appStore.textPrimaryColor);
+                            this.appBarTitle = Text("Search Toolbar", style: boldTextStyle(color: appStore.textPrimaryColor));
+                            isSearching = false;
                           });
                         }
                         FocusScope.of(context).requestFocus(focusNode);
@@ -149,8 +134,7 @@ class MWAppBarScreenState extends State<MWAppBarScreen> {
                       toast('Drawer');
                     },
                   ),
-                  title: Text('Page Title',
-                      style: boldTextStyle(color: appStore.textPrimaryColor)),
+                  title: Text('Page Title', style: boldTextStyle(color: appStore.textPrimaryColor)),
                   actions: [
                     IconButton(
                       icon: Icon(Icons.share, color: appStore.textPrimaryColor),
@@ -159,15 +143,13 @@ class MWAppBarScreenState extends State<MWAppBarScreen> {
                       },
                     ),
                     IconButton(
-                      icon:
-                          Icon(Icons.search, color: appStore.textPrimaryColor),
+                      icon: Icon(Icons.search, color: appStore.textPrimaryColor),
                       onPressed: () {
                         toast('Search');
                       },
                     ),
                     IconButton(
-                      icon: Icon(Icons.more_vert,
-                          color: appStore.textPrimaryColor),
+                      icon: Icon(Icons.more_vert, color: appStore.textPrimaryColor),
                       onPressed: () {
                         toast('Menu');
                       },
@@ -176,17 +158,14 @@ class MWAppBarScreenState extends State<MWAppBarScreen> {
                 ),
                 AppBar(
                   leading: leadingWidget(),
-                  title: Text('With Custom Image',
-                      style: boldTextStyle(color: appStore.textPrimaryColor)),
+                  title: Text('With Custom Image', style: boldTextStyle(color: appStore.textPrimaryColor)),
                   backgroundColor: appStore.appBarColor,
                   actions: [
                     IconButton(
                       onPressed: () {
                         toast('Profile');
                       },
-                      icon: Image.network(
-                              'https://tecake.com/wp-content/uploads/2018/07/student-profile-gabriela-mills-college.jpg')
-                          .cornerRadiusWithClipRRect(20),
+                      icon: Image.network('https://tecake.com/wp-content/uploads/2018/07/student-profile-gabriela-mills-college.jpg').cornerRadiusWithClipRRect(20),
                     )
                   ],
                 ),

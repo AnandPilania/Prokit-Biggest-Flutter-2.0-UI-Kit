@@ -3,16 +3,12 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/food/utils/FoodColors.dart';
-import 'package:prokit_flutter/food/utils/FoodConstant.dart';
-import 'package:prokit_flutter/food/utils/FoodExtension.dart';
 import 'package:prokit_flutter/food/utils/FoodString.dart';
-import 'package:prokit_flutter/food/utils/FoodWidget.dart';
 
 import '../utils/FoodImages.dart';
 import 'FoodAddAddress.dart';
-
-const apiKey = "AIzaSyBhDflq5iJrXIcKpeq0IzLQPQpOboX91lY";
 
 class FoodAddressConfirmation extends StatefulWidget {
   static String tag = '/FoodAddressConfirmation';
@@ -25,7 +21,8 @@ class FoodAddressConfirmationState extends State<FoodAddressConfirmation> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    changeStatusColor(food_app_background);
+    //changeStatusColor(food_app_background);
+
     return Scaffold(
       backgroundColor: food_view_color,
       body: SafeArea(
@@ -38,52 +35,44 @@ class FoodAddressConfirmationState extends State<FoodAddressConfirmation> {
                 alignment: Alignment.center,
                 height: width * 0.55,
                 width: width,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(spacing_large),
-                      topRight: Radius.circular(spacing_large),
-                    ),
-                    color: food_white),
-                padding: EdgeInsets.all(spacing_standard_new),
+                decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24)), color: food_white),
+                padding: EdgeInsets.all(16),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    text(food_lbl_set_delivery_information, fontFamily: fontMedium, textAllCaps: true),
-                    text(food_lbl_location, textColor: food_textColorSecondary, fontSize: textSizeSMedium),
-                    SizedBox(
-                      height: spacing_standard,
-                    ),
-                    text(food_lbl_address_dashboard, fontFamily: fontMedium),
+                    Text(food_lbl_set_delivery_information.toUpperCase(), style: primaryTextStyle(size: 18)),
+                    Text(food_lbl_location, style: secondaryTextStyle(size: 14)),
+                    SizedBox(height: 4),
+                    Text(food_lbl_address_dashboard, style: primaryTextStyle()),
                     Container(
                       height: 0.5,
                       color: food_view_color,
                       width: width,
-                      margin: EdgeInsets.only(top: spacing_standard, bottom: spacing_standard_new),
+                      margin: EdgeInsets.only(top: 4, bottom: 16),
                     ),
                     Row(
                       children: <Widget>[
                         Expanded(
-                            flex: 1,
-                            child: GestureDetector(
-                              onTap: () {
-                                launchScreen(context, FoodAddAddress.tag);
-                              },
-                              child: Container(
-                                padding: EdgeInsets.only(top: spacing_standard, bottom: spacing_standard),
-                                decoration: boxDecoration(color: food_textColorPrimary, radius: 50),
-                                child: text(food_lbl_add_more_details, isCentered: true),
-                              ),
-                            )),
-                        SizedBox(
-                          width: spacing_standard_new,
+                          flex: 1,
+                          child: GestureDetector(
+                            onTap: () {
+                              FoodAddAddress().launch(context);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.only(top: 4, bottom: 4),
+                              decoration: BoxDecoration(color: food_textColorPrimary, borderRadius: BorderRadius.circular(50)),
+                              child: Text(food_lbl_add_more_details, style: primaryTextStyle()).center(),
+                            ),
+                          ),
                         ),
+                        SizedBox(width: 16),
                         Expanded(
                           flex: 1,
                           child: Container(
-                            padding: EdgeInsets.only(top: spacing_standard, bottom: spacing_standard),
-                            decoration: boxDecoration(bgColor: food_colorPrimary, radius: 50),
-                            child: text(food_lbl_confirm_location, textColor: food_white, isCentered: true),
+                            padding: EdgeInsets.only(top: 4, bottom: 4),
+                            decoration: BoxDecoration(border: Border.all(color: food_colorPrimary), borderRadius: BorderRadius.circular(50), color: white),
+                            child: Text(food_lbl_confirm_location, style: primaryTextStyle(color: white)).center(),
                           ),
                         )
                       ],
@@ -105,7 +94,7 @@ class MapPage extends StatefulWidget {
 }
 
 class MapPageState extends State<MapPage> {
-  BitmapDescriptor pinLocationIcon;
+  late BitmapDescriptor pinLocationIcon;
   Set<Marker> _markers = {};
   Completer<GoogleMapController> _controller = Completer();
 
@@ -126,17 +115,18 @@ class MapPageState extends State<MapPage> {
     CameraPosition initialLocation = CameraPosition(zoom: 16, bearing: 30, target: pinPosition);
 
     return GoogleMap(
-        myLocationEnabled: true,
-        compassEnabled: true,
-        markers: _markers,
-        initialCameraPosition: initialLocation,
-        onMapCreated: (GoogleMapController controller) {
-          controller.setMapStyle(Utils.mapStyles);
-          _controller.complete(controller);
-          setState(() {
-            _markers.add(Marker(markerId: MarkerId('value'), position: pinPosition, icon: pinLocationIcon));
-          });
+      myLocationEnabled: true,
+      compassEnabled: true,
+      markers: _markers,
+      initialCameraPosition: initialLocation,
+      onMapCreated: (GoogleMapController controller) {
+        controller.setMapStyle(Utils.mapStyles);
+        _controller.complete(controller);
+        setState(() {
+          _markers.add(Marker(markerId: MarkerId('value'), position: pinPosition, icon: pinLocationIcon));
         });
+      },
+    );
   }
 }
 

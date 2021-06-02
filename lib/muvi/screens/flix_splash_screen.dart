@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/muvi/screens/flix_onboarding_screen.dart';
-import 'package:prokit_flutter/muvi/utils/flix_widget_extensions.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_colors.dart';
 import 'package:prokit_flutter/muvi/utils/resources/flix_images.dart';
 
@@ -22,7 +22,7 @@ class MuviSplashScreenState extends State<MuviSplashScreen> {
 
   void navigationPage() async {
     finish(context);
-    launchScreen(context, MuviOnBoardingScreen.tag);
+    MuviOnBoardingScreen().launch(context);
   }
 
   @override

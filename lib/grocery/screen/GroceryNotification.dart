@@ -7,6 +7,7 @@ import 'package:prokit_flutter/grocery/utils/GroceryColors.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryDataGenerator.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class GroceryNotification extends StatefulWidget {
   static String tag = '/GroceryNotification';
@@ -16,7 +17,7 @@ class GroceryNotification extends StatefulWidget {
 }
 
 class GroceryNotificationState extends State<GroceryNotification> {
-  List<NotificationModel> mList;
+  late List<NotificationModel> mList;
 
   @override
   void initState() {
@@ -41,20 +42,18 @@ class GroceryNotificationState extends State<GroceryNotification> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   text("Today", fontFamily: fontMedium, textColor: grocery_textColorSecondary),
-                  text(
-                    grocery_lbl_clear_all,
-                    textColor: grocery_colorPrimary,
-                  ),
+                  text(grocery_lbl_clear_all, textColor: grocery_colorPrimary),
                 ],
               ).paddingAll(spacing_standard_new),
               ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: mList.length,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return Notification(mList[index], index);
-                  })
+                scrollDirection: Axis.vertical,
+                itemCount: mList.length,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return Notification(mList[index], index);
+                },
+              )
             ],
           ),
         ),
@@ -64,7 +63,7 @@ class GroceryNotificationState extends State<GroceryNotification> {
 }
 
 class Notification extends StatelessWidget {
-  NotificationModel model;
+  late NotificationModel model;
 
   Notification(NotificationModel model, int pos) {
     this.model = model;
@@ -86,14 +85,9 @@ class Notification extends StatelessWidget {
             width: width * 0.12,
             height: width * 0.12,
             padding: EdgeInsets.all(width * 0.02),
-            child: Icon(
-              Icons.notifications_none,
-              color: grocery_colorPrimary,
-            ),
+            child: Icon(Icons.notifications_none, color: grocery_colorPrimary),
           ),
-          SizedBox(
-            width: spacing_standard,
-          ),
+          SizedBox(width: spacing_standard),
           Expanded(
             child: Column(
               children: <Widget>[

@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/grocery/model/GroceryModel.dart';
 import 'package:prokit_flutter/grocery/utils/GeoceryStrings.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryColors.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryDataGenerator.dart';
-import 'package:prokit_flutter/grocery/utils/GroceryExtension.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 import 'GroceryCheckOut.dart';
 
@@ -18,7 +19,7 @@ class GrocerySaveCart extends StatefulWidget {
 }
 
 class GrocerySaveCartState extends State<GrocerySaveCart> {
-  List<CartModel> mList;
+  late List<CartModel> mList;
 
   @override
   void initState() {
@@ -35,8 +36,7 @@ class GrocerySaveCartState extends State<GrocerySaveCart> {
       backgroundColor: grocery_app_background,
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, 70),
-        child: title(grocery_lbl_save_cart, grocery_colorPrimary,
-            grocery_color_white, context),
+        child: title(grocery_lbl_save_cart, grocery_colorPrimary, grocery_color_white, context),
       ),
       body: SafeArea(
         child: ListView.builder(
@@ -53,7 +53,7 @@ class GrocerySaveCartState extends State<GrocerySaveCart> {
 }
 
 class SaveCart extends StatelessWidget {
-  CartModel model;
+  late CartModel model;
 
   SaveCart(CartModel model, int pos) {
     this.model = model;
@@ -62,7 +62,7 @@ class SaveCart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    Widget mRemoveItem() {
+    Widget? mRemoveItem() {
       showModalBottomSheet(
           backgroundColor: Colors.transparent,
           context: context,
@@ -71,11 +71,7 @@ class SaveCart extends StatelessWidget {
             return SingleChildScrollView(
               child: IntrinsicHeight(
                   child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(spacing_large),
-                        topRight: Radius.circular(spacing_large)),
-                    color: grocery_color_white),
+                decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(spacing_large), topRight: Radius.circular(spacing_large)), color: grocery_color_white),
                 height: MediaQuery.of(context).size.height / 2.8,
                 padding: EdgeInsets.all(spacing_standard_new),
                 child: Column(
@@ -86,10 +82,8 @@ class SaveCart extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
-                          margin: EdgeInsets.only(
-                              right: spacing_standard_new, top: spacing_middle),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle, color: grocery_color_red),
+                          margin: EdgeInsets.only(right: spacing_standard_new, top: spacing_middle),
+                          decoration: BoxDecoration(shape: BoxShape.circle, color: grocery_color_red),
                           padding: EdgeInsets.all(width * 0.02),
                           child: Icon(
                             Icons.delete,
@@ -100,12 +94,8 @@ class SaveCart extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              text(grocery_lbl_remove_saved_item,
-                                  fontFamily: fontMedium,
-                                  fontSize: textSizeNormal),
-                              text(grocery_lbl_remove_confirmation,
-                                  textColor: grocery_textColorSecondary,
-                                  isLongText: true),
+                              text(grocery_lbl_remove_saved_item, fontFamily: fontMedium, fontSize: textSizeNormal),
+                              text(grocery_lbl_remove_confirmation, textColor: grocery_textColorSecondary, isLongText: true),
                             ],
                           ),
                         )
@@ -117,10 +107,7 @@ class SaveCart extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        text("$grocery_lbl_no",
-                            textColor: grocery_textColorSecondary,
-                            textAllCaps: true,
-                            fontFamily: fontMedium),
+                        text("$grocery_lbl_no", textColor: grocery_textColorSecondary, textAllCaps: true, fontFamily: fontMedium),
                         SizedBox(
                           width: spacing_standard_new,
                         ),
@@ -141,11 +128,8 @@ class SaveCart extends StatelessWidget {
     }
 
     return Container(
-      decoration: boxDecoration(showShadow: true),
-      margin: EdgeInsets.only(
-          left: spacing_standard_new,
-          right: spacing_standard_new,
-          top: spacing_standard_new),
+      decoration: boxDecoration(showShadow: true, radius: 10.0),
+      margin: EdgeInsets.only(left: spacing_standard_new, right: spacing_standard_new, top: spacing_standard_new),
       padding: EdgeInsets.all(spacing_middle),
       child: Column(
         children: <Widget>[
@@ -154,10 +138,8 @@ class SaveCart extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                margin: EdgeInsets.only(
-                    right: spacing_standard_new, top: spacing_middle),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle, color: grocery_colorPrimary),
+                margin: EdgeInsets.only(right: spacing_standard_new, top: spacing_middle),
+                decoration: BoxDecoration(shape: BoxShape.circle, color: grocery_colorPrimary),
                 padding: EdgeInsets.all(width * 0.02),
                 child: Icon(
                   Icons.shopping_cart,
@@ -226,26 +208,21 @@ class SaveCart extends StatelessWidget {
             width: width,
             height: 0.5,
             color: grocery_view_color,
-            margin: EdgeInsets.only(
-                top: spacing_standard_new, bottom: spacing_standard_new),
+            margin: EdgeInsets.only(top: spacing_standard_new, bottom: spacing_standard_new),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              text("$grocery_lbl_view_cart",
-                  textColor: grocery_textColorSecondary,
-                  textAllCaps: true,
-                  fontFamily: fontMedium),
-              SizedBox(
-                width: spacing_standard_new,
-              ),
+              text("$grocery_lbl_view_cart", textColor: grocery_textColorSecondary, textAllCaps: true, fontFamily: fontMedium),
+              SizedBox(width: spacing_standard_new),
               FittedBox(
-                  child: groceryButton(
-                textContent: grocery_lbl_checkout,
-                onPressed: (() {
-                  callNext(GroceryCheckOut(), context);
-                }),
-              ))
+                child: groceryButton(
+                  textContent: grocery_lbl_checkout,
+                  onPressed: (() {
+                    GroceryCheckOut().launch(context);
+                  }),
+                ),
+              )
             ],
           )
         ],

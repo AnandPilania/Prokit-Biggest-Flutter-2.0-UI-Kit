@@ -1,36 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme4/utils/T4Colors.dart';
-import 'package:prokit_flutter/theme4/utils/T4Extension.dart';
 
 import 'T4Constant.dart';
-
-Widget text(String text,
-    {var fontSize = textSizeLargeMedium,
-    textColor = t4_textColorSecondary,
-    var fontFamily = fontRegular,
-    var isCentered = false,
-    var maxLine = 1,
-    var latterSpacing = 0.25,
-    var textAllCaps = false,
-    var isLongText = false}) {
-  return Text(textAllCaps ? text.toUpperCase() : text,
-      textAlign: isCentered ? TextAlign.center : TextAlign.start,
-      maxLines: isLongText ? null : maxLine,
-      style: TextStyle(fontFamily: fontFamily, fontSize: fontSize, color: textColor, height: 1.5, letterSpacing: latterSpacing));
-}
-
-showToast(BuildContext aContext, String caption) {
-  Scaffold.of(aContext).showSnackBar(SnackBar(content: text(caption, textColor: t4_white, isCentered: true)));
-}
-
-BoxDecoration boxDecoration({double radius = 2, Color color = Colors.transparent, Color bgColor = t4_white, var showShadow = false}) {
-  return BoxDecoration(
-      //gradient: LinearGradient(colors: [bgColor, whiteColor]),
-      color: bgColor,
-      boxShadow: showShadow ? [BoxShadow(color: t4_shadow_color, blurRadius: 10, spreadRadius: 2)] : [BoxShadow(color: Colors.transparent)],
-      border: Border.all(color: color),
-      borderRadius: BorderRadius.all(Radius.circular(radius)));
-}
 
 class MyPainter extends CustomPainter {
   @override
@@ -73,11 +47,12 @@ class TopBarState extends State<TopBar> {
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: 60,
+        color: appStore.appBarColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             IconButton(
-              icon: Icon(Icons.menu),
+              icon: Icon(Icons.menu, color: appStore.iconColor),
               onPressed: () {
                 finish(context);
               },
@@ -85,7 +60,7 @@ class TopBarState extends State<TopBar> {
             Padding(
               padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
               child: Center(
-                child: text(widget.titleName, textColor: t4_textColorPrimary, fontSize: textSizeNormal, fontFamily: fontBold),
+                child: text(widget.titleName, textColor: appStore.textPrimaryColor, fontSize: textSizeNormal, fontFamily: fontBold),
               ),
             ),
             IconButton(
@@ -99,18 +74,6 @@ class TopBarState extends State<TopBar> {
       ),
     );
   }
-
-  @override
-  State<StatefulWidget> createState() {
-    return null;
-  }
-}
-
-Widget divider() {
-  return Divider(
-    height: 0.5,
-    color: t4_view_color,
-  );
 }
 
 Widget ring(String description) {
@@ -129,7 +92,7 @@ Widget ring(String description) {
         ),
       ),
       SizedBox(height: 16),
-      text(description, textColor: t4_textColorPrimary, fontSize: textSizeNormal, fontFamily: fontSemibold, isCentered: true, maxLine: 2)
+      text(description, textColor: appStore.textPrimaryColor, fontSize: textSizeNormal, fontFamily: fontSemibold, isCentered: true, maxLine: 2)
     ],
   );
 }

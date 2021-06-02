@@ -37,14 +37,14 @@ class FadingEdgeScrollView extends StatefulWidget {
   final bool shouldDisposeScrollController;
 
   const FadingEdgeScrollView._internal({
-    Key key,
-    @required this.child,
-    @required this.scrollController,
-    @required this.reverse,
-    @required this.scrollDirection,
-    @required this.gradientFractionOnStart,
-    @required this.gradientFractionOnEnd,
-    @required this.shouldDisposeScrollController,
+    Key? key,
+    required this.child,
+    required this.scrollController,
+    required this.reverse,
+    required this.scrollDirection,
+    required this.gradientFractionOnStart,
+    required this.gradientFractionOnEnd,
+    required this.shouldDisposeScrollController,
   })  : assert(child != null),
         assert(scrollController != null),
         assert(reverse != null),
@@ -56,8 +56,8 @@ class FadingEdgeScrollView extends StatefulWidget {
   /// Constructor for creating [FadingEdgeScrollView] with [ScrollView] as child
   /// child must have [ScrollView.controller] set
   factory FadingEdgeScrollView.fromScrollView({
-    Key key,
-    @required ScrollView child,
+    Key? key,
+    required ScrollView child,
     double gradientFractionOnStart = 0.1,
     double gradientFractionOnEnd = 0.1,
     bool shouldDisposeScrollController = false,
@@ -67,7 +67,7 @@ class FadingEdgeScrollView extends StatefulWidget {
     return FadingEdgeScrollView._internal(
       key: key,
       child: child,
-      scrollController: child.controller,
+      scrollController: child.controller!,
       scrollDirection: child.scrollDirection,
       reverse: child.reverse,
       gradientFractionOnStart: gradientFractionOnStart,
@@ -79,8 +79,8 @@ class FadingEdgeScrollView extends StatefulWidget {
   /// Constructor for creating [FadingEdgeScrollView] with [SingleChildScrollView] as child
   /// child must have [SingleChildScrollView.controller] set
   factory FadingEdgeScrollView.fromSingleChildScrollView({
-    Key key,
-    @required SingleChildScrollView child,
+    Key? key,
+    required SingleChildScrollView child,
     double gradientFractionOnStart = 0.1,
     double gradientFractionOnEnd = 0.1,
     bool shouldDisposeScrollController = false,
@@ -90,7 +90,7 @@ class FadingEdgeScrollView extends StatefulWidget {
     return FadingEdgeScrollView._internal(
       key: key,
       child: child,
-      scrollController: child.controller,
+      scrollController: child.controller!,
       scrollDirection: child.scrollDirection,
       reverse: child.reverse,
       gradientFractionOnStart: gradientFractionOnStart,
@@ -102,8 +102,8 @@ class FadingEdgeScrollView extends StatefulWidget {
   /// Constructor for creating [FadingEdgeScrollView] with [PageView] as child
   /// child must have [PageView.controller] set
   factory FadingEdgeScrollView.fromPageView({
-    Key key,
-    @required PageView child,
+    Key? key,
+    required PageView child,
     double gradientFractionOnStart = 0.1,
     double gradientFractionOnEnd = 0.1,
     bool shouldDisposeScrollController = false,
@@ -125,8 +125,8 @@ class FadingEdgeScrollView extends StatefulWidget {
   /// Constructor for creating [FadingEdgeScrollView] with [AnimatedList] as child
   /// child must have [AnimatedList.controller] set
   factory FadingEdgeScrollView.fromAnimatedList({
-    Key key,
-    @required AnimatedList child,
+    Key? key,
+    required AnimatedList child,
     double gradientFractionOnStart = 0.1,
     double gradientFractionOnEnd = 0.1,
     bool shouldDisposeScrollController = false,
@@ -136,7 +136,7 @@ class FadingEdgeScrollView extends StatefulWidget {
     return FadingEdgeScrollView._internal(
       key: key,
       child: child,
-      scrollController: child.controller,
+      scrollController: child.controller!,
       scrollDirection: child.scrollDirection,
       reverse: child.reverse,
       gradientFractionOnStart: gradientFractionOnStart,
@@ -149,56 +149,53 @@ class FadingEdgeScrollView extends StatefulWidget {
   _FadingEdgeScrollViewState createState() => _FadingEdgeScrollViewState();
 }
 
-class _FadingEdgeScrollViewState extends State<FadingEdgeScrollView>
-    with WidgetsBindingObserver {
-  ScrollController _controller;
-  bool _isScrolledToStart;
-  bool _isScrolledToEnd;
+class _FadingEdgeScrollViewState extends State<FadingEdgeScrollView> with WidgetsBindingObserver {
+  ScrollController? _controller;
+  bool? _isScrolledToStart;
+  bool? _isScrolledToEnd;
 
   @override
   void initState() {
     super.initState();
 
     _controller = widget.scrollController;
-    _isScrolledToStart = _controller.initialScrollOffset == 0;
-    _controller.addListener(_onScroll);
+    _isScrolledToStart = _controller!.initialScrollOffset == 0;
+    _controller!.addListener(_onScroll);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (_controller == null) {
         return;
       }
 
-      if (_isScrolledToEnd == null &&
-          _controller.position.maxScrollExtent == 0) {
+      if (_isScrolledToEnd == null && _controller!.position.maxScrollExtent == 0) {
         setState(() {
           _isScrolledToEnd = true;
         });
       }
     });
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance!.addObserver(this);
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance!.removeObserver(this);
     super.dispose();
-    _controller.removeListener(_onScroll);
+    _controller!.removeListener(_onScroll);
     if (widget.shouldDisposeScrollController) {
-      _controller.dispose();
+      _controller!.dispose();
     }
     _controller = null;
   }
 
   void _onScroll() {
-    final offset = _controller.offset;
-    final minOffset = _controller.position.minScrollExtent;
-    final maxOffset = _controller.position.maxScrollExtent;
+    final offset = _controller!.offset;
+    final minOffset = _controller!.position.minScrollExtent;
+    final maxOffset = _controller!.position.maxScrollExtent;
 
     final isScrolledToEnd = offset >= maxOffset;
     final isScrolledToStart = offset <= minOffset;
 
-    if (isScrolledToEnd != _isScrolledToEnd ||
-        isScrolledToStart != _isScrolledToStart) {
+    if (isScrolledToEnd != _isScrolledToEnd || isScrolledToStart != _isScrolledToStart) {
       setState(() {
         _isScrolledToEnd = isScrolledToEnd;
         _isScrolledToStart = isScrolledToStart;
@@ -211,9 +208,9 @@ class _FadingEdgeScrollViewState extends State<FadingEdgeScrollView>
     super.didChangeMetrics();
     setState(() {
       // Add the shading or remove it when the screen resize (web/desktop) or mobile is rotated
-      if (_controller.hasClients) {
-        final offset = _controller.offset;
-        final maxOffset = _controller.position.maxScrollExtent;
+      if (_controller!.hasClients) {
+        final offset = _controller!.offset;
+        final maxOffset = _controller!.position.maxScrollExtent;
         if (maxOffset == 0 && offset == 0) {
           // Not scrollable
           _isScrolledToStart = true;
@@ -237,10 +234,10 @@ class _FadingEdgeScrollViewState extends State<FadingEdgeScrollView>
 
   @override
   Widget build(BuildContext context) {
-    if (_isScrolledToStart == null && _controller.hasClients) {
-      final offset = _controller.offset;
-      final minOffset = _controller.position.minScrollExtent;
-      final maxOffset = _controller.position.maxScrollExtent;
+    if (_isScrolledToStart == null && _controller!.hasClients) {
+      final offset = _controller!.offset;
+      final minOffset = _controller!.position.minScrollExtent;
+      final maxOffset = _controller!.position.maxScrollExtent;
 
       _isScrolledToEnd = offset >= maxOffset;
       _isScrolledToStart = offset <= minOffset;
@@ -256,9 +253,7 @@ class _FadingEdgeScrollViewState extends State<FadingEdgeScrollView>
           1 - widget.gradientFractionOnEnd * 0.5,
           1,
         ],
-        colors: _getColors(
-            widget.gradientFractionOnStart > 0 && !(_isScrolledToStart ?? true),
-            widget.gradientFractionOnEnd > 0 && !(_isScrolledToEnd ?? false)),
+        colors: _getColors(widget.gradientFractionOnStart > 0 && !(_isScrolledToStart ?? true), widget.gradientFractionOnEnd > 0 && !(_isScrolledToEnd ?? false)),
       ).createShader(
         bounds.shift(Offset(-bounds.left, -bounds.top)),
         textDirection: Directionality.of(context),
@@ -268,32 +263,18 @@ class _FadingEdgeScrollViewState extends State<FadingEdgeScrollView>
     );
   }
 
-  AlignmentGeometry get _gradientStart =>
-      widget.scrollDirection == Axis.vertical
-          ? _verticalStart
-          : _horizontalStart;
+  AlignmentGeometry get _gradientStart => widget.scrollDirection == Axis.vertical ? _verticalStart : _horizontalStart;
 
-  AlignmentGeometry get _gradientEnd =>
-      widget.scrollDirection == Axis.vertical ? _verticalEnd : _horizontalEnd;
+  AlignmentGeometry get _gradientEnd => widget.scrollDirection == Axis.vertical ? _verticalEnd : _horizontalEnd;
 
-  Alignment get _verticalStart =>
-      widget.reverse ? Alignment.bottomCenter : Alignment.topCenter;
+  Alignment get _verticalStart => widget.reverse ? Alignment.bottomCenter : Alignment.topCenter;
 
-  Alignment get _verticalEnd =>
-      widget.reverse ? Alignment.topCenter : Alignment.bottomCenter;
+  Alignment get _verticalEnd => widget.reverse ? Alignment.topCenter : Alignment.bottomCenter;
 
-  AlignmentDirectional get _horizontalStart => widget.reverse
-      ? AlignmentDirectional.centerEnd
-      : AlignmentDirectional.centerStart;
+  AlignmentDirectional get _horizontalStart => widget.reverse ? AlignmentDirectional.centerEnd : AlignmentDirectional.centerStart;
 
-  AlignmentDirectional get _horizontalEnd => widget.reverse
-      ? AlignmentDirectional.centerStart
-      : AlignmentDirectional.centerEnd;
+  AlignmentDirectional get _horizontalEnd => widget.reverse ? AlignmentDirectional.centerStart : AlignmentDirectional.centerEnd;
 
-  List<Color> _getColors(bool isStartEnabled, bool isEndEnabled) => [
-    (isStartEnabled ? Colors.transparent : Colors.white),
-    Colors.white,
-    Colors.white,
-    (isEndEnabled ? Colors.transparent : Colors.white)
-  ];
+  List<Color> _getColors(bool isStartEnabled, bool isEndEnabled) =>
+      [(isStartEnabled ? Colors.transparent : Colors.white), Colors.white, Colors.white, (isEndEnabled ? Colors.transparent : Colors.white)];
 }

@@ -4,9 +4,9 @@ import 'package:prokit_flutter/grocery/model/grocery_addPayment_model.dart';
 import 'package:prokit_flutter/grocery/utils/GeoceryStrings.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryColors.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
-import 'package:prokit_flutter/grocery/utils/GroceryExtension.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryImages.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 import 'GroceryAddCard.dart';
 
@@ -25,7 +25,7 @@ class _GroceryAddPaymentScreenState extends State<GroceryAddPaymentScreen> {
   }
 
   List<AddPayment> listAddPayment = addPayment;
-  var cardNumber = '';
+  String? cardNumber = '';
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class _GroceryAddPaymentScreenState extends State<GroceryAddPaymentScreen> {
         physics: NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return Container(
-            decoration: boxDecoration(showShadow: true),
+            decoration: boxDecoration(showShadow: true, radius: 10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -103,7 +103,7 @@ class _GroceryAddPaymentScreenState extends State<GroceryAddPaymentScreen> {
               ],
             ).paddingOnly(left: 16, right: 16, top: 16, bottom: 16),
           ).paddingOnly(left: 16, right: 16, top: 16).onTap(() {
-            launchScreen(context, GroceryAddCardScreen.tag);
+            GroceryAddCardScreen().launch(context);
           });
         });
     changeStatusColor(grocery_colorPrimary);
@@ -116,7 +116,7 @@ class _GroceryAddPaymentScreenState extends State<GroceryAddPaymentScreen> {
           size: 30,
           color: grocery_color_white,
         ).onTap(() {
-          Navigator.pop(context);
+          finish(context);
         }),
         title: text(grocery_paymentMethod, fontSize: textSizeNormal, textColor: grocery_color_white),
       ),
@@ -126,7 +126,7 @@ class _GroceryAddPaymentScreenState extends State<GroceryAddPaymentScreen> {
             trackOrder,
             Container(
               margin: EdgeInsets.only(left: spacing_standard_new, right: spacing_standard_new, top: spacing_standard_new),
-              decoration: boxDecoration(showShadow: true),
+              decoration: boxDecoration(showShadow: true, radius: 10.0),
               height: 200,
               width: MediaQuery.of(context).size.width,
               child: Column(
@@ -141,7 +141,7 @@ class _GroceryAddPaymentScreenState extends State<GroceryAddPaymentScreen> {
                 ],
               ),
             ).onTap(() {
-              callNext(GroceryAddCardScreen(), context);
+              GroceryAddCardScreen().launch(context);
             }),
           ],
         ),
@@ -183,7 +183,7 @@ class _GroceryAddPaymentScreenState extends State<GroceryAddPaymentScreen> {
                           children: <Widget>[
                             text(grocery_lbl_remove_an_item, fontFamily: fontMedium, fontSize: textSizeNormal),
                             Text(
-                              grocery_removeMsg + ' ' + cardNumber + ' ' + grocery_card + '?',
+                              grocery_removeMsg + ' ' + cardNumber! + ' ' + grocery_card + '?',
                               style: TextStyle(fontSize: textSizeMedium, fontFamily: fontMedium, color: grocery_textColorSecondary),
                             ),
                           ],

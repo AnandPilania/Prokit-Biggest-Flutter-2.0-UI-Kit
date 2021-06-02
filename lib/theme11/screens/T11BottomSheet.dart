@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme11/models/T11Models.dart';
 import 'package:prokit_flutter/theme11/utils/T11Colors.dart';
 import 'package:prokit_flutter/theme11/utils/T11Constant.dart';
 import 'package:prokit_flutter/theme11/utils/T11DataGenerator.dart';
 import 'package:prokit_flutter/theme11/utils/T11Images.dart';
 import 'package:prokit_flutter/theme11/utils/T11Strings.dart';
-import 'package:prokit_flutter/theme11/utils/T11Widget.dart';
 
 class T11BottomSheet extends StatefulWidget {
   static String tag = '/T11BottomSheet';
@@ -17,7 +17,7 @@ class T11BottomSheet extends StatefulWidget {
 }
 
 class _T11BottomSheetState extends State<T11BottomSheet> {
-  List<Theme11Albums> mList1;
+  late List<Theme11Albums> mList1;
 
   @override
   void initState() {
@@ -56,6 +56,7 @@ class _T11BottomSheetState extends State<T11BottomSheet> {
                           width: 50,
                         ).center().paddingOnly(bottom: 24),
                         CachedNetworkImage(
+                          placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                           imageUrl: t11_ic_Music1,
                           fit: BoxFit.fill,
                           height: 200,
@@ -64,12 +65,7 @@ class _T11BottomSheetState extends State<T11BottomSheet> {
                         Row(
                           children: <Widget>[
                             Expanded(
-                              child: text(t11_lbl_short_text,
-                                      textColor: t11_greyColor,
-                                      fontSize: textSizeLargeMedium,
-                                      fontFamily: fontMedium,
-                                      maxLine: 3)
-                                  .paddingAll(32),
+                              child: text(t11_lbl_short_text, textColor: t11_greyColor, fontSize: textSizeLargeMedium, fontFamily: fontMedium, maxLine: 3).paddingAll(32),
                             ),
                             Image.asset(
                               t11_ic_Expand,
@@ -82,11 +78,7 @@ class _T11BottomSheetState extends State<T11BottomSheet> {
                         Row(
                           children: <Widget>[
                             Expanded(
-                              child: text(t11_lbl_sprakFly,
-                                      textColor: t11_blackColor,
-                                      fontSize: textSizeLarge,
-                                      fontFamily: fontRegular)
-                                  .paddingOnly(left: 16, top: 8, right: 16),
+                              child: text(t11_lbl_sprakFly, textColor: t11_blackColor, fontSize: textSizeLarge, fontFamily: fontRegular).paddingOnly(left: 16, top: 8, right: 16),
                             ),
                             Image.asset(
                               t11_ic_Shuffle,
@@ -94,19 +86,13 @@ class _T11BottomSheetState extends State<T11BottomSheet> {
                               height: 20,
                               width: 20,
                               color: Colors.pinkAccent,
-                            )
-                                .paddingOnly(right: 24, top: 16, left: 16)
-                                .center(),
+                            ).paddingOnly(right: 24, top: 16, left: 16).center(),
                           ],
                         ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            text(t11_lbl_Imagine,
-                                    textColor: t11_PrimaryColor,
-                                    fontSize: textSizeLargeMedium,
-                                    fontFamily: fontRegular)
-                                .paddingAll(16),
+                            text(t11_lbl_Imagine, textColor: t11_PrimaryColor, fontSize: textSizeLargeMedium, fontFamily: fontRegular).paddingAll(16),
                           ],
                         ),
                         LinearProgressIndicator(
@@ -116,11 +102,7 @@ class _T11BottomSheetState extends State<T11BottomSheet> {
                             t11_PrimaryColor,
                           ),
                         ).paddingAll(16),
-                        text(t11_lbl_time,
-                                textColor: t11_PrimaryColor,
-                                fontSize: textSizeLargeMedium,
-                                fontFamily: fontRegular)
-                            .paddingAll(16),
+                        text(t11_lbl_time, textColor: t11_PrimaryColor, fontSize: textSizeLargeMedium, fontFamily: fontRegular).paddingAll(16),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
@@ -157,6 +139,7 @@ class _T11BottomSheetState extends State<T11BottomSheet> {
       child: Stack(
         children: <Widget>[
           CachedNetworkImage(
+            placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
             imageUrl: t11_ic_Music1,
             fit: BoxFit.fill,
             height: MediaQuery.of(context).size.height / 2.0,
@@ -175,18 +158,8 @@ class _T11BottomSheetState extends State<T11BottomSheet> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
-        text(t11_lbl_heavy_addication,
-                textColor: t11_WhiteColor,
-                fontSize: textSizeLarge,
-                fontFamily: fontBold,
-                isCentered: true)
-            .paddingOnly(top: 8, bottom: 8, left: 16, right: 16),
-        text(t11_lbl_song_timing,
-                textColor: t11_greyColor,
-                fontSize: textSizeNormal,
-                fontFamily: fontSemibold,
-                isCentered: true)
-            .paddingOnly(bottom: 8, left: 16, right: 16)
+        text(t11_lbl_heavy_addication, textColor: t11_WhiteColor, fontSize: textSizeLarge, fontFamily: fontBold, isCentered: true).paddingOnly(top: 8, bottom: 8, left: 16, right: 16),
+        text(t11_lbl_song_timing, textColor: t11_greyColor, fontSize: textSizeNormal, fontFamily: fontSemibold, isCentered: true).paddingOnly(bottom: 8, left: 16, right: 16)
       ],
     ).paddingAll(8);
 
@@ -203,6 +176,7 @@ class _T11BottomSheetState extends State<T11BottomSheet> {
               Row(
                 children: <Widget>[
                   CachedNetworkImage(
+                    placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                     imageUrl: mList1[index].img,
                     height: 70,
                     width: 70,
@@ -213,16 +187,8 @@ class _T11BottomSheetState extends State<T11BottomSheet> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        text(mList1[index].name,
-                                textColor: t11_blackColor,
-                                fontSize: textSizeLargeMedium,
-                                fontFamily: fontMedium)
-                            .paddingOnly(right: 16),
-                        text(mList1[index].subTitle,
-                                textColor: t11_PrimaryColor.withOpacity(0.4),
-                                fontSize: textSizeLargeMedium,
-                                fontFamily: fontMedium)
-                            .paddingOnly(top: 4, right: 16),
+                        text(mList1[index].name, textColor: t11_blackColor, fontSize: textSizeLargeMedium, fontFamily: fontMedium).paddingOnly(right: 16),
+                        text(mList1[index].subTitle, textColor: t11_PrimaryColor.withOpacity(0.4), fontSize: textSizeLargeMedium, fontFamily: fontMedium).paddingOnly(top: 4, right: 16),
                       ],
                     ),
                   ),
@@ -240,51 +206,46 @@ class _T11BottomSheetState extends State<T11BottomSheet> {
     );
 
     final nowPlaying = Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomLeft,
-                colors: [t11_GradientColor1, t11_GradientColor2],
-              ),
-            ),
-            child: Column(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomLeft,
+            colors: [t11_GradientColor1, t11_GradientColor2],
+          ),
+        ),
+        child: Column(
+          children: <Widget>[
+            Container(
+              width: 50,
+              height: 5,
+              color: Colors.grey,
+            ).center().paddingOnly(top: 16),
+            Row(
               children: <Widget>[
-                Container(
-                  width: 50,
-                  height: 5,
-                  color: Colors.grey,
-                ).center().paddingOnly(top: 16),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            t11_lbl_now_playing,
-                            style: primaryTextStyle(
-                                size: 18, color: t11_PrimaryColor),
-                          ).paddingOnly(top: 16, right: 16),
-                          Text(
-                            t11_lbl_SmokeMirrors,
-                            style:
-                                primaryTextStyle(size: 20, color: blackColor),
-                          ).paddingOnly(top: 8, right: 16, bottom: 16),
-                        ],
-                      ),
-                    ),
-                    Icon(
-                      Icons.play_circle_outline,
-                      size: 50,
-                      color: t11_PrimaryColor,
-                    )
-                  ],
-                ).paddingAll(16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        t11_lbl_now_playing,
+                        style: primaryTextStyle(size: 18, color: t11_PrimaryColor),
+                      ).paddingOnly(top: 16, right: 16),
+                      Text(
+                        t11_lbl_SmokeMirrors,
+                        style: primaryTextStyle(size: 20, color: blackColor),
+                      ).paddingOnly(top: 8, right: 16, bottom: 16),
+                    ],
+                  ),
+                ),
+                Icon(
+                  Icons.play_circle_outline,
+                  size: 50,
+                  color: t11_PrimaryColor,
+                )
               ],
-            ))
-        .cornerRadiusWithClipRRect(20)
-        .paddingOnly(bottom: 4)
-        .onTap(() => showBottomSheetDialog(context));
+            ).paddingAll(16),
+          ],
+        )).cornerRadiusWithClipRRect(20).paddingOnly(bottom: 4).onTap(() => showBottomSheetDialog(context));
 
     return Scaffold(
         extendBody: true,
@@ -292,8 +253,7 @@ class _T11BottomSheetState extends State<T11BottomSheet> {
           children: <Widget>[
             Expanded(
               child: NestedScrollView(
-                headerSliverBuilder:
-                    (BuildContext context, bool innerBoxIsScrolled) {
+                headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
                   return <Widget>[
                     SliverAppBar(
                       expandedHeight: 290.0,
@@ -335,8 +295,7 @@ class _T11BottomSheetState extends State<T11BottomSheet> {
                               Expanded(
                                   child: Text(
                                 t11_lbl_songs,
-                                style: boldTextStyle(
-                                    size: 24, color: t11_PrimaryColor),
+                                style: boldTextStyle(size: 24, color: t11_PrimaryColor),
                               ).paddingOnly(top: 16, left: 16, right: 16)),
                               Image.asset(
                                 t11_ic_Shuffle,
@@ -403,12 +362,7 @@ class _T11BottomSheetState extends State<T11BottomSheet> {
                     Row(
                       children: <Widget>[
                         Expanded(
-                          child: text(t11_lbl_short_text,
-                                  textColor: t11_greyColor,
-                                  fontSize: textSizeLargeMedium,
-                                  fontFamily: fontMedium,
-                                  maxLine: 3)
-                              .paddingAll(32),
+                          child: text(t11_lbl_short_text, textColor: t11_greyColor, fontSize: textSizeLargeMedium, fontFamily: fontMedium, maxLine: 3).paddingAll(32),
                         ),
                         Image.asset(
                           t11_ic_Expand,
@@ -421,11 +375,7 @@ class _T11BottomSheetState extends State<T11BottomSheet> {
                     Row(
                       children: <Widget>[
                         Expanded(
-                          child: text(t11_lbl_sprakFly,
-                                  textColor: t11_blackColor,
-                                  fontSize: textSizeLarge,
-                                  fontFamily: fontRegular)
-                              .paddingOnly(left: 16, top: 8, right: 16),
+                          child: text(t11_lbl_sprakFly, textColor: t11_blackColor, fontSize: textSizeLarge, fontFamily: fontRegular).paddingOnly(left: 16, top: 8, right: 16),
                         ),
                         Image.asset(
                           t11_ic_Shuffle,
@@ -439,11 +389,7 @@ class _T11BottomSheetState extends State<T11BottomSheet> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        text(t11_lbl_Imagine,
-                                textColor: t11_PrimaryColor,
-                                fontSize: textSizeLargeMedium,
-                                fontFamily: fontRegular)
-                            .paddingAll(16),
+                        text(t11_lbl_Imagine, textColor: t11_PrimaryColor, fontSize: textSizeLargeMedium, fontFamily: fontRegular).paddingAll(16),
                       ],
                     ),
                     LinearProgressIndicator(
@@ -453,11 +399,7 @@ class _T11BottomSheetState extends State<T11BottomSheet> {
                         t11_PrimaryColor,
                       ),
                     ).paddingAll(16),
-                    text(t11_lbl_time,
-                            textColor: t11_PrimaryColor,
-                            fontSize: textSizeLargeMedium,
-                            fontFamily: fontRegular)
-                        .paddingAll(16),
+                    text(t11_lbl_time, textColor: t11_PrimaryColor, fontSize: textSizeLargeMedium, fontFamily: fontRegular).paddingAll(16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[

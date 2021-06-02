@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:prokit_flutter/main.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main.dart';
 
 class MWTabBarScreen1 extends StatefulWidget {
   static String tag = "/MWTabBarScreen1";
@@ -67,8 +67,7 @@ class _MWTabBarScreen1State extends State<MWTabBarScreen1> {
                   children: [
                     Text(
                       'Home',
-                      style: TextStyle(
-                          color: appStore.textPrimaryColor, fontSize: 24),
+                      style: TextStyle(color: appStore.textPrimaryColor, fontSize: 24),
                     ),
                     15.height,
                   ],
@@ -85,8 +84,7 @@ class _MWTabBarScreen1State extends State<MWTabBarScreen1> {
                   children: [
                     Text(
                       'Articles',
-                      style: TextStyle(
-                          color: appStore.textPrimaryColor, fontSize: 24),
+                      style: TextStyle(color: appStore.textPrimaryColor, fontSize: 24),
                     ),
                     15.height,
                   ],
@@ -103,8 +101,7 @@ class _MWTabBarScreen1State extends State<MWTabBarScreen1> {
                   children: [
                     Text(
                       'User',
-                      style: TextStyle(
-                          color: appStore.textPrimaryColor, fontSize: 24),
+                      style: TextStyle(color: appStore.textPrimaryColor, fontSize: 24),
                     ),
                     15.height,
                   ],

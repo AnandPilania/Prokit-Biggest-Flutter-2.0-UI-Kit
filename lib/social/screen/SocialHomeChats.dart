@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/social/model/SocialModel.dart';
 import 'package:prokit_flutter/social/utils/SocialColors.dart';
 import 'package:prokit_flutter/social/utils/SocialConstant.dart';
 import 'package:prokit_flutter/social/utils/SocialDataGenerator.dart';
-import 'package:prokit_flutter/social/utils/SocialExtension.dart';
 import 'package:prokit_flutter/social/utils/SocialStrings.dart';
-import 'package:prokit_flutter/social/utils/SocialWidget.dart';
 
 import 'SocialChatting.dart';
 import 'SocialViewChats.dart';
@@ -18,8 +18,8 @@ class SocialHomeChats extends StatefulWidget {
 }
 
 class SocialHomeChatsState extends State<SocialHomeChats> {
-  List<SocialUser> mList;
-  List<SocialUser> mList1;
+  late List<SocialUser> mList;
+  late List<SocialUser> mList1;
 
   @override
   void initState() {
@@ -34,24 +34,16 @@ class SocialHomeChatsState extends State<SocialHomeChats> {
   Widget mSeeMore() {
     return GestureDetector(
       onTap: () {
-        launchScreen(context, SocialViewChat.tag);
+        SocialViewChat().launch(context);
       },
       child: Container(
-        padding: EdgeInsets.fromLTRB(spacing_standard_new, spacing_control,
-            spacing_standard, spacing_control),
-        margin: EdgeInsets.only(
-            top: spacing_standard_new, bottom: spacing_standard_new),
-        decoration: boxDecoration(
-          color: social_view_color,
-          bgColor: social_app_background,
-        ),
+        padding: EdgeInsets.fromLTRB(spacing_standard_new, spacing_control, spacing_standard, spacing_control),
+        margin: EdgeInsets.only(top: spacing_standard_new, bottom: spacing_standard_new),
+        decoration: boxDecoration(color: social_view_color, bgColor: social_app_background, radius: 8),
         child: RichText(
           text: TextSpan(
             children: [
-              TextSpan(
-                  text: social_lbl_see_more,
-                  style: TextStyle(
-                      fontSize: textSizeMedium, color: social_colorPrimary)),
+              TextSpan(text: social_lbl_see_more, style: TextStyle(fontSize: textSizeMedium, color: social_colorPrimary)),
               WidgetSpan(
                 child: Padding(
                   padding: const EdgeInsets.only(left: spacing_control),
@@ -121,7 +113,7 @@ class SocialHomeChatsState extends State<SocialHomeChats> {
 }
 
 class Chats extends StatelessWidget {
-  SocialUser model;
+  late SocialUser model;
 
   Chats(SocialUser model, int pos) {
     this.model = model;
@@ -132,7 +124,7 @@ class Chats extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
-        launchScreen(context, SocialChatting.tag);
+        SocialChatting().launch(context);
       },
       child: Container(
         margin: EdgeInsets.only(bottom: spacing_standard_new),
@@ -143,11 +135,11 @@ class Chats extends StatelessWidget {
               child: Row(
                 children: <Widget>[
                   ClipRRect(
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(spacing_middle)),
+                      borderRadius: BorderRadius.all(Radius.circular(spacing_middle)),
                       child: Container(
                         color: social_dark_gray,
                         child: CachedNetworkImage(
+                          placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                           imageUrl: model.image,
                           height: width * 0.13,
                           width: width * 0.13,
@@ -173,8 +165,7 @@ class Chats extends StatelessWidget {
               ),
             ),
             SizedBox(width: spacing_standard),
-            text(model.duration,
-                fontFamily: fontMedium, fontSize: textSizeSMedium),
+            text(model.duration, fontFamily: fontMedium, fontSize: textSizeSMedium),
           ],
         ),
       ),

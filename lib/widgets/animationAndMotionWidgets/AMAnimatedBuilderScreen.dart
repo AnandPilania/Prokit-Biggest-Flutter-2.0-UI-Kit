@@ -13,9 +13,10 @@ class AMAnimatedBuilderScreen extends StatefulWidget {
 }
 
 class AMAnimatedBuilderScreenState extends State<AMAnimatedBuilderScreen> with TickerProviderStateMixin {
-  AnimationController _controller;
-  Animation _FavouriteAnimation;
-  AnimationController _arrowAnimationController, _favouriteAnimationController;
+  late AnimationController _controller;
+  // ignore: non_constant_identifier_names
+  late Animation _FavouriteAnimation;
+  AnimationController? _arrowAnimationController, _favouriteAnimationController;
 
   @override
   void initState() {
@@ -30,11 +31,11 @@ class AMAnimatedBuilderScreenState extends State<AMAnimatedBuilderScreen> with T
     )..repeat();
 
     _favouriteAnimationController = AnimationController(vsync: this, duration: Duration(milliseconds: 1200))..repeat();
-    _FavouriteAnimation = Tween(begin: 80.0, end: 100.0).animate(CurvedAnimation(curve: Curves.bounceOut, parent: _favouriteAnimationController));
+    _FavouriteAnimation = Tween(begin: 80.0, end: 100.0).animate(CurvedAnimation(curve: Curves.bounceOut, parent: _favouriteAnimationController!));
 
-    _favouriteAnimationController.addStatusListener((AnimationStatus status) {
+    _favouriteAnimationController!.addStatusListener((AnimationStatus status) {
       if (status == AnimationStatus.completed) {
-        _favouriteAnimationController.repeat();
+        _favouriteAnimationController!.repeat();
       }
     });
   }
@@ -60,61 +61,63 @@ class AMAnimatedBuilderScreenState extends State<AMAnimatedBuilderScreen> with T
         appBar: appBar(context, 'Animated Builder'),
         body: Container(
           margin: EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Rotate Animation",
-                style: boldTextStyle(),
-              ).paddingBottom(16),
-              30.height,
-              AnimatedBuilder(
-                animation: _controller,
-                child: Container(
-                  decoration: boxDecoration(radius: 8, bgColor: Colors.blueGrey),
-                  height: 150,
-                  width: 150,
-                ),
-                builder: (BuildContext context, Widget child) {
-                  return Transform.rotate(
-                    angle: _controller.value * 2.0 * math.pi,
-                    child: child,
-                  );
-                },
-              ).center(),
-              60.height,
-              AnimatedBuilder(
-                animation: _controller,
-                child: Container(
-                  decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16))),
-                  width: 150,
-                  height: 150,
-                  child: FlutterLogo(),
-                ),
-                builder: (BuildContext context, Widget child) {
-                  return Transform.rotate(
-                    angle: _controller.value - math.pi / 12.0,
-                    child: child,
-                  );
-                },
-              ).center(),
-              30.height,
-              Text(
-                "Favourite Animation",
-                style: boldTextStyle(),
-              ).paddingBottom(16),
-              16.height,
-              AnimatedBuilder(
-                animation: _favouriteAnimationController,
-                builder: (context, child) {
-                  return Icon(
-                    Icons.favorite,
-                    color: Colors.red,
-                    size: _FavouriteAnimation.value,
-                  );
-                },
-              ).center(),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Rotate Animation",
+                  style: boldTextStyle(),
+                ).paddingBottom(16),
+                30.height,
+                AnimatedBuilder(
+                  animation: _controller,
+                  child: Container(
+                    decoration: boxDecoration(radius: 8, bgColor: Colors.blueGrey),
+                    height: 150,
+                    width: 150,
+                  ),
+                  builder: (BuildContext context, Widget? child) {
+                    return Transform.rotate(
+                      angle: _controller.value * 2.0 * math.pi,
+                      child: child,
+                    );
+                  },
+                ).center(),
+                60.height,
+                AnimatedBuilder(
+                  animation: _controller,
+                  child: Container(
+                    decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16))),
+                    width: 150,
+                    height: 150,
+                    child: FlutterLogo(),
+                  ),
+                  builder: (BuildContext context, Widget? child) {
+                    return Transform.rotate(
+                      angle: _controller.value - math.pi / 12.0,
+                      child: child,
+                    );
+                  },
+                ).center(),
+                30.height,
+                Text(
+                  "Favourite Animation",
+                  style: boldTextStyle(),
+                ).paddingBottom(16),
+                16.height,
+                AnimatedBuilder(
+                  animation: _favouriteAnimationController!,
+                  builder: (context, child) {
+                    return Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                      size: _FavouriteAnimation.value,
+                    );
+                  },
+                ).center(),
+              ],
+            ),
           ),
         ),
       ),

@@ -5,12 +5,14 @@
       "title_name": "Theme 1 Screens",
       "type": "",
       "show_cover": true,
+      "darkThemeSupported": true,
       "sub_kits": [
         {
           "name": "WalkThrough",
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_bottom_navigation.png",
+          "darkThemeSupported": true,
           "tag": "/T1WalkThrough"
         },
         {
@@ -18,6 +20,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_sign_in.png",
+          "darkThemeSupported": true,
           "tag": "/T1SignIn"
         },
         {
@@ -25,6 +28,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_sign_up.png",
+          "darkThemeSupported": true,
           "tag": "/T1SignUp"
         },
         {
@@ -32,6 +36,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_profile.png",
+          "darkThemeSupported": true,
           "tag": "/T1Profile"
         },
         {
@@ -39,6 +44,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_dashboard.png",
+          "darkThemeSupported": true,
           "tag": "/T1Dashboard"
         },
         {
@@ -46,6 +52,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_seide_menu.png",
+          "darkThemeSupported": true,
           "tag": "/T1SideMenu"
         },
         {
@@ -53,6 +60,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_bottom_navigation.png",
+          "darkThemeSupported": true,
           "tag": "/T1BottomNavigation"
         },
         {
@@ -60,6 +68,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_bottom_sheet.png",
+          "darkThemeSupported": true,
           "tag": "/T1BottomSheet"
         },
         {
@@ -67,6 +76,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_slider.png",
+          "darkThemeSupported": true,
           "tag": "/T1ImageSlider"
         },
         {
@@ -74,6 +84,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_search.png",
+          "darkThemeSupported": true,
           "tag": "/T1Search"
         },
         {
@@ -81,6 +92,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_list.png",
+          "darkThemeSupported": true,
           "tag": "/T1Listing"
         },
         {
@@ -88,6 +100,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_cards.png",
+          "darkThemeSupported": true,
           "tag": "/T1Cards"
         },
         {
@@ -95,6 +108,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_dialog.png",
+          "darkThemeSupported": true,
           "tag": "/T1Dialog"
         }
       ]
@@ -103,6 +117,7 @@
       "name": "Exercise Tips",
       "title_name": "Theme 2 Screens",
       "type": "",
+      "darkThemeSupported": true,
       "show_cover": true,
       "sub_kits": [
         {
@@ -110,6 +125,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_bottom_navigation.png",
+          "darkThemeSupported": true,
           "tag": "/T2WalkThrough"
         },
         {
@@ -117,6 +133,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_sign_in.png",
+          "darkThemeSupported": true,
           "tag": "/T2SignIn"
         },
         {
@@ -124,6 +141,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_sign_up.png",
+          "darkThemeSupported": true,
           "tag": "/T2SignUp"
         },
         {
@@ -131,6 +149,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_profile.png",
+          "darkThemeSupported": true,
           "tag": "/T2Profile"
         },
         {
@@ -138,6 +157,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_dashboard.png",
+          "darkThemeSupported": true,
           "tag": "/T2Dashboard"
         },
         {
@@ -145,6 +165,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_seide_menu.png",
+          "darkThemeSupported": true,
           "tag": "/T2SideMenu"
         },
         {
@@ -152,6 +173,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_bottom_navigation.png",
+          "darkThemeSupported": true,
           "tag": "/T2BottomNavigation"
         },
         {
@@ -159,6 +181,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_bottom_sheet.png",
+          "darkThemeSupported": true,
           "tag": "/T2BottomSheet"
         },
         {
@@ -166,6 +189,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_slider.png",
+          "darkThemeSupported": true,
           "tag": "/T2ImageSlider"
         },
         {
@@ -173,6 +197,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_search.png",
+          "darkThemeSupported": true,
           "tag": "/T2Search"
         },
         {
@@ -180,6 +205,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_list.png",
+          "darkThemeSupported": true,
           "tag": "/T2Listing"
         },
         {
@@ -187,6 +213,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_cards.png",
+          "darkThemeSupported": true,
           "tag": "/T2Cards"
         },
         {
@@ -194,6 +221,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_dialog.png",
+          "darkThemeSupported": true,
           "tag": "/T2Dialog"
         }
       ]
@@ -202,6 +230,7 @@
       "name": "Food Recipe",
       "title_name": "Theme 3 Screens",
       "type": "",
+      "darkThemeSupported": true,
       "show_cover": true,
       "sub_kits": [
         {
@@ -209,6 +238,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_bottom_navigation.png",
+          "darkThemeSupported": true,
           "tag": "/T3WalkThrough"
         },
         {
@@ -216,6 +246,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_sign_in.png",
+          "darkThemeSupported": true,
           "tag": "/T3SignIn"
         },
         {
@@ -223,6 +254,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_sign_up.png",
+          "darkThemeSupported": true,
           "tag": "/T3SignUp"
         },
         {
@@ -230,6 +262,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_profile.png",
+          "darkThemeSupported": true,
           "tag": "/T3Profile"
         },
         {
@@ -237,6 +270,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_dashboard.png",
+          "darkThemeSupported": true,
           "tag": "/T3Dashboard"
         },
         {
@@ -244,6 +278,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_dashboard.png",
+          "darkThemeSupported": true,
           "tag": "/T3Description"
         },
         {
@@ -251,6 +286,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_seide_menu.png",
+          "darkThemeSupported": true,
           "tag": "/T3SideMenu"
         },
         {
@@ -258,6 +294,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_bottom_navigation.png",
+          "darkThemeSupported": true,
           "tag": "/T3BottomNavigation"
         },
         {
@@ -265,6 +302,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_bottom_sheet.png",
+          "darkThemeSupported": true,
           "tag": "/T3BottomSheet"
         },
         {
@@ -272,6 +310,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_slider.png",
+          "darkThemeSupported": true,
           "tag": "/T3ImageSlider"
         },
         {
@@ -279,6 +318,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_search.png",
+          "darkThemeSupported": true,
           "tag": "/T3Search"
         },
         {
@@ -286,6 +326,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_bottom_navigation.png",
+          "darkThemeSupported": true,
           "tag": "/T3Tab"
         },
         {
@@ -293,6 +334,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_list.png",
+          "darkThemeSupported": true,
           "tag": "/T3Listing"
         },
         {
@@ -300,6 +342,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_cards.png",
+          "darkThemeSupported": true,
           "tag": "/T3Cards"
         },
         {
@@ -307,6 +350,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_cards.png",
+          "darkThemeSupported": true,
           "tag": "/T3Setting"
         },
         {
@@ -314,6 +358,7 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_dialog.png",
+          "darkThemeSupported": true,
           "tag": "/T3Dialog"
         }
       ]
@@ -960,14 +1005,14 @@
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_sign_in.png",
-          "tag": "/T12SignIn"
+          "tag": "/app_ic_sign_in"
         },
         {
           "name": "Sign Up",
           "type": "",
           "is_theme": true,
           "icon": "/app_ic_sign_in.png",
-          "tag": "/T12SignUp"
+          "tag": "/app_ic_sign_in"
         },
         {
           "name": "Profile",
@@ -2105,27 +2150,31 @@
   },
   "widgets": {
     "name": "Widgets",
-    "title_name": "Material & Cupertino Widgets",
-    "type": "Exclusive",
+    "title_name": "Widgets",
+    "type": "New",
     "icon": "/app_ic_setting.png",
-    "show_cover": true,
+    "show_cover": false,
+    "darkThemeSupported": true,
     "sub_kits": [
       {
         "name": "Material Widgets",
-        "type": "Exclusive",
+        "type": "New",
         "icon": "/app_ic_bottom_navigation.png",
         "show_cover": false,
+        "darkThemeSupported": true,
         "sub_kits": [
           {
             "name": "App Structure",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
             "show_cover": false,
+            "darkThemeSupported": true,
             "sub_kits": [
               {
                 "name": "AppBar",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWAppBarScreen"
               },
               {
@@ -2134,23 +2183,27 @@
                 "icon": "/app_ic_bottom_navigation.png",
                 "tag": "/MWBottomNavigationScreen",
                 "show_cover": false,
+                "darkThemeSupported": true,
                 "sub_kits": [
                   {
                     "name": "With Icon and Label",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWBottomNavigationScreen1"
                   },
                   {
                     "name": "With Custom Image",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWBottomNavigationScreen2"
                   },
                   {
                     "name": "With Shifting Label",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWBottomNavigationScreen3"
                   }
                 ]
@@ -2161,17 +2214,20 @@
                 "icon": "/app_ic_bottom_navigation.png",
                 "tag": "/MWDrawerScreen",
                 "show_cover": false,
+                "darkThemeSupported": true,
                 "sub_kits": [
                   {
                     "name": "With Multiple Account Selection",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWDrawerScreen1"
                   },
                   {
                     "name": "With Custom Shape",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWDrawerScreen2"
                   }
                 ]
@@ -2182,17 +2238,20 @@
                 "icon": "/app_ic_bottom_navigation.png",
                 "tag": "/MWSliverAppBarScreen",
                 "show_cover": false,
+                "darkThemeSupported": true,
                 "sub_kits": [
                   {
                     "name": "Sliver AppBar with ListView",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWSliverAppBarScreen1"
                   },
                   {
                     "name": "Parallax Sliver AppBar",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWSliverAppBarScreen2"
                   }
                 ]
@@ -2203,29 +2262,34 @@
                 "icon": "/app_ic_bottom_navigation.png",
                 "tag": "/MWTabBarScreen",
                 "show_cover": false,
+                "darkThemeSupported": true,
                 "sub_kits": [
                   {
                     "name": "Simple TabBar",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWTabBarScreen1"
                   },
                   {
                     "name": "TabBar with Title and Icon",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWTabBarScreen2"
                   },
                   {
                     "name": "TabBar with Icon",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWTabBarScreen3"
                   },
                   {
                     "name": "Scrollable Tab",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWTabBarScreen4"
                   }
                 ]
@@ -2237,53 +2301,62 @@
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
             "show_cover": false,
+            "darkThemeSupported": true,
             "sub_kits": [
               {
                 "name": "DropDownButton",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWDropDownButtonScreen"
               },
               {
                 "name": "MaterialButton",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWMaterialButtonScreen"
               },
               {
                 "name": "FlatButton",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWFlatButtonScreen"
               },
               {
                 "name": "FloatingActionButton",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWFloatingActionButtonScreen"
               },
               {
                 "name": "IconButton",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWIconButtonScreen"
               },
               {
                 "name": "OutlineButton",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWOutlineButtonScreen"
               },
               {
                 "name": "PopupMenuButton",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWPopupMenuButtonScreen"
               },
               {
                 "name": "RaisedButton",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWRaisedButtonScreen"
               }
             ]
@@ -2293,35 +2366,41 @@
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
             "show_cover": false,
+            "darkThemeSupported": true,
             "sub_kits": [
               {
                 "name": "Checkbox",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
-                "tag": "/MWCheckboxScreen"
+                "darkThemeSupported": true,
+                "tag": "/Checkbox"
               },
               {
                 "name": "Datetime Picker",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWDatetimePickerScreen"
               },
               {
                 "name": "Radio",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWRadioScreen"
               },
               {
                 "name": "Slider",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWSliderScreen"
               },
               {
                 "name": "Switch",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWSwitchScreen"
               },
               {
@@ -2330,17 +2409,20 @@
                 "icon": "/app_ic_bottom_navigation.png",
                 "tag": "/MWTextFieldScreen",
                 "show_cover": false,
+                "darkThemeSupported": true,
                 "sub_kits": [
                   {
                     "name": "Simple TextField",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWTextFieldScreen1"
                   },
                   {
                     "name": "Rounded Border TextField",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWTextFieldScreen2"
                   }
                 ]
@@ -2349,6 +2431,7 @@
                 "name": "TextFormField",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWTextFormFieldScreen"
               }
             ]
@@ -2358,41 +2441,48 @@
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
             "show_cover": false,
+            "darkThemeSupported": true,
             "sub_kits": [
               {
                 "name": "AlertDialog",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWAlertDialogScreen"
               },
               {
                 "name": "BottomSheet",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWBottomSheetScreen"
               },
               {
                 "name": "ExpansionPanel",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWExpansionPanelScreen"
               },
               {
                 "name": "Simple Dialog",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWSimpleDialogScreen"
               },
               {
                 "name": "SnackBar",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWSnackBarScreen"
               },
               {
                 "name": "Toast",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWToastScreen"
               }
             ]
@@ -2402,35 +2492,41 @@
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
             "show_cover": false,
+            "darkThemeSupported": true,
             "sub_kits": [
               {
                 "name": "Card",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWCardScreen"
               },
               {
                 "name": "Chip",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWChipScreen"
               },
               {
-                "name": "ProgressBar",
+                "name": "Progress Bar",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWProgressBarScreen"
               },
               {
-                "name": "DataTable",
+                "name": "Data Table",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWDataTableScreen"
               },
               {
-                "name": "GridView",
+                "name": "Grid View",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWGridViewScreen"
               },
               {
@@ -2439,55 +2535,71 @@
                 "icon": "/app_ic_bottom_navigation.png",
                 "tag": "/MWListViewScreen",
                 "show_cover": false,
+                "darkThemeSupported": true,
                 "sub_kits": [
                   {
                     "name": "Simple List View",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWListViewScreen1"
                   },
                   {
                     "name": "List Wheel ScrollView",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWListViewScreen2"
                   },
                   {
                     "name": "Horizontal List View",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWListViewScreen3"
                   },
                   {
                     "name": "Bouncing Scroll List View",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWListViewScreen4"
+                  },
+                  {
+                    "name": "Reorderable List View",
+                    "type": "",
+                    "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
+                    "tag": "/MWListViewScreen5"
                   }
                 ]
               },
               {
-                "name": "RichText",
+                "name": "Rich Text",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWRichTextScreen"
               },
               {
                 "name": "Icon",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWIconScreen"
               },
               {
                 "name": "Image (assets,Network,Placeholders)",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWImageScreen"
               },
               {
                 "name": "Tooltip",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWTooltipScreen"
               }
             ]
@@ -2497,17 +2609,20 @@
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
             "show_cover": false,
+            "darkThemeSupported": true,
             "sub_kits": [
               {
                 "name": "Divider",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWDividerScreen"
               },
               {
                 "name": "ListTile",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/MWListTileScreen"
               },
               {
@@ -2516,29 +2631,34 @@
                 "icon": "/app_ic_bottom_navigation.png",
                 "tag": "/MWStepperScreen",
                 "show_cover": false,
+                "darkThemeSupported": true,
                 "sub_kits": [
                   {
                     "name": "Horizontal Stepper with Form",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWStepperScreen1"
                   },
                   {
                     "name": "Vertical Stepper",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWStepperScreen2"
                   },
                   {
                     "name": "Vertical Stepper with Form",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWStepperScreen3"
                   },
                   {
                     "name": "Simple Horizontal Stepper",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWStepperScreen4"
                   }
                 ]
@@ -2549,29 +2669,34 @@
                 "icon": "/app_ic_bottom_navigation.png",
                 "tag": "/MWUserAccountsDrawerHeaderScreen",
                 "show_cover": false,
+                "darkThemeSupported": true,
                 "sub_kits": [
                   {
                     "name": "With Custom UI",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWUserAccountDrawerHeaderScreen1"
                   },
                   {
                     "name": "Simple User Account Drawer Header",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWUserAccountDrawerHeaderScreen2"
                   },
                   {
                     "name": "With Multiple Account Selection",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWUserAccountDrawerHeaderScreen3"
                   },
                   {
                     "name": "With Custom Background",
                     "type": "",
                     "icon": "/app_ic_bottom_navigation.png",
+                    "darkThemeSupported": true,
                     "tag": "/MWUserAccountDrawerHeaderScreen4"
                   }
                 ]
@@ -2582,81 +2707,94 @@
       },
       {
         "name": "Cupertino Widgets",
-        "type": "Exclusive",
+        "type": "New",
         "icon": "/app_ic_bottom_navigation.png",
         "tag": "/CupertinoWidgetsScreen",
         "show_cover": false,
+        "darkThemeSupported": true,
         "sub_kits": [
           {
             "name": "Cupertino Action Sheet",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/CWActionSheetScreen"
           },
           {
             "name": "Cupertino Activity Indicator",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/CWActivityIndicatorScreen"
           },
           {
             "name": "Cupertino Alert Dialog",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/CWAlertDialogScreen"
           },
           {
             "name": "Cupertino Button",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/CWButtonScreen"
           },
           {
             "name": "Cupertino Context Menu",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/CWContextMenuScreen"
           },
           {
             "name": "Cupertino Dialog",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/CWDialogScreen"
           },
           {
             "name": "Cupertino Navigation Bar",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/CWNavigationBarScreen"
           },
           {
             "name": "Cupertino Picker",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/CWPickerScreen"
           },
           {
             "name": "Cupertino Segmented Control",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/CWSegmentedControlScreen"
           },
           {
             "name": "Cupertino Slider",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/CWSliderScreen"
           },
           {
             "name": "Cupertino Sliding Segmented Control",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/CWSlidingSegmentedControlScreen"
           },
           {
             "name": "Cupertino Switch",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/CWSwitchScreen"
           },
           {
@@ -2665,23 +2803,27 @@
             "icon": "/app_ic_bottom_navigation.png",
             "tag": "/CWTabBarScreen",
             "show_cover": false,
+            "darkThemeSupported": true,
             "sub_kits": [
               {
                 "name": "Tab Bar with Icon",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/CWTabBarScreen1"
               },
               {
                 "name": "Tab Bar with Icon and Label",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/CWTabBarScreen2"
               },
               {
                 "name": "Tab Bar with Custom Image ",
                 "type": "",
                 "icon": "/app_ic_bottom_navigation.png",
+                "darkThemeSupported": true,
                 "tag": "/CWTabBarScreen3"
               }
             ]
@@ -2690,25 +2832,28 @@
             "name": "Cupertino TextField",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/CWTextFieldScreen"
           }
         ]
       },
       {
         "name": "Painting and effect Widgets",
-        "type": "Exclusive",
+        "type": "New",
         "icon": "/app_ic_bottom_navigation.png",
         "tag": "/PaintingAndEffectScreen",
         "show_cover": false,
+        "darkThemeSupported": true,
         "sub_kits": [
           {
             "name": "Backdrop Filter",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/PEBackdropFilterScreen"
           },
           {
-            "name": "Clip Oval",
+            "name": "Clip Widget Demo",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
             "tag": "/PEClipOvalScreen"
@@ -2717,102 +2862,196 @@
             "name": "Opacity",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/PEOpacityScreen"
           },
           {
             "name": "Rotated Box",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/PERotatedBoxScreen"
           },
           {
             "name": "Transform",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/PETransformScreen"
           }
         ]
       },
       {
         "name": "Animation and motion Widgets",
-        "type": "Exclusive",
+        "type": "New",
         "icon": "/app_ic_bottom_navigation.png",
         "tag": "/AnimationAndMotionScreen",
         "show_cover": false,
+        "darkThemeSupported": true,
         "sub_kits": [
           {
             "name": "Animated Builder",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/AMAnimatedBuilderScreen"
           },
           {
             "name": "Animated Container",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/AMAnimatedContainerScreen"
           },
           {
             "name": "Animated Cross Fade",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/AMAnimatedCrossFadeScreen"
           },
           {
             "name": "Animated Opacity",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/AMAnimatedOpacityScreen"
           },
           {
             "name": "Fade Transition",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/AMFadeTransitionScreen"
           },
           {
             "name": "Hero Transition",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/AMHeroScreen"
           },
           {
             "name": "Scale Transition",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/AMScaleTransitionScreen"
           },
           {
             "name": "Animated Size",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/AMAnimatedSizeScreen"
           },
           {
             "name": "Animated Positioned",
             "type": "",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/AMAnimatedPositionedScreen"
           }
         ]
       },
       {
-        "name": "Other Widgets",
-        "type": "Exclusive",
+        "name": "Interaction Model Widgets",
+        "type": "New",
         "icon": "/app_ic_bottom_navigation.png",
-        "tag": "/AnimationAndMotionScreen",
+        "tag": "/InteractionModel",
         "show_cover": false,
         "sub_kits": [
           {
-            "name": "Interactive Viewer",
-            "type": "Exclusive",
+            "name": "Dismissible",
+            "type": "New",
             "icon": "/app_ic_bottom_navigation.png",
+            "tag": "/Dismissible",
+            "show_cover": false,
+            "sub_kits": [
+              {
+                "name": "Dismissible with Both Side",
+                "type": "",
+                "icon": "/app_ic_bottom_navigation.png",
+                "tag": "/IMDismissibleScreen1"
+              },
+              {
+                "name": "Dismissible with One Side",
+                "type": "",
+                "icon": "/app_ic_bottom_navigation.png",
+                "tag": "/IMDismissibleScreen2"
+              }
+            ]
+          },
+          {
+            "name": "Gesture Detector",
+            "type": "New",
+            "icon": "/app_ic_bottom_navigation.png",
+            "tag": "/IMGestureDetectorScreen"
+          },
+          {
+            "name": "Draggable",
+            "type": "New",
+            "icon": "/app_ic_bottom_navigation.png",
+            "tag": "/Draggable",
+            "show_cover": false,
+            "sub_kits": [
+              {
+                "name": "Simple Draggable",
+                "type": "",
+                "icon": "/app_ic_bottom_navigation.png",
+                "tag": "/IMDraggableScreen1"
+              },
+              {
+                "name": "Draggable with Target",
+                "type": "",
+                "icon": "/app_ic_bottom_navigation.png",
+                "tag": "/IMDraggableScreen1"
+              }
+            ]
+          },
+          {
+            "name": "Long Press Draggable",
+            "type": "New",
+            "icon": "/app_ic_bottom_navigation.png",
+            "tag": "/LongPressDraggable",
+            "show_cover": false,
+            "sub_kits": [
+              {
+                "name": "Simple Long Press Draggable",
+                "type": "",
+                "icon": "/app_ic_bottom_navigation.png",
+                "tag": "/IMLongPressDraggableScreen1"
+              },
+              {
+                "name": "Long Press Draggable with Target",
+                "type": "",
+                "icon": "/app_ic_bottom_navigation.png",
+                "tag": "/IMLongPressDraggableScreen2"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Other Widgets",
+        "type": "New",
+        "icon": "/app_ic_bottom_navigation.png",
+        "tag": "/AnimationAndMotionScreen",
+        "show_cover": false,
+        "darkThemeSupported": true,
+        "sub_kits": [
+          {
+            "name": "Interactive Viewer",
+            "type": "New",
+            "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/InteractiveViewerScreen"
           },
           {
             "name": "Open Container Transform Demo",
-            "type": "Exclusive",
+            "type": "New",
             "icon": "/app_ic_bottom_navigation.png",
+            "darkThemeSupported": true,
             "tag": "/OpenContainerTransformScreen"
           }
         ]
@@ -2821,10 +3060,300 @@
   },
   "defaultTheme": {
     "name": "Default Theme",
-    "title_name": "MultiPurpose Theme",
-    "type": "Exclusive",
+    "title_name": "Default Theme",
+    "type": "New",
     "icon": "/app_ic_setting.png",
     "show_cover": false,
-    "tag": "/"
+    "darkThemeSupported": true,
+    "tag": "/DefaultThemeWalkThough"
+  },
+  "integrations": {
+    "name": "Integrations",
+    "title_name": "Integrations",
+    "type": "New",
+    "icon": "/app_ic_setting.png",
+    "show_cover": false,
+    "darkThemeSupported": true,
+    "sub_kits": [
+      {
+        "name": "Integrations",
+        "type": "New",
+        "icon": "/app_ic_bottom_navigation.png",
+        "show_cover": true,
+        "darkThemeSupported": true,
+        "sub_kits": [
+          {
+            "name": "Fingerprint Authentication",
+            "type": "New",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/FingerprintAuthentication"
+          },
+          {
+            "name": "Before After Image",
+            "type": "",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/BeforeAfterImageScreen"
+          },
+          {
+            "name": "Google Sign In",
+            "type": "",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/GoogleSignInScreen"
+          },
+          {
+            "name": "Wave Widget",
+            "type": "",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/WaveScreen"
+          },
+          {
+            "name": "Signature Pad",
+            "type": "",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/SignatureScreen"
+          },
+          {
+            "name": "Liquid Swipe WalkThrough",
+            "type": "",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/LiquidSwipeScreen"
+          },
+          {
+            "name": "Calender",
+            "type": "",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/CalenderHomePage"
+          },
+          {
+            "name": "Confitte",
+            "type": "",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/CHomePage"
+          },
+          {
+            "name": "TinderCard",
+            "type": "",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/TinderHomePage"
+          },
+          {
+            "name": "Show Case View",
+            "type": "",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/SVCHomePage"
+          }
+        ]
+      },
+      {
+        "name": "UI Interactions",
+        "icon": "/app_ic_bottom_navigation.png",
+        "show_cover": false,
+        "type": "",
+        "darkThemeSupported": true,
+        "sub_kits": [
+          {
+            "name": "Custom Buttons",
+            "type": "",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/ButtonScreen"
+          },
+          {
+            "name": "Pickers",
+            "type": "",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/PickerScreen"
+          },
+          {
+            "name": "Slider",
+            "type": "",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/FluidSliderScreen"
+          },
+          {
+            "name": "ShaderMask",
+            "type": "",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/ShaderMaskScreen"
+          },
+          {
+            "name": "Marquee",
+            "type": "",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/MHomePage"
+          },
+          {
+            "name": "Like Button",
+            "type": "",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/LBHomePage"
+          }
+        ]
+      },
+      {
+        "name": "Lists",
+        "icon": "/app_ic_bottom_navigation.png",
+        "show_cover": false,
+        "type": "",
+        "darkThemeSupported": true,
+        "sub_kits": [
+          {
+            "name": "Liquid Pull to Refresh",
+            "type": "",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/LiquidPullToRefreshScreen"
+          },
+          {
+            "name": "Folding Cell in ListView",
+            "type": "",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/FoldingCellScreen"
+          },
+          {
+            "name": "Shimmer",
+            "type": "",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/SHomePage"
+          },
+          {
+            "name": "Sticky Header",
+            "type": "",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "sub_kits": [
+              {
+                "name": "Header and Content",
+                "type": "",
+                "icon": "/app_ic_bottom_navigation.png",
+                "show_cover": false,
+                "darkThemeSupported": true,
+                "tag": "/SimpleHeaders"
+              },
+              {
+                "name": "Animated Headers with Content",
+                "type": "",
+                "icon": "/app_ic_bottom_navigation.png",
+                "show_cover": false,
+                "darkThemeSupported": true,
+                "tag": "/AnimatedHeaders"
+              },
+              {
+                "name": "Headers overlapping the Content",
+                "type": "",
+                "icon": "/app_ic_bottom_navigation.png",
+                "show_cover": false,
+                "darkThemeSupported": true,
+                "tag": "/OverLappingHeaders"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Maps",
+        "icon": "/app_ic_bottom_navigation.png",
+        "show_cover": false,
+        "type": "",
+        "darkThemeSupported": true,
+        "sub_kits": [
+          {
+            "name": "Google Maps with Clustering",
+            "type": "",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/GoogleMapScreen"
+          },
+          {
+            "name": "Google Maps with Slipping Panel",
+            "type": "",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/SlidingPanelScreen"
+          }
+        ]
+      },
+      {
+        "name": "Payment Gateways",
+        "icon": "/app_ic_bottom_navigation.png",
+        "show_cover": false,
+        "type": "",
+        "darkThemeSupported": true,
+        "sub_kits": [
+          {
+            "name": "RazorPay Payment",
+            "type": "",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/RazorPayScreen"
+          }
+        ]
+      },
+      {
+        "name": "Rest API Integrations",
+        "icon": "/app_ic_bottom_navigation.png",
+        "type": "New",
+        "show_cover": false,
+        "darkThemeSupported": true,
+        "sub_kits": [
+          {
+            "name": "Get example with FutureBuilder",
+            "type": "New",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/GETMethodExampleScreen"
+          },
+          {
+            "name": "Post example",
+            "type": "New",
+            "icon": "/app_ic_bottom_navigation.png",
+            "show_cover": false,
+            "darkThemeSupported": true,
+            "tag": "/PostMethodExampleScreen"
+          }
+        ]
+      }
+    ]
   }
 }

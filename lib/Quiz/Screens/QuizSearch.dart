@@ -2,14 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/Quiz/Screens/QuizDetails.dart';
-import 'package:prokit_flutter/Quiz/model/QuizModels.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizColors.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizConstant.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizDataGenerator.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizExtension.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizStrings.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
+import 'package:prokit_flutter/quiz/Screens/QuizDetails.dart';
+import 'package:prokit_flutter/quiz/model/QuizModels.dart';
+import 'package:prokit_flutter/quiz/utils/QuizColors.dart';
+import 'package:prokit_flutter/quiz/utils/QuizConstant.dart';
+import 'package:prokit_flutter/quiz/utils/QuizDataGenerator.dart';
+import 'package:prokit_flutter/quiz/utils/QuizStrings.dart';
+import 'package:prokit_flutter/quiz/utils/QuizWidget.dart';
 
 class QuizSearch extends StatefulWidget {
   static String tag = '/QuizSearch';
@@ -19,7 +19,7 @@ class QuizSearch extends StatefulWidget {
 }
 
 class _QuizSearchState extends State<QuizSearch> {
-  List<NewQuizModel> mListings;
+  late List<NewQuizModel> mListings;
   var searchCont = TextEditingController();
 
   @override
@@ -55,26 +55,21 @@ class _QuizSearchState extends State<QuizSearch> {
                     topRight: Radius.circular(16.0),
                   ),
                   child: CachedNetworkImage(
+                    placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                     imageUrl: mListings[index].quizImage,
                     height: width * 0.4,
                     width: MediaQuery.of(context).size.width / 0.25,
                     fit: BoxFit.cover,
                   )),
-              text(mListings[index].quizName,
-                      fontSize: textSizeMedium,
-                      isLongText: true,
-                      fontFamily: fontMedium)
-                  .paddingOnly(top: 8, left: 16, right: 16, bottom: 8),
+              text(mListings[index].quizName, fontSize: textSizeMedium, isLongText: true, fontFamily: fontMedium).paddingOnly(top: 8, left: 16, right: 16, bottom: 8),
               SizedBox(
                 height: 8,
               ),
-              text(mListings[index].totalQuiz,
-                      textColor: quiz_textColorSecondary)
-                  .paddingOnly(left: 16, right: 16, bottom: 8),
+              text(mListings[index].totalQuiz, textColor: quiz_textColorSecondary).paddingOnly(left: 16, right: 16, bottom: 8),
             ],
           ),
         ).cornerRadiusWithClipRRect(16).onTap(() {
-          launchScreen(context, QuizDetails.tag);
+          QuizDetails().launch(context);
         });
       },
     );
@@ -91,8 +86,7 @@ class _QuizSearchState extends State<QuizSearch> {
                 padding: const EdgeInsets.all(16),
                 child: TextFormField(
                   controller: searchCont,
-                  style: TextStyle(
-                      fontSize: textSizeLargeMedium, fontFamily: fontRegular),
+                  style: TextStyle(fontSize: textSizeLargeMedium, fontFamily: fontRegular),
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.search),
                     contentPadding: EdgeInsets.fromLTRB(16, 10, 16, 10),
@@ -102,13 +96,11 @@ class _QuizSearchState extends State<QuizSearch> {
                     hintStyle: TextStyle(color: quiz_view_color),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
-                          color: quiz_app_background, width: 0.0),
+                      borderSide: const BorderSide(color: quiz_app_background, width: 0.0),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
-                          color: quiz_app_background, width: 0.0),
+                      borderSide: const BorderSide(color: quiz_app_background, width: 0.0),
                     ),
                   ),
                 ),

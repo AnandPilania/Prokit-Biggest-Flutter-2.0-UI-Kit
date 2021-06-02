@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/Learner/Screens/LearnerChatting.dart';
-import 'package:prokit_flutter/Learner/model/LearnerModels.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerColors.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerConstant.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerDataGenerator.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerStrings.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerWidget.dart';
+import 'package:prokit_flutter/learner/Screens/LearnerChatting.dart';
+import 'package:prokit_flutter/learner/model/LearnerModels.dart';
+import 'package:prokit_flutter/learner/utils/LearnerColors.dart';
+import 'package:prokit_flutter/learner/utils/LearnerConstant.dart';
+import 'package:prokit_flutter/learner/utils/LearnerDataGenerator.dart';
+import 'package:prokit_flutter/learner/utils/LearnerStrings.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 class LearnerChat extends StatefulWidget {
   @override
@@ -15,8 +15,8 @@ class LearnerChat extends StatefulWidget {
 }
 
 class _LearnerChatState extends State<LearnerChat> {
-  List<LearnerChatModel> mList1;
-  List<LearnerPeopleModel> mList2;
+  late List<LearnerChatModel> mList1;
+  late List<LearnerPeopleModel> mList2;
 
   @override
   void initState() {
@@ -41,11 +41,7 @@ class _LearnerChatState extends State<LearnerChat> {
             },
           ),
           SizedBox(height: 20),
-          text(learner_lbl_Start_a_new_chat,
-                  textColor: learner_textColorSecondary,
-                  fontSize: textSizeLargeMedium,
-                  fontFamily: fontSemibold)
-              .paddingOnly(top: 16, left: 16, right: 16),
+          text(learner_lbl_Start_a_new_chat, textColor: learner_textColorSecondary, fontSize: textSizeLargeMedium, fontFamily: fontSemibold).paddingOnly(top: 16, left: 16, right: 16),
           SizedBox(height: 20),
           Container(
             height: 200,
@@ -58,8 +54,7 @@ class _LearnerChatState extends State<LearnerChat> {
                     height: 90,
                     width: 90,
                     color: learner_white,
-                    child:
-                        Icon(Icons.add, size: 70, color: learner_colorPrimary),
+                    child: Icon(Icons.add, size: 70, color: learner_colorPrimary),
                   ).cornerRadiusWithClipRRect(50).paddingOnly(left: 16),
                   ListView.builder(
                     scrollDirection: Axis.horizontal,
@@ -100,23 +95,14 @@ class _LearnerChatState extends State<LearnerChat> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              text(learner_lbl_chat,
-                                      fontSize: textSizeXXLarge,
-                                      fontFamily: fontBold,
-                                      textColor: learner_textColorPrimary)
-                                  .paddingOnly(left: 16),
+                              text(learner_lbl_chat, fontSize: textSizeXXLarge, fontFamily: fontBold, textColor: learner_textColorPrimary).paddingOnly(left: 16),
                               InkWell(
                                 child: Container(
                                   height: 40,
                                   width: 40,
                                   color: Colors.white,
-                                  child: Icon(Icons.search,
-                                      size: 30, color: learner_colorPrimary),
-                                )
-                                    .cornerRadiusWithClipRRect(20)
-                                    .withShadow(
-                                        shadowColor: learner_ShadowColor)
-                                    .paddingOnly(top: 16),
+                                  child: Icon(Icons.search, size: 30, color: learner_colorPrimary),
+                                ).cornerRadiusWithClipRRect(20).withShadow(shadowColor: learner_ShadowColor).paddingOnly(top: 16),
                                 onTap: () {
                                   print('Search');
                                 },
@@ -141,32 +127,28 @@ class _LearnerChatState extends State<LearnerChat> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: new Text(
                                   learner_lbl_All,
-                                  style: TextStyle(
-                                      fontSize: 18.0, fontFamily: fontBold),
+                                  style: TextStyle(fontSize: 18.0, fontFamily: fontBold),
                                 ),
                               ).paddingOnly(left: 8, right: 8),
                               Container(
                                 padding: const EdgeInsets.all(8.0),
                                 child: new Text(
                                   learner_lbl_Instrctors,
-                                  style: TextStyle(
-                                      fontSize: 18.0, fontFamily: fontBold),
+                                  style: TextStyle(fontSize: 18.0, fontFamily: fontBold),
                                 ),
                               ).paddingOnly(right: 8),
                               Container(
                                 padding: const EdgeInsets.all(8.0),
                                 child: new Text(
                                   learner_lbl_Friends,
-                                  style: TextStyle(
-                                      fontSize: 18.0, fontFamily: fontBold),
+                                  style: TextStyle(fontSize: 18.0, fontFamily: fontBold),
                                 ),
                               ).paddingOnly(right: 8),
                               Container(
                                 padding: const EdgeInsets.all(8.0),
                                 child: new Text(
                                   learner_lbl_Bots,
-                                  style: TextStyle(
-                                      fontSize: 18.0, fontFamily: fontBold),
+                                  style: TextStyle(fontSize: 18.0, fontFamily: fontBold),
                                 ),
                               ).paddingOnly(right: 8),
                             ],
@@ -189,7 +171,7 @@ class _LearnerChatState extends State<LearnerChat> {
 }
 
 class LearnerChatsData extends StatelessWidget {
-  LearnerChatModel model;
+  late LearnerChatModel model;
 
   LearnerChatsData(LearnerChatModel model, int pos) {
     this.model = model;
@@ -212,12 +194,7 @@ class LearnerChatsData extends StatelessWidget {
               Container(
                 height: 15,
                 width: 15,
-                decoration: BoxDecoration(
-                    color: model.isOnline
-                        ? learner_green
-                        : learner_greyColor.withOpacity(1.0),
-                    shape: BoxShape.circle,
-                    border: Border.all(color: learner_white, width: 1.5)),
+                decoration: BoxDecoration(color: model.isOnline ? learner_green : learner_greyColor.withOpacity(1.0), shape: BoxShape.circle, border: Border.all(color: learner_white, width: 1.5)),
               ).cornerRadiusWithClipRRect(7).paddingOnly(top: 4, right: 2)
             ],
           ),
@@ -226,28 +203,22 @@ class LearnerChatsData extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                text(model.name,
-                    fontFamily: fontMedium,
-                    textColor: learner_textColorPrimary),
+                text(model.name, fontFamily: fontMedium, textColor: learner_textColorPrimary),
                 SizedBox(width: 4),
-                text(model.msg,
-                    textColor: learner_textColorSecondary, isLongText: false),
+                text(model.msg, textColor: learner_textColorSecondary, isLongText: false),
               ],
             ),
           )
         ],
       ).onTap(() {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => LearnerChattingScreen()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => LearnerChattingScreen()));
       }),
     );
   }
 }
 
 class LearnerNewChats extends StatelessWidget {
-  LearnerPeopleModel model;
+  late LearnerPeopleModel model;
 
   LearnerNewChats(LearnerPeopleModel model, int pos) {
     this.model = model;
@@ -274,12 +245,7 @@ class LearnerNewChats extends StatelessWidget {
               Container(
                 height: 15,
                 width: 15,
-                decoration: BoxDecoration(
-                    color: model.isOnline
-                        ? learner_green
-                        : learner_greyColor.withOpacity(1.0),
-                    shape: BoxShape.circle,
-                    border: Border.all(color: learner_white, width: 1.5)),
+                decoration: BoxDecoration(color: model.isOnline ? learner_green : learner_greyColor.withOpacity(1.0), shape: BoxShape.circle, border: Border.all(color: learner_white, width: 1.5)),
               ).cornerRadiusWithClipRRect(7).paddingOnly(top: 4, right: 2)
             ],
           ),

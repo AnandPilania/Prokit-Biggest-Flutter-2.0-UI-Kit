@@ -1,9 +1,9 @@
-import 'package:prokit_flutter/Learner/model/LearnerModels.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerColors.dart';
-import 'package:prokit_flutter/Learner/utils/LearnerImages.dart';
+import 'package:prokit_flutter/learner/model/LearnerModels.dart';
+import 'package:prokit_flutter/learner/utils/LearnerColors.dart';
+import 'package:prokit_flutter/learner/utils/LearnerImages.dart';
 
 List<LearnerWalk> learnerWalkImg() {
-  List<LearnerWalk> list = List<LearnerWalk>();
+  List<LearnerWalk> list = [];
 
   var img1 = LearnerWalk();
   img1.img = learner_walk_1;
@@ -21,7 +21,7 @@ List<LearnerWalk> learnerWalkImg() {
 }
 
 List<LearnerCategoryModel> learnerGetCategories() {
-  List<LearnerCategoryModel> list = List<LearnerCategoryModel>();
+  List<LearnerCategoryModel> list = [];
 
   var category = LearnerCategoryModel();
   category.img = learner_ic_bag;
@@ -68,7 +68,7 @@ List<LearnerCategoryModel> learnerGetCategories() {
 }
 
 List<LearnerFeaturedModel> learnerGetFavourites() {
-  List<LearnerFeaturedModel> list = List<LearnerFeaturedModel>();
+  List<LearnerFeaturedModel> list = [];
   LearnerFeaturedModel featured = LearnerFeaturedModel();
   featured.img = learner_walk_1;
   featured.name = "Business Management";
@@ -118,7 +118,7 @@ List<LearnerFeaturedModel> learnerGetFavourites() {
 }
 
 List<LearnerPeopleModel> learnerGetRecommended() {
-  List<LearnerPeopleModel> list = List<LearnerPeopleModel>();
+  List<LearnerPeopleModel> list = [];
 
   var people = LearnerPeopleModel();
   people.img = learner_walk_1;
@@ -148,7 +148,7 @@ List<LearnerPeopleModel> learnerGetRecommended() {
 }
 
 List<LearnerPeopleModel> learnerGetInstructor() {
-  List<LearnerPeopleModel> list = List<LearnerPeopleModel>();
+  List<LearnerPeopleModel> list = [];
 
   LearnerPeopleModel people = LearnerPeopleModel();
   people.img = learner_ic_profile2;
@@ -198,7 +198,7 @@ List<LearnerPeopleModel> learnerGetInstructor() {
 }
 
 List<LearnerBadgeModel> learnerGetBadges() {
-  List<LearnerBadgeModel> list = List<LearnerBadgeModel>();
+  List<LearnerBadgeModel> list = [];
 
   LearnerBadgeModel badge = LearnerBadgeModel();
   badge.img = learner_ic_medal;
@@ -244,7 +244,7 @@ List<LearnerBadgeModel> learnerGetBadges() {
 }
 
 List<LearnerPeopleModel> learnerGetPending() {
-  List<LearnerPeopleModel> list = List<LearnerPeopleModel>();
+  List<LearnerPeopleModel> list = [];
 
   LearnerPeopleModel people = LearnerPeopleModel();
   people.img = learner_ic_Profile;
@@ -299,7 +299,7 @@ List<LearnerPeopleModel> learnerGetPending() {
 }
 
 List<LearnerCoursesModel> learnerGetCourses() {
-  List<LearnerCoursesModel> list = List<LearnerCoursesModel>();
+  List<LearnerCoursesModel> list = [];
   LearnerCoursesModel courses = LearnerCoursesModel();
   courses.img = learner_walk_1;
   courses.name = "Business Management";
@@ -334,7 +334,7 @@ List<LearnerCoursesModel> learnerGetCourses() {
 }
 
 List<LearnerContentModel> learnerGetContents() {
-  List<LearnerContentModel> list = List<LearnerContentModel>();
+  List<LearnerContentModel> list = [];
   var content = LearnerContentModel();
   content.name = "Introduction";
   content.subtitle = "About this course and overview";
@@ -356,7 +356,7 @@ List<LearnerContentModel> learnerGetContents() {
 }
 
 List<LearnerChatModel> learnerGetChatData() {
-  List<LearnerChatModel> list = List<LearnerChatModel>();
+  List<LearnerChatModel> list = [];
   var content1 = LearnerChatModel();
   content1.name = "Alice Smith";
   content1.msg = "Hi Alice How are you";
@@ -387,7 +387,7 @@ List<LearnerChatModel> learnerGetChatData() {
 }
 
 List<LearnerLectureModel> learnerGetLectureData() {
-  List<LearnerLectureModel> list = List<LearnerLectureModel>();
+  List<LearnerLectureModel> list = [];
   var content1 = LearnerLectureModel();
   content1.no = "1";
   content1.title = "Introducation";
@@ -413,7 +413,7 @@ List<LearnerLectureModel> learnerGetLectureData() {
 }
 
 List<ChatModel> getMessages() {
-  List<ChatModel> list = List();
+  List<ChatModel> list = [];
 
   ChatModel model1 = ChatModel('1', 'Hello Nimisha');
   ChatModel model2 = ChatModel('1', 'I am Revision Bot, here to help you study your ongoing courses.');

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme4/utils/T4Colors.dart';
-import 'package:prokit_flutter/theme4/utils/T4Extension.dart';
 import 'package:prokit_flutter/theme4/utils/T4Images.dart';
 import 'package:prokit_flutter/theme4/utils/T4Widgets.dart';
 import 'package:prokit_flutter/theme4/utils/widgets/T4BottomNavigationBar.dart';
+
+import '../../main.dart';
 
 class T4BottomNavigation extends StatefulWidget {
   static var tag = "/T4BottomNavigation";
@@ -30,26 +34,19 @@ class T4BottomNavigationState extends State<T4BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(t4_app_background);
+    changeStatusColor(appStore.appBarColor!);
 
     return Scaffold(
-      backgroundColor: t4_app_background,
+      backgroundColor: appStore.scaffoldBackground,
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(boxShadow: [BoxShadow(color: t4_shadow_color, offset: Offset.fromDirection(3, 1), spreadRadius: 1, blurRadius: 5)]),
+        decoration: BoxDecoration(boxShadow: [BoxShadow(color: shadowColorGlobal, offset: Offset.fromDirection(3, 1), spreadRadius: 1, blurRadius: 5)]),
         child: T4BottomNavigationBar(
-          items: const <T4BottomNavigationBarItem>[
-            T4BottomNavigationBarItem(
-              icon: t4_home,
-            ),
-            T4BottomNavigationBarItem(
-              icon: t4_playbutton,
-            ),
-            T4BottomNavigationBarItem(
-              icon: t4_heart,
-            ),
-            T4BottomNavigationBarItem(
-              icon: t4_user,
-            ),
+          backgroundColor: appStore.scaffoldBackground,
+          items: <T4BottomNavigationBarItem>[
+            T4BottomNavigationBarItem(icon: t4_home),
+            T4BottomNavigationBarItem(icon: t4_playbutton),
+            T4BottomNavigationBarItem(icon: t4_heart),
+            T4BottomNavigationBarItem(icon: t4_user),
           ],
           currentIndex: _selectedIndex,
           unselectedIconTheme: IconThemeData(color: t4_textColorSecondary, size: 24),
@@ -58,16 +55,18 @@ class T4BottomNavigationState extends State<T4BottomNavigation> {
           type: T4BottomNavigationBarType.fixed,
         ),
       ),
-      body: Stack(
-        alignment: Alignment.topCenter,
-        children: <Widget>[
-          Container(
-            width: 180,
-            alignment: Alignment.center,
-            child: ring(" Welcome to Bottom\nNavigation Bar"),
-          ),
-          TopBar("Bottom Navigation")
-        ],
+      body: Observer(
+        builder: (_) => Stack(
+          alignment: Alignment.topCenter,
+          children: <Widget>[
+            Container(
+              width: 180,
+              alignment: Alignment.center,
+              child: ring(" Welcome to Bottom\nNavigation Bar"),
+            ),
+            TopBar("Bottom Navigation")
+          ],
+        ),
       ),
     );
   }

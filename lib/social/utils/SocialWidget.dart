@@ -1,42 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/social/utils/SocialConstant.dart';
 
 import 'SocialColors.dart';
-import 'SocialExtension.dart';
-
-Widget text(String text,
-    {var fontSize = textSizeMedium,
-    textColor = social_textColorPrimary,
-    var fontFamily = fontRegular,
-    var isCentered = false,
-    var maxLine = 1,
-    var latterSpacing = 0.25,
-    var textAllCaps = false,
-    var isLongText = false}) {
-  return Text(
-    textAllCaps ? text.toUpperCase() : text,
-    textAlign: isCentered ? TextAlign.center : TextAlign.start,
-    maxLines: isLongText ? null : maxLine,
-    style: TextStyle(fontFamily: fontFamily, fontSize: fontSize, color: textColor, height: 1.5, letterSpacing: latterSpacing),
-  );
-}
-
-BoxDecoration boxDecoration({double radius = spacing_middle, Color color = Colors.transparent, Color bgColor = social_white, var showShadow = false}) {
-  return BoxDecoration(
-    color: bgColor,
-    boxShadow: showShadow ? [BoxShadow(color: social_ShadowColor, blurRadius: 10, spreadRadius: 2)] : [BoxShadow(color: Colors.transparent)],
-    border: Border.all(color: color),
-    borderRadius: BorderRadius.all(Radius.circular(radius)),
-  );
-}
 
 class SocialAppButton extends StatefulWidget {
   var textContent;
   VoidCallback onPressed;
 
-  SocialAppButton({@required this.textContent, @required this.onPressed});
+  SocialAppButton({required this.textContent, required this.onPressed});
 
   @override
   State<StatefulWidget> createState() {
@@ -47,12 +22,14 @@ class SocialAppButton extends StatefulWidget {
 class SocialAppButtonState extends State<SocialAppButton> {
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
+    return ElevatedButton(
       onPressed: widget.onPressed,
-      textColor: social_white,
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
-      padding: const EdgeInsets.all(0.0),
+      style: ElevatedButton.styleFrom(
+        textStyle: TextStyle(color:social_white),
+        elevation: 2,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+        padding: const EdgeInsets.all(0.0),
+      ),
       child: Container(
         decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8.0)), color: social_colorPrimary),
         child: Center(
@@ -75,11 +52,12 @@ class SocialAppButtonState extends State<SocialAppButton> {
   }
 }
 
-Widget SocialOption(BuildContext context, var color, var icon, var value, var subValue, {var tags}) {
+// ignore: non_constant_identifier_names
+Widget SocialOption(BuildContext context, var color, var icon, var value, var subValue, {Function? onTap}) {
   var width = MediaQuery.of(context).size.width;
   return GestureDetector(
     onTap: () {
-      launchScreen(context, tags);
+      if (onTap != null) onTap();
     },
     child: Row(
       children: <Widget>[
@@ -102,7 +80,7 @@ Widget SocialOption(BuildContext context, var color, var icon, var value, var su
   );
 }
 
-Widget mToolbar(BuildContext context, var title, var icon, {var tags}) {
+Widget mToolbar(BuildContext context, var title, var icon, {required Function onTap}) {
   var width = MediaQuery.of(context).size.width;
   return Container(
     width: MediaQuery.of(context).size.width,
@@ -113,13 +91,13 @@ Widget mToolbar(BuildContext context, var title, var icon, {var tags}) {
       children: <Widget>[
         GestureDetector(
           onTap: () {
-            back(context);
+            finish(context);
           },
           child: Container(
             margin: EdgeInsets.only(left: spacing_standard_new),
             width: width * 0.1,
             height: width * 0.1,
-            decoration: boxDecoration(showShadow: false, bgColor: social_colorPrimary),
+            decoration: boxDecoration(showShadow: false, bgColor: social_colorPrimary, radius: 12),
             child: Icon(Icons.keyboard_arrow_left, color: social_white),
           ),
         ),
@@ -128,14 +106,14 @@ Widget mToolbar(BuildContext context, var title, var icon, {var tags}) {
         ),
         GestureDetector(
           onTap: () {
-            launchScreen(context, tags);
+            onTap();
           },
           child: Container(
               margin: EdgeInsets.only(right: spacing_standard_new),
               width: width * 0.1,
               height: width * 0.1,
               padding: EdgeInsets.all(6),
-              decoration: boxDecoration(showShadow: false, bgColor: social_view_color),
+              decoration: boxDecoration(showShadow: false, bgColor: social_view_color, radius: 12),
               child: SvgPicture.asset(icon, color: social_textColorPrimary)),
         ),
       ],
@@ -153,7 +131,7 @@ Widget mTop(BuildContext context, var title, {var tags}) {
       children: <Widget>[
         GestureDetector(
             onTap: () {
-              back(context);
+              finish(context);
             },
             child: Align(
               alignment: Alignment.centerLeft,
@@ -161,7 +139,7 @@ Widget mTop(BuildContext context, var title, {var tags}) {
                 margin: EdgeInsets.only(left: spacing_standard_new),
                 width: width * 0.1,
                 height: width * 0.1,
-                decoration: boxDecoration(showShadow: false, bgColor: social_colorPrimary),
+                decoration: boxDecoration(showShadow: false, bgColor: social_colorPrimary, radius: 12),
                 child: Icon(Icons.keyboard_arrow_left, color: social_white),
               ),
             )),
@@ -173,11 +151,12 @@ Widget mTop(BuildContext context, var title, {var tags}) {
   );
 }
 
+// ignore: must_be_immutable
 class SocialBtn extends StatefulWidget {
   var textContent;
   VoidCallback onPressed;
 
-  SocialBtn({@required this.textContent, @required this.onPressed});
+  SocialBtn({required this.textContent, required this.onPressed});
 
   @override
   State<StatefulWidget> createState() {
@@ -188,12 +167,14 @@ class SocialBtn extends StatefulWidget {
 class SocialBtnState extends State<SocialBtn> {
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
+    return ElevatedButton(
       onPressed: widget.onPressed,
-      textColor: social_white,
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-      padding: const EdgeInsets.all(0.0),
+      style: ElevatedButton.styleFrom(
+        textStyle: TextStyle(color: social_white),
+        elevation: 2,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        padding: const EdgeInsets.all(0.0),
+      ),
       child: Container(
         decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8.0)), color: social_colorPrimary),
         child: Center(

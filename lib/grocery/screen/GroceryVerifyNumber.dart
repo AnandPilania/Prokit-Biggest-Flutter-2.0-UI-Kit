@@ -5,8 +5,8 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/grocery/utils/GeoceryStrings.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryColors.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryConstant.dart';
-import 'package:prokit_flutter/grocery/utils/GroceryExtension.dart';
 import 'package:prokit_flutter/grocery/utils/GroceryWidget.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 import 'GrocerySuccessfulVerify.dart';
 
@@ -18,7 +18,7 @@ class GroceryVerifyNumber extends StatefulWidget {
 }
 
 class _GroceryVerifyNumberState extends State<GroceryVerifyNumber> {
-  Timer _timer;
+  late Timer _timer;
   int _start = 9;
 
   void startTimer() {
@@ -85,7 +85,9 @@ class _GroceryVerifyNumberState extends State<GroceryVerifyNumber> {
                       left: spacing_standard_new,
                     ),
                   ),
-                  Flexible(child: text("+94 7187876789", textColor: grocery_textGreenColor, fontSize: textSizeLargeMedium, fontFamily: fontRegular).paddingOnly(left: spacing_standard, right: spacing_standard_new)),
+                  Flexible(
+                      child: text("+94 7187876789", textColor: grocery_textGreenColor, fontSize: textSizeLargeMedium, fontFamily: fontRegular)
+                          .paddingOnly(left: spacing_standard, right: spacing_standard_new)),
                 ],
               ),
               SizedBox(

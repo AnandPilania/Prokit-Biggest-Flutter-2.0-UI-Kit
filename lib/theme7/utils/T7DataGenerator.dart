@@ -4,7 +4,7 @@ import 'package:prokit_flutter/theme7/models/T7Models.dart';
 import 'package:prokit_flutter/theme7/utils/T7Images.dart';
 
 List<T7CategoryDataModel> generateCategories() {
-  List<T7CategoryDataModel> categories = List<T7CategoryDataModel>();
+  List<T7CategoryDataModel> categories = [];
 
   T7CategoryDataModel model = T7CategoryDataModel();
   model.name = "Hotels";
@@ -31,7 +31,7 @@ List<T7CategoryDataModel> generateCategories() {
 }
 
 List<T7BestDestinationDataModel> generateBestDestination() {
-  List<T7BestDestinationDataModel> bestDestinationData = List<T7BestDestinationDataModel>();
+  List<T7BestDestinationDataModel> bestDestinationData = [];
 
   T7BestDestinationDataModel model = T7BestDestinationDataModel();
   model.name = "Malawi";
@@ -75,7 +75,7 @@ List<T7BestDestinationDataModel> generateBestDestination() {
 //}
 //
 List<T7RecentSearchDataModel> generateRecentSearch() {
-  List<T7RecentSearchDataModel> categories = List<T7RecentSearchDataModel>();
+  List<T7RecentSearchDataModel> categories = [];
 
   T7RecentSearchDataModel model = T7RecentSearchDataModel();
   model.name = "Holy See";
@@ -97,7 +97,7 @@ List<T7RecentSearchDataModel> generateRecentSearch() {
 }
 
 List<T7RecentSearchDataModel> generatePopularDestination() {
-  List<T7RecentSearchDataModel> categories = List<T7RecentSearchDataModel>();
+  List<T7RecentSearchDataModel> categories = [];
 
   T7RecentSearchDataModel model = T7RecentSearchDataModel();
   model.name = "Costa Rica";
@@ -119,7 +119,7 @@ List<T7RecentSearchDataModel> generatePopularDestination() {
 }
 
 List<T7BestHotelDataModel> generateBestHotels() {
-  List<T7BestHotelDataModel> bestDestinationData = List<T7BestHotelDataModel>();
+  List<T7BestHotelDataModel> bestDestinationData = [];
 
   T7BestHotelDataModel model = T7BestHotelDataModel();
   model.name = "Chillax Heritage";
@@ -172,7 +172,7 @@ List<T7BestHotelDataModel> generateBestHotels() {
 //}
 //
 List<T7HotelDataModel> generateHotels() {
-  List<T7HotelDataModel> bestDestinationData = List<T7HotelDataModel>();
+  List<T7HotelDataModel> bestDestinationData = [];
 
   T7HotelDataModel model = T7HotelDataModel();
   model.name = "Chillax Heritage";

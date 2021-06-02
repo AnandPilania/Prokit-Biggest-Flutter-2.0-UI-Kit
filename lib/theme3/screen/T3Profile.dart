@@ -1,13 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/main.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme3/model/T3_Model.dart';
 import 'package:prokit_flutter/theme3/screen/T3Dashboard.dart';
-import 'package:prokit_flutter/theme3/utils/T3Constant.dart';
 import 'package:prokit_flutter/theme3/utils/T3DataGenerator.dart';
 import 'package:prokit_flutter/theme3/utils/T3Images.dart';
 import 'package:prokit_flutter/theme3/utils/colors.dart';
 import 'package:prokit_flutter/theme3/utils/strings.dart';
-import 'package:prokit_flutter/theme3/utils/widgets.dart';
 
 class T3Profile extends StatefulWidget {
   static var tag = "/T3Profile";
@@ -17,8 +19,8 @@ class T3Profile extends StatefulWidget {
 }
 
 class T3ProfileState extends State<T3Profile> {
-  List<Theme3Dish> mListings;
-  List<Theme3Follower> mFollower;
+  late List<Theme3Dish> mListings;
+  late List<Theme3Follower> mFollower;
 
   @override
   void initState() {
@@ -37,36 +39,38 @@ class T3ProfileState extends State<T3Profile> {
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               SliverAppBar(
-                expandedHeight: MediaQuery.of(context).size.height * 0.34 + 60,
+                expandedHeight: MediaQuery.of(context).size.height * 0.34,
                 floating: false,
                 pinned: true,
                 titleSpacing: 0,
-                backgroundColor:
-                    innerBoxIsScrolled ? t3_colorPrimary : t3_white,
+                backgroundColor: innerBoxIsScrolled ? t3_colorPrimary : t3_white,
                 actionsIconTheme: IconThemeData(opacity: 0.0),
+                leading: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: white,
+                    ),
+                    onPressed: () {
+                      finish(context);
+                    }),
                 title: Container(
                   height: 60,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[headerText(t3_lbl_profile)],
+                    children: <Widget>[Text(t3_lbl_profile, maxLines: 2, style: boldTextStyle(size: 22, color: t3_white))],
                   ),
                 ),
                 flexibleSpace: FlexibleSpaceBar(
                   background: Container(
-                    color: t3_white,
+                    color: appStore.scaffoldBackground,
                     child: Stack(
                       children: <Widget>[
                         Container(
                           height: MediaQuery.of(context).size.height * 0.22,
-                          decoration: const BoxDecoration(
-                            gradient: LinearGradient(colors: <Color>[
-                              t3_colorPrimary,
-                              t3_colorPrimaryDark
-                            ]),
-                            borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(20.0),
-                                bottomLeft: Radius.circular(20.0)),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(colors: <Color>[t3_colorPrimary, t3_colorPrimaryDark]),
+                            borderRadius: BorderRadius.only(bottomRight: Radius.circular(20.0), bottomLeft: Radius.circular(20.0)),
                           ),
                         ),
                         Column(
@@ -76,20 +80,10 @@ class T3ProfileState extends State<T3Profile> {
                               margin: EdgeInsets.only(top: (h * 0.12)),
                               child: Column(
                                 children: <Widget>[
-                                  CircleAvatar(
-                                      backgroundImage:
-                                          CachedNetworkImageProvider(
-                                              t3_ic_profile),
-                                      radius: h * 0.08),
+                                  CircleAvatar(backgroundImage: CachedNetworkImageProvider(t3_ic_profile), radius: h * 0.08),
                                   SizedBox(height: 8),
-                                  text(t3_user_name,
-                                      textColor: t3_textColorPrimary,
-                                      fontSize: textSizeNormal,
-                                      fontFamily: fontSemibold),
-                                  text(t3_user_email,
-                                      fontSize: textSizeMedium,
-                                      textColor: t3_textColorPrimary),
-                                  SizedBox(height: 8)
+                                  Text(t3_user_name, style: boldTextStyle(size: 20)),
+                                  Text(t3_user_email, style: primaryTextStyle(size: 16)),
                                 ],
                               ),
                             )
@@ -105,7 +99,7 @@ class T3ProfileState extends State<T3Profile> {
                   TabBar(
                     labelColor: t3_colorPrimary,
                     indicatorColor: t3_colorPrimary,
-                    unselectedLabelColor: t3_textColorPrimary,
+                    unselectedLabelColor: appStore.textPrimaryColor,
                     tabs: [
                       Tab(text: t3_lbl_videos),
                       Tab(text: t3_lbl_my_followers),
@@ -132,7 +126,7 @@ class T3ProfileState extends State<T3Profile> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(left: 16, top: 20, right: 16),
+                margin: EdgeInsets.only(left: 8, top: 20, right: 8),
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: mFollower.length,
@@ -175,15 +169,13 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => _tabBar.preferredSize.height;
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return new Container(
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
       child: Container(
-          margin: EdgeInsets.only(left: 16, right: 16),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              color: t3_gray),
-          child: _tabBar),
+        margin: EdgeInsets.only(left: 16, right: 16),
+        decoration: boxDecoration(radius: 10, bgColor: appStore.isDarkModeOn ? appStore.scaffoldBackground : t3_gray, showShadow: true),
+        child: _tabBar,
+      ),
     );
   }
 
@@ -193,8 +185,9 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   }
 }
 
+// ignore: must_be_immutable
 class T3Followers extends StatelessWidget {
-  Theme3Follower model;
+  late Theme3Follower model;
 
   T3Followers(Theme3Follower model, int pos) {
     this.model = model;
@@ -203,11 +196,11 @@ class T3Followers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    return Container(
-      margin: EdgeInsets.only(bottom: 16),
-      decoration: boxDecoration(radius: 10, showShadow: true),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
+    return Observer(
+      builder: (_) => Container(
+        padding: EdgeInsets.all(8.0),
+        margin: EdgeInsets.only(bottom: 16),
+        decoration: boxDecoration(radius: 10, showShadow: true, bgColor: appStore.scaffoldBackground),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -217,6 +210,7 @@ class T3Followers extends StatelessWidget {
                 children: <Widget>[
                   ClipRRect(
                     child: CachedNetworkImage(
+                      placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
                       imageUrl: model.userImg,
                       width: width / 5.7,
                       height: width / 5.7,
@@ -224,26 +218,18 @@ class T3Followers extends StatelessWidget {
                     /*Image.asset(model.userImg, width: width / 5.7, height: width / 5.7)*/
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.only(left: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        text(model.name,
-                            textColor: t3_textColorPrimary,
-                            fontFamily: fontMedium,
-                            fontSize: textSizeMedium),
-                        text(model.location, fontSize: textSizeMedium),
-                      ],
-                    ),
-                  )
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(model.name, style: primaryTextStyle(size: 14)),
+                      Text(model.location, style: primaryTextStyle(size: 14)),
+                    ],
+                  ).paddingOnly(left: 16, right: 16)
                 ],
               ),
             ),
             Container(
-              decoration:
-                  BoxDecoration(shape: BoxShape.circle, color: t3_colorPrimary),
+              decoration: BoxDecoration(shape: BoxShape.circle, color: t3_colorPrimary),
               width: 25,
               height: 25,
               child: Icon(Icons.chevron_right, color: t3_white),

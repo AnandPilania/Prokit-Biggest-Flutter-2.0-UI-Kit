@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/theme4/screens/T4SignIn.dart';
-import 'package:prokit_flutter/theme4/utils/T4Colors.dart';
 import 'package:prokit_flutter/theme4/utils/T4Constant.dart';
 import 'package:prokit_flutter/theme4/utils/T4Strings.dart';
-import 'package:prokit_flutter/theme4/utils/T4Widgets.dart';
 import 'package:prokit_flutter/theme4/utils/widgets/T4Button.dart';
+
+import '../../main.dart';
 
 class T4Dialog extends StatefulWidget {
   static var tag = "/T4Dialog";
@@ -43,8 +44,8 @@ class CustomDialog extends StatelessWidget {
 
 dialogContent(BuildContext context) {
   return Container(
-      decoration: new BoxDecoration(
-        color: Colors.white,
+      decoration: BoxDecoration(
+        color: appStore.scaffoldBackground,
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
@@ -60,12 +61,7 @@ dialogContent(BuildContext context) {
       child: Column(
         mainAxisSize: MainAxisSize.min, // To make the card compact
         children: <Widget>[
-          text("Would you like to get updates and notifications?",
-              fontSize: textSizeLargeMedium,
-              maxLine: 2,
-              isCentered: true,
-              textColor: t4_textColorPrimary,
-              fontFamily: fontSemibold),
+          text("Would you like to get updates and notifications?", fontSize: textSizeLargeMedium, maxLine: 2, isCentered: true, textColor: appStore.textPrimaryColor, fontFamily: fontSemibold),
           SizedBox(height: 30),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -74,9 +70,7 @@ dialogContent(BuildContext context) {
                 textContent: t4_lbl_allow,
                 onPressed: () {},
               ),
-              SizedBox(
-                width: 24,
-              ),
+              SizedBox(width: 24),
               T4Button(
                 textContent: t4_lbl_deny,
                 isStroked: true,

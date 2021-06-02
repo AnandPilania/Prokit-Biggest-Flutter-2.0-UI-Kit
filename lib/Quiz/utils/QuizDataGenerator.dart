@@ -1,8 +1,8 @@
-import 'package:prokit_flutter/Quiz/model/QuizModels.dart';
-import 'package:prokit_flutter/Quiz/utils/QuizImages.dart';
+import 'package:prokit_flutter/quiz/model/QuizModels.dart';
+import 'package:prokit_flutter/quiz/utils/QuizImages.dart';
 
 List<NewQuizModel> getQuizData() {
-  List<NewQuizModel> list = List<NewQuizModel>();
+  List<NewQuizModel> list = [];
   NewQuizModel model1 = NewQuizModel();
   model1.quizName = "Biology & The \nScientific Method";
   model1.totalQuiz = "15 Quiz";
@@ -44,7 +44,7 @@ List<NewQuizModel> getQuizData() {
 }
 
 List<QuizTestModel> quizGetData() {
-  List<QuizTestModel> list = List<QuizTestModel>();
+  List<QuizTestModel> list = [];
   QuizTestModel model1 = QuizTestModel();
   model1.heading = "The Scientific Method";
   model1.image = quiz_ic_quiz1;
@@ -74,7 +74,7 @@ List<QuizTestModel> quizGetData() {
 }
 
 List<QuizBadgesModel> quizBadgesData() {
-  List<QuizBadgesModel> list = List<QuizBadgesModel>();
+  List<QuizBadgesModel> list = [];
   QuizBadgesModel model1 = QuizBadgesModel();
   model1.title = "Achiever";
   model1.subtitle = "Complete an exercise";
@@ -110,7 +110,7 @@ List<QuizBadgesModel> quizBadgesData() {
 }
 
 List<QuizScoresModel> quizScoresData() {
-  List<QuizScoresModel> list = List<QuizScoresModel>();
+  List<QuizScoresModel> list = [];
   QuizScoresModel model1 = QuizScoresModel();
   model1.title = "Biology Basics";
   model1.totalQuiz = "20 Quiz";
@@ -137,7 +137,7 @@ List<QuizScoresModel> quizScoresData() {
 }
 
 List<QuizContactUsModel> quizContactUsData() {
-  List<QuizContactUsModel> list = List<QuizContactUsModel>();
+  List<QuizContactUsModel> list = [];
   QuizContactUsModel model1 = QuizContactUsModel();
   model1.title = "Call Request";
   model1.subtitle = "+00 356 646 234";

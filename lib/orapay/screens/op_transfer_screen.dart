@@ -1,7 +1,8 @@
-import 'package:prokit_flutter/orapay/utils/Colors.dart';
-import 'package:prokit_flutter/orapay/utils/Style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:prokit_flutter/orapay/utils/Colors.dart';
+import 'package:prokit_flutter/orapay/utils/Style.dart';
 
 import 'op_transfer_review_screen.dart';
 
@@ -17,7 +18,7 @@ class _OPTransferScreenState extends State<OPTransferScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: getAppBar('Transfer', pressed: () {
-          Navigator.pop(context);
+          finish(context);
         }),
         body: Container(
           child: Column(
@@ -27,7 +28,7 @@ class _OPTransferScreenState extends State<OPTransferScreen> {
                 children: <Widget>[
                   Container(
                     width: size.width,
-                    padding: EdgeInsets.only(left: 16,right: 16,top: 16,bottom: 30),
+                    padding: EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 30),
                     margin: EdgeInsets.all(16),
                     decoration: boxDecoration(radius: 16),
                     child: textField2(
@@ -60,7 +61,7 @@ class _OPTransferScreenState extends State<OPTransferScreen> {
                     child: Text(
                       "Next",
                       textAlign: TextAlign.center,
-                      style: boldTextStyle(textColor: Colors.white),
+                      style: boldTextStyle(color: Colors.white),
                     ),
                   ),
                 ),

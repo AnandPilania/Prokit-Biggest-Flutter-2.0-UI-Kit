@@ -44,8 +44,8 @@ class Item {
     this.isExpanded = false,
   });
 
-  String expandedValue;
-  String headerValue;
+  String? expandedValue;
+  String? headerValue;
   bool isExpanded;
 }
 
@@ -56,7 +56,7 @@ List<Item> generateItems(int numberOfItems) {
 }
 
 class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
+  MyStatefulWidget({Key? key}) : super(key: key);
 
   @override
   _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
@@ -89,10 +89,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         children: _data.map<ExpansionPanel>((Item item) {
           return ExpansionPanel(
             headerBuilder: (BuildContext context, bool isExpanded) {
-              return ListTile(title: Text(item.headerValue, style: primaryTextStyle(color: appStore.textPrimaryColor)));
+              return ListTile(title: Text(item.headerValue!, style: primaryTextStyle(color: appStore.textPrimaryColor)));
             },
             body: ListTile(
-              title: Text(item.expandedValue, style: primaryTextStyle(color: appStore.textPrimaryColor)),
+              title: Text(item.expandedValue!, style: primaryTextStyle(color: appStore.textPrimaryColor)),
               subtitle: Padding(
                 padding: EdgeInsets.only(bottom: 16),
                 child: Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry.', style: boldTextStyle(color: appStore.textSecondaryColor)),

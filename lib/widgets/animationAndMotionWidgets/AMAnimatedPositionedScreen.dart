@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/main/utils/AppColors.dart';
 import 'package:prokit_flutter/main/utils/AppWidget.dart';
 
 import '../../main.dart';
@@ -47,14 +46,17 @@ class AMAnimatedPositionedScreenState extends State<AMAnimatedPositionedScreen> 
                 top: mTopPosition,
                 bottom: mBottomPosition,
                 duration: Duration(milliseconds: 300),
-                child: Center(child: Container(decoration: boxDecoration(bgColor: appColorPrimary, radius: 8), width: 120, height: 120)),
+                child: Center(
+                    child: FlutterLogo(
+                  size: 150,
+                )),
               ),
               Positioned(
                 bottom: 60,
                 child: Row(
                   children: [
-                    RaisedButton(
-                      color: Colors.blue,
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: Colors.blue),
                       onPressed: () {
                         setState(() {
                           mLeftPosition = 0;
@@ -69,8 +71,8 @@ class AMAnimatedPositionedScreenState extends State<AMAnimatedPositionedScreen> 
                       ),
                     ),
                     10.width,
-                    RaisedButton(
-                      color: Colors.blue,
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: Colors.blue),
                       onPressed: () {
                         setState(() {
                           mLeftPosition = 120;
@@ -82,8 +84,8 @@ class AMAnimatedPositionedScreenState extends State<AMAnimatedPositionedScreen> 
                       child: Icon(Icons.keyboard_arrow_right, color: Colors.white),
                     ),
                     10.width,
-                    RaisedButton(
-                      color: Colors.blue,
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: Colors.blue),
                       onPressed: () {
                         setState(() {
                           mLeftPosition = 0;
@@ -95,8 +97,8 @@ class AMAnimatedPositionedScreenState extends State<AMAnimatedPositionedScreen> 
                       child: Icon(Icons.keyboard_arrow_down, color: Colors.white),
                     ),
                     10.width,
-                    RaisedButton(
-                      color: Colors.blue,
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: Colors.blue),
                       onPressed: () {
                         setState(() {
                           mLeftPosition = 0;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/smartDeck/SDUtils/SDColors.dart';
 import 'package:prokit_flutter/smartDeck/SDUtils/SDStyle.dart';
 
@@ -39,7 +40,7 @@ class _SDCongratulationsScreenState extends State<SDCongratulationsScreen> {
               child: SDButton(
                 textContent: "CLOSE",
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => SDHomePageScreen()));
+                  SDHomePageScreen().launch(context);
                 },
               ),
             )

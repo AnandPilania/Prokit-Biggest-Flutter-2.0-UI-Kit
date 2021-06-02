@@ -2,12 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/theme3/screen/T3Dashboard.dart';
-import 'package:prokit_flutter/theme3/utils/T3Constant.dart';
 import 'package:prokit_flutter/theme3/utils/T3Images.dart';
+import 'package:prokit_flutter/theme3/utils/T3widgets.dart';
 import 'package:prokit_flutter/theme3/utils/colors.dart';
 import 'package:prokit_flutter/theme3/utils/strings.dart';
-import 'package:prokit_flutter/theme3/utils/widgets.dart';
 
 class T3SideMenu extends StatefulWidget {
   static var tag = "/T3SideMenu";
@@ -62,25 +62,16 @@ class T3DrawerState extends State<T3Drawer> {
                       alignment: Alignment.topRight,
                       child: Container(
                         width: 46,
-                        child: RaisedButton(
-                          textColor: t3_white,
-                          elevation: 4,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(80.0),
-                                  topLeft: Radius.circular(80.0))),
-                          padding: const EdgeInsets.all(0.0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            textStyle: TextStyle(color:t3_white),
+                            elevation: 4,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(80.0), topLeft: Radius.circular(80.0))),
+                            padding: const EdgeInsets.all(0.0),
+                          ),
                           child: Container(
-                            decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(80.0),
-                                    topLeft: Radius.circular(80.0)),
-                                color: t3_white),
-                            child: Center(
-                                child: Padding(
-                                    padding: const EdgeInsets.all(16.0),
-                                    child: Icon(Icons.arrow_forward,
-                                        color: t3_colorPrimary))),
+                            decoration: const BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(80.0), topLeft: Radius.circular(80.0)), color: t3_white),
+                            child: Center(child: Padding(padding: const EdgeInsets.all(16.0), child: Icon(Icons.arrow_forward, color: t3_colorPrimary))),
                           ),
                           onPressed: () {
                             Scaffold.of(context).openDrawer();
@@ -99,14 +90,9 @@ class T3DrawerState extends State<T3Drawer> {
                                 width: 70.0,
                                 height: 70.0,
                                 decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: CachedNetworkImageProvider(
-                                          t3_ic_profile),
-                                      fit: BoxFit.cover),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50.0)),
-                                  border:
-                                      Border.all(color: t3_white, width: 2.0),
+                                  image: DecorationImage(image: CachedNetworkImageProvider(t3_ic_profile), fit: BoxFit.cover),
+                                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                                  border: Border.all(color: t3_white, width: 2.0),
                                 ),
                               ),
                               Container(
@@ -114,13 +100,8 @@ class T3DrawerState extends State<T3Drawer> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    text(t3_user_name,
-                                        textColor: t3_white,
-                                        fontFamily: fontMedium,
-                                        fontSize: textSizeMedium),
-                                    text(t3_user_email,
-                                        fontSize: textSizeSMedium,
-                                        textColor: t3_white),
+                                    Text(t3_user_name, style: primaryTextStyle(color: white, size: 16)),
+                                    Text(t3_user_email, style: primaryTextStyle(color: white, size: 16)),
                                   ],
                                 ),
                               )
@@ -138,11 +119,7 @@ class T3DrawerState extends State<T3Drawer> {
                         Container(
                           margin: EdgeInsets.only(left: 20),
                           child: GestureDetector(
-                            child: Text(t3_lbl_logout,
-                                style: TextStyle(
-                                    fontSize: textSizeLargeMedium,
-                                    decoration: TextDecoration.underline,
-                                    color: t3_white)),
+                            child: Text(t3_lbl_logout, style: TextStyle(fontSize: 18.0, decoration: TextDecoration.underline, color: t3_white)),
                             onTap: () {},
                           ),
                         ),
@@ -170,19 +147,13 @@ class T3DrawerState extends State<T3Drawer> {
         child: Row(
           children: <Widget>[
             Container(
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle, color: t3_colorPrimary_light),
+              decoration: BoxDecoration(shape: BoxShape.circle, color: t3_colorPrimary_light),
               width: 40,
               height: 40,
-              child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: SvgPicture.asset(icon, color: t3_white)),
+              child: Padding(padding: const EdgeInsets.all(10.0), child: SvgPicture.asset(icon, color: t3_white)),
             ),
             SizedBox(width: 16),
-            text(name,
-                textColor: t3White,
-                fontSize: textSizeMedium,
-                fontFamily: fontSemibold)
+            Text(name, style: boldTextStyle(size: 16, color: white))
           ],
         ),
       ),

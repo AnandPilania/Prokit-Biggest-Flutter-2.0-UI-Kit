@@ -1,6 +1,6 @@
 class FollowerModel {
-  String login;
-  String avatar_url;
+  String? login;
+  String? avatar_url;
 
   FollowerModel({this.login, this.avatar_url});
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/main/model/ListModels.dart';
 import 'package:prokit_flutter/main/utils/AppWidget.dart';
 import 'package:prokit_flutter/widgets/materialWidgets/mwAppStrucutreWidgets/MWDrawerWidgets/MWDrawerScreen1.dart';
 import 'package:prokit_flutter/widgets/materialWidgets/mwAppStrucutreWidgets/MWDrawerWidgets/MWDrawerScreen2.dart';
-import 'package:nb_utils/nb_utils.dart';
 
 class MWDrawerScreen extends StatefulWidget {
   static String tag = '/MWDrawerScreen';
@@ -45,7 +45,7 @@ class MWDrawerScreenState extends State<MWDrawerScreen> {
       child: Scaffold(
           appBar: appBar(context, 'Drawer Example'),
           body: ListView.builder(
-              itemCount: example.length == null ? 0 : example.length,
+              itemCount: example.length,
               itemBuilder: (BuildContext context, index) {
                 return ExampleItemWidget(
                   example[index],

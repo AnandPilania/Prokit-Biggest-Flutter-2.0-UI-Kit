@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/integrations/utils/colors.dart';
 import 'package:prokit_flutter/main.dart';
+import 'package:prokit_flutter/main/utils/AppColors.dart';
 
 class MWDrawerScreen2 extends StatefulWidget {
   static String tag = '/MWDrawerScreen2';
@@ -12,7 +12,7 @@ class MWDrawerScreen2 extends StatefulWidget {
 }
 
 class _MWDrawerScreen2State extends State<MWDrawerScreen2> {
-  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   @override
   void initState() {
@@ -22,22 +22,21 @@ class _MWDrawerScreen2State extends State<MWDrawerScreen2> {
 
   init() async {
     await Future.delayed(Duration(seconds: 1));
-    _key.currentState.openDrawer();
+    scaffoldKey.currentState!.openDrawer();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _key,
+      key: scaffoldKey,
       appBar: AppBar(
         backgroundColor: appStore.appBarColor,
-        title: Text('With Custom Shape',
-            style: TextStyle(color: appStore.textPrimaryColor, fontSize: 22)),
+        title: Text('With Custom Shape', style: TextStyle(color: appStore.textPrimaryColor, fontSize: 22)),
         automaticallyImplyLeading: false,
         leading: IconButton(
           icon: Icon(Icons.menu),
           onPressed: () {
-            _key.currentState.openDrawer();
+            scaffoldKey.currentState!.openDrawer();
           },
         ),
       ),
@@ -62,7 +61,9 @@ class _MWDrawerScreen2State extends State<MWDrawerScreen2> {
                           Icons.power_settings_new,
                           color: appStore.textPrimaryColor,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          scaffoldKey.currentState!.openEndDrawer();
+                        },
                       ),
                     ),
                     Container(
@@ -72,51 +73,35 @@ class _MWDrawerScreen2State extends State<MWDrawerScreen2> {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(width: 2, color: Colors.orange),
-                        image: DecorationImage(
-                            image: CachedNetworkImageProvider(
-                                'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTD8u1Nmrk78DSX0v2i_wTgS6tW5yvHSD7o6g&usqp=CAU')),
+                        image: DecorationImage(image: CachedNetworkImageProvider('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTD8u1Nmrk78DSX0v2i_wTgS6tW5yvHSD7o6g&usqp=CAU')),
                       ),
                     ),
                     SizedBox(height: 5.0),
                     Text(
                       "John Dow",
-                      style: TextStyle(
-                          color: appStore.textPrimaryColor,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w600),
+                      style: TextStyle(color: appStore.textPrimaryColor, fontSize: 18.0, fontWeight: FontWeight.w600),
                     ),
-                    Text("JohnDoe@gmail.com",
-                        style: TextStyle(
-                            color: appStore.textPrimaryColor, fontSize: 16.0)),
+                    Text("JohnDoe@gmail.com", style: TextStyle(color: appStore.textPrimaryColor, fontSize: 16.0)),
                     30.height,
-                    itemList(
-                        Icon(Icons.home, color: appStore.iconColor), "Home"),
+                    itemList(Icon(Icons.home, color: appStore.iconColor), "Home"),
                     Divider(),
                     15.height,
-                    itemList(Icon(Icons.person_pin, color: appStore.iconColor),
-                        "My profile"),
+                    itemList(Icon(Icons.person_pin, color: appStore.iconColor), "My profile"),
                     Divider(),
                     15.height,
-                    itemList(Icon(Icons.message, color: appStore.iconColor),
-                        "Messages"),
+                    itemList(Icon(Icons.message, color: appStore.iconColor), "Messages"),
                     Divider(),
                     15.height,
-                    itemList(
-                        Icon(Icons.notifications, color: appStore.iconColor),
-                        "Notifications"),
+                    itemList(Icon(Icons.notifications, color: appStore.iconColor), "Notifications"),
                     Divider(),
                     15.height,
-                    itemList(Icon(Icons.settings, color: appStore.iconColor),
-                        "Settings"),
+                    itemList(Icon(Icons.settings, color: appStore.iconColor), "Settings"),
                     Divider(),
                     15.height,
-                    itemList(Icon(Icons.email, color: appStore.iconColor),
-                        "Contact us"),
+                    itemList(Icon(Icons.email, color: appStore.iconColor), "Contact us"),
                     Divider(),
                     15.height,
-                    itemList(
-                        Icon(Icons.info_outline, color: appStore.iconColor),
-                        "Help"),
+                    itemList(Icon(Icons.info_outline, color: appStore.iconColor), "Help"),
                     Divider(),
                     15.height,
                   ],
@@ -128,11 +113,11 @@ class _MWDrawerScreen2State extends State<MWDrawerScreen2> {
       ),
       body: MaterialButton(
         onPressed: () {
-          _key.currentState.openDrawer();
+          scaffoldKey.currentState!.openDrawer();
         },
         child: Text('Open Drawer', style: primaryTextStyle(color: whiteColor)),
         padding: EdgeInsets.all(16),
-        color: primaryColor,
+        color: appColorPrimary,
       ).center(),
     );
   }
@@ -144,7 +129,10 @@ class _MWDrawerScreen2State extends State<MWDrawerScreen2> {
         10.width,
         Text(title, style: TextStyle(color: appStore.textPrimaryColor)),
       ],
-    );
+    ).onTap(() {
+      scaffoldKey.currentState!.openEndDrawer();
+      toast(title);
+    });
   }
 }
 
@@ -154,10 +142,8 @@ class OvalRightBorderClipper extends CustomClipper<Path> {
     var path = Path();
     path.lineTo(0, 0);
     path.lineTo(size.width - 50, 0);
-    path.quadraticBezierTo(
-        size.width, size.height / 4, size.width, size.height / 2);
-    path.quadraticBezierTo(size.width, size.height - (size.height / 4),
-        size.width - 40, size.height);
+    path.quadraticBezierTo(size.width, size.height / 4, size.width, size.height / 2);
+    path.quadraticBezierTo(size.width, size.height - (size.height / 4), size.width - 40, size.height);
     path.lineTo(0, size.height);
     return path;
   }
